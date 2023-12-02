@@ -14,6 +14,7 @@ namespace FerPROJ.Design.Forms
     {
 
         private string configFilePath = "connString.txt";
+        private string configFilePathEntity = "entityConnString.txt";
         private string connSettings;
         Dictionary<string, string> settings = new Dictionary<string, string>();
 
@@ -33,6 +34,7 @@ namespace FerPROJ.Design.Forms
             if (CShowMessage.Ask("Save?", "Confirmation"))
             {
                 this.connSettings = $"Server={hostnameCustomTextBox.Text};Port={portCustomTextBox.Text};Database={databaseNameCustomTextBox.Text};Uid={usernameCustomTextBox.Text};Pwd={passwordCustomTextBox.Text};";
+                CSet.SetEntityConnectionString(hostnameCustomTextBox.Text, usernameCustomTextBox.Text, passwordCustomTextBox.Text, portCustomTextBox.Text, databaseNameCustomTextBox.Text);
                 UpdateConfigurationFile();
                 this.Close();
             }
@@ -73,7 +75,9 @@ namespace FerPROJ.Design.Forms
         private void UpdateConfigurationFile()
         {
             string encryptedText = CEnryption.Encrypt(connSettings);
+            string encryptedEntityText = CEnryption.Encrypt(CStaticVariable.entityConnString);
             File.WriteAllText(configFilePath, encryptedText);
+            File.WriteAllText(configFilePathEntity, encryptedEntityText);
             CShowMessage.Info("Database Configuration Updated Successfully!", "Info");
         }
 

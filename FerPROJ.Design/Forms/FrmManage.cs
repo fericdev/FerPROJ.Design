@@ -11,7 +11,7 @@ namespace FerPROJ.Design.Forms
     {
         public bool CurrentFormResult { get; set; }
         public string Manage_IdTrack { get; set; }
-        private FormMode _currentFormMode;
+        private FormMode _currentFormMode = FormMode.Add;
         public event EventHandler FormModeChanged;
         private bool hideFunction;
         private bool hideHeader;

@@ -30,244 +30,259 @@ namespace FerPROJ.Design.Forms
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
-            this.baseLbl1 = new System.Windows.Forms.Label();
-            this.basePnl1 = new System.Windows.Forms.Panel();
-            this.baseButtonAddNew = new FerPROJ.Design.Controls.CButton();
-            this.basePnl2 = new System.Windows.Forms.Panel();
-            this.baseButtonUpdate = new FerPROJ.Design.Controls.CButton();
-            this.baseButtonSave = new FerPROJ.Design.Controls.CButton();
-            this.baseButtonCancel = new FerPROJ.Design.Controls.CButton();
-            this.basePanelMain = new System.Windows.Forms.Panel();
-            this.PanelMain3 = new System.Windows.Forms.Panel();
-            this.panelMain1 = new System.Windows.Forms.Panel();
-            this.baselabelMain1 = new System.Windows.Forms.Label();
-            this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
-            this.customLabelDescMain1 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.basePnl1.SuspendLayout();
-            this.basePnl2.SuspendLayout();
-            this.basePanelMain.SuspendLayout();
-            this.panelMain1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain1)).BeginInit();
-            this.SuspendLayout();
+        private void InitializeComponent() {
+            baseLbl1 = new System.Windows.Forms.Label();
+            basePnl1 = new System.Windows.Forms.Panel();
+            baseButtonAddNew = new CButton();
+            basePnl2 = new System.Windows.Forms.Panel();
+            baseButtonSave = new CButton();
+            baseButtonUpdate = new CButton();
+            baseButtonCancel = new CButton();
+            basePanelMain = new System.Windows.Forms.Panel();
+            PanelMain3 = new System.Windows.Forms.Panel();
+            panelMain1 = new System.Windows.Forms.Panel();
+            baselabelMain1 = new System.Windows.Forms.Label();
+            customLabelDescMain2 = new CLabelDesc();
+            pictureBoxMain1 = new System.Windows.Forms.PictureBox();
+            customLabelDescMain1 = new CLabelDesc();
+            basePnl1.SuspendLayout();
+            basePnl2.SuspendLayout();
+            basePanelMain.SuspendLayout();
+            panelMain1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMain1).BeginInit();
+            SuspendLayout();
             // 
             // baseLbl1
             // 
-            this.baseLbl1.BackColor = System.Drawing.Color.DimGray;
-            this.baseLbl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.baseLbl1.Location = new System.Drawing.Point(0, 0);
-            this.baseLbl1.Name = "baseLbl1";
-            this.baseLbl1.Size = new System.Drawing.Size(767, 1);
-            this.baseLbl1.TabIndex = 0;
-            this.baseLbl1.Text = "1";
+            baseLbl1.BackColor = System.Drawing.Color.DimGray;
+            baseLbl1.Dock = System.Windows.Forms.DockStyle.Top;
+            baseLbl1.Location = new System.Drawing.Point(0, 0);
+            baseLbl1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            baseLbl1.Name = "baseLbl1";
+            baseLbl1.Size = new System.Drawing.Size(749, 1);
+            baseLbl1.TabIndex = 0;
+            baseLbl1.Text = "1";
             // 
             // basePnl1
             // 
-            this.basePnl1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.basePnl1.Controls.Add(this.baseButtonAddNew);
-            this.basePnl1.Controls.Add(this.basePnl2);
-            this.basePnl1.Controls.Add(this.baseLbl1);
-            this.basePnl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.basePnl1.Location = new System.Drawing.Point(7, 448);
-            this.basePnl1.Name = "basePnl1";
-            this.basePnl1.Size = new System.Drawing.Size(767, 71);
-            this.basePnl1.TabIndex = 1;
+            basePnl1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            basePnl1.Controls.Add(baseButtonAddNew);
+            basePnl1.Controls.Add(basePnl2);
+            basePnl1.Controls.Add(baseLbl1);
+            basePnl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            basePnl1.Location = new System.Drawing.Point(8, 405);
+            basePnl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            basePnl1.Name = "basePnl1";
+            basePnl1.Size = new System.Drawing.Size(749, 82);
+            basePnl1.TabIndex = 1;
             // 
             // baseButtonAddNew
             // 
-            this.baseButtonAddNew.BackColor = System.Drawing.Color.RoyalBlue;
-            this.baseButtonAddNew.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.baseButtonAddNew.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonAddNew.BorderRadius = 20;
-            this.baseButtonAddNew.BorderSize = 0;
-            this.baseButtonAddNew.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonAddNew.FlatAppearance.BorderSize = 0;
-            this.baseButtonAddNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonAddNew.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonAddNew.ForeColor = System.Drawing.Color.White;
-            this.baseButtonAddNew.Location = new System.Drawing.Point(21, 17);
-            this.baseButtonAddNew.Name = "baseButtonAddNew";
-            this.baseButtonAddNew.Size = new System.Drawing.Size(114, 40);
-            this.baseButtonAddNew.TabIndex = 1;
-            this.baseButtonAddNew.Text = "Save and New";
-            this.baseButtonAddNew.TextColor = System.Drawing.Color.White;
-            this.baseButtonAddNew.UseVisualStyleBackColor = false;
-            this.baseButtonAddNew.Click += new System.EventHandler(this.baseButtonAddNew_Click);
+            baseButtonAddNew.BackColor = System.Drawing.Color.RoyalBlue;
+            baseButtonAddNew.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            baseButtonAddNew.BorderColor = System.Drawing.Color.Green;
+            baseButtonAddNew.BorderRadius = 20;
+            baseButtonAddNew.BorderSize = 0;
+            baseButtonAddNew.Cursor = System.Windows.Forms.Cursors.Hand;
+            baseButtonAddNew.FlatAppearance.BorderSize = 0;
+            baseButtonAddNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            baseButtonAddNew.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            baseButtonAddNew.ForeColor = System.Drawing.Color.White;
+            baseButtonAddNew.Location = new System.Drawing.Point(24, 17);
+            baseButtonAddNew.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            baseButtonAddNew.Name = "baseButtonAddNew";
+            baseButtonAddNew.Size = new System.Drawing.Size(133, 46);
+            baseButtonAddNew.TabIndex = 1;
+            baseButtonAddNew.Text = "Save and New";
+            baseButtonAddNew.TextColor = System.Drawing.Color.White;
+            baseButtonAddNew.UseVisualStyleBackColor = false;
+            baseButtonAddNew.Click += baseButtonAddNew_Click;
             // 
             // basePnl2
             // 
-            this.basePnl2.Controls.Add(this.baseButtonUpdate);
-            this.basePnl2.Controls.Add(this.baseButtonSave);
-            this.basePnl2.Controls.Add(this.baseButtonCancel);
-            this.basePnl2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.basePnl2.Location = new System.Drawing.Point(532, 1);
-            this.basePnl2.Name = "basePnl2";
-            this.basePnl2.Size = new System.Drawing.Size(235, 70);
-            this.basePnl2.TabIndex = 2;
-            // 
-            // baseButtonUpdate
-            // 
-            this.baseButtonUpdate.BackColor = System.Drawing.Color.SpringGreen;
-            this.baseButtonUpdate.BackgroundColor = System.Drawing.Color.SpringGreen;
-            this.baseButtonUpdate.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonUpdate.BorderRadius = 20;
-            this.baseButtonUpdate.BorderSize = 0;
-            this.baseButtonUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonUpdate.FlatAppearance.BorderSize = 0;
-            this.baseButtonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonUpdate.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonUpdate.ForeColor = System.Drawing.Color.Black;
-            this.baseButtonUpdate.Location = new System.Drawing.Point(15, 14);
-            this.baseButtonUpdate.Name = "baseButtonUpdate";
-            this.baseButtonUpdate.Size = new System.Drawing.Size(101, 40);
-            this.baseButtonUpdate.TabIndex = 0;
-            this.baseButtonUpdate.Text = "Update";
-            this.baseButtonUpdate.TextColor = System.Drawing.Color.Black;
-            this.baseButtonUpdate.UseVisualStyleBackColor = false;
-            this.baseButtonUpdate.Visible = false;
-            this.baseButtonUpdate.Click += new System.EventHandler(this.btnUpdateMain_Click);
+            basePnl2.Controls.Add(baseButtonSave);
+            basePnl2.Controls.Add(baseButtonUpdate);
+            basePnl2.Controls.Add(baseButtonCancel);
+            basePnl2.Dock = System.Windows.Forms.DockStyle.Right;
+            basePnl2.Location = new System.Drawing.Point(475, 1);
+            basePnl2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            basePnl2.Name = "basePnl2";
+            basePnl2.Size = new System.Drawing.Size(274, 81);
+            basePnl2.TabIndex = 2;
             // 
             // baseButtonSave
             // 
-            this.baseButtonSave.BackColor = System.Drawing.Color.SpringGreen;
-            this.baseButtonSave.BackgroundColor = System.Drawing.Color.SpringGreen;
-            this.baseButtonSave.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonSave.BorderRadius = 20;
-            this.baseButtonSave.BorderSize = 0;
-            this.baseButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonSave.FlatAppearance.BorderSize = 0;
-            this.baseButtonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonSave.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonSave.ForeColor = System.Drawing.Color.Black;
-            this.baseButtonSave.Location = new System.Drawing.Point(15, 14);
-            this.baseButtonSave.Name = "baseButtonSave";
-            this.baseButtonSave.Size = new System.Drawing.Size(101, 40);
-            this.baseButtonSave.TabIndex = 1;
-            this.baseButtonSave.Text = "Save";
-            this.baseButtonSave.TextColor = System.Drawing.Color.Black;
-            this.baseButtonSave.UseVisualStyleBackColor = false;
-            this.baseButtonSave.Click += new System.EventHandler(this.btnSaveMain_Click);
+            baseButtonSave.BackColor = System.Drawing.Color.SpringGreen;
+            baseButtonSave.BackgroundColor = System.Drawing.Color.SpringGreen;
+            baseButtonSave.BorderColor = System.Drawing.Color.Green;
+            baseButtonSave.BorderRadius = 20;
+            baseButtonSave.BorderSize = 0;
+            baseButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            baseButtonSave.FlatAppearance.BorderSize = 0;
+            baseButtonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            baseButtonSave.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            baseButtonSave.ForeColor = System.Drawing.Color.Black;
+            baseButtonSave.Location = new System.Drawing.Point(18, 16);
+            baseButtonSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            baseButtonSave.Name = "baseButtonSave";
+            baseButtonSave.Size = new System.Drawing.Size(118, 46);
+            baseButtonSave.TabIndex = 1;
+            baseButtonSave.Text = "Save";
+            baseButtonSave.TextColor = System.Drawing.Color.Black;
+            baseButtonSave.UseVisualStyleBackColor = false;
+            baseButtonSave.Click += btnSaveMain_Click;
+            // 
+            // baseButtonUpdate
+            // 
+            baseButtonUpdate.BackColor = System.Drawing.Color.SpringGreen;
+            baseButtonUpdate.BackgroundColor = System.Drawing.Color.SpringGreen;
+            baseButtonUpdate.BorderColor = System.Drawing.Color.Green;
+            baseButtonUpdate.BorderRadius = 20;
+            baseButtonUpdate.BorderSize = 0;
+            baseButtonUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            baseButtonUpdate.FlatAppearance.BorderSize = 0;
+            baseButtonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            baseButtonUpdate.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            baseButtonUpdate.ForeColor = System.Drawing.Color.Black;
+            baseButtonUpdate.Location = new System.Drawing.Point(18, 16);
+            baseButtonUpdate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            baseButtonUpdate.Name = "baseButtonUpdate";
+            baseButtonUpdate.Size = new System.Drawing.Size(118, 46);
+            baseButtonUpdate.TabIndex = 0;
+            baseButtonUpdate.Text = "Update";
+            baseButtonUpdate.TextColor = System.Drawing.Color.Black;
+            baseButtonUpdate.UseVisualStyleBackColor = false;
+            baseButtonUpdate.Visible = false;
+            baseButtonUpdate.Click += btnUpdateMain_Click;
             // 
             // baseButtonCancel
             // 
-            this.baseButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.baseButtonCancel.BackColor = System.Drawing.Color.Crimson;
-            this.baseButtonCancel.BackgroundColor = System.Drawing.Color.Crimson;
-            this.baseButtonCancel.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonCancel.BorderRadius = 20;
-            this.baseButtonCancel.BorderSize = 0;
-            this.baseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonCancel.FlatAppearance.BorderSize = 0;
-            this.baseButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonCancel.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonCancel.ForeColor = System.Drawing.Color.White;
-            this.baseButtonCancel.Location = new System.Drawing.Point(122, 14);
-            this.baseButtonCancel.Name = "baseButtonCancel";
-            this.baseButtonCancel.Size = new System.Drawing.Size(94, 40);
-            this.baseButtonCancel.TabIndex = 1;
-            this.baseButtonCancel.Text = "Cancel";
-            this.baseButtonCancel.TextColor = System.Drawing.Color.White;
-            this.baseButtonCancel.UseVisualStyleBackColor = false;
-            this.baseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
+            baseButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            baseButtonCancel.BackColor = System.Drawing.Color.Crimson;
+            baseButtonCancel.BackgroundColor = System.Drawing.Color.Crimson;
+            baseButtonCancel.BorderColor = System.Drawing.Color.Green;
+            baseButtonCancel.BorderRadius = 20;
+            baseButtonCancel.BorderSize = 0;
+            baseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            baseButtonCancel.FlatAppearance.BorderSize = 0;
+            baseButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            baseButtonCancel.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            baseButtonCancel.ForeColor = System.Drawing.Color.White;
+            baseButtonCancel.Location = new System.Drawing.Point(142, 16);
+            baseButtonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            baseButtonCancel.Name = "baseButtonCancel";
+            baseButtonCancel.Size = new System.Drawing.Size(110, 46);
+            baseButtonCancel.TabIndex = 1;
+            baseButtonCancel.Text = "Cancel";
+            baseButtonCancel.TextColor = System.Drawing.Color.White;
+            baseButtonCancel.UseVisualStyleBackColor = false;
+            baseButtonCancel.Click += baseButtonCancel_Click;
             // 
             // basePanelMain
             // 
-            this.basePanelMain.Controls.Add(this.PanelMain3);
-            this.basePanelMain.Controls.Add(this.panelMain1);
-            this.basePanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.basePanelMain.Location = new System.Drawing.Point(7, 7);
-            this.basePanelMain.Name = "basePanelMain";
-            this.basePanelMain.Size = new System.Drawing.Size(767, 441);
-            this.basePanelMain.TabIndex = 2;
+            basePanelMain.Controls.Add(PanelMain3);
+            basePanelMain.Controls.Add(panelMain1);
+            basePanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            basePanelMain.Location = new System.Drawing.Point(8, 8);
+            basePanelMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            basePanelMain.Name = "basePanelMain";
+            basePanelMain.Size = new System.Drawing.Size(749, 397);
+            basePanelMain.TabIndex = 2;
             // 
             // PanelMain3
             // 
-            this.PanelMain3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.PanelMain3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelMain3.Location = new System.Drawing.Point(0, 73);
-            this.PanelMain3.Name = "PanelMain3";
-            this.PanelMain3.Size = new System.Drawing.Size(767, 368);
-            this.PanelMain3.TabIndex = 1;
+            PanelMain3.BackColor = System.Drawing.SystemColors.ButtonFace;
+            PanelMain3.Dock = System.Windows.Forms.DockStyle.Fill;
+            PanelMain3.Location = new System.Drawing.Point(0, 84);
+            PanelMain3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PanelMain3.Name = "PanelMain3";
+            PanelMain3.Size = new System.Drawing.Size(749, 313);
+            PanelMain3.TabIndex = 1;
             // 
             // panelMain1
             // 
-            this.panelMain1.Controls.Add(this.baselabelMain1);
-            this.panelMain1.Controls.Add(this.customLabelDescMain2);
-            this.panelMain1.Controls.Add(this.pictureBoxMain1);
-            this.panelMain1.Controls.Add(this.customLabelDescMain1);
-            this.panelMain1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMain1.Location = new System.Drawing.Point(0, 0);
-            this.panelMain1.Name = "panelMain1";
-            this.panelMain1.Size = new System.Drawing.Size(767, 73);
-            this.panelMain1.TabIndex = 6;
+            panelMain1.BackColor = System.Drawing.Color.DodgerBlue;
+            panelMain1.Controls.Add(baselabelMain1);
+            panelMain1.Controls.Add(customLabelDescMain2);
+            panelMain1.Controls.Add(pictureBoxMain1);
+            panelMain1.Controls.Add(customLabelDescMain1);
+            panelMain1.Dock = System.Windows.Forms.DockStyle.Top;
+            panelMain1.Location = new System.Drawing.Point(0, 0);
+            panelMain1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelMain1.Name = "panelMain1";
+            panelMain1.Size = new System.Drawing.Size(749, 84);
+            panelMain1.TabIndex = 6;
             // 
             // baselabelMain1
             // 
-            this.baselabelMain1.BackColor = System.Drawing.Color.DimGray;
-            this.baselabelMain1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.baselabelMain1.Location = new System.Drawing.Point(0, 72);
-            this.baselabelMain1.Name = "baselabelMain1";
-            this.baselabelMain1.Size = new System.Drawing.Size(767, 1);
-            this.baselabelMain1.TabIndex = 6;
-            this.baselabelMain1.Text = "1";
+            baselabelMain1.BackColor = System.Drawing.Color.DimGray;
+            baselabelMain1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            baselabelMain1.Location = new System.Drawing.Point(0, 83);
+            baselabelMain1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            baselabelMain1.Name = "baselabelMain1";
+            baselabelMain1.Size = new System.Drawing.Size(749, 1);
+            baselabelMain1.TabIndex = 6;
+            baselabelMain1.Text = "1";
             // 
             // customLabelDescMain2
             // 
-            this.customLabelDescMain2.AutoSize = true;
-            this.customLabelDescMain2.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customLabelDescMain2.Location = new System.Drawing.Point(104, 40);
-            this.customLabelDescMain2.Name = "customLabelDescMain2";
-            this.customLabelDescMain2.Size = new System.Drawing.Size(364, 23);
-            this.customLabelDescMain2.TabIndex = 5;
-            this.customLabelDescMain2.Text = "Centralized control and insights for efficient operations.";
+            customLabelDescMain2.AutoSize = true;
+            customLabelDescMain2.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            customLabelDescMain2.ForeColor = System.Drawing.Color.White;
+            customLabelDescMain2.Location = new System.Drawing.Point(121, 46);
+            customLabelDescMain2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            customLabelDescMain2.Name = "customLabelDescMain2";
+            customLabelDescMain2.Size = new System.Drawing.Size(364, 23);
+            customLabelDescMain2.TabIndex = 5;
+            customLabelDescMain2.Text = "Centralized control and insights for efficient operations.";
             // 
             // pictureBoxMain1
             // 
-            this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
-            this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxMain1.Location = new System.Drawing.Point(21, 12);
-            this.pictureBoxMain1.Name = "pictureBoxMain1";
-            this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
-            this.pictureBoxMain1.TabIndex = 3;
-            this.pictureBoxMain1.TabStop = false;
+            pictureBoxMain1.BackgroundImage = Properties.Resources.Hopstarter_Button_Button_Info_64;
+            pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBoxMain1.Location = new System.Drawing.Point(24, 14);
+            pictureBoxMain1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBoxMain1.Name = "pictureBoxMain1";
+            pictureBoxMain1.Size = new System.Drawing.Size(70, 58);
+            pictureBoxMain1.TabIndex = 3;
+            pictureBoxMain1.TabStop = false;
             // 
             // customLabelDescMain1
             // 
-            this.customLabelDescMain1.AutoSize = true;
-            this.customLabelDescMain1.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customLabelDescMain1.Location = new System.Drawing.Point(87, 15);
-            this.customLabelDescMain1.Name = "customLabelDescMain1";
-            this.customLabelDescMain1.Size = new System.Drawing.Size(132, 23);
-            this.customLabelDescMain1.TabIndex = 4;
-            this.customLabelDescMain1.Text = "Management Hub";
+            customLabelDescMain1.AutoSize = true;
+            customLabelDescMain1.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            customLabelDescMain1.ForeColor = System.Drawing.Color.White;
+            customLabelDescMain1.Location = new System.Drawing.Point(102, 17);
+            customLabelDescMain1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            customLabelDescMain1.Name = "customLabelDescMain1";
+            customLabelDescMain1.Size = new System.Drawing.Size(132, 23);
+            customLabelDescMain1.TabIndex = 4;
+            customLabelDescMain1.Text = "Management Hub";
             // 
             // FrmManage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(781, 526);
-            this.Controls.Add(this.basePanelMain);
-            this.Controls.Add(this.basePnl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FrmManage";
-            this.Padding = new System.Windows.Forms.Padding(7);
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmManageMain";
-            this.basePnl1.ResumeLayout(false);
-            this.basePnl2.ResumeLayout(false);
-            this.basePanelMain.ResumeLayout(false);
-            this.panelMain1.ResumeLayout(false);
-            this.panelMain1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain1)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.DodgerBlue;
+            ClientSize = new System.Drawing.Size(765, 495);
+            Controls.Add(basePanelMain);
+            Controls.Add(basePnl1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FrmManage";
+            Padding = new System.Windows.Forms.Padding(8);
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "FrmManageMain";
+            basePnl1.ResumeLayout(false);
+            basePnl2.ResumeLayout(false);
+            basePanelMain.ResumeLayout(false);
+            panelMain1.ResumeLayout(false);
+            panelMain1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMain1).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

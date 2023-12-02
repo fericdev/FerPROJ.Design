@@ -32,6 +32,33 @@ namespace FerPROJ.DBHelper.Class
             string boldString = new string(boldLetters);
             return boldString;
         }
+        public static DateTime CurrentDT()
+        {
+            DateTime currentDateTime = DateTime.Now;
+            //
+            int year = currentDateTime.Year;
+            int month = currentDateTime.Month;
+            int day = currentDateTime.Day;
+            int hour = currentDateTime.Hour;
+            int minute = currentDateTime.Minute;
+            int second = currentDateTime.Second;
+            //
+            DateTime resultDateTime = new DateTime(year, month, day, hour, minute, second);
+
+            return resultDateTime;
+        }
+        public static DateTime CurrentD()
+        {
+            DateTime currentDateTime = DateTime.Now;
+            //
+            int year = currentDateTime.Year;
+            int month = currentDateTime.Month;
+            int day = currentDateTime.Day;
+            //
+            DateTime resultDateTime = new DateTime(year, month, day);
+
+            return resultDateTime;
+        }
         public static string CurrentDate()
         {
             return DateTime.Now.ToString("yyyy-MM-dd");

@@ -23,6 +23,7 @@ namespace FerPROJ.Design.Forms
         {
             try
             {
+                FrmSplasher.CloseSplash();
                 LoadComponent();
                 dbTimer.Tick += dbTimer_Tick;
                 dbTimer.Start();
@@ -35,7 +36,7 @@ namespace FerPROJ.Design.Forms
         }
         protected virtual void LoadComponent()
         {
-
+            
         }
 
         protected virtual void dbTimer_Tick(object sender, EventArgs e)

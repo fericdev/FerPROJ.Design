@@ -13,5 +13,18 @@ namespace FerPROJ.Design.Class
             One,
             Two
         }
+        public enum BankType
+        {
+            VISA,
+            DEBIT,
+            CREDIT,
+            PREPAID
+        }
+        public enum UserLevel
+        {
+            Administrator,
+            Secretary,
+            Client
+        }
     }
 }

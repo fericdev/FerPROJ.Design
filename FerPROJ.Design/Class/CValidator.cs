@@ -43,10 +43,7 @@ namespace FerPROJ.Design.Class
                 return null;
             }
         }
-        private bool IsValid => string.IsNullOrEmpty(Error);
+        public bool Success => string.IsNullOrEmpty(Error);
         public abstract bool DataValidation();
-        public abstract int IdTrack { get; set; }
-        public abstract string DateReference { get; set; }
-    
     }
 }

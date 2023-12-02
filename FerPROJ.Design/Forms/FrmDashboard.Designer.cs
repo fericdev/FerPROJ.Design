@@ -83,6 +83,7 @@ namespace FerPROJ.Design.Forms
             // 
             // dbPanel3
             // 
+            this.dbPanel3.BackColor = System.Drawing.Color.OrangeRed;
             this.dbPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dbPanel3.Location = new System.Drawing.Point(0, 85);
@@ -92,6 +93,7 @@ namespace FerPROJ.Design.Forms
             // 
             // dbPanel6
             // 
+            this.dbPanel6.BackColor = System.Drawing.Color.Coral;
             this.dbPanel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbPanel6.Controls.Add(this.dbcLabelDesc2);
             this.dbPanel6.Controls.Add(this.dbcLabelDesc1);
@@ -145,6 +147,7 @@ namespace FerPROJ.Design.Forms
             // 
             // dbPanel5
             // 
+            this.dbPanel5.BackColor = System.Drawing.Color.Coral;
             this.dbPanel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbPanel5.Controls.Add(this.cLabelDesc1);
             this.dbPanel5.Controls.Add(this.Username);

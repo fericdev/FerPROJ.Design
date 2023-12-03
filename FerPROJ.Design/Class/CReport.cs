@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.Class {
     public static class CReport {
         public static void GenerateReport(ReportDocument rpt) {
-            FrmSplasherReport.ShowSplash();
-            var frm = new FrmReport();
             FrmSplasherReport.CloseSplash();
+            var frm = new FrmReport();
             frm.Text = "Preview Report";
             frm.SetDataSource(rpt);
             frm.Show();

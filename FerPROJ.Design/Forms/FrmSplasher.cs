@@ -29,6 +29,7 @@ namespace FerPROJ.Design.Forms
             int currentPercentage = 5;
             instance = new FrmSplasher();
             instance.Show();
+            instance.Update();
             //
             instance.SetStatus("Loading . . .");
             Application.DoEvents();

@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\CConvert.cs" />
     <Compile Include="Class\CEnum.cs" />
     <Compile Include="Class\CExtension.cs" />
     <Compile Include="Class\CMapping.cs" />

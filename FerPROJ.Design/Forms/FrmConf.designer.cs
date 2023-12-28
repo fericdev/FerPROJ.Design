@@ -33,7 +33,6 @@ namespace FerPROJ.Design.Forms
         private void InitializeComponent()
         {
             this.customPanel1 = new FerPROJ.Design.Forms.CPanel();
-            this.saveConfigCustomButton = new FerPROJ.Design.Controls.CButton();
             this.passwordCustomTextBox = new FerPROJ.Design.Controls.CTextBox();
             this.usernameCustomTextBox = new FerPROJ.Design.Controls.CTextBox();
             this.portCustomTextBox = new FerPROJ.Design.Controls.CTextBox();
@@ -44,6 +43,7 @@ namespace FerPROJ.Design.Forms
             this.customLabelDesc3 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDesc2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.saveConfigCustomButton = new FerPROJ.Design.Controls.CButton();
             this.customPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,27 +73,6 @@ namespace FerPROJ.Design.Forms
             this.customPanel1.ShowTopShadow = true;
             this.customPanel1.Size = new System.Drawing.Size(377, 467);
             this.customPanel1.TabIndex = 0;
-            // 
-            // saveConfigCustomButton
-            // 
-            this.saveConfigCustomButton.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.saveConfigCustomButton.BackgroundColor = System.Drawing.Color.CornflowerBlue;
-            this.saveConfigCustomButton.BorderColor = System.Drawing.Color.Green;
-            this.saveConfigCustomButton.BorderRadius = 20;
-            this.saveConfigCustomButton.BorderSize = 0;
-            this.saveConfigCustomButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.saveConfigCustomButton.FlatAppearance.BorderSize = 0;
-            this.saveConfigCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveConfigCustomButton.Font = new System.Drawing.Font("Poppins", 9F);
-            this.saveConfigCustomButton.ForeColor = System.Drawing.Color.White;
-            this.saveConfigCustomButton.Location = new System.Drawing.Point(84, 395);
-            this.saveConfigCustomButton.Name = "saveConfigCustomButton";
-            this.saveConfigCustomButton.Size = new System.Drawing.Size(218, 40);
-            this.saveConfigCustomButton.TabIndex = 5;
-            this.saveConfigCustomButton.Text = "Save Configuration";
-            this.saveConfigCustomButton.TextColor = System.Drawing.Color.White;
-            this.saveConfigCustomButton.UseVisualStyleBackColor = false;
-            this.saveConfigCustomButton.Click += new System.EventHandler(this.saveConfigCustomButton_Click);
             // 
             // passwordCustomTextBox
             // 
@@ -264,6 +243,27 @@ namespace FerPROJ.Design.Forms
             this.customLabelDesc1.Size = new System.Drawing.Size(87, 25);
             this.customLabelDesc1.TabIndex = 0;
             this.customLabelDesc1.Text = "Hostname:";
+            // 
+            // saveConfigCustomButton
+            // 
+            this.saveConfigCustomButton.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.saveConfigCustomButton.BackgroundColor = System.Drawing.Color.CornflowerBlue;
+            this.saveConfigCustomButton.BorderColor = System.Drawing.Color.Green;
+            this.saveConfigCustomButton.BorderRadius = 20;
+            this.saveConfigCustomButton.BorderSize = 0;
+            this.saveConfigCustomButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveConfigCustomButton.FlatAppearance.BorderSize = 0;
+            this.saveConfigCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveConfigCustomButton.Font = new System.Drawing.Font("Poppins", 9F);
+            this.saveConfigCustomButton.ForeColor = System.Drawing.Color.White;
+            this.saveConfigCustomButton.Location = new System.Drawing.Point(84, 395);
+            this.saveConfigCustomButton.Name = "saveConfigCustomButton";
+            this.saveConfigCustomButton.Size = new System.Drawing.Size(218, 40);
+            this.saveConfigCustomButton.TabIndex = 5;
+            this.saveConfigCustomButton.Text = "Save Configuration";
+            this.saveConfigCustomButton.TextColor = System.Drawing.Color.White;
+            this.saveConfigCustomButton.UseVisualStyleBackColor = false;
+            this.saveConfigCustomButton.Click += new System.EventHandler(this.saveConfigCustomButton_Click);
             // 
             // FrmConf
             // 

@@ -14,8 +14,8 @@ namespace FerPROJ.Design.Forms
 {
     public partial class FrmList : Form {
 
-        public DateTime dateFrom;
-        public DateTime dateTo;
+        public DateTime dateFrom = DateTime.Now;
+        public DateTime dateTo = DateTime.Now;
         public string searchValue;
         private bool _currentManageMode;
         public event EventHandler ManageModeChanged;

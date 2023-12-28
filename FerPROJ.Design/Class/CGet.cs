@@ -294,5 +294,17 @@ namespace FerPROJ.DBHelper.Class {
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
             }
         }
+        public static List<string> GetMemberName<T>() where T : new() {
+            List<string> columns = new List<string>();
+            List<string> excludedProperties = new List<string> { "Success", "List", "tableName", "IdTrack", "Details", "Item", "Error", "IsValid", "DataValidation" };
+            var TType = typeof(T);
+            PropertyInfo[] properties = TType.GetProperties();
+            foreach (PropertyInfo prop in properties) {
+                if (!excludedProperties.Any(c => prop.Name.Contains(c))) {
+                    columns.Add(prop.Name);
+                }
+            }
+            return columns;
+        }
     }
 }

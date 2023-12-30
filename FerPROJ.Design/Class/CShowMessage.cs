@@ -17,13 +17,25 @@ namespace FerPROJ.Design.Class
             }
             return false;
         }
+        public static bool Ask(string message) {
+            if (MessageBox.Show(message, "Confirmation!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+                return true;
+            }
+            return false;
+        }
         public static void Warning(string message, string caption)
         {
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+        public static void Warning(string message) {
+            MessageBox.Show(message, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
         public static void Info(string message, string caption)
         {
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        public static void Info(string message) {
+            MessageBox.Show(message, "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public static void Create(string message, string caption, MessageBoxIcon msgIcon)
         {

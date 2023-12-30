@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,6 +24,72 @@ namespace FerPROJ.Design.Class
             cmb.DisplayMember = cmbText;
             cmb.ValueMember = cmbValue;
             cmb.DataSource = dataSource.ToList();
+        }
+        public static DateTime ToDateTime(this string stringValue) {
+            return Convert.ToDateTime(stringValue);
+        }
+        public static decimal ToDecimal(this int intValue) { 
+            return Convert.ToDecimal(intValue);
+        }
+        public static decimal ToDecimal(this string stringValue) {
+            return Convert.ToDecimal(stringValue);
+        }
+        public static int ToInt(this string stringValue) {
+            return int.Parse(stringValue);
+        }
+        public static int ToInt(this decimal decimalValue) {
+            return Convert.ToInt32(decimalValue);
+        }
+        public static T To<T>(this object value) where T : struct {
+            
+            if (value is T) {
+                return (T)value;
+            }
+
+            Type targetType = typeof(T);
+
+            // Check if the target type has a public static Parse method
+            MethodInfo parseMethod = targetType.GetMethod("Parse", new[] { typeof(string) });
+            if (parseMethod != null && parseMethod.IsStatic && parseMethod.ReturnType == targetType) {
+                return (T)parseMethod.Invoke(null, new[] { value.ToString() });
+            }
+
+            // Additional conversion logic
+            if (targetType == typeof(int)) {
+                return (T)(object)int.Parse(value.ToString(), CultureInfo.InvariantCulture);
+            }
+
+            if (targetType == typeof(long)) {
+                return (T)(object)long.Parse(value.ToString(), CultureInfo.InvariantCulture);
+            }
+
+            if (targetType == typeof(float)) {
+                return (T)(object)float.Parse(value.ToString(), CultureInfo.InvariantCulture);
+            }
+
+            if (targetType == typeof(double)) {
+                return (T)(object)double.Parse(value.ToString(), CultureInfo.InvariantCulture);
+            }
+
+            if (targetType == typeof(char)) {
+                if (value.ToString().Length == 1) {
+                    return (T)(object)value.ToString()[0];
+                }
+            }
+
+            if (targetType == typeof(Guid)) {
+                return (T)(object)Guid.Parse(value.ToString());
+            }
+
+            if (targetType == typeof(bool)) {
+                return (T)(object)bool.Parse(value.ToString());
+            }
+
+            if (targetType == typeof(string)) {
+                return (T)(object)value.ToString();
+            }
+
+            throw new InvalidCastException($"Cannot convert {value.GetType().Name} to {typeof(T).Name}");
         }
     }
 }

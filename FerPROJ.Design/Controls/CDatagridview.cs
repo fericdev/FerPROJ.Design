@@ -131,7 +131,7 @@ namespace FerPROJ.Design.Controls
             rowStyle.BackColor = Color.WhiteSmoke;
             rowStyle.ForeColor = Color.Black;
             rowStyle.Font = new Font("Poppins", 8, FontStyle.Regular);
-            rowStyle.WrapMode = DataGridViewTriState.True;
+            rowStyle.WrapMode = DataGridViewTriState.False;
 
             // Set the alternating row style
             AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;

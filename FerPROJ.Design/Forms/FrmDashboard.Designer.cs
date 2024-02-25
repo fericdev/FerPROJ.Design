@@ -35,13 +35,13 @@ namespace FerPROJ.Design.Forms
             this.dbPanel2 = new System.Windows.Forms.Panel();
             this.dbPanel3 = new System.Windows.Forms.Panel();
             this.dbPanel6 = new System.Windows.Forms.Panel();
-            this.dbTimer = new System.Windows.Forms.Timer(this.components);
             this.cLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
             this.Username = new FerPROJ.Design.Controls.CLabelDesc();
             this.dbcLabelDesc2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.dbcLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
             this.CurrentTime = new FerPROJ.Design.Controls.CLabelDesc();
             this.CurrentDate = new FerPROJ.Design.Controls.CLabelDesc();
+            this.dbTimer = new System.Windows.Forms.Timer(this.components);
             this.dbPanel1.SuspendLayout();
             this.dbPanel2.SuspendLayout();
             this.dbPanel6.SuspendLayout();
@@ -51,7 +51,6 @@ namespace FerPROJ.Design.Forms
             // 
             this.dbPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbPanel1.Controls.Add(this.dbPanel8);
-            this.dbPanel1.Controls.Add(this.dbPanel2);
             this.dbPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dbPanel1.Location = new System.Drawing.Point(0, 0);
             this.dbPanel1.Name = "dbPanel1";
@@ -61,9 +60,9 @@ namespace FerPROJ.Design.Forms
             // dbPanel8
             // 
             this.dbPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dbPanel8.Location = new System.Drawing.Point(202, 0);
+            this.dbPanel8.Location = new System.Drawing.Point(0, 0);
             this.dbPanel8.Name = "dbPanel8";
-            this.dbPanel8.Size = new System.Drawing.Size(605, 487);
+            this.dbPanel8.Size = new System.Drawing.Size(807, 487);
             this.dbPanel8.TabIndex = 1;
             // 
             // dbPanel2
@@ -75,7 +74,7 @@ namespace FerPROJ.Design.Forms
             this.dbPanel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.dbPanel2.Location = new System.Drawing.Point(0, 0);
             this.dbPanel2.Name = "dbPanel2";
-            this.dbPanel2.Size = new System.Drawing.Size(202, 487);
+            this.dbPanel2.Size = new System.Drawing.Size(202, 489);
             this.dbPanel2.TabIndex = 0;
             // 
             // dbPanel3
@@ -83,9 +82,9 @@ namespace FerPROJ.Design.Forms
             this.dbPanel3.BackColor = System.Drawing.Color.OrangeRed;
             this.dbPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dbPanel3.Location = new System.Drawing.Point(0, 0);
+            this.dbPanel3.Location = new System.Drawing.Point(0, 58);
             this.dbPanel3.Name = "dbPanel3";
-            this.dbPanel3.Size = new System.Drawing.Size(200, 427);
+            this.dbPanel3.Size = new System.Drawing.Size(200, 429);
             this.dbPanel3.TabIndex = 2;
             // 
             // dbPanel6
@@ -98,8 +97,8 @@ namespace FerPROJ.Design.Forms
             this.dbPanel6.Controls.Add(this.dbcLabelDesc1);
             this.dbPanel6.Controls.Add(this.CurrentTime);
             this.dbPanel6.Controls.Add(this.CurrentDate);
-            this.dbPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dbPanel6.Location = new System.Drawing.Point(0, 427);
+            this.dbPanel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dbPanel6.Location = new System.Drawing.Point(0, 0);
             this.dbPanel6.Name = "dbPanel6";
             this.dbPanel6.Size = new System.Drawing.Size(200, 58);
             this.dbPanel6.TabIndex = 1;
@@ -169,6 +168,7 @@ namespace FerPROJ.Design.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 489);
+            this.Controls.Add(this.dbPanel2);
             this.Controls.Add(this.dbPanel1);
             this.Name = "FrmDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -186,7 +186,6 @@ namespace FerPROJ.Design.Forms
         #endregion
 
         protected System.Windows.Forms.Panel dbPanel1;
-        private System.Windows.Forms.Panel dbPanel2;
         protected System.Windows.Forms.Panel dbPanel6;
         protected System.Windows.Forms.Panel dbPanel3;
         private System.Windows.Forms.Timer dbTimer;
@@ -197,5 +196,6 @@ namespace FerPROJ.Design.Forms
         protected Controls.CLabelDesc dbcLabelDesc2;
         protected Controls.CLabelDesc dbcLabelDesc1;
         protected Controls.CLabelDesc cLabelDesc1;
+        protected System.Windows.Forms.Panel dbPanel2;
     }
 }

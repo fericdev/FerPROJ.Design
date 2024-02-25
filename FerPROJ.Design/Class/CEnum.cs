@@ -26,5 +26,13 @@ namespace FerPROJ.Design.Class
             Secretary,
             Client
         }
+        public enum Sort {
+            DESC,
+            ASC
+        }
+        public enum Status {
+            ACTIVE,
+            CANCELLED
+        }
     }
 }

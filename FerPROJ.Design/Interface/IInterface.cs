@@ -25,11 +25,12 @@ namespace FerPROJ.Design.Interface
         void LoadComboBox(ComboBox cmb);
 
     }
-    public interface IEntityData<TDestination, TType> : IDisposable where TType : class
+    public interface IEntityData<TDestination, TType> : IDisposable
     {
         IEnumerable<TDestination> GetAll();
         TDestination GetById(TType id);
         string GetNewID();
+        void LoadList(DataGridView dgv, DateTime dateFrom, DateTime dateTo);
         void LoadList(DataGridView dgv, string SearchValue = "%");
         void LoadList(DataGridView dgv, string id, string SearchValue = "%");
         void LoadList(DataGridView dgv, DateTime dateFrom, DateTime dateTo, string SearchValue = "%");

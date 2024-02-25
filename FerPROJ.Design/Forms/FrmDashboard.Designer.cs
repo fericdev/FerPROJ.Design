@@ -35,18 +35,16 @@ namespace FerPROJ.Design.Forms
             this.dbPanel2 = new System.Windows.Forms.Panel();
             this.dbPanel3 = new System.Windows.Forms.Panel();
             this.dbPanel6 = new System.Windows.Forms.Panel();
+            this.dbTimer = new System.Windows.Forms.Timer(this.components);
+            this.cLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.Username = new FerPROJ.Design.Controls.CLabelDesc();
             this.dbcLabelDesc2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.dbcLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
             this.CurrentTime = new FerPROJ.Design.Controls.CLabelDesc();
             this.CurrentDate = new FerPROJ.Design.Controls.CLabelDesc();
-            this.dbPanel5 = new System.Windows.Forms.Panel();
-            this.cLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.Username = new FerPROJ.Design.Controls.CLabelDesc();
-            this.dbTimer = new System.Windows.Forms.Timer(this.components);
             this.dbPanel1.SuspendLayout();
             this.dbPanel2.SuspendLayout();
             this.dbPanel6.SuspendLayout();
-            this.dbPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // dbPanel1
@@ -74,7 +72,6 @@ namespace FerPROJ.Design.Forms
             this.dbPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbPanel2.Controls.Add(this.dbPanel3);
             this.dbPanel2.Controls.Add(this.dbPanel6);
-            this.dbPanel2.Controls.Add(this.dbPanel5);
             this.dbPanel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.dbPanel2.Location = new System.Drawing.Point(0, 0);
             this.dbPanel2.Name = "dbPanel2";
@@ -86,96 +83,86 @@ namespace FerPROJ.Design.Forms
             this.dbPanel3.BackColor = System.Drawing.Color.OrangeRed;
             this.dbPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dbPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dbPanel3.Location = new System.Drawing.Point(0, 85);
+            this.dbPanel3.Location = new System.Drawing.Point(0, 0);
             this.dbPanel3.Name = "dbPanel3";
-            this.dbPanel3.Size = new System.Drawing.Size(200, 313);
+            this.dbPanel3.Size = new System.Drawing.Size(200, 427);
             this.dbPanel3.TabIndex = 2;
             // 
             // dbPanel6
             // 
             this.dbPanel6.BackColor = System.Drawing.Color.Coral;
             this.dbPanel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dbPanel6.Controls.Add(this.cLabelDesc1);
+            this.dbPanel6.Controls.Add(this.Username);
             this.dbPanel6.Controls.Add(this.dbcLabelDesc2);
             this.dbPanel6.Controls.Add(this.dbcLabelDesc1);
             this.dbPanel6.Controls.Add(this.CurrentTime);
             this.dbPanel6.Controls.Add(this.CurrentDate);
             this.dbPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dbPanel6.Location = new System.Drawing.Point(0, 398);
+            this.dbPanel6.Location = new System.Drawing.Point(0, 427);
             this.dbPanel6.Name = "dbPanel6";
-            this.dbPanel6.Size = new System.Drawing.Size(200, 87);
+            this.dbPanel6.Size = new System.Drawing.Size(200, 58);
             this.dbPanel6.TabIndex = 1;
-            // 
-            // dbcLabelDesc2
-            // 
-            this.dbcLabelDesc2.AutoSize = true;
-            this.dbcLabelDesc2.Font = new System.Drawing.Font("Poppins", 10F);
-            this.dbcLabelDesc2.Location = new System.Drawing.Point(9, 45);
-            this.dbcLabelDesc2.Name = "dbcLabelDesc2";
-            this.dbcLabelDesc2.Size = new System.Drawing.Size(49, 25);
-            this.dbcLabelDesc2.TabIndex = 4;
-            this.dbcLabelDesc2.Text = "Time:";
-            // 
-            // dbcLabelDesc1
-            // 
-            this.dbcLabelDesc1.AutoSize = true;
-            this.dbcLabelDesc1.Font = new System.Drawing.Font("Poppins", 10F);
-            this.dbcLabelDesc1.Location = new System.Drawing.Point(9, 15);
-            this.dbcLabelDesc1.Name = "dbcLabelDesc1";
-            this.dbcLabelDesc1.Size = new System.Drawing.Size(48, 25);
-            this.dbcLabelDesc1.TabIndex = 3;
-            this.dbcLabelDesc1.Text = "Date:";
-            // 
-            // CurrentTime
-            // 
-            this.CurrentTime.AutoSize = true;
-            this.CurrentTime.Font = new System.Drawing.Font("Poppins", 10F);
-            this.CurrentTime.Location = new System.Drawing.Point(61, 45);
-            this.CurrentTime.Name = "CurrentTime";
-            this.CurrentTime.Size = new System.Drawing.Size(28, 25);
-            this.CurrentTime.TabIndex = 2;
-            this.CurrentTime.Text = "--";
-            // 
-            // CurrentDate
-            // 
-            this.CurrentDate.AutoSize = true;
-            this.CurrentDate.Font = new System.Drawing.Font("Poppins", 10F);
-            this.CurrentDate.Location = new System.Drawing.Point(61, 15);
-            this.CurrentDate.Name = "CurrentDate";
-            this.CurrentDate.Size = new System.Drawing.Size(28, 25);
-            this.CurrentDate.TabIndex = 1;
-            this.CurrentDate.Text = "--";
-            // 
-            // dbPanel5
-            // 
-            this.dbPanel5.BackColor = System.Drawing.Color.Coral;
-            this.dbPanel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dbPanel5.Controls.Add(this.cLabelDesc1);
-            this.dbPanel5.Controls.Add(this.Username);
-            this.dbPanel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dbPanel5.Location = new System.Drawing.Point(0, 0);
-            this.dbPanel5.Name = "dbPanel5";
-            this.dbPanel5.Size = new System.Drawing.Size(200, 85);
-            this.dbPanel5.TabIndex = 0;
             // 
             // cLabelDesc1
             // 
             this.cLabelDesc1.AutoSize = true;
-            this.cLabelDesc1.Font = new System.Drawing.Font("Poppins", 10F);
-            this.cLabelDesc1.Location = new System.Drawing.Point(9, 29);
+            this.cLabelDesc1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cLabelDesc1.Location = new System.Drawing.Point(9, 2);
             this.cLabelDesc1.Name = "cLabelDesc1";
-            this.cLabelDesc1.Size = new System.Drawing.Size(86, 25);
+            this.cLabelDesc1.Size = new System.Drawing.Size(67, 19);
             this.cLabelDesc1.TabIndex = 4;
             this.cLabelDesc1.Text = "Username:";
             // 
             // Username
             // 
             this.Username.AutoSize = true;
-            this.Username.Font = new System.Drawing.Font("Poppins", 10F);
-            this.Username.Location = new System.Drawing.Point(98, 29);
+            this.Username.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Username.Location = new System.Drawing.Point(81, 2);
             this.Username.Name = "Username";
-            this.Username.Size = new System.Drawing.Size(28, 25);
+            this.Username.Size = new System.Drawing.Size(21, 19);
             this.Username.TabIndex = 0;
             this.Username.Text = "--";
+            // 
+            // dbcLabelDesc2
+            // 
+            this.dbcLabelDesc2.AutoSize = true;
+            this.dbcLabelDesc2.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dbcLabelDesc2.Location = new System.Drawing.Point(9, 35);
+            this.dbcLabelDesc2.Name = "dbcLabelDesc2";
+            this.dbcLabelDesc2.Size = new System.Drawing.Size(38, 19);
+            this.dbcLabelDesc2.TabIndex = 4;
+            this.dbcLabelDesc2.Text = "Time:";
+            // 
+            // dbcLabelDesc1
+            // 
+            this.dbcLabelDesc1.AutoSize = true;
+            this.dbcLabelDesc1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dbcLabelDesc1.Location = new System.Drawing.Point(9, 18);
+            this.dbcLabelDesc1.Name = "dbcLabelDesc1";
+            this.dbcLabelDesc1.Size = new System.Drawing.Size(37, 19);
+            this.dbcLabelDesc1.TabIndex = 3;
+            this.dbcLabelDesc1.Text = "Date:";
+            // 
+            // CurrentTime
+            // 
+            this.CurrentTime.AutoSize = true;
+            this.CurrentTime.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentTime.Location = new System.Drawing.Point(80, 35);
+            this.CurrentTime.Name = "CurrentTime";
+            this.CurrentTime.Size = new System.Drawing.Size(21, 19);
+            this.CurrentTime.TabIndex = 2;
+            this.CurrentTime.Text = "--";
+            // 
+            // CurrentDate
+            // 
+            this.CurrentDate.AutoSize = true;
+            this.CurrentDate.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentDate.Location = new System.Drawing.Point(81, 19);
+            this.CurrentDate.Name = "CurrentDate";
+            this.CurrentDate.Size = new System.Drawing.Size(21, 19);
+            this.CurrentDate.TabIndex = 1;
+            this.CurrentDate.Text = "--";
             // 
             // FrmDashboard
             // 
@@ -192,8 +179,6 @@ namespace FerPROJ.Design.Forms
             this.dbPanel2.ResumeLayout(false);
             this.dbPanel6.ResumeLayout(false);
             this.dbPanel6.PerformLayout();
-            this.dbPanel5.ResumeLayout(false);
-            this.dbPanel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -202,16 +187,15 @@ namespace FerPROJ.Design.Forms
 
         protected System.Windows.Forms.Panel dbPanel1;
         private System.Windows.Forms.Panel dbPanel2;
-        private Controls.CLabelDesc Username;
-        private Controls.CLabelDesc CurrentTime;
-        private Controls.CLabelDesc CurrentDate;
-        protected System.Windows.Forms.Panel dbPanel5;
         protected System.Windows.Forms.Panel dbPanel6;
         protected System.Windows.Forms.Panel dbPanel3;
         private System.Windows.Forms.Timer dbTimer;
-        private Controls.CLabelDesc dbcLabelDesc2;
-        private Controls.CLabelDesc dbcLabelDesc1;
-        private Controls.CLabelDesc cLabelDesc1;
         protected System.Windows.Forms.Panel dbPanel8;
+        protected Controls.CLabelDesc Username;
+        protected Controls.CLabelDesc CurrentTime;
+        protected Controls.CLabelDesc CurrentDate;
+        protected Controls.CLabelDesc dbcLabelDesc2;
+        protected Controls.CLabelDesc dbcLabelDesc1;
+        protected Controls.CLabelDesc cLabelDesc1;
     }
 }

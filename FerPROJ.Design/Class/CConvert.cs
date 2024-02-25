@@ -12,8 +12,5 @@ namespace FerPROJ.Design.Class {
         public static string GetDate(this DateTime dtp) {
             return dtp.ToString("yyyy-MM-dd HH:mm:ss");
         }
-        public static TEnum GetEnum<TEnum>(this string text) where TEnum : Enum {
-            return (TEnum)Enum.Parse(typeof(TEnum), text);
-        }
     }
 }

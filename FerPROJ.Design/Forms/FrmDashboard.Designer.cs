@@ -109,9 +109,9 @@ namespace FerPROJ.Design.Forms
             this.cLabelDesc1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cLabelDesc1.Location = new System.Drawing.Point(9, 2);
             this.cLabelDesc1.Name = "cLabelDesc1";
-            this.cLabelDesc1.Size = new System.Drawing.Size(67, 19);
+            this.cLabelDesc1.Size = new System.Drawing.Size(44, 19);
             this.cLabelDesc1.TabIndex = 4;
-            this.cLabelDesc1.Text = "Username:";
+            this.cLabelDesc1.Text = "Name:";
             // 
             // Username
             // 

@@ -33,8 +33,9 @@ namespace FerPROJ.Design.Forms
         {
             if (CShowMessage.Ask("Save?", "Confirmation"))
             {
-                this.connSettings = $"Server={hostnameCustomTextBox.Text};Port={portCustomTextBox.Text};Database={databaseNameCustomTextBox.Text};Uid={usernameCustomTextBox.Text};Pwd={passwordCustomTextBox.Text};";
-                CSet.SetEntityConnectionString(hostnameCustomTextBox.Text, usernameCustomTextBox.Text, passwordCustomTextBox.Text, portCustomTextBox.Text, databaseNameCustomTextBox.Text);
+                string sslMode = cbSSL.Checked ? "SslMode=None;" : "";
+                this.connSettings = $"Server={hostnameCustomTextBox.Text};Port={portCustomTextBox.Text};Database={databaseNameCustomTextBox.Text};Uid={usernameCustomTextBox.Text};Pwd={passwordCustomTextBox.Text};{sslMode}";
+                CSet.SetEntityConnectionString(hostnameCustomTextBox.Text, usernameCustomTextBox.Text, passwordCustomTextBox.Text, portCustomTextBox.Text, databaseNameCustomTextBox.Text, sslMode);
                 UpdateConfigurationFile();
                 this.Close();
             }
@@ -61,6 +62,7 @@ namespace FerPROJ.Design.Forms
                 usernameCustomTextBox.Text = settings["Uid"];
                 passwordCustomTextBox.Text = settings["Pwd"];
                 hostnameCustomTextBox.Text = settings["Server"];
+                cbSSL.Checked = settings["SslMode"] == "None";
                 //
             }
             else
@@ -70,6 +72,7 @@ namespace FerPROJ.Design.Forms
                 usernameCustomTextBox.Text = "";
                 passwordCustomTextBox.Text = "";
                 hostnameCustomTextBox.Text = "";
+                cbSSL.Checked = false;
             }
         }
         private void UpdateConfigurationFile()

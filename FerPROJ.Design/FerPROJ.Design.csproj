@@ -106,6 +106,9 @@
     <Compile Include="Controls\CLine.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\cTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

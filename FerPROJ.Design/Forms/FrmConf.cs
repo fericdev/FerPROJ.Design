@@ -33,7 +33,7 @@ namespace FerPROJ.Design.Forms
         {
             if (CShowMessage.Ask("Save?", "Confirmation"))
             {
-                string sslMode = cbSSL.Checked ? "SslMode=None;" : "";
+                string sslMode = cbSSL.Checked ? "SslMode=None;" : "SslMode=Preferred;";
                 this.connSettings = $"Server={hostnameCustomTextBox.Text};Port={portCustomTextBox.Text};Database={databaseNameCustomTextBox.Text};Uid={usernameCustomTextBox.Text};Pwd={passwordCustomTextBox.Text};{sslMode}";
                 CSet.SetEntityConnectionString(hostnameCustomTextBox.Text, usernameCustomTextBox.Text, passwordCustomTextBox.Text, portCustomTextBox.Text, databaseNameCustomTextBox.Text, sslMode);
                 UpdateConfigurationFile();

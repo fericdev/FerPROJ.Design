@@ -30,15 +30,20 @@ namespace FerPROJ.Design.Interface
         IEnumerable<TDestination> GetAll();
         TDestination GetById(TType id);
         string GetNewID();
+
+    }
+    public interface IEntityLoadlist
+    {
         void LoadList(DataGridView dgv, DateTime dateFrom, DateTime dateTo);
         void LoadList(DataGridView dgv, string SearchValue = "%");
         void LoadList(DataGridView dgv, string id, string SearchValue = "%");
         void LoadList(DataGridView dgv, DateTime dateFrom, DateTime dateTo, string SearchValue = "%");
         void LoadList(DataGridView dgv, string id, DateTime dateFrom, DateTime dateTo, string SearchValue = "%");
+    }
+    public interface IEntityComboBox
+    {
         void LoadComboBox(ComboBox cmb);
         void LoadComboBox(CComboBox cmb);
-        //
-
     }
 
 }

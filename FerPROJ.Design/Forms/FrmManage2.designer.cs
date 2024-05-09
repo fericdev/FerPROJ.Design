@@ -55,7 +55,7 @@ namespace FerPROJ.Design.Forms
             this.baseLbl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.baseLbl1.Location = new System.Drawing.Point(0, 0);
             this.baseLbl1.Name = "baseLbl1";
-            this.baseLbl1.Size = new System.Drawing.Size(642, 1);
+            this.baseLbl1.Size = new System.Drawing.Size(770, 1);
             this.baseLbl1.TabIndex = 0;
             this.baseLbl1.Text = "1";
             // 
@@ -66,9 +66,9 @@ namespace FerPROJ.Design.Forms
             this.basePnl1.Controls.Add(this.basePnl2);
             this.basePnl1.Controls.Add(this.baseLbl1);
             this.basePnl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.basePnl1.Location = new System.Drawing.Point(7, 351);
+            this.basePnl1.Location = new System.Drawing.Point(7, 425);
             this.basePnl1.Name = "basePnl1";
-            this.basePnl1.Size = new System.Drawing.Size(642, 71);
+            this.basePnl1.Size = new System.Drawing.Size(770, 71);
             this.basePnl1.TabIndex = 1;
             // 
             // baseButtonAddNew
@@ -81,7 +81,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonAddNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.baseButtonAddNew.FlatAppearance.BorderSize = 0;
             this.baseButtonAddNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonAddNew.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonAddNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baseButtonAddNew.ForeColor = System.Drawing.Color.White;
             this.baseButtonAddNew.Location = new System.Drawing.Point(21, 15);
             this.baseButtonAddNew.Name = "baseButtonAddNew";
@@ -98,7 +98,7 @@ namespace FerPROJ.Design.Forms
             this.basePnl2.Controls.Add(this.baseButtonUpdate);
             this.basePnl2.Controls.Add(this.baseButtonCancel);
             this.basePnl2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.basePnl2.Location = new System.Drawing.Point(407, 1);
+            this.basePnl2.Location = new System.Drawing.Point(535, 1);
             this.basePnl2.Name = "basePnl2";
             this.basePnl2.Size = new System.Drawing.Size(235, 70);
             this.basePnl2.TabIndex = 2;
@@ -113,7 +113,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.baseButtonSave.FlatAppearance.BorderSize = 0;
             this.baseButtonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonSave.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baseButtonSave.ForeColor = System.Drawing.Color.Black;
             this.baseButtonSave.Location = new System.Drawing.Point(15, 14);
             this.baseButtonSave.Name = "baseButtonSave";
@@ -134,7 +134,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.baseButtonUpdate.FlatAppearance.BorderSize = 0;
             this.baseButtonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonUpdate.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baseButtonUpdate.ForeColor = System.Drawing.Color.Black;
             this.baseButtonUpdate.Location = new System.Drawing.Point(15, 14);
             this.baseButtonUpdate.Name = "baseButtonUpdate";
@@ -158,7 +158,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.baseButtonCancel.FlatAppearance.BorderSize = 0;
             this.baseButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonCancel.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baseButtonCancel.ForeColor = System.Drawing.Color.White;
             this.baseButtonCancel.Location = new System.Drawing.Point(122, 14);
             this.baseButtonCancel.Name = "baseButtonCancel";
@@ -171,7 +171,7 @@ namespace FerPROJ.Design.Forms
             // 
             // panelMain1
             // 
-            this.panelMain1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panelMain1.BackColor = System.Drawing.Color.Gainsboro;
             this.panelMain1.Controls.Add(this.baselabelMain1);
             this.panelMain1.Controls.Add(this.customLabelDescMain2);
             this.panelMain1.Controls.Add(this.pictureBoxMain1);
@@ -179,27 +179,27 @@ namespace FerPROJ.Design.Forms
             this.panelMain1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMain1.Location = new System.Drawing.Point(7, 7);
             this.panelMain1.Name = "panelMain1";
-            this.panelMain1.Size = new System.Drawing.Size(642, 77);
+            this.panelMain1.Size = new System.Drawing.Size(770, 57);
             this.panelMain1.TabIndex = 6;
             // 
             // baselabelMain1
             // 
             this.baselabelMain1.BackColor = System.Drawing.Color.DimGray;
             this.baselabelMain1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.baselabelMain1.Location = new System.Drawing.Point(0, 76);
+            this.baselabelMain1.Location = new System.Drawing.Point(0, 56);
             this.baselabelMain1.Name = "baselabelMain1";
-            this.baselabelMain1.Size = new System.Drawing.Size(642, 1);
+            this.baselabelMain1.Size = new System.Drawing.Size(770, 1);
             this.baselabelMain1.TabIndex = 6;
             this.baselabelMain1.Text = "1";
             // 
             // customLabelDescMain2
             // 
             this.customLabelDescMain2.AutoSize = true;
-            this.customLabelDescMain2.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customLabelDescMain2.ForeColor = System.Drawing.Color.White;
-            this.customLabelDescMain2.Location = new System.Drawing.Point(104, 40);
+            this.customLabelDescMain2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customLabelDescMain2.ForeColor = System.Drawing.Color.Black;
+            this.customLabelDescMain2.Location = new System.Drawing.Point(100, 31);
             this.customLabelDescMain2.Name = "customLabelDescMain2";
-            this.customLabelDescMain2.Size = new System.Drawing.Size(364, 23);
+            this.customLabelDescMain2.Size = new System.Drawing.Size(327, 16);
             this.customLabelDescMain2.TabIndex = 5;
             this.customLabelDescMain2.Text = "Centralized control and insights for efficient operations.";
             // 
@@ -207,7 +207,7 @@ namespace FerPROJ.Design.Forms
             // 
             this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
             this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxMain1.Location = new System.Drawing.Point(21, 12);
+            this.pictureBoxMain1.Location = new System.Drawing.Point(21, 3);
             this.pictureBoxMain1.Name = "pictureBoxMain1";
             this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
             this.pictureBoxMain1.TabIndex = 3;
@@ -216,11 +216,11 @@ namespace FerPROJ.Design.Forms
             // customLabelDescMain1
             // 
             this.customLabelDescMain1.AutoSize = true;
-            this.customLabelDescMain1.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customLabelDescMain1.ForeColor = System.Drawing.Color.White;
+            this.customLabelDescMain1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customLabelDescMain1.ForeColor = System.Drawing.Color.Black;
             this.customLabelDescMain1.Location = new System.Drawing.Point(87, 15);
             this.customLabelDescMain1.Name = "customLabelDescMain1";
-            this.customLabelDescMain1.Size = new System.Drawing.Size(132, 23);
+            this.customLabelDescMain1.Size = new System.Drawing.Size(128, 16);
             this.customLabelDescMain1.TabIndex = 4;
             this.customLabelDescMain1.Text = "Management Hub";
             // 
@@ -228,8 +228,8 @@ namespace FerPROJ.Design.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Lavender;
-            this.ClientSize = new System.Drawing.Size(656, 429);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(784, 503);
             this.Controls.Add(this.panelMain1);
             this.Controls.Add(this.basePnl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -145,6 +145,12 @@
     <Compile Include="Forms\FrmDashboard2.Designer.cs">
       <DependentUpon>FrmDashboard2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmList2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmList2.designer.cs">
+      <DependentUpon>FrmList2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmManage2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDashboard2.resx">
       <DependentUpon>FrmDashboard2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmList2.resx">
+      <DependentUpon>FrmList2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmManage2.resx">
       <DependentUpon>FrmManage2.cs</DependentUpon>

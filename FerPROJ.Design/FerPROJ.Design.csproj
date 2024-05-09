@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
-      <HintPath>..\..\GLOBAL DLL\AutoMapper.dll</HintPath>
+      <HintPath>..\..\MyDLL\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine">
       <HintPath>..\..\GLOBAL DLL\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
@@ -50,7 +50,7 @@
       <HintPath>..\..\GLOBAL DLL\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus">
-      <HintPath>..\..\GLOBAL DLL\EPPlus.dll</HintPath>
+      <HintPath>..\..\MyDLL\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

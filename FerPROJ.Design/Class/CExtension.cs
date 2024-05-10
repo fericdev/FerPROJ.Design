@@ -40,6 +40,9 @@ namespace FerPROJ.Design.Class
         public static int ToInt(this decimal decimalValue) {
             return Convert.ToInt32(decimalValue);
         }
+        public static float ToFloat(this string stringValue) {
+            return float.Parse(stringValue);
+        }
         public static TEnum GetEnum<TEnum>(this string text) where TEnum : Enum {
             return (TEnum)Enum.Parse(typeof(TEnum), text);
         }

@@ -29,6 +29,15 @@ namespace FerPROJ.Design.Class
             }
             return resultList;
         }
+        public List<TDestination> GetMappingResultList(IEnumerable<TSource> source) {
+            //
+            List<TDestination> resultList = new List<TDestination>();
+            foreach (var item in source) {
+                var itemToMapp = new CMapping<TSource, TDestination>().GetMappingResult(item);
+                resultList.Add(itemToMapp);
+            }
+            return resultList;
+        }
         public List<TDestination> GetMappingResultList(List<TSource> source) {
             //
             List<TDestination> resultList = new List<TDestination>();

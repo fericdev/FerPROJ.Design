@@ -1,11 +1,14 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class
@@ -25,6 +28,17 @@ namespace FerPROJ.Design.Class
             cmb.ValueMember = cmbValue;
             cmb.DataSource = dataSource.ToList();
         }
+        public static byte[] ToByte(this HttpPostedFileBase file) {
+            if (file != null && file.ContentLength > 0) {
+                using (var binaryReader = new BinaryReader(file.InputStream)) {
+                    return binaryReader.ReadBytes(file.ContentLength);
+                }
+            }
+            return null;
+        }
+        public static string ToImage(this byte[] file) {
+            return Convert.ToBase64String(file);
+        }
         public static DateTime ToDateTime(this string stringValue) {
             return Convert.ToDateTime(stringValue);
         }
@@ -33,6 +47,9 @@ namespace FerPROJ.Design.Class
         }
         public static decimal ToDecimal(this string stringValue) {
             return Convert.ToDecimal(stringValue);
+        }
+        public static int ToInt(this long longValue) {
+            return (int)Convert.ToInt64(longValue);
         }
         public static int ToInt(this string stringValue) {
             return int.Parse(stringValue);

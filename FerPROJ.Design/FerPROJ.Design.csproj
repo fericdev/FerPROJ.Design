@@ -38,18 +38,6 @@
     <Reference Include="AutoMapper">
       <HintPath>..\..\MyDLL\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine">
-      <HintPath>..\..\GLOBAL DLL\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportSource">
-      <HintPath>..\..\GLOBAL DLL\CrystalDecisions.ReportSource.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Shared">
-      <HintPath>..\..\GLOBAL DLL\CrystalDecisions.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Windows.Forms">
-      <HintPath>..\..\GLOBAL DLL\CrystalDecisions.Windows.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="EPPlus">
       <HintPath>..\..\MyDLL\EPPlus.dll</HintPath>
     </Reference>

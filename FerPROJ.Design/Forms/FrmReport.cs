@@ -1,4 +1,4 @@
-﻿//using CrystalDecisions.CrystalReports.Engine;
+﻿using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +14,10 @@ namespace FerPROJ.Design.Forms {
         public FrmReport() {
             InitializeComponent();
         }
-        //public void SetDataSource(ReportDocument rpt) {
-        //    FrmSplasherReport.ShowSplash();
-        //    crystalReportViewer1.ReportSource = rpt;
-        //    FrmSplasherReport.CloseSplash();
-        //}
+        public void SetDataSource(ReportDocument rpt) {
+            FrmSplasherReport.ShowSplash();
+            crystalReportViewer1.ReportSource = rpt;
+            FrmSplasherReport.CloseSplash();
+        }
     }
 }

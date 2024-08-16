@@ -104,7 +104,7 @@ namespace FerPROJ.Design.Controls
             DataGridViewCellStyle headerStyle = ColumnHeadersDefaultCellStyle;
             headerStyle.BackColor = headerColor;
             headerStyle.ForeColor = Color.Black;
-            headerStyle.Font = new Font("Poppins", 10, FontStyle.Regular);
+            headerStyle.Font = new Font("Tahoma", 10, FontStyle.Bold);
             headerStyle.Padding = new Padding(0, 0, 0, 0);
 
             AdvancedColumnHeadersBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.Single;
@@ -130,7 +130,7 @@ namespace FerPROJ.Design.Controls
             DataGridViewCellStyle rowStyle = RowsDefaultCellStyle;
             rowStyle.BackColor = Color.WhiteSmoke;
             rowStyle.ForeColor = Color.Black;
-            rowStyle.Font = new Font("Poppins", 8, FontStyle.Regular);
+            rowStyle.Font = new Font("Tahoma", 8, FontStyle.Regular);
             rowStyle.WrapMode = DataGridViewTriState.False;
 
             // Set the alternating row style

@@ -93,6 +93,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonAddNew.Text = "Save and New";
             this.baseButtonAddNew.TextColor = System.Drawing.Color.White;
             this.baseButtonAddNew.UseVisualStyleBackColor = false;
+            this.baseButtonAddNew.Click += new System.EventHandler(this.baseButtonAddNew_Click);
             // 
             // basePnl2
             // 
@@ -124,6 +125,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonSave.Text = "Save";
             this.baseButtonSave.TextColor = System.Drawing.Color.Black;
             this.baseButtonSave.UseVisualStyleBackColor = false;
+            this.baseButtonSave.Click += new System.EventHandler(this.btnSaveMain_Click);
             // 
             // baseButtonUpdate
             // 
@@ -145,6 +147,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonUpdate.TextColor = System.Drawing.Color.Black;
             this.baseButtonUpdate.UseVisualStyleBackColor = false;
             this.baseButtonUpdate.Visible = false;
+            this.baseButtonUpdate.Click += new System.EventHandler(this.btnUpdateMain_Click);
             // 
             // baseButtonCancel
             // 
@@ -167,6 +170,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonCancel.Text = "Cancel";
             this.baseButtonCancel.TextColor = System.Drawing.Color.White;
             this.baseButtonCancel.UseVisualStyleBackColor = false;
+            this.baseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
             // 
             // basePanelMain
             // 
@@ -254,7 +258,7 @@ namespace FerPROJ.Design.Forms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmManage";
-            this.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.Padding = new System.Windows.Forms.Padding(7);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmManageMain";

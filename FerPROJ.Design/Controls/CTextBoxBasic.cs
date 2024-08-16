@@ -13,7 +13,7 @@ namespace FerPROJ.Design.Controls
         private Color enterColor = Color.LightGray;
         private Color leaveColor = Color.WhiteSmoke;
         private Color foreColor = Color.Black;
-        private Font font = new Font("Poppins", 8, FontStyle.Regular);
+        private Font font = new Font("Tahoma", 10, FontStyle.Regular);
 
         public CTextBoxBasic()
         {

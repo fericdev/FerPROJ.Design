@@ -12,7 +12,7 @@ namespace FerPROJ.Design.Controls
     {
         public CLabelTitle()
         {
-            Font = new Font("Poppins", 15, FontStyle.Bold);
+            Font = new Font("Tahoma", 13, FontStyle.Bold);
         }
     }
 }

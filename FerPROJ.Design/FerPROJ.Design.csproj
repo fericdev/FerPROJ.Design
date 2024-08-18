@@ -87,6 +87,7 @@
     <Compile Include="Controls\CButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CButtonKrypton.cs" />
     <Compile Include="Controls\CComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,6 +121,7 @@
     <Compile Include="Controls\CPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CTextBoxKrypton.cs" />
     <Compile Include="Controls\CToolstrip.cs">
       <SubType>Component</SubType>
     </Compile>

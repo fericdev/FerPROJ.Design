@@ -26,18 +26,18 @@
             this.components = new System.ComponentModel.Container();
             this.kryptonBasePalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.kryptonBasePanelTop = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonBasePalette2 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.pictureBaseBoxIcon = new System.Windows.Forms.PictureBox();
-            this.kryptonBaseLabelTitle = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonBaseLabelDescription = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonBaseLabelTitle = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.pictureBaseBoxIcon = new System.Windows.Forms.PictureBox();
+            this.kryptonBasePalette2 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.kryptonBasePanelBottom = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonBasePalette3 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.kryptonBaseButtonCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonBasePaletteButton = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            this.panelBaseBottomExt = new System.Windows.Forms.Panel();
             this.kryptonBaseButtonSave = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonBaseButtonUpdate = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonBaseButtonCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonBaseButtonSaveNew = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.panelBaseBottomExt = new System.Windows.Forms.Panel();
+            this.kryptonBasePalette3 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            this.kryptonBasePaletteButton = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonBasePanelTop)).BeginInit();
             this.kryptonBasePanelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBaseBoxIcon)).BeginInit();
@@ -58,16 +58,15 @@
             this.kryptonBasePanelTop.Size = new System.Drawing.Size(917, 90);
             this.kryptonBasePanelTop.TabIndex = 0;
             // 
-            // pictureBaseBoxIcon
+            // kryptonBaseLabelDescription
             // 
-            this.pictureBaseBoxIcon.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBaseBoxIcon.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
-            this.pictureBaseBoxIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBaseBoxIcon.Location = new System.Drawing.Point(12, 12);
-            this.pictureBaseBoxIcon.Name = "pictureBaseBoxIcon";
-            this.pictureBaseBoxIcon.Size = new System.Drawing.Size(75, 62);
-            this.pictureBaseBoxIcon.TabIndex = 0;
-            this.pictureBaseBoxIcon.TabStop = false;
+            this.kryptonBaseLabelDescription.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.SuperTip;
+            this.kryptonBaseLabelDescription.Location = new System.Drawing.Point(125, 47);
+            this.kryptonBaseLabelDescription.Name = "kryptonBaseLabelDescription";
+            this.kryptonBaseLabelDescription.Size = new System.Drawing.Size(248, 26);
+            this.kryptonBaseLabelDescription.StateNormal.ShortText.Color1 = System.Drawing.Color.White;
+            this.kryptonBaseLabelDescription.TabIndex = 2;
+            this.kryptonBaseLabelDescription.Values.Text = "This is where you can manage your data.";
             // 
             // kryptonBaseLabelTitle
             // 
@@ -79,15 +78,16 @@
             this.kryptonBaseLabelTitle.TabIndex = 1;
             this.kryptonBaseLabelTitle.Values.Text = "Management Hub";
             // 
-            // kryptonBaseLabelDescription
+            // pictureBaseBoxIcon
             // 
-            this.kryptonBaseLabelDescription.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.SuperTip;
-            this.kryptonBaseLabelDescription.Location = new System.Drawing.Point(125, 47);
-            this.kryptonBaseLabelDescription.Name = "kryptonBaseLabelDescription";
-            this.kryptonBaseLabelDescription.Size = new System.Drawing.Size(248, 26);
-            this.kryptonBaseLabelDescription.StateNormal.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonBaseLabelDescription.TabIndex = 2;
-            this.kryptonBaseLabelDescription.Values.Text = "This is where you can manage your data.";
+            this.pictureBaseBoxIcon.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBaseBoxIcon.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
+            this.pictureBaseBoxIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBaseBoxIcon.Location = new System.Drawing.Point(12, 12);
+            this.pictureBaseBoxIcon.Name = "pictureBaseBoxIcon";
+            this.pictureBaseBoxIcon.Size = new System.Drawing.Size(75, 62);
+            this.pictureBaseBoxIcon.TabIndex = 0;
+            this.pictureBaseBoxIcon.TabStop = false;
             // 
             // kryptonBasePanelBottom
             // 
@@ -100,32 +100,21 @@
             this.kryptonBasePanelBottom.Size = new System.Drawing.Size(917, 89);
             this.kryptonBasePanelBottom.TabIndex = 1;
             // 
-            // kryptonBaseButtonCancel
+            // panelBaseBottomExt
             // 
-            this.kryptonBaseButtonCancel.Location = new System.Drawing.Point(162, 24);
-            this.kryptonBaseButtonCancel.Name = "kryptonBaseButtonCancel";
-            this.kryptonBaseButtonCancel.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Black;
-            this.kryptonBaseButtonCancel.Size = new System.Drawing.Size(108, 43);
-            this.kryptonBaseButtonCancel.StateCommon.Back.Color1 = System.Drawing.Color.Red;
-            this.kryptonBaseButtonCancel.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.kryptonBaseButtonCancel.StateCommon.Border.Color1 = System.Drawing.Color.Red;
-            this.kryptonBaseButtonCancel.StateCommon.Border.Color2 = System.Drawing.Color.Red;
-            this.kryptonBaseButtonCancel.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonBaseButtonCancel.StateCommon.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.None;
-            this.kryptonBaseButtonCancel.StateCommon.Border.Rounding = 15;
-            this.kryptonBaseButtonCancel.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonBaseButtonCancel.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonBaseButtonCancel.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonBaseButtonCancel.StateNormal.Back.Color1 = System.Drawing.Color.Red;
-            this.kryptonBaseButtonCancel.StateNormal.Back.Color2 = System.Drawing.Color.Red;
-            this.kryptonBaseButtonCancel.TabIndex = 2;
-            this.kryptonBaseButtonCancel.Values.Text = "Cancel";
-            this.kryptonBaseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
+            this.panelBaseBottomExt.BackColor = System.Drawing.Color.Transparent;
+            this.panelBaseBottomExt.Controls.Add(this.kryptonBaseButtonSave);
+            this.panelBaseBottomExt.Controls.Add(this.kryptonBaseButtonUpdate);
+            this.panelBaseBottomExt.Controls.Add(this.kryptonBaseButtonCancel);
+            this.panelBaseBottomExt.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelBaseBottomExt.Location = new System.Drawing.Point(623, 0);
+            this.panelBaseBottomExt.Name = "panelBaseBottomExt";
+            this.panelBaseBottomExt.Size = new System.Drawing.Size(294, 89);
+            this.panelBaseBottomExt.TabIndex = 2;
             // 
             // kryptonBaseButtonSave
             // 
+            this.kryptonBaseButtonSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.kryptonBaseButtonSave.Location = new System.Drawing.Point(48, 24);
             this.kryptonBaseButtonSave.Name = "kryptonBaseButtonSave";
             this.kryptonBaseButtonSave.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Black;
@@ -172,8 +161,34 @@
             this.kryptonBaseButtonUpdate.Values.Text = "Update";
             this.kryptonBaseButtonUpdate.Click += new System.EventHandler(this.btnUpdateMain_Click);
             // 
+            // kryptonBaseButtonCancel
+            // 
+            this.kryptonBaseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.kryptonBaseButtonCancel.Location = new System.Drawing.Point(162, 24);
+            this.kryptonBaseButtonCancel.Name = "kryptonBaseButtonCancel";
+            this.kryptonBaseButtonCancel.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Black;
+            this.kryptonBaseButtonCancel.Size = new System.Drawing.Size(108, 43);
+            this.kryptonBaseButtonCancel.StateCommon.Back.Color1 = System.Drawing.Color.Red;
+            this.kryptonBaseButtonCancel.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.kryptonBaseButtonCancel.StateCommon.Border.Color1 = System.Drawing.Color.Red;
+            this.kryptonBaseButtonCancel.StateCommon.Border.Color2 = System.Drawing.Color.Red;
+            this.kryptonBaseButtonCancel.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonBaseButtonCancel.StateCommon.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.None;
+            this.kryptonBaseButtonCancel.StateCommon.Border.Rounding = 15;
+            this.kryptonBaseButtonCancel.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.kryptonBaseButtonCancel.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.kryptonBaseButtonCancel.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonBaseButtonCancel.StateNormal.Back.Color1 = System.Drawing.Color.Red;
+            this.kryptonBaseButtonCancel.StateNormal.Back.Color2 = System.Drawing.Color.Red;
+            this.kryptonBaseButtonCancel.TabIndex = 2;
+            this.kryptonBaseButtonCancel.Values.Text = "Cancel";
+            this.kryptonBaseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
+            // 
             // kryptonBaseButtonSaveNew
             // 
+            this.kryptonBaseButtonSaveNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.kryptonBaseButtonSaveNew.Location = new System.Drawing.Point(31, 24);
             this.kryptonBaseButtonSaveNew.Name = "kryptonBaseButtonSaveNew";
             this.kryptonBaseButtonSaveNew.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Black;
@@ -202,18 +217,6 @@
             this.kryptonBaseButtonSaveNew.TabIndex = 5;
             this.kryptonBaseButtonSaveNew.Values.Text = "Save and New";
             this.kryptonBaseButtonSaveNew.Click += new System.EventHandler(this.baseButtonAddNew_Click);
-            // 
-            // panelBaseBottomExt
-            // 
-            this.panelBaseBottomExt.BackColor = System.Drawing.Color.Transparent;
-            this.panelBaseBottomExt.Controls.Add(this.kryptonBaseButtonSave);
-            this.panelBaseBottomExt.Controls.Add(this.kryptonBaseButtonUpdate);
-            this.panelBaseBottomExt.Controls.Add(this.kryptonBaseButtonCancel);
-            this.panelBaseBottomExt.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelBaseBottomExt.Location = new System.Drawing.Point(623, 0);
-            this.panelBaseBottomExt.Name = "panelBaseBottomExt";
-            this.panelBaseBottomExt.Size = new System.Drawing.Size(294, 89);
-            this.panelBaseBottomExt.TabIndex = 2;
             // 
             // FrmManageKrypton
             // 

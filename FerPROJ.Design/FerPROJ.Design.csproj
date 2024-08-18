@@ -143,23 +143,29 @@
     <Compile Include="Forms\FrmDashboard2.Designer.cs">
       <DependentUpon>FrmDashboard2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmListKrypton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmListKrypton.designer.cs">
+      <DependentUpon>FrmListKrypton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmList2.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmList2.designer.cs">
       <DependentUpon>FrmList2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmManageKrypton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmManageKrypton.designer.cs">
+      <DependentUpon>FrmManageKrypton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmManage2.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmManage2.designer.cs">
       <DependentUpon>FrmManage2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmManageKrypton.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmManageKrypton.Designer.cs">
-      <DependentUpon>FrmManageKrypton.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmReport.cs">
       <SubType>Form</SubType>
@@ -227,14 +233,17 @@
     <EmbeddedResource Include="Forms\FrmDashboard2.resx">
       <DependentUpon>FrmDashboard2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmListKrypton.resx">
+      <DependentUpon>FrmListKrypton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmList2.resx">
       <DependentUpon>FrmList2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmManage2.resx">
-      <DependentUpon>FrmManage2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmManageKrypton.resx">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmManage2.resx">
+      <DependentUpon>FrmManage2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmReport.resx">
       <DependentUpon>FrmReport.cs</DependentUpon>

@@ -1,162 +1,132 @@
 ﻿
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms
 {
     public class CPanel : Panel
     {
-        private Color shadowColor = Color.DarkGray;
-        private int shadowThickness = 20;
-        private int shadowSize = 10;
-        private bool showTopShadow = true;
-        private bool showBottomShadow = true;
-        private bool showLeftShadow = true;
-        private bool showRightShadow = true;
-        private Color backColor;
+        private Panel panel;
+        private Color borderColor = Color.MediumSlateBlue;
+        private Color borderFocusColor = Color.HotPink;
+        private int borderSize = 2;
+        private bool underlinedStyle = false;
+        private bool isFocused = false;
 
-        private Bitmap buffer; // Double buffering buffer
+        private int borderRadius = 0;
 
-        public Color PanelBackColor
-        {
-            get { return backColor; }
-            set { backColor = value; BackColor = backColor; }
+
+        public Color BorderColor {
+            get { return borderColor; }
+            set {
+                borderColor = value;
+                this.Invalidate();
+            }
         }
 
-        public Color ShadowColor
-        {
-            get { return shadowColor; }
-            set { shadowColor = value; Invalidate(); }
+        public Color BorderFocusColor {
+            get { return borderFocusColor; }
+            set { borderFocusColor = value; }
         }
 
-        public int ShadowThickness
-        {
-            get { return shadowThickness; }
-            set { shadowThickness = value; Invalidate(); }
-        }
-
-        public int ShadowSize
-        {
-            get { return shadowSize; }
-            set { shadowSize = value; Invalidate(); }
-        }
-
-        public bool ShowTopShadow
-        {
-            get { return showTopShadow; }
-            set { showTopShadow = value; Invalidate(); }
-        }
-
-        public bool ShowBottomShadow
-        {
-            get { return showBottomShadow; }
-            set { showBottomShadow = value; Invalidate(); }
-        }
-
-        public bool ShowLeftShadow
-        {
-            get { return showLeftShadow; }
-            set { showLeftShadow = value; Invalidate(); }
-        }
-
-        public bool ShowRightShadow
-        {
-            get { return showRightShadow; }
-            set { showRightShadow = value; Invalidate(); }
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            if (buffer == null || buffer.Size != ClientSize)
-            {
-                if (buffer != null)
-                {
-                    buffer.Dispose();
+        public int BorderSize {
+            get { return borderSize; }
+            set {
+                if (value >= 1) {
+                    borderSize = value;
+                    this.Invalidate();
                 }
-                buffer = new Bitmap(ClientSize.Width, ClientSize.Height);
             }
-
-            using (Graphics g = Graphics.FromImage(buffer))
-            {
-                g.Clear(BackColor);
-                DrawShadow(g);
-            }
-
-            e.Graphics.DrawImageUnscaled(buffer, Point.Empty);
         }
 
-        protected override void OnScroll(ScrollEventArgs se)
-        {
-            base.OnScroll(se);
-            Invalidate();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                buffer?.Dispose();
+        public bool UnderlinedStyle {
+            get { return underlinedStyle; }
+            set {
+                underlinedStyle = value;
+                this.Invalidate();
             }
-            base.Dispose(disposing);
         }
 
-        private void DrawShadow(Graphics g)
-        {
-            if (showLeftShadow)
+        public override Color ForeColor {
+            get { return base.ForeColor; }
+            set {
+                base.ForeColor = value;
+                panel.ForeColor = value;
+            }
+        }
+
+
+        public int BorderRadius {
+            get { return borderRadius; }
+            set {
+                if (value >= 0) {
+                    borderRadius = value;
+                    this.Invalidate();//Redraw control
+                }
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs e) {
+            base.OnPaint(e);
+            Graphics graph = e.Graphics;
+
+            if (borderRadius > 1)//Rounded TextBox
             {
-                for (int i = 1; i <= shadowSize; i++)
-                {
-                    int offset = shadowThickness + i - 1;
-                    using (Pen pen = new Pen(Color.FromArgb(30, shadowColor), shadowThickness))
+                //-Fields
+                var rectBorderSmooth = this.ClientRectangle;
+                var rectBorder = Rectangle.Inflate(rectBorderSmooth, -borderSize, -borderSize);
+                int smoothSize = borderSize > 0 ? borderSize : 1;
+
+                using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, borderRadius))
+                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
+                using (Pen penBorderSmooth = new Pen(this.Parent.BackColor, smoothSize))
+                using (Pen penBorder = new Pen(borderColor, borderSize)) {
+                    //-Drawing
+                    this.Region = new Region(pathBorderSmooth);//Set the rounded region of UserControl
+                    if (borderRadius > 15) SetTextBoxRoundedRegion();//Set the rounded region of TextBox component
+                    graph.SmoothingMode = SmoothingMode.AntiAlias;
+                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+                    if (isFocused) penBorder.Color = borderFocusColor;
+
+                    if (underlinedStyle) //Line Style
                     {
-                        g.DrawRectangle(pen, new Rectangle(
-                            ClientRectangle.Left - offset, ClientRectangle.Top,
-                            shadowThickness, Height));
+                        //Draw border smoothing
+                        graph.DrawPath(penBorderSmooth, pathBorderSmooth);
+                        //Draw border
+                        graph.SmoothingMode = SmoothingMode.None;
+                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
+                    }
+                    else //Normal Style
+                    {
+                        //Draw border smoothing
+                        graph.DrawPath(penBorderSmooth, pathBorderSmooth);
+                        //Draw border
+                        graph.DrawPath(penBorder, pathBorder);
                     }
                 }
             }
+        }
+        private void SetTextBoxRoundedRegion() {
+            GraphicsPath pathTxt;
 
-            if (showRightShadow)
-            {
-                for (int i = 1; i <= shadowSize; i++)
-                {
-                    int offset = shadowThickness + i - 1;
-                    using (Pen pen = new Pen(Color.FromArgb(30, shadowColor), shadowThickness))
-                    {
-                        g.DrawRectangle(pen, new Rectangle(
-                            ClientRectangle.Right - 1 + offset - shadowThickness, ClientRectangle.Top,
-                            shadowThickness, Height));
-                    }
-                }
-            }
 
-            if (showBottomShadow)
-            {
-                for (int i = 1; i <= shadowSize; i++)
-                {
-                    int offset = shadowThickness + i - 1;
-                    using (Pen pen = new Pen(Color.FromArgb(30, shadowColor), shadowThickness))
-                    {
-                        g.DrawRectangle(pen, new Rectangle(
-                            ClientRectangle.Left, ClientRectangle.Bottom - 1 + offset - shadowThickness,
-                            Width, shadowThickness));
-                    }
-                }
-            }
+            pathTxt = GetFigurePath(panel.ClientRectangle, borderSize * 2);
+            panel.Region = new Region(pathTxt);
 
-            if (showTopShadow)
-            {
-                for (int i = 1; i <= shadowSize; i++)
-                {
-                    int offset = shadowThickness + i - 1;
-                    using (Pen pen = new Pen(Color.FromArgb(30, shadowColor), shadowThickness))
-                    {
-                        g.DrawRectangle(pen, new Rectangle(
-                            ClientRectangle.Left, ClientRectangle.Top - offset,
-                            Width, shadowThickness));
-                    }
-                }
-            }
+            pathTxt.Dispose();
+        }
+        private GraphicsPath GetFigurePath(Rectangle rect, int radius) {
+            GraphicsPath path = new GraphicsPath();
+            float curveSize = radius * 2F;
+
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
+            path.CloseFigure();
+            return path;
         }
     }
 }

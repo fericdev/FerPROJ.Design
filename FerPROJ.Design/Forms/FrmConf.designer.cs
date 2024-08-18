@@ -65,14 +65,6 @@ namespace FerPROJ.Design.Forms
             this.customPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.customPanel1.Location = new System.Drawing.Point(5, 5);
             this.customPanel1.Name = "customPanel1";
-            this.customPanel1.PanelBackColor = System.Drawing.Color.Empty;
-            this.customPanel1.ShadowColor = System.Drawing.Color.DarkGray;
-            this.customPanel1.ShadowSize = 10;
-            this.customPanel1.ShadowThickness = 20;
-            this.customPanel1.ShowBottomShadow = true;
-            this.customPanel1.ShowLeftShadow = true;
-            this.customPanel1.ShowRightShadow = true;
-            this.customPanel1.ShowTopShadow = true;
             this.customPanel1.Size = new System.Drawing.Size(377, 448);
             this.customPanel1.TabIndex = 0;
             // 

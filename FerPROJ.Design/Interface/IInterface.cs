@@ -32,6 +32,10 @@ namespace FerPROJ.Design.Interface
         string GetNewID();
 
     }
+    public interface IEntityDataAsync<TDestination, TType> : IDisposable {
+        Task<IEnumerable<TDestination>> GetAllAsync();
+        Task<TDestination> GetByIdAsync(TType id);
+    }
     public interface IEntityLoadlist
     {
         void LoadList(DataGridView dgv, DateTime dateFrom, DateTime dateTo);

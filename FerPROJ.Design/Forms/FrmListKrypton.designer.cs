@@ -37,33 +37,33 @@ namespace FerPROJ.Design.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListKrypton));
             this.baseLbl1 = new System.Windows.Forms.Label();
             this.basePnl1 = new System.Windows.Forms.Panel();
-            this.customLabelDescMain1 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.SearchTextBox = new FerPROJ.Design.Controls.CTextBox();
             this.basePnl2 = new System.Windows.Forms.Panel();
-            this.baseButtonSelect = new FerPROJ.Design.Controls.CButton();
-            this.baseButtonCancel = new FerPROJ.Design.Controls.CButton();
             this.baseDateToDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.customLabelDescMain3 = new FerPROJ.Design.Controls.CLabelDesc();
             this.baseDateFromDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.PanelMain1 = new System.Windows.Forms.Panel();
             this.PanelMain4 = new System.Windows.Forms.Panel();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainAddItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainEditItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainViewItem = new System.Windows.Forms.ToolStripButton();
+            this.tsbMainRefresh = new System.Windows.Forms.ToolStripButton();
             this.panelMain11 = new System.Windows.Forms.Panel();
             this.PnlFormList = new System.Windows.Forms.Panel();
             this.baselabelmain12 = new System.Windows.Forms.Label();
+            this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
+            this.customLabelDescMain1 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.SearchTextBox = new FerPROJ.Design.Controls.CTextBox();
+            this.baseButtonSelect = new FerPROJ.Design.Controls.CButton();
+            this.baseButtonCancel = new FerPROJ.Design.Controls.CButton();
+            this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.customLabelDescMain3 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDescMain11 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDescMain10 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.tsbMainAddItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainEditItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainDeleteItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainViewItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainRefresh = new System.Windows.Forms.ToolStripButton();
-            this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
             this.basePnl1.SuspendLayout();
             this.basePnl2.SuspendLayout();
             this.PanelMain1.SuspendLayout();
@@ -97,41 +97,6 @@ namespace FerPROJ.Design.Forms
             this.basePnl1.Size = new System.Drawing.Size(754, 71);
             this.basePnl1.TabIndex = 1;
             // 
-            // customLabelDescMain1
-            // 
-            this.customLabelDescMain1.AutoSize = true;
-            this.customLabelDescMain1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.customLabelDescMain1.ForeColor = System.Drawing.Color.White;
-            this.customLabelDescMain1.Location = new System.Drawing.Point(15, 8);
-            this.customLabelDescMain1.Name = "customLabelDescMain1";
-            this.customLabelDescMain1.Size = new System.Drawing.Size(57, 17);
-            this.customLabelDescMain1.TabIndex = 3;
-            this.customLabelDescMain1.Text = "Search:";
-            // 
-            // SearchTextBox
-            // 
-            this.SearchTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.SearchTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SearchTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.SearchTextBox.BorderRadius = 15;
-            this.SearchTextBox.BorderSize = 2;
-            this.SearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SearchTextBox.Location = new System.Drawing.Point(75, 26);
-            this.SearchTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.SearchTextBox.Multiline = false;
-            this.SearchTextBox.Name = "SearchTextBox";
-            this.SearchTextBox.OnFocus = false;
-            this.SearchTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.SearchTextBox.PasswordChar = false;
-            this.SearchTextBox.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.SearchTextBox.PlaceholderText = "";
-            this.SearchTextBox.Size = new System.Drawing.Size(305, 31);
-            this.SearchTextBox.TabIndex = 1;
-            this.SearchTextBox.TextProperty = null;
-            this.SearchTextBox.Texts = "";
-            this.SearchTextBox.UnderlinedStyle = false;
-            // 
             // basePnl2
             // 
             this.basePnl2.Controls.Add(this.baseButtonSelect);
@@ -142,46 +107,6 @@ namespace FerPROJ.Design.Forms
             this.basePnl2.Size = new System.Drawing.Size(242, 70);
             this.basePnl2.TabIndex = 2;
             // 
-            // baseButtonSelect
-            // 
-            this.baseButtonSelect.BackColor = System.Drawing.Color.DodgerBlue;
-            this.baseButtonSelect.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.baseButtonSelect.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonSelect.BorderRadius = 20;
-            this.baseButtonSelect.BorderSize = 0;
-            this.baseButtonSelect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonSelect.FlatAppearance.BorderSize = 0;
-            this.baseButtonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonSelect.ForeColor = System.Drawing.Color.White;
-            this.baseButtonSelect.Location = new System.Drawing.Point(20, 14);
-            this.baseButtonSelect.Name = "baseButtonSelect";
-            this.baseButtonSelect.Size = new System.Drawing.Size(101, 40);
-            this.baseButtonSelect.TabIndex = 0;
-            this.baseButtonSelect.Text = "Select";
-            this.baseButtonSelect.TextColor = System.Drawing.Color.White;
-            this.baseButtonSelect.UseVisualStyleBackColor = false;
-            // 
-            // baseButtonCancel
-            // 
-            this.baseButtonCancel.BackColor = System.Drawing.Color.Crimson;
-            this.baseButtonCancel.BackgroundColor = System.Drawing.Color.Crimson;
-            this.baseButtonCancel.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonCancel.BorderRadius = 20;
-            this.baseButtonCancel.BorderSize = 0;
-            this.baseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonCancel.FlatAppearance.BorderSize = 0;
-            this.baseButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonCancel.ForeColor = System.Drawing.Color.White;
-            this.baseButtonCancel.Location = new System.Drawing.Point(127, 14);
-            this.baseButtonCancel.Name = "baseButtonCancel";
-            this.baseButtonCancel.Size = new System.Drawing.Size(101, 40);
-            this.baseButtonCancel.TabIndex = 1;
-            this.baseButtonCancel.Text = "Cancel";
-            this.baseButtonCancel.TextColor = System.Drawing.Color.White;
-            this.baseButtonCancel.UseVisualStyleBackColor = false;
-            // 
             // baseDateToDateTimePicker
             // 
             this.baseDateToDateTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -191,17 +116,7 @@ namespace FerPROJ.Design.Forms
             this.baseDateToDateTimePicker.Name = "baseDateToDateTimePicker";
             this.baseDateToDateTimePicker.Size = new System.Drawing.Size(115, 22);
             this.baseDateToDateTimePicker.TabIndex = 7;
-            // 
-            // customLabelDescMain3
-            // 
-            this.customLabelDescMain3.AutoSize = true;
-            this.customLabelDescMain3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.customLabelDescMain3.ForeColor = System.Drawing.Color.White;
-            this.customLabelDescMain3.Location = new System.Drawing.Point(131, 8);
-            this.customLabelDescMain3.Name = "customLabelDescMain3";
-            this.customLabelDescMain3.Size = new System.Drawing.Size(63, 17);
-            this.customLabelDescMain3.TabIndex = 6;
-            this.customLabelDescMain3.Text = "Date To:";
+            this.baseDateToDateTimePicker.ValueChanged += new System.EventHandler(this.baseDateFromDateTimePicker_ValueChanged);
             // 
             // baseDateFromDateTimePicker
             // 
@@ -212,17 +127,7 @@ namespace FerPROJ.Design.Forms
             this.baseDateFromDateTimePicker.Name = "baseDateFromDateTimePicker";
             this.baseDateFromDateTimePicker.Size = new System.Drawing.Size(109, 22);
             this.baseDateFromDateTimePicker.TabIndex = 5;
-            // 
-            // customLabelDescMain2
-            // 
-            this.customLabelDescMain2.AutoSize = true;
-            this.customLabelDescMain2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.customLabelDescMain2.ForeColor = System.Drawing.Color.White;
-            this.customLabelDescMain2.Location = new System.Drawing.Point(9, 8);
-            this.customLabelDescMain2.Name = "customLabelDescMain2";
-            this.customLabelDescMain2.Size = new System.Drawing.Size(78, 17);
-            this.customLabelDescMain2.TabIndex = 4;
-            this.customLabelDescMain2.Text = "Date From:";
+            this.baseDateFromDateTimePicker.ValueChanged += new System.EventHandler(this.baseDateFromDateTimePicker_ValueChanged);
             // 
             // PanelMain1
             // 
@@ -273,20 +178,66 @@ namespace FerPROJ.Design.Forms
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 41);
             // 
+            // tsbMainAddItem
+            // 
+            this.tsbMainAddItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainAddItem.Image")));
+            this.tsbMainAddItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainAddItem.Name = "tsbMainAddItem";
+            this.tsbMainAddItem.Size = new System.Drawing.Size(76, 38);
+            this.tsbMainAddItem.Text = "Add Item";
+            this.tsbMainAddItem.Click += new System.EventHandler(this.tsbMainAddItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
+            // 
+            // tsbMainEditItem
+            // 
+            this.tsbMainEditItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainEditItem.Image")));
+            this.tsbMainEditItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainEditItem.Name = "tsbMainEditItem";
+            this.tsbMainEditItem.Size = new System.Drawing.Size(74, 38);
+            this.tsbMainEditItem.Text = "Edit Item";
+            this.tsbMainEditItem.Click += new System.EventHandler(this.tsbMainEditItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 41);
             // 
+            // tsbMainDeleteItem
+            // 
+            this.tsbMainDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainDeleteItem.Image")));
+            this.tsbMainDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainDeleteItem.Name = "tsbMainDeleteItem";
+            this.tsbMainDeleteItem.Size = new System.Drawing.Size(87, 38);
+            this.tsbMainDeleteItem.Text = "Delete Item";
+            this.tsbMainDeleteItem.Click += new System.EventHandler(this.tsbMainDeleteItem_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 41);
+            // 
+            // tsbMainViewItem
+            // 
+            this.tsbMainViewItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainViewItem.Image")));
+            this.tsbMainViewItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainViewItem.Name = "tsbMainViewItem";
+            this.tsbMainViewItem.Size = new System.Drawing.Size(79, 38);
+            this.tsbMainViewItem.Text = "View Item";
+            this.tsbMainViewItem.Click += new System.EventHandler(this.tsbMainViewItem_Click);
+            // 
+            // tsbMainRefresh
+            // 
+            this.tsbMainRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbMainRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainRefresh.Image")));
+            this.tsbMainRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainRefresh.Name = "tsbMainRefresh";
+            this.tsbMainRefresh.Size = new System.Drawing.Size(71, 38);
+            this.tsbMainRefresh.Text = "Resfresh";
+            this.tsbMainRefresh.Click += new System.EventHandler(this.tsbMainRefresh_Click);
             // 
             // panelMain11
             // 
@@ -324,6 +275,116 @@ namespace FerPROJ.Design.Forms
             this.baselabelmain12.TabIndex = 3;
             this.baselabelmain12.Text = "1";
             // 
+            // pictureBoxMain1
+            // 
+            this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
+            this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxMain1.Location = new System.Drawing.Point(20, 11);
+            this.pictureBoxMain1.Name = "pictureBoxMain1";
+            this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
+            this.pictureBoxMain1.TabIndex = 0;
+            this.pictureBoxMain1.TabStop = false;
+            // 
+            // customLabelDescMain1
+            // 
+            this.customLabelDescMain1.AutoSize = true;
+            this.customLabelDescMain1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.customLabelDescMain1.ForeColor = System.Drawing.Color.White;
+            this.customLabelDescMain1.Location = new System.Drawing.Point(15, 8);
+            this.customLabelDescMain1.Name = "customLabelDescMain1";
+            this.customLabelDescMain1.Size = new System.Drawing.Size(57, 17);
+            this.customLabelDescMain1.TabIndex = 3;
+            this.customLabelDescMain1.Text = "Search:";
+            // 
+            // SearchTextBox
+            // 
+            this.SearchTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.SearchTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SearchTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.SearchTextBox.BorderRadius = 15;
+            this.SearchTextBox.BorderSize = 2;
+            this.SearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SearchTextBox.Location = new System.Drawing.Point(75, 26);
+            this.SearchTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.SearchTextBox.Multiline = false;
+            this.SearchTextBox.Name = "SearchTextBox";
+            this.SearchTextBox.OnFocus = false;
+            this.SearchTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.SearchTextBox.PasswordChar = false;
+            this.SearchTextBox.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.SearchTextBox.PlaceholderText = "";
+            this.SearchTextBox.Size = new System.Drawing.Size(305, 31);
+            this.SearchTextBox.TabIndex = 1;
+            this.SearchTextBox.TextProperty = null;
+            this.SearchTextBox.Texts = "";
+            this.SearchTextBox.UnderlinedStyle = false;
+            this.SearchTextBox._TextChanged += new System.EventHandler(this.SearchTextValue__TextChanged);
+            // 
+            // baseButtonSelect
+            // 
+            this.baseButtonSelect.BackColor = System.Drawing.Color.DodgerBlue;
+            this.baseButtonSelect.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.baseButtonSelect.BorderColor = System.Drawing.Color.Green;
+            this.baseButtonSelect.BorderRadius = 20;
+            this.baseButtonSelect.BorderSize = 0;
+            this.baseButtonSelect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.baseButtonSelect.FlatAppearance.BorderSize = 0;
+            this.baseButtonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.baseButtonSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonSelect.ForeColor = System.Drawing.Color.White;
+            this.baseButtonSelect.Location = new System.Drawing.Point(20, 14);
+            this.baseButtonSelect.Name = "baseButtonSelect";
+            this.baseButtonSelect.Size = new System.Drawing.Size(101, 40);
+            this.baseButtonSelect.TabIndex = 0;
+            this.baseButtonSelect.Text = "Select";
+            this.baseButtonSelect.TextColor = System.Drawing.Color.White;
+            this.baseButtonSelect.UseVisualStyleBackColor = false;
+            this.baseButtonSelect.Click += new System.EventHandler(this.baseButtonSelect_Click);
+            // 
+            // baseButtonCancel
+            // 
+            this.baseButtonCancel.BackColor = System.Drawing.Color.Crimson;
+            this.baseButtonCancel.BackgroundColor = System.Drawing.Color.Crimson;
+            this.baseButtonCancel.BorderColor = System.Drawing.Color.Green;
+            this.baseButtonCancel.BorderRadius = 20;
+            this.baseButtonCancel.BorderSize = 0;
+            this.baseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.baseButtonCancel.FlatAppearance.BorderSize = 0;
+            this.baseButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.baseButtonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonCancel.ForeColor = System.Drawing.Color.White;
+            this.baseButtonCancel.Location = new System.Drawing.Point(127, 14);
+            this.baseButtonCancel.Name = "baseButtonCancel";
+            this.baseButtonCancel.Size = new System.Drawing.Size(101, 40);
+            this.baseButtonCancel.TabIndex = 1;
+            this.baseButtonCancel.Text = "Cancel";
+            this.baseButtonCancel.TextColor = System.Drawing.Color.White;
+            this.baseButtonCancel.UseVisualStyleBackColor = false;
+            this.baseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
+            // 
+            // customLabelDescMain2
+            // 
+            this.customLabelDescMain2.AutoSize = true;
+            this.customLabelDescMain2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.customLabelDescMain2.ForeColor = System.Drawing.Color.White;
+            this.customLabelDescMain2.Location = new System.Drawing.Point(9, 8);
+            this.customLabelDescMain2.Name = "customLabelDescMain2";
+            this.customLabelDescMain2.Size = new System.Drawing.Size(78, 17);
+            this.customLabelDescMain2.TabIndex = 4;
+            this.customLabelDescMain2.Text = "Date From:";
+            // 
+            // customLabelDescMain3
+            // 
+            this.customLabelDescMain3.AutoSize = true;
+            this.customLabelDescMain3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.customLabelDescMain3.ForeColor = System.Drawing.Color.White;
+            this.customLabelDescMain3.Location = new System.Drawing.Point(131, 8);
+            this.customLabelDescMain3.Name = "customLabelDescMain3";
+            this.customLabelDescMain3.Size = new System.Drawing.Size(63, 17);
+            this.customLabelDescMain3.TabIndex = 6;
+            this.customLabelDescMain3.Text = "Date To:";
+            // 
             // customLabelDescMain11
             // 
             this.customLabelDescMain11.AutoSize = true;
@@ -346,57 +407,6 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain10.TabIndex = 1;
             this.customLabelDescMain10.Text = "Management Hub";
             // 
-            // tsbMainAddItem
-            // 
-            this.tsbMainAddItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainAddItem.Image")));
-            this.tsbMainAddItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainAddItem.Name = "tsbMainAddItem";
-            this.tsbMainAddItem.Size = new System.Drawing.Size(76, 38);
-            this.tsbMainAddItem.Text = "Add Item";
-            // 
-            // tsbMainEditItem
-            // 
-            this.tsbMainEditItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainEditItem.Image")));
-            this.tsbMainEditItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainEditItem.Name = "tsbMainEditItem";
-            this.tsbMainEditItem.Size = new System.Drawing.Size(74, 38);
-            this.tsbMainEditItem.Text = "Edit Item";
-            // 
-            // tsbMainDeleteItem
-            // 
-            this.tsbMainDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainDeleteItem.Image")));
-            this.tsbMainDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainDeleteItem.Name = "tsbMainDeleteItem";
-            this.tsbMainDeleteItem.Size = new System.Drawing.Size(87, 38);
-            this.tsbMainDeleteItem.Text = "Delete Item";
-            // 
-            // tsbMainViewItem
-            // 
-            this.tsbMainViewItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainViewItem.Image")));
-            this.tsbMainViewItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainViewItem.Name = "tsbMainViewItem";
-            this.tsbMainViewItem.Size = new System.Drawing.Size(79, 38);
-            this.tsbMainViewItem.Text = "View Item";
-            // 
-            // tsbMainRefresh
-            // 
-            this.tsbMainRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbMainRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainRefresh.Image")));
-            this.tsbMainRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainRefresh.Name = "tsbMainRefresh";
-            this.tsbMainRefresh.Size = new System.Drawing.Size(71, 38);
-            this.tsbMainRefresh.Text = "Resfresh";
-            // 
-            // pictureBoxMain1
-            // 
-            this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
-            this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxMain1.Location = new System.Drawing.Point(20, 11);
-            this.pictureBoxMain1.Name = "pictureBoxMain1";
-            this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
-            this.pictureBoxMain1.TabIndex = 0;
-            this.pictureBoxMain1.TabStop = false;
-            // 
             // FrmListKrypton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -412,6 +422,7 @@ namespace FerPROJ.Design.Forms
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmListMain";
+            this.Load += new System.EventHandler(this.FrmListMain_Load);
             this.basePnl1.ResumeLayout(false);
             this.basePnl1.PerformLayout();
             this.basePnl2.ResumeLayout(false);

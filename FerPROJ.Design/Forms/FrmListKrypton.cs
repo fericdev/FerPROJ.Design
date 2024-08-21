@@ -57,17 +57,16 @@ namespace FerPROJ.Design.Forms
         }
         private void ConstantShortcuts() {
             keyboardShortcuts[Keys.Escape] = CloseForm;
-            keyboardShortcuts[Keys.Enter] = SelectData;
         }
         protected virtual void InitializeKeyboardShortcuts() {
 
         }
-        private void OnKeyDown(object sender, KeyEventArgs e) {
+        private async void OnKeyDown(object sender, KeyEventArgs e) {
             if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
                 keyboardShortcuts[e.KeyCode]?.Invoke();
             } else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
                 if (boolKeyboardShortcuts[e.KeyCode]()) {
-                    RefreshData();
+                    await RefreshData();
                 }
             }
         }
@@ -76,8 +75,8 @@ namespace FerPROJ.Design.Forms
                 baseButtonSelect.Visible = false;
             }
         }
-        private void SelectData() {
-            if (GetSelectedData()) {
+        private async Task SelectData() {
+            if (await GetSelectedData()) {
                 this.Close();
             }
         }
@@ -90,79 +89,79 @@ namespace FerPROJ.Design.Forms
             CloseForm();
         }
 
-        private void baseButtonSelect_Click(object sender, EventArgs e) {
-            SelectData();
+        private async void baseButtonSelect_Click(object sender, EventArgs e) {
+            await SelectData();
         }
-        protected virtual void RefreshData() {
-
+        protected async virtual Task RefreshData() {
+            await Task.CompletedTask;
         }
 
-        private void FrmListMain_Load(object sender, EventArgs e) {
+        private async void FrmListMain_Load(object sender, EventArgs e) {
             try {
-                RefreshData();
+                await RefreshData();
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
-        private void tsbMainAddItem_Click(object sender, EventArgs e) {
+        private async void tsbMainAddItem_Click(object sender, EventArgs e) {
             try {
-                if (AddNewItem()) {
-                    RefreshData();
+                if (await AddNewItem()) {
+                    await RefreshData();
                 }
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
 
-        private void tsbMainEditItem_Click(object sender, EventArgs e) {
+        private async void tsbMainEditItem_Click(object sender, EventArgs e) {
             try {
-                if (UpdateItem()) {
-                    RefreshData();
+                if (await UpdateItem()) {
+                    await RefreshData();
                 }
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
 
-        private void tsbMainDeleteItem_Click(object sender, EventArgs e) {
+        private async void tsbMainDeleteItem_Click(object sender, EventArgs e) {
             try {
-                if (DeleteItem()) {
-                    RefreshData();
+                if (await DeleteItem()) {
+                    await RefreshData();
                 }
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
 
-        private void tsbMainViewItem_Click(object sender, EventArgs e) {
+        private async void tsbMainViewItem_Click(object sender, EventArgs e) {
             try {
-                ViewItem();
+                await ViewItem();
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
 
-        private void tsbMainRefresh_Click(object sender, EventArgs e) {
+        private async void tsbMainRefresh_Click(object sender, EventArgs e) {
             try {
-                RefreshData();
+                await RefreshData();
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
-        protected virtual bool GetSelectedData() {
-            return true;
+        protected async virtual Task<bool> GetSelectedData() {
+            return await Task.FromResult(true);
         }
-        protected virtual bool AddNewItem() {
-            return true;
+        protected async virtual Task<bool> AddNewItem() {
+            return await Task.FromResult(true);
         }
-        protected virtual bool UpdateItem() {
-            return true;
+        protected async virtual Task<bool> UpdateItem() {
+            return await Task.FromResult(true);
         }
-        protected virtual bool DeleteItem() {
-            return true;
+        protected async virtual Task<bool> DeleteItem() {
+            return await Task.FromResult(true);
         }
-        protected virtual void ViewItem() {
-
+        protected async virtual Task ViewItem() {
+            await Task.CompletedTask;
         }
         public bool HideHeader {
             get {
@@ -236,18 +235,18 @@ namespace FerPROJ.Design.Forms
             toolStripSeparator3.Visible = !hideFunction;
         }
 
-        private void SearchTextValue__TextChanged(object sender, EventArgs e) {
+        private async void SearchTextValue__TextChanged(object sender, EventArgs e) {
             searchValue = SearchTextBox.Text;
             dateFrom = baseDateFromDateTimePicker.Value;
             dateTo = baseDateToDateTimePicker.Value;
-            RefreshData();
+            await RefreshData();
         }
 
-        private void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
+        private async void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
             searchValue = SearchTextBox.Text;
             dateFrom = baseDateFromDateTimePicker.Value;
             dateTo = baseDateToDateTimePicker.Value;
-            RefreshData();
+            await RefreshData();
         }
 
         public string FormTitle {

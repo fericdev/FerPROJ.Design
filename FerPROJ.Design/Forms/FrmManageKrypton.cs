@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
+using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Forms
 {
     public partial class FrmManageKrypton : KryptonForm
     {
-        public bool CurrentFormResult { get; set; }
+        public Task<bool> CurrentFormResult { get; set; }
         public string Manage_IdTrack { get; set; }
         private FormMode _currentFormMode = FormMode.Add;
         public event EventHandler FormModeChanged;
@@ -61,7 +62,6 @@ namespace FerPROJ.Design.Forms
         }
         private void ConstantShortcuts()
         {
-            boolKeyboardShortcuts[Keys.Enter] = OnSaveData;
             keyboardShortcuts[Keys.Escape] = CloseForm;
         }
 
@@ -69,7 +69,7 @@ namespace FerPROJ.Design.Forms
         {
 
         }
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        private async void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (keyboardShortcuts.ContainsKey(e.KeyCode))
             {
@@ -79,15 +79,16 @@ namespace FerPROJ.Design.Forms
             {
                 if (boolKeyboardShortcuts[e.KeyCode]())
                 {
-                    CurrentFormResult = true;
+                    CurrentFormResult = Task.FromResult(true);
                     this.Close();
                 }
             }
             if (e.Control && e.KeyCode == Keys.Enter)
             {
-                if (OnSaveNewData())
+                var result = await OnSaveNewData();
+                if (result)
                 {
-                    CurrentFormResult = true;
+                    CurrentFormResult = Task.FromResult(true);
                 }
             }
         }
@@ -126,13 +127,14 @@ namespace FerPROJ.Design.Forms
         {
             CloseForm();
         }
-        private void btnSaveMain_Click(object sender, EventArgs e)
+        private async void btnSaveMain_Click(object sender, EventArgs e)
         {
             try
             {
-                if (OnSaveData())
+                var result = await OnSaveData();
+                if (result)
                 {
-                    CurrentFormResult = true;
+                    CurrentFormResult = Task.FromResult(true);
                     this.Close();
                 }
             }
@@ -143,13 +145,14 @@ namespace FerPROJ.Design.Forms
             }
 
         }
-        private void btnUpdateMain_Click(object sender, EventArgs e)
+        private async void btnUpdateMain_Click(object sender, EventArgs e)
         {
             try
             {
-                if (OnUpdateData())
+                var result = await OnUpdateData();
+                if (result)
                 {
-                    CurrentFormResult = true;
+                    CurrentFormResult = Task.FromResult(true);
                     this.Close();
                 }
             }
@@ -159,31 +162,31 @@ namespace FerPROJ.Design.Forms
 
             }
         }
-        protected virtual bool OnSaveData()
+        protected async virtual Task<bool> OnSaveData()
         {
-            return CurrentFormResult;
+            return await CurrentFormResult;
         }
-        protected virtual bool OnUpdateData()
+        protected async virtual Task<bool> OnUpdateData()
         {
-            return CurrentFormResult;
+            return await CurrentFormResult;
         }
-        protected virtual bool OnSaveNewData()
+        protected async virtual Task<bool> OnSaveNewData()
         {
-            return OnSaveData();
+            return await OnSaveData();
         }
-        protected virtual void LoadComponents()
+        protected async virtual Task LoadComponents()
         {
+            await Task.CompletedTask;
+        }
 
-
-        }
-
-        private void baseButtonAddNew_Click(object sender, EventArgs e)
+        private async void baseButtonAddNew_Click(object sender, EventArgs e)
         {
             try
             {
-                if (OnSaveNewData())
+                var result = await OnSaveNewData();
+                if (result)
                 {
-                    CurrentFormResult = true;
+                    CurrentFormResult = Task.FromResult(true);
                     ClearAllTextBoxes(this);
                 }
             }

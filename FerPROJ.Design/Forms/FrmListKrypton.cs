@@ -105,7 +105,8 @@ namespace FerPROJ.Design.Forms
         }
         private async void tsbMainAddItem_Click(object sender, EventArgs e) {
             try {
-                if (await AddNewItem()) {
+                var result = await AddNewItem();
+                if (result) {
                     await RefreshData();
                 }
             } catch (Exception ex) {
@@ -115,7 +116,8 @@ namespace FerPROJ.Design.Forms
 
         private async void tsbMainEditItem_Click(object sender, EventArgs e) {
             try {
-                if (await UpdateItem()) {
+                var result = await UpdateItem();
+                if (result) {
                     await RefreshData();
                 }
             } catch (Exception ex) {
@@ -125,7 +127,8 @@ namespace FerPROJ.Design.Forms
 
         private async void tsbMainDeleteItem_Click(object sender, EventArgs e) {
             try {
-                if (await DeleteItem()) {
+                var result = await DeleteItem();
+                if (result) {
                     await RefreshData();
                 }
             } catch (Exception ex) {

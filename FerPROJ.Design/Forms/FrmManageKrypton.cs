@@ -92,28 +92,28 @@ namespace FerPROJ.Design.Forms
                 }
             }
         }
-        private void FrmManageMain_FormModeChanged(object sender, EventArgs e)
+        private async void FrmManageMain_FormModeChanged(object sender, EventArgs e)
         {
             // Update button visibility based on the new CurrentFormMode
             if (CurrentFormMode == FormMode.Add)
             {
                 baseButtonSave.Visible = true;
                 baseButtonUpdate.Visible = false;
-                LoadComponents();
+                await LoadComponents();
             }
             else if (CurrentFormMode == FormMode.Update)
             {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = true;
                 baseButtonAddNew.Visible = false;
-                LoadComponents();
+                await LoadComponents();
             }
             else
             {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = false;
                 baseButtonAddNew.Visible = false;
-                LoadComponents();
+                await LoadComponents();
             }
         }
         private void CloseForm()

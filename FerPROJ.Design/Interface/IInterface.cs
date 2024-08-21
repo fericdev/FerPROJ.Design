@@ -34,6 +34,7 @@ namespace FerPROJ.Design.Interface
     }
     public interface IEntityDataAsync<TDestination, TType> : IDisposable {
         Task<IEnumerable<TDestination>> GetAllAsync();
+        Task<IEnumerable<TDestination>> GetAllAsync(string searchText = "", DateTime? dateFrom = null, DateTime? dateTo = null);
         Task<TDestination> GetByIdAsync(TType id);
     }
     public interface IEntityLoadlist

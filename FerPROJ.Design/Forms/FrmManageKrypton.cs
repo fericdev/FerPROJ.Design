@@ -120,6 +120,7 @@ namespace FerPROJ.Design.Forms
         {
             if(CShowMessage.Ask("Are you sure to close?", "Confirmation"))
             {
+                CurrentFormResult = Task.FromResult(true);
                 this.Close();
             }
         }

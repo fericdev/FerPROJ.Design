@@ -17,6 +17,8 @@ namespace FerPROJ.Design.Class
         public static string connString1;
         public static string connString2;
         public static string entityConnString { get; set; } = File.Exists(filePathEntity) ? CEnryption.Decrypt(File.ReadAllText(filePathEntity)) : defaultString;
+        public static string ActiveStatus = "ACTIVE";
+        public static string InActiveStatus = "IN-ACTIVE";
     }
     
 }

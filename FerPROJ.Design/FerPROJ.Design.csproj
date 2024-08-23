@@ -91,6 +91,7 @@
     <Compile Include="Controls\CComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CComboBoxKrypton.cs" />
     <Compile Include="Controls\CDatagridview.cs">
       <SubType>Component</SubType>
     </Compile>

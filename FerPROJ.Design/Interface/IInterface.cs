@@ -36,6 +36,7 @@ namespace FerPROJ.Design.Interface
         Task<IEnumerable<TDestination>> GetAllAsync();
         Task<IEnumerable<TDestination>> GetAllAsync(string searchText = "", DateTime? dateFrom = null, DateTime? dateTo = null);
         Task<TDestination> GetByIdAsync(TType id);
+        Task LoadComboBoxAsync(CComboBoxKrypton cmb);
     }
     public interface IEntityLoadlist
     {

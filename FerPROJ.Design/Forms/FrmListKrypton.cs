@@ -47,12 +47,12 @@ namespace FerPROJ.Design.Forms
         public FrmListKrypton() {
             InitializeComponent();
             this.DoubleBuffered = true;
-            CurrentManageMode = false;
             ManageModeChanged += FrmListMain_ManageModeChanged;
             this.KeyPreview = true;
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
+            CurrentManageMode = true;
 
         }
         private void ConstantShortcuts() {
@@ -71,8 +71,12 @@ namespace FerPROJ.Design.Forms
             }
         }
         private void FrmListMain_ManageModeChanged(object sender, EventArgs e) {
-            if (!CurrentManageMode) {
+            if (CurrentManageMode) {
                 baseButtonSelect.Visible = false;
+            }
+            else {
+                baseButtonSelect.Visible = true;
+                HideFunctionAll = true;
             }
         }
         private async Task SelectData() {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,9 @@ namespace FerPROJ.Design.Class
             return (int)Convert.ToInt64(longValue);
         }
         public static int ToInt(this string stringValue) {
-            return int.Parse(stringValue);
+            if (!string.IsNullOrEmpty(stringValue)) {
+                return int.Parse(stringValue);
+            }return 0;
         }
         public static int ToInt(this decimal decimalValue) {
             return Convert.ToInt32(decimalValue);
@@ -113,6 +116,50 @@ namespace FerPROJ.Design.Class
             }
 
             throw new InvalidCastException($"Cannot convert {value.GetType().Name} to {typeof(T).Name}");
+        }
+        public static DataTable ToDataTable<T>(this List<T> items) {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            // Get all the properties of the class T
+            PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            // Create columns in the DataTable based on the properties
+            foreach (PropertyInfo prop in properties) {
+                dataTable.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            }
+
+            // Add rows to the DataTable
+            foreach (T item in items) {
+                var values = new object[properties.Length];
+                for (int i = 0; i < properties.Length; i++) {
+                    values[i] = properties[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+
+            return dataTable;
+        }
+        public static DataTable ToDataTable<T>(this IEnumerable<T> items) {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            // Get all the properties of the class T
+            PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            // Create columns in the DataTable based on the properties
+            foreach (PropertyInfo prop in properties) {
+                dataTable.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            }
+
+            // Add rows to the DataTable
+            foreach (T item in items) {
+                var values = new object[properties.Length];
+                for (int i = 0; i < properties.Length; i++) {
+                    values[i] = properties[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+
+            return dataTable;
         }
     }
 }

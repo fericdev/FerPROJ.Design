@@ -58,8 +58,14 @@ namespace FerPROJ.Design.Forms
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
+            FormClosing += FrmManageKrypton_FormClosing;
 
         }
+
+        private void FrmManageKrypton_FormClosing(object sender, FormClosingEventArgs e) {
+            CurrentFormResult = Task.FromResult(true);
+        }
+
         private void ConstantShortcuts()
         {
             keyboardShortcuts[Keys.Escape] = CloseForm;

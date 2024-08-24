@@ -25,34 +25,34 @@ namespace FerPROJ.Design.Controls {
 
         private void InitializeButtons() {
             // Add Button
-            AddButton = new ToolStripButton("", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
+            AddButton = new ToolStripButton("Add Item", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
             AddButton.ToolTipText = "Add";
             AddButton.Name = "tsbAdd";
             AddButton.Click += (sender, e) => OnAddButtonClick();
 
             // Edit Button
-            EditButton = new ToolStripButton("", Properties.Resources.EditIcon); // Replace Properties.Resources.EditIcon with your own image
+            EditButton = new ToolStripButton("Edit Item", Properties.Resources.EditIcon); // Replace Properties.Resources.EditIcon with your own image
             EditButton.ToolTipText = "Edit";
             EditButton.Name = "tsbEdit";
             EditButton.Click += (sender, e) => OnEditButtonClick();
 
             // Delete Button
-            DeleteButton = new ToolStripButton("", Properties.Resources.CloseIcon); // Replace Properties.Resources.DeleteIcon with your own image
+            DeleteButton = new ToolStripButton("Delete Item", Properties.Resources.CloseIcon); // Replace Properties.Resources.DeleteIcon with your own image
             DeleteButton.ToolTipText = "Delete";
             DeleteButton.Name = "tsbDelete";
             DeleteButton.Click += (sender, e) => OnDeleteButtonClick();
 
             // refresh Button
-            RefreshButton = new ToolStripButton("", Properties.Resources.RefreshIcon); // Replace Properties.Resources.DeleteIcon with your own image
+            RefreshButton = new ToolStripButton("Refresh", Properties.Resources.RefreshIcon); // Replace Properties.Resources.DeleteIcon with your own image
             RefreshButton.ToolTipText = "Refresh";
             RefreshButton.Name = "tsbRefresh";
             RefreshButton.Click += (sender, e) => OnRefreshButtonClick();
 
             // Set display style to show only images
-            AddButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            EditButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            DeleteButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            RefreshButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            AddButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            EditButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            DeleteButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            RefreshButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
 
             // Set Alignment
             RefreshButton.Alignment = ToolStripItemAlignment.Right;

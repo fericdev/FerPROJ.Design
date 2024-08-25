@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FerPROJ.Design.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,20 @@ namespace FerPROJ.Design.Class
             var enumValues = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList();
             cmb.DataSource = new BindingList<TEnum>(enumValues);
         }
+        public static void FillComboBoxEnum<TEnum>(this CComboBoxKrypton cmb) where TEnum : Enum {
+            if (!typeof(TEnum).IsEnum) {
+                throw new ArgumentException("TEnum must be an enumeration type.");
+            }
+            //
+            var enumValues = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList();
+            cmb.DataSource = new BindingList<TEnum>(enumValues);
+        }
         public static void FillComboBox(this ComboBox cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {
+            cmb.DisplayMember = cmbText;
+            cmb.ValueMember = cmbValue;
+            cmb.DataSource = dataSource.ToList();
+        }
+        public static void FillComboBox(this CComboBoxKrypton cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {
             cmb.DisplayMember = cmbText;
             cmb.ValueMember = cmbValue;
             cmb.DataSource = dataSource.ToList();
@@ -42,6 +56,18 @@ namespace FerPROJ.Design.Class
         }
         public static DateTime ToDateTime(this string stringValue) {
             return Convert.ToDateTime(stringValue);
+        }
+        public static string ToTime12(this string stringValue) {
+            if (DateTime.TryParse(stringValue, out DateTime dateTime)) {
+                return dateTime.ToString("hh:mm tt"); 
+            }
+            return null;
+        }
+        public static string ToTime24(this string stringValue) {
+            if (DateTime.TryParse(stringValue, out DateTime dateTime)) {
+                return dateTime.ToString("HH:mm"); 
+            }
+            return null; 
         }
         public static decimal ToDecimal(this int intValue) { 
             return Convert.ToDecimal(intValue);

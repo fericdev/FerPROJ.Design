@@ -104,6 +104,7 @@
     <Compile Include="Controls\CLine.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CNumericUpDownKrypton.cs" />
     <Compile Include="Controls\cTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -123,6 +124,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CTextBoxKrypton.cs" />
+    <Compile Include="Controls\CTimePickerKrypton.cs" />
     <Compile Include="Controls\CToolstrip.cs">
       <SubType>Component</SubType>
     </Compile>

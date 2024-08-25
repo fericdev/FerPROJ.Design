@@ -23,16 +23,14 @@ namespace FerPROJ.Design.Controls {
         }
         private void StateIsActive() {
 
-            StateActive.ComboBox.Border.Color1 = enterColor;
-            StateActive.ComboBox.Border.Color1 = borderColor;
+            StateActive.ComboBox.Border.Color1 = Color.DarkGray;
             StateActive.ComboBox.Border.Color2 = borderColor;
             //
             StateActive.ComboBox.Border.Rounding = 10;
             StateActive.ComboBox.Content.Color1 = foreColor;
         }
         private void StateIsCommon() {
-            StateActive.ComboBox.Border.Color1 = enterColor;
-            StateActive.ComboBox.Border.Color1 = borderColor;
+            StateActive.ComboBox.Border.Color1 = Color.DarkGray;
             StateActive.ComboBox.Border.Color2 = borderColor;
             //
             StateActive.ComboBox.Border.Rounding = 10;
@@ -41,8 +39,7 @@ namespace FerPROJ.Design.Controls {
 
         private void StateIsNormal() {
             //
-            StateActive.ComboBox.Border.Color1 = enterColor;
-            StateActive.ComboBox.Border.Color1 = borderColor;
+            StateActive.ComboBox.Border.Color1 = Color.DarkGray;
             StateActive.ComboBox.Border.Color2 = borderColor;
             //
             StateActive.ComboBox.Border.Rounding = 10;

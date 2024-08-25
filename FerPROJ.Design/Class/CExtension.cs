@@ -165,25 +165,29 @@ namespace FerPROJ.Design.Class
 
             return dataTable;
         }
-        public static DataTable ToDataTable<T>(this IEnumerable<T> items) {
-            DataTable dataTable = new DataTable(typeof(T).Name);
+        public static async Task<DataTable> ToDataTable<T>(this IEnumerable<T> items) {
+            // Create a new DataTable with the name of the type T
+            var dataTable = new DataTable(typeof(T).Name);
 
-            // Get all the properties of the class T
-            PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            // Cache property info to avoid repeated reflection calls
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                      .Where(prop => prop.CanRead)  // Only consider readable properties
+                                      .ToArray();
 
             // Create columns in the DataTable based on the properties
-            foreach (PropertyInfo prop in properties) {
-                dataTable.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (var prop in properties) {
+                var columnType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                dataTable.Columns.Add(prop.Name, columnType);
             }
 
-            // Add rows to the DataTable
-            foreach (T item in items) {
-                var values = new object[properties.Length];
-                for (int i = 0; i < properties.Length; i++) {
-                    values[i] = properties[i].GetValue(item, null);
+            // Add rows to the DataTable asynchronously
+            await Task.Run(() =>
+            {
+                foreach (var item in items) {
+                    var values = properties.Select(prop => prop.GetValue(item, null)).ToArray();
+                    dataTable.Rows.Add(values);
                 }
-                dataTable.Rows.Add(values);
-            }
+            });
 
             return dataTable;
         }

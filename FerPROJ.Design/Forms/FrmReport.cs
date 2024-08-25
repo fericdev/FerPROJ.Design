@@ -14,8 +14,8 @@ namespace FerPROJ.Design.Forms {
         public FrmReport() {
             InitializeComponent();
         }
-        public void SetDataSource(ReportDocument rpt) {
-            FrmSplasherReport.ShowSplash();
+        public async Task SetDataSource(ReportDocument rpt) {
+            await FrmSplasherReport.ShowSplashAsync();
             crystalReportViewer1.ReportSource = rpt;
             FrmSplasherReport.CloseSplash();
         }

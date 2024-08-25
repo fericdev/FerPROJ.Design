@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
     public static class CReport {
-        public static void GenerateReport(ReportDocument rpt) {
+        public static async Task GenerateReport(ReportDocument rpt) {
             FrmSplasherReport.CloseSplash();
             var frm = new FrmReport();
             frm.Text = "Preview Report";
-            frm.SetDataSource(rpt);
+            await frm.SetDataSource(rpt);
             frm.Show();
         }
         public static void PrintToPrinter(ReportDocument rpt) {

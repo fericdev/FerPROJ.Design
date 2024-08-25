@@ -14,24 +14,37 @@ namespace FerPROJ.Design.Forms
     public partial class FrmSplasherReport : Form
     {
         private static FrmSplasherReport splashForm;
-        public FrmSplasherReport()
-        {
+
+        public FrmSplasherReport() {
             InitializeComponent();
+            // Enable double buffering
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
         }
-        public static void ShowSplash()
-        {
-            splashForm = new FrmSplasherReport();
-            splashForm.Show();
-            splashForm.Update();
-            Thread.Sleep(500);
+
+        public static async Task ShowSplashAsync() {
+            if (splashForm == null) {
+                splashForm = new FrmSplasherReport();
+                // Show the form asynchronously to ensure it's fully loaded
+                splashForm.Shown += async (s, e) =>
+                {
+                    await Task.Delay(500); // Optional: delay to simulate loading time
+                };
+                await Task.CompletedTask;
+                splashForm.Show();
+            }
         }
-        public static void CloseSplash()
-        {
-            if (splashForm != null)
-            {
-                splashForm.Close();
-                splashForm.Dispose();
-                splashForm = null;
+
+        public static void CloseSplash() {
+            if (splashForm != null) {
+                splashForm.Invoke((Action)(() =>
+                {
+                    splashForm.Close();
+                    splashForm.Dispose();
+                    splashForm = null;
+                }));
             }
         }
     }

@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms
 {
-    public partial class FrmSplasherReport : Form
+    public partial class FrmSplasherLoading : Form
     {
-        private static FrmSplasherReport splashForm;
+        private static FrmSplasherLoading splashForm;
 
-        public FrmSplasherReport() {
+        public FrmSplasherLoading() {
             InitializeComponent();
             // Enable double buffering
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
@@ -26,7 +26,7 @@ namespace FerPROJ.Design.Forms
 
         public static async Task ShowSplashAsync() {
             if (splashForm == null) {
-                splashForm = new FrmSplasherReport();
+                splashForm = new FrmSplasherLoading();
                 // Show the form asynchronously to ensure it's fully loaded
                 splashForm.Shown += async (s, e) =>
                 {

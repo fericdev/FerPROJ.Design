@@ -15,9 +15,11 @@ namespace FerPROJ.Design.Forms
 {
     public partial class FrmListKrypton : KryptonForm {
 
+        private Timer _debounceTimer;
         public DateTime dateFrom = DateTime.Now;
         public DateTime dateTo = DateTime.Now;
         public string searchValue;
+        public int dataLimit = 100;
         private bool _currentManageMode;
         public event EventHandler ManageModeChanged;
         public string Form_IdTrack;
@@ -46,6 +48,9 @@ namespace FerPROJ.Design.Forms
 
         public FrmListKrypton() {
             InitializeComponent();
+            _debounceTimer = new Timer();
+            _debounceTimer.Interval = 500; // Set delay to 100 milliseconds
+            _debounceTimer.Tick += _debounceTimer_Tick;
             this.DoubleBuffered = true;
             ManageModeChanged += FrmListMain_ManageModeChanged;
             this.KeyPreview = true;
@@ -55,6 +60,17 @@ namespace FerPROJ.Design.Forms
             CurrentManageMode = true;
 
         }
+
+        private async void _debounceTimer_Tick(object sender, EventArgs e) {
+            _debounceTimer.Stop(); 
+
+            searchValue = SearchTextBox.Text;
+            dateFrom = baseDateFromDateTimePicker.Value;
+            dateTo = baseDateToDateTimePicker.Value;
+
+            await AsyncRefresh();
+        }
+
         private void ConstantShortcuts() {
             keyboardShortcuts[Keys.Escape] = CloseForm;
         }
@@ -66,7 +82,7 @@ namespace FerPROJ.Design.Forms
                 keyboardShortcuts[e.KeyCode]?.Invoke();
             } else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
                 if (boolKeyboardShortcuts[e.KeyCode]()) {
-                    await RefreshData();
+                    await AsyncRefresh();
                 }
             }
         }
@@ -102,7 +118,8 @@ namespace FerPROJ.Design.Forms
 
         private async void FrmListMain_Load(object sender, EventArgs e) {
             try {
-                await RefreshData();
+                await Task.Delay(500);
+                await AsyncRefresh();
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
@@ -111,7 +128,7 @@ namespace FerPROJ.Design.Forms
             try {
                 var result = await AddNewItem();
                 if (result) {
-                    await RefreshData();
+                    await AsyncRefresh();
                 }
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
@@ -122,7 +139,7 @@ namespace FerPROJ.Design.Forms
             try {
                 var result = await UpdateItem();
                 if (result) {
-                    await RefreshData();
+                    await AsyncRefresh();
                 }
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
@@ -133,7 +150,7 @@ namespace FerPROJ.Design.Forms
             try {
                 var result = await DeleteItem();
                 if (result) {
-                    await RefreshData();
+                    await AsyncRefresh();
                 }
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
@@ -150,7 +167,7 @@ namespace FerPROJ.Design.Forms
 
         private async void tsbMainRefresh_Click(object sender, EventArgs e) {
             try {
-                await RefreshData();
+                await AsyncRefresh();
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
@@ -241,19 +258,11 @@ namespace FerPROJ.Design.Forms
             toolStripSeparator2.Visible = !hideFunction;
             toolStripSeparator3.Visible = !hideFunction;
         }
-
-        private async void SearchTextValue__TextChanged(object sender, EventArgs e) {
-            searchValue = SearchTextBox.Text;
-            dateFrom = baseDateFromDateTimePicker.Value;
-            dateTo = baseDateToDateTimePicker.Value;
-            await RefreshData();
-        }
-
         private async void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
             searchValue = SearchTextBox.Text;
             dateFrom = baseDateFromDateTimePicker.Value;
             dateTo = baseDateToDateTimePicker.Value;
-            await RefreshData();
+            await AsyncRefresh();
         }
 
         public string FormTitle {
@@ -309,6 +318,31 @@ namespace FerPROJ.Design.Forms
             set {
                 tsbMainViewItem.Text = value;
             }
+        }
+
+        private async void ComboBoxKryptonDataLimit_SelectedIndexChanged(object sender, EventArgs e) {
+            if(ComboBoxKryptonDataLimit.SelectedIndex != -1) {
+                dataLimit = ComboBoxKryptonDataLimit.Text.ToInt();
+                await AsyncRefresh();
+            }
+        }
+
+        private async Task AsyncRefresh() {
+            await Task.Delay(500);
+            if (dataLimit >= 500) {
+                await FrmSplasherLoading.ShowSplashAsync();
+                await RefreshData();
+                FrmSplasherLoading.CloseSplash();
+            }
+            else {
+                await RefreshData();
+            }
+        }
+
+        private void SearchTextBox__TextChanged(object sender, EventArgs e) {
+            // Restart the timer every time the text changes
+            _debounceTimer.Stop();
+            _debounceTimer.Start();
         }
     }
 }

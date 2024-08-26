@@ -3,7 +3,7 @@ using FerPROJ.Design.Controls;
 
 namespace FerPROJ.Design.Forms
 {
-    partial class FrmSplasherReport
+    partial class FrmSplasherLoading
     {
         /// <summary>
         /// Required designer variable.
@@ -42,32 +42,33 @@ namespace FerPROJ.Design.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 38);
+            this.panel1.Size = new System.Drawing.Size(97, 23);
             this.panel1.TabIndex = 0;
             // 
             // customLabelTitle1
             // 
+            this.customLabelTitle1.BackColor = System.Drawing.Color.Black;
             this.customLabelTitle1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customLabelTitle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customLabelTitle1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customLabelTitle1.ForeColor = System.Drawing.Color.White;
             this.customLabelTitle1.Location = new System.Drawing.Point(0, 0);
             this.customLabelTitle1.Name = "customLabelTitle1";
-            this.customLabelTitle1.Size = new System.Drawing.Size(300, 38);
+            this.customLabelTitle1.Size = new System.Drawing.Size(97, 23);
             this.customLabelTitle1.TabIndex = 0;
-            this.customLabelTitle1.Text = "Generating Report. . .  Please Wait!";
+            this.customLabelTitle1.Text = "Loading. . . ";
             this.customLabelTitle1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // FrmSplasherReport
+            // FrmSplasherLoading
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(306, 44);
+            this.ClientSize = new System.Drawing.Size(103, 29);
             this.Controls.Add(this.panel1);
             this.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.ForeColor = System.Drawing.Color.Silver;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FrmSplasherReport";
+            this.Name = "FrmSplasherLoading";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

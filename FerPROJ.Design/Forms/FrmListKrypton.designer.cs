@@ -37,7 +37,13 @@ namespace FerPROJ.Design.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListKrypton));
             this.baseLbl1 = new System.Windows.Forms.Label();
             this.basePnl1 = new System.Windows.Forms.Panel();
+            this.cLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.ComboBoxKryptonDataLimit = new FerPROJ.Design.Controls.CComboBoxKrypton();
+            this.customLabelDescMain1 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.SearchTextBox = new FerPROJ.Design.Controls.CTextBox();
             this.basePnl2 = new System.Windows.Forms.Panel();
+            this.baseButtonSelect = new FerPROJ.Design.Controls.CButton();
+            this.baseButtonCancel = new FerPROJ.Design.Controls.CButton();
             this.baseDateToDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.baseDateFromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.PanelMain1 = new System.Windows.Forms.Panel();
@@ -54,17 +60,14 @@ namespace FerPROJ.Design.Forms
             this.tsbMainRefresh = new System.Windows.Forms.ToolStripButton();
             this.panelMain11 = new System.Windows.Forms.Panel();
             this.PnlFormList = new System.Windows.Forms.Panel();
-            this.baselabelmain12 = new System.Windows.Forms.Label();
-            this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
-            this.customLabelDescMain1 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.SearchTextBox = new FerPROJ.Design.Controls.CTextBox();
-            this.baseButtonSelect = new FerPROJ.Design.Controls.CButton();
-            this.baseButtonCancel = new FerPROJ.Design.Controls.CButton();
             this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDescMain3 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.baselabelmain12 = new System.Windows.Forms.Label();
             this.customLabelDescMain11 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
             this.customLabelDescMain10 = new FerPROJ.Design.Controls.CLabelDesc();
             this.basePnl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ComboBoxKryptonDataLimit)).BeginInit();
             this.basePnl2.SuspendLayout();
             this.PanelMain1.SuspendLayout();
             this.PanelMain4.SuspendLayout();
@@ -80,13 +83,15 @@ namespace FerPROJ.Design.Forms
             this.baseLbl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.baseLbl1.Location = new System.Drawing.Point(0, 0);
             this.baseLbl1.Name = "baseLbl1";
-            this.baseLbl1.Size = new System.Drawing.Size(754, 1);
+            this.baseLbl1.Size = new System.Drawing.Size(954, 1);
             this.baseLbl1.TabIndex = 0;
             this.baseLbl1.Text = "1";
             // 
             // basePnl1
             // 
             this.basePnl1.BackColor = System.Drawing.Color.Navy;
+            this.basePnl1.Controls.Add(this.cLabelDesc1);
+            this.basePnl1.Controls.Add(this.ComboBoxKryptonDataLimit);
             this.basePnl1.Controls.Add(this.customLabelDescMain1);
             this.basePnl1.Controls.Add(this.SearchTextBox);
             this.basePnl1.Controls.Add(this.basePnl2);
@@ -94,18 +99,136 @@ namespace FerPROJ.Design.Forms
             this.basePnl1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.basePnl1.Location = new System.Drawing.Point(0, 363);
             this.basePnl1.Name = "basePnl1";
-            this.basePnl1.Size = new System.Drawing.Size(754, 71);
+            this.basePnl1.Size = new System.Drawing.Size(954, 71);
             this.basePnl1.TabIndex = 1;
+            // 
+            // cLabelDesc1
+            // 
+            this.cLabelDesc1.AutoSize = true;
+            this.cLabelDesc1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.cLabelDesc1.ForeColor = System.Drawing.Color.White;
+            this.cLabelDesc1.Location = new System.Drawing.Point(387, 8);
+            this.cLabelDesc1.Name = "cLabelDesc1";
+            this.cLabelDesc1.Size = new System.Drawing.Size(75, 17);
+            this.cLabelDesc1.TabIndex = 5;
+            this.cLabelDesc1.Text = "Data Limit:";
+            // 
+            // ComboBoxKryptonDataLimit
+            // 
+            this.ComboBoxKryptonDataLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxKryptonDataLimit.DropDownWidth = 45;
+            this.ComboBoxKryptonDataLimit.Items.AddRange(new object[] {
+            "100",
+            "200",
+            "400",
+            "500",
+            "700",
+            "1000",
+            "2000",
+            "5000",
+            "7000",
+            "10000"});
+            this.ComboBoxKryptonDataLimit.Location = new System.Drawing.Point(457, 26);
+            this.ComboBoxKryptonDataLimit.Name = "ComboBoxKryptonDataLimit";
+            this.ComboBoxKryptonDataLimit.Size = new System.Drawing.Size(56, 27);
+            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
+            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
+            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Rounding = 10;
+            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
+            this.ComboBoxKryptonDataLimit.TabIndex = 4;
+            this.ComboBoxKryptonDataLimit.Text = "100";
+            this.ComboBoxKryptonDataLimit.SelectedIndexChanged += new System.EventHandler(this.ComboBoxKryptonDataLimit_SelectedIndexChanged);
+            // 
+            // customLabelDescMain1
+            // 
+            this.customLabelDescMain1.AutoSize = true;
+            this.customLabelDescMain1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.customLabelDescMain1.ForeColor = System.Drawing.Color.White;
+            this.customLabelDescMain1.Location = new System.Drawing.Point(15, 8);
+            this.customLabelDescMain1.Name = "customLabelDescMain1";
+            this.customLabelDescMain1.Size = new System.Drawing.Size(57, 17);
+            this.customLabelDescMain1.TabIndex = 3;
+            this.customLabelDescMain1.Text = "Search:";
+            // 
+            // SearchTextBox
+            // 
+            this.SearchTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.SearchTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SearchTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.SearchTextBox.BorderRadius = 15;
+            this.SearchTextBox.BorderSize = 2;
+            this.SearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SearchTextBox.Location = new System.Drawing.Point(75, 26);
+            this.SearchTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.SearchTextBox.Multiline = false;
+            this.SearchTextBox.Name = "SearchTextBox";
+            this.SearchTextBox.OnFocus = false;
+            this.SearchTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.SearchTextBox.PasswordChar = false;
+            this.SearchTextBox.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.SearchTextBox.PlaceholderText = "";
+            this.SearchTextBox.Size = new System.Drawing.Size(305, 31);
+            this.SearchTextBox.TabIndex = 1;
+            this.SearchTextBox.TextProperty = null;
+            this.SearchTextBox.Texts = "";
+            this.SearchTextBox.UnderlinedStyle = false;
+            this.SearchTextBox._TextChanged += new System.EventHandler(this.SearchTextBox__TextChanged);
             // 
             // basePnl2
             // 
             this.basePnl2.Controls.Add(this.baseButtonSelect);
             this.basePnl2.Controls.Add(this.baseButtonCancel);
             this.basePnl2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.basePnl2.Location = new System.Drawing.Point(512, 1);
+            this.basePnl2.Location = new System.Drawing.Point(712, 1);
             this.basePnl2.Name = "basePnl2";
             this.basePnl2.Size = new System.Drawing.Size(242, 70);
             this.basePnl2.TabIndex = 2;
+            // 
+            // baseButtonSelect
+            // 
+            this.baseButtonSelect.BackColor = System.Drawing.Color.DodgerBlue;
+            this.baseButtonSelect.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.baseButtonSelect.BorderColor = System.Drawing.Color.Green;
+            this.baseButtonSelect.BorderRadius = 20;
+            this.baseButtonSelect.BorderSize = 0;
+            this.baseButtonSelect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.baseButtonSelect.FlatAppearance.BorderSize = 0;
+            this.baseButtonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.baseButtonSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonSelect.ForeColor = System.Drawing.Color.White;
+            this.baseButtonSelect.Location = new System.Drawing.Point(20, 14);
+            this.baseButtonSelect.Name = "baseButtonSelect";
+            this.baseButtonSelect.Size = new System.Drawing.Size(101, 40);
+            this.baseButtonSelect.TabIndex = 0;
+            this.baseButtonSelect.Text = "Select";
+            this.baseButtonSelect.TextColor = System.Drawing.Color.White;
+            this.baseButtonSelect.UseVisualStyleBackColor = false;
+            this.baseButtonSelect.Click += new System.EventHandler(this.baseButtonSelect_Click);
+            // 
+            // baseButtonCancel
+            // 
+            this.baseButtonCancel.BackColor = System.Drawing.Color.Crimson;
+            this.baseButtonCancel.BackgroundColor = System.Drawing.Color.Crimson;
+            this.baseButtonCancel.BorderColor = System.Drawing.Color.Green;
+            this.baseButtonCancel.BorderRadius = 20;
+            this.baseButtonCancel.BorderSize = 0;
+            this.baseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.baseButtonCancel.FlatAppearance.BorderSize = 0;
+            this.baseButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.baseButtonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.baseButtonCancel.ForeColor = System.Drawing.Color.White;
+            this.baseButtonCancel.Location = new System.Drawing.Point(127, 14);
+            this.baseButtonCancel.Name = "baseButtonCancel";
+            this.baseButtonCancel.Size = new System.Drawing.Size(101, 40);
+            this.baseButtonCancel.TabIndex = 1;
+            this.baseButtonCancel.Text = "Cancel";
+            this.baseButtonCancel.TextColor = System.Drawing.Color.White;
+            this.baseButtonCancel.UseVisualStyleBackColor = false;
+            this.baseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
             // 
             // baseDateToDateTimePicker
             // 
@@ -136,7 +259,7 @@ namespace FerPROJ.Design.Forms
             this.PanelMain1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelMain1.Location = new System.Drawing.Point(7, 7);
             this.PanelMain1.Name = "PanelMain1";
-            this.PanelMain1.Size = new System.Drawing.Size(754, 507);
+            this.PanelMain1.Size = new System.Drawing.Size(954, 507);
             this.PanelMain1.TabIndex = 2;
             // 
             // PanelMain4
@@ -147,7 +270,7 @@ namespace FerPROJ.Design.Forms
             this.PanelMain4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelMain4.Location = new System.Drawing.Point(0, 73);
             this.PanelMain4.Name = "PanelMain4";
-            this.PanelMain4.Size = new System.Drawing.Size(754, 434);
+            this.PanelMain4.Size = new System.Drawing.Size(954, 434);
             this.PanelMain4.TabIndex = 1;
             // 
             // mainToolStrip
@@ -169,7 +292,7 @@ namespace FerPROJ.Design.Forms
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Padding = new System.Windows.Forms.Padding(0);
-            this.mainToolStrip.Size = new System.Drawing.Size(754, 41);
+            this.mainToolStrip.Size = new System.Drawing.Size(954, 41);
             this.mainToolStrip.TabIndex = 4;
             this.mainToolStrip.Text = "toolStrip1";
             // 
@@ -250,7 +373,7 @@ namespace FerPROJ.Design.Forms
             this.panelMain11.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMain11.Location = new System.Drawing.Point(0, 0);
             this.panelMain11.Name = "panelMain11";
-            this.panelMain11.Size = new System.Drawing.Size(754, 73);
+            this.panelMain11.Size = new System.Drawing.Size(954, 73);
             this.panelMain11.TabIndex = 3;
             // 
             // PnlFormList
@@ -260,108 +383,10 @@ namespace FerPROJ.Design.Forms
             this.PnlFormList.Controls.Add(this.baseDateFromDateTimePicker);
             this.PnlFormList.Controls.Add(this.customLabelDescMain3);
             this.PnlFormList.Dock = System.Windows.Forms.DockStyle.Right;
-            this.PnlFormList.Location = new System.Drawing.Point(499, 0);
+            this.PnlFormList.Location = new System.Drawing.Point(699, 0);
             this.PnlFormList.Name = "PnlFormList";
             this.PnlFormList.Size = new System.Drawing.Size(255, 72);
             this.PnlFormList.TabIndex = 4;
-            // 
-            // baselabelmain12
-            // 
-            this.baselabelmain12.BackColor = System.Drawing.Color.DimGray;
-            this.baselabelmain12.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.baselabelmain12.Location = new System.Drawing.Point(0, 72);
-            this.baselabelmain12.Name = "baselabelmain12";
-            this.baselabelmain12.Size = new System.Drawing.Size(754, 1);
-            this.baselabelmain12.TabIndex = 3;
-            this.baselabelmain12.Text = "1";
-            // 
-            // pictureBoxMain1
-            // 
-            this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
-            this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxMain1.Location = new System.Drawing.Point(20, 11);
-            this.pictureBoxMain1.Name = "pictureBoxMain1";
-            this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
-            this.pictureBoxMain1.TabIndex = 0;
-            this.pictureBoxMain1.TabStop = false;
-            // 
-            // customLabelDescMain1
-            // 
-            this.customLabelDescMain1.AutoSize = true;
-            this.customLabelDescMain1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.customLabelDescMain1.ForeColor = System.Drawing.Color.White;
-            this.customLabelDescMain1.Location = new System.Drawing.Point(15, 8);
-            this.customLabelDescMain1.Name = "customLabelDescMain1";
-            this.customLabelDescMain1.Size = new System.Drawing.Size(57, 17);
-            this.customLabelDescMain1.TabIndex = 3;
-            this.customLabelDescMain1.Text = "Search:";
-            // 
-            // SearchTextBox
-            // 
-            this.SearchTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.SearchTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SearchTextBox.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.SearchTextBox.BorderRadius = 15;
-            this.SearchTextBox.BorderSize = 2;
-            this.SearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SearchTextBox.Location = new System.Drawing.Point(75, 26);
-            this.SearchTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.SearchTextBox.Multiline = false;
-            this.SearchTextBox.Name = "SearchTextBox";
-            this.SearchTextBox.OnFocus = false;
-            this.SearchTextBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.SearchTextBox.PasswordChar = false;
-            this.SearchTextBox.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.SearchTextBox.PlaceholderText = "";
-            this.SearchTextBox.Size = new System.Drawing.Size(305, 31);
-            this.SearchTextBox.TabIndex = 1;
-            this.SearchTextBox.TextProperty = null;
-            this.SearchTextBox.Texts = "";
-            this.SearchTextBox.UnderlinedStyle = false;
-            this.SearchTextBox._TextChanged += new System.EventHandler(this.SearchTextValue__TextChanged);
-            // 
-            // baseButtonSelect
-            // 
-            this.baseButtonSelect.BackColor = System.Drawing.Color.DodgerBlue;
-            this.baseButtonSelect.BackgroundColor = System.Drawing.Color.DodgerBlue;
-            this.baseButtonSelect.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonSelect.BorderRadius = 20;
-            this.baseButtonSelect.BorderSize = 0;
-            this.baseButtonSelect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonSelect.FlatAppearance.BorderSize = 0;
-            this.baseButtonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonSelect.ForeColor = System.Drawing.Color.White;
-            this.baseButtonSelect.Location = new System.Drawing.Point(20, 14);
-            this.baseButtonSelect.Name = "baseButtonSelect";
-            this.baseButtonSelect.Size = new System.Drawing.Size(101, 40);
-            this.baseButtonSelect.TabIndex = 0;
-            this.baseButtonSelect.Text = "Select";
-            this.baseButtonSelect.TextColor = System.Drawing.Color.White;
-            this.baseButtonSelect.UseVisualStyleBackColor = false;
-            this.baseButtonSelect.Click += new System.EventHandler(this.baseButtonSelect_Click);
-            // 
-            // baseButtonCancel
-            // 
-            this.baseButtonCancel.BackColor = System.Drawing.Color.Crimson;
-            this.baseButtonCancel.BackgroundColor = System.Drawing.Color.Crimson;
-            this.baseButtonCancel.BorderColor = System.Drawing.Color.Green;
-            this.baseButtonCancel.BorderRadius = 20;
-            this.baseButtonCancel.BorderSize = 0;
-            this.baseButtonCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.baseButtonCancel.FlatAppearance.BorderSize = 0;
-            this.baseButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.baseButtonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.baseButtonCancel.ForeColor = System.Drawing.Color.White;
-            this.baseButtonCancel.Location = new System.Drawing.Point(127, 14);
-            this.baseButtonCancel.Name = "baseButtonCancel";
-            this.baseButtonCancel.Size = new System.Drawing.Size(101, 40);
-            this.baseButtonCancel.TabIndex = 1;
-            this.baseButtonCancel.Text = "Cancel";
-            this.baseButtonCancel.TextColor = System.Drawing.Color.White;
-            this.baseButtonCancel.UseVisualStyleBackColor = false;
-            this.baseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
             // 
             // customLabelDescMain2
             // 
@@ -385,6 +410,16 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain3.TabIndex = 6;
             this.customLabelDescMain3.Text = "Date To:";
             // 
+            // baselabelmain12
+            // 
+            this.baselabelmain12.BackColor = System.Drawing.Color.DimGray;
+            this.baselabelmain12.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.baselabelmain12.Location = new System.Drawing.Point(0, 72);
+            this.baselabelmain12.Name = "baselabelmain12";
+            this.baselabelmain12.Size = new System.Drawing.Size(954, 1);
+            this.baselabelmain12.TabIndex = 3;
+            this.baselabelmain12.Text = "1";
+            // 
             // customLabelDescMain11
             // 
             this.customLabelDescMain11.AutoSize = true;
@@ -395,6 +430,16 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain11.Size = new System.Drawing.Size(327, 16);
             this.customLabelDescMain11.TabIndex = 2;
             this.customLabelDescMain11.Text = "Centralized control and insights for efficient operations.";
+            // 
+            // pictureBoxMain1
+            // 
+            this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
+            this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxMain1.Location = new System.Drawing.Point(20, 11);
+            this.pictureBoxMain1.Name = "pictureBoxMain1";
+            this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
+            this.pictureBoxMain1.TabIndex = 0;
+            this.pictureBoxMain1.TabStop = false;
             // 
             // customLabelDescMain10
             // 
@@ -412,7 +457,7 @@ namespace FerPROJ.Design.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Navy;
-            this.ClientSize = new System.Drawing.Size(768, 521);
+            this.ClientSize = new System.Drawing.Size(968, 521);
             this.Controls.Add(this.PanelMain1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -425,6 +470,7 @@ namespace FerPROJ.Design.Forms
             this.Load += new System.EventHandler(this.FrmListMain_Load);
             this.basePnl1.ResumeLayout(false);
             this.basePnl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ComboBoxKryptonDataLimit)).EndInit();
             this.basePnl2.ResumeLayout(false);
             this.PanelMain1.ResumeLayout(false);
             this.PanelMain4.ResumeLayout(false);
@@ -471,5 +517,7 @@ namespace FerPROJ.Design.Forms
         private Controls.CLabelDesc customLabelDescMain2;
         private System.Windows.Forms.Panel PnlFormList;
         protected System.Windows.Forms.Panel panelMain11;
+        private CLabelDesc cLabelDesc1;
+        protected CComboBoxKrypton ComboBoxKryptonDataLimit;
     }
 }

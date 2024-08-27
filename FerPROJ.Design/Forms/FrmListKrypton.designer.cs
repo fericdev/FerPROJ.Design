@@ -57,6 +57,10 @@ namespace FerPROJ.Design.Forms
             this.tsbMainDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbMainViewItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbOther1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbOther2 = new System.Windows.Forms.ToolStripButton();
             this.tsbMainRefresh = new System.Windows.Forms.ToolStripButton();
             this.panelMain11 = new System.Windows.Forms.Panel();
             this.PnlFormList = new System.Windows.Forms.Panel();
@@ -288,6 +292,10 @@ namespace FerPROJ.Design.Forms
             this.tsbMainDeleteItem,
             this.toolStripSeparator3,
             this.tsbMainViewItem,
+            this.toolStripSeparator5,
+            this.tsbOther1,
+            this.toolStripSeparator6,
+            this.tsbOther2,
             this.tsbMainRefresh});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
@@ -351,6 +359,38 @@ namespace FerPROJ.Design.Forms
             this.tsbMainViewItem.Size = new System.Drawing.Size(79, 38);
             this.tsbMainViewItem.Text = "View Item";
             this.tsbMainViewItem.Click += new System.EventHandler(this.tsbMainViewItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 41);
+            this.toolStripSeparator5.Visible = false;
+            // 
+            // tsbOther1
+            // 
+            this.tsbOther1.Image = global::FerPROJ.Design.Properties.Resources.LockIcon;
+            this.tsbOther1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOther1.Name = "tsbOther1";
+            this.tsbOther1.Size = new System.Drawing.Size(63, 38);
+            this.tsbOther1.Text = "Other1";
+            this.tsbOther1.Visible = false;
+            this.tsbOther1.Click += new System.EventHandler(this.tsbOther1_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 41);
+            this.toolStripSeparator6.Visible = false;
+            // 
+            // tsbOther2
+            // 
+            this.tsbOther2.Image = global::FerPROJ.Design.Properties.Resources.LockIcon;
+            this.tsbOther2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOther2.Name = "tsbOther2";
+            this.tsbOther2.Size = new System.Drawing.Size(63, 38);
+            this.tsbOther2.Text = "Other2";
+            this.tsbOther2.Visible = false;
+            this.tsbOther2.Click += new System.EventHandler(this.tsbOther2_Click);
             // 
             // tsbMainRefresh
             // 
@@ -519,5 +559,9 @@ namespace FerPROJ.Design.Forms
         protected System.Windows.Forms.Panel panelMain11;
         private CLabelDesc cLabelDesc1;
         protected CComboBoxKrypton ComboBoxKryptonDataLimit;
+        private System.Windows.Forms.ToolStripButton tsbOther1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton tsbOther2;
     }
 }

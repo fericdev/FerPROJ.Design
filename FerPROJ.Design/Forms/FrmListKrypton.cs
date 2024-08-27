@@ -28,6 +28,8 @@ namespace FerPROJ.Design.Forms
         private bool hideFunctionEdit;
         private bool hideFunctionDelete;
         private bool hideFunctionView;
+        private bool hideFunctionOther1 = true;
+        private bool hideFunctionOther2 = true;
         private bool hideDateSearch;
         private bool hideHeader;
         private string titleText = "Management Hub";
@@ -159,7 +161,10 @@ namespace FerPROJ.Design.Forms
 
         private async void tsbMainViewItem_Click(object sender, EventArgs e) {
             try {
-                await ViewItem();
+                var result = await ViewItem();
+                if (result) {
+                    await AsyncRefresh();
+                }
             } catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
@@ -184,8 +189,14 @@ namespace FerPROJ.Design.Forms
         protected async virtual Task<bool> DeleteItem() {
             return await Task.FromResult(true);
         }
-        protected async virtual Task ViewItem() {
-            await Task.CompletedTask;
+        protected async virtual Task<bool> ViewItem() {
+            return await Task.FromResult(true);
+        }
+        protected async virtual Task<bool> Other1() {
+            return await Task.FromResult(true);
+        }
+        protected async virtual Task<bool> Other2() {
+            return await Task.FromResult(true);
         }
         public bool HideHeader {
             get {
@@ -248,15 +259,35 @@ namespace FerPROJ.Design.Forms
                 tsbMainViewItem.Visible = !hideFunctionView;
             }
         }
+        public bool HideFunctionOther1 {
+            get { return hideFunctionOther1; }
+            set {
+                hideFunctionOther1 = value;
+                tsbOther1.Visible = !hideFunctionOther1;
+                toolStripSeparator5.Visible = !hideFunctionOther1;
+            }
+        }
+        public bool HideFunctionOther2 {
+            get { return hideFunctionOther2; }
+            set {
+                hideFunctionOther2 = value;
+                tsbOther2.Visible = !hideFunctionOther2;
+                toolStripSeparator6.Visible = !hideFunctionOther2;
+            }
+        }
 
         private void HideFunctions() {
             tsbMainAddItem.Visible = !hideFunction;
             tsbMainDeleteItem.Visible = !hideFunction;
             tsbMainEditItem.Visible = !hideFunction;
             tsbMainViewItem.Visible = !hideFunction;
+            tsbOther1.Visible = !hideFunction;
+            tsbOther2.Visible = !hideFunction;
             toolStripSeparator1.Visible = !hideFunction;
             toolStripSeparator2.Visible = !hideFunction;
             toolStripSeparator3.Visible = !hideFunction;
+            toolStripSeparator5.Visible = !hideFunction;
+            toolStripSeparator6.Visible = !hideFunction;
         }
         private async void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
             searchValue = SearchTextBox.Text;
@@ -319,6 +350,22 @@ namespace FerPROJ.Design.Forms
                 tsbMainViewItem.Text = value;
             }
         }
+        public string ButtonNameOther1 {
+            get {
+                return tsbOther1.Text;
+            }
+            set {
+                tsbOther1.Text = value;
+            }
+        }
+        public string ButtonNameOther2 {
+            get {
+                return tsbOther2.Text;
+            }
+            set {
+                tsbOther2.Text = value;
+            }
+        }
 
         private async void ComboBoxKryptonDataLimit_SelectedIndexChanged(object sender, EventArgs e) {
             if(ComboBoxKryptonDataLimit.SelectedIndex != -1) {
@@ -343,6 +390,30 @@ namespace FerPROJ.Design.Forms
             // Restart the timer every time the text changes
             _debounceTimer.Stop();
             _debounceTimer.Start();
+        }
+
+        private async void tsbOther1_Click(object sender, EventArgs e) {
+            try {
+                var result = await Other1();
+                if (result) {
+                    await AsyncRefresh();
+                }
+            }
+            catch (Exception ex) {
+                CShowMessage.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void tsbOther2_Click(object sender, EventArgs e) {
+            try {
+                var result = await Other2();
+                if (result) {
+                    await AsyncRefresh();
+                }
+            }
+            catch (Exception ex) {
+                CShowMessage.Warning(ex.Message, "Error");
+            }
         }
     }
 }

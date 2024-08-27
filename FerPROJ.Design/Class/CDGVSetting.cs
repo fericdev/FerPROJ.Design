@@ -101,6 +101,20 @@ namespace FerPROJ.Design.Class
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
+        public static void FormatBooleanColumn(this CDatagridview dgv, int columnIndex, string trueText = "Yes", string falseText = "No") {
+            // Subscribe to the CellFormatting event
+            dgv.CellFormatting += (sender, e) =>
+            {
+                // Check if the current column is the one specified by the index
+                if (e.ColumnIndex == columnIndex) {
+                    if (e.Value is bool value) {
+                        // Set the cell value to "Yes" or "No"
+                        e.Value = value ? trueText : falseText;
+                        e.FormattingApplied = true;
+                    }
+                }
+            };
+        }
 
     }
 

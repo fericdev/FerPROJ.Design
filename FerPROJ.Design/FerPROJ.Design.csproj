@@ -124,6 +124,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CTextBoxKrypton.cs" />
+    <Compile Include="Controls\CDateTimePickerKrypton.cs" />
     <Compile Include="Controls\CTimePickerKrypton.cs" />
     <Compile Include="Controls\CToolstrip.cs">
       <SubType>Component</SubType>

@@ -228,6 +228,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="json\philippine_provinces_cities_municipalities_and_barangays_2019v2.json" />
     <None Include="Resources\Custom-Icon-Design-Flatastic-9-Login.512.png" />
   </ItemGroup>
   <ItemGroup>

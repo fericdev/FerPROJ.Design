@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,23 +22,27 @@ namespace FerPROJ.Design.Controls {
         public CToolstrip() {
             InitializeButtons();
             GripStyle = ToolStripGripStyle.Hidden;
+            BackColor = Color.DarkGray;
+            Height = 35;
+            AutoSize = false;
+            GripMargin = new Padding(2, 2, 2, 2);
         }
 
         private void InitializeButtons() {
             // Add Button
-            AddButton = new ToolStripButton("Add Item", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
+            AddButton = new ToolStripButton("Add", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
             AddButton.ToolTipText = "Add";
             AddButton.Name = "tsbAdd";
             AddButton.Click += (sender, e) => OnAddButtonClick();
 
             // Edit Button
-            EditButton = new ToolStripButton("Edit Item", Properties.Resources.EditIcon); // Replace Properties.Resources.EditIcon with your own image
+            EditButton = new ToolStripButton("Edit", Properties.Resources.EditIcon); // Replace Properties.Resources.EditIcon with your own image
             EditButton.ToolTipText = "Edit";
             EditButton.Name = "tsbEdit";
             EditButton.Click += (sender, e) => OnEditButtonClick();
 
             // Delete Button
-            DeleteButton = new ToolStripButton("Delete Item", Properties.Resources.CloseIcon); // Replace Properties.Resources.DeleteIcon with your own image
+            DeleteButton = new ToolStripButton("Delete", Properties.Resources.CloseIcon); // Replace Properties.Resources.DeleteIcon with your own image
             DeleteButton.ToolTipText = "Delete";
             DeleteButton.Name = "tsbDelete";
             DeleteButton.Click += (sender, e) => OnDeleteButtonClick();

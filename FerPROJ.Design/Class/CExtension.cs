@@ -13,10 +13,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 
-namespace FerPROJ.Design.Class
-{
-    public static class CExtension
-    {
+namespace FerPROJ.Design.Class {
+    public static class CExtension {
         public static void FillComboBoxEnum<TEnum>(this ComboBox cmb) where TEnum : Enum {
             if (!typeof(TEnum).IsEnum) {
                 throw new ArgumentException("TEnum must be an enumeration type.");
@@ -59,17 +57,17 @@ namespace FerPROJ.Design.Class
         }
         public static string ToTime12(this string stringValue) {
             if (DateTime.TryParse(stringValue, out DateTime dateTime)) {
-                return dateTime.ToString("hh:mm tt"); 
+                return dateTime.ToString("hh:mm tt");
             }
             return null;
         }
         public static string ToTime24(this string stringValue) {
             if (DateTime.TryParse(stringValue, out DateTime dateTime)) {
-                return dateTime.ToString("HH:mm"); 
+                return dateTime.ToString("HH:mm");
             }
-            return null; 
+            return null;
         }
-        public static decimal ToDecimal(this int intValue) { 
+        public static decimal ToDecimal(this int intValue) {
             return Convert.ToDecimal(intValue);
         }
         public static decimal ToDecimal(this string stringValue) {
@@ -81,7 +79,8 @@ namespace FerPROJ.Design.Class
         public static int ToInt(this string stringValue) {
             if (!string.IsNullOrEmpty(stringValue)) {
                 return int.Parse(stringValue);
-            }return 0;
+            }
+            return 0;
         }
         public static int ToInt(this decimal decimalValue) {
             return Convert.ToInt32(decimalValue);
@@ -93,7 +92,7 @@ namespace FerPROJ.Design.Class
             return (TEnum)Enum.Parse(typeof(TEnum), text);
         }
         public static T To<T>(this object value) where T : struct {
-            
+
             if (value is T) {
                 return (T)value;
             }
@@ -181,8 +180,7 @@ namespace FerPROJ.Design.Class
             }
 
             // Add rows to the DataTable asynchronously
-            await Task.Run(() =>
-            {
+            await Task.Run(() => {
                 foreach (var item in items) {
                     var values = properties.Select(prop => prop.GetValue(item, null)).ToArray();
                     dataTable.Rows.Add(values);
@@ -190,6 +188,21 @@ namespace FerPROJ.Design.Class
             });
 
             return dataTable;
+        }
+        //string extensions
+        public static bool SearchFor(this string source, string searchText) {
+            if (source == null || searchText == null)
+                return false;
+
+            return source.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+        public static int GetAge(this DateTime birthDate) {
+            var currentDate = DateTime.Today;
+            int age = currentDate.Year - birthDate.Year;
+            if (birthDate > currentDate.AddYears(-age)) {
+                age--;
+            }
+            return age;
         }
     }
 }

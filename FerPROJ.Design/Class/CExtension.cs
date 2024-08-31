@@ -33,14 +33,39 @@ namespace FerPROJ.Design.Class {
             cmb.DataSource = new BindingList<TEnum>(enumValues);
         }
         public static void FillComboBox(this ComboBox cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {
+            var uniqueData = dataSource
+                .GroupBy(item => item.GetType().GetProperty(cmbText).GetValue(item))
+                .Select(group => group.First())
+                .ToList();
+
             cmb.DisplayMember = cmbText;
             cmb.ValueMember = cmbValue;
-            cmb.DataSource = dataSource.ToList();
+            cmb.DataSource = uniqueData;
         }
         public static void FillComboBox(this CComboBoxKrypton cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {
+            var uniqueData = dataSource
+                .GroupBy(item => item.GetType().GetProperty(cmbText).GetValue(item))
+                .Select(group => group.First())
+                .ToList();
+
             cmb.DisplayMember = cmbText;
             cmb.ValueMember = cmbValue;
-            cmb.DataSource = dataSource.ToList();
+            cmb.DataSource = uniqueData;
+        }
+        public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> displayValueSelector, string cmbValue, IEnumerable<T> dataSource) {
+            var uniqueData = dataSource
+                .GroupBy(displayValueSelector)
+                .Select(group => group.First())
+                .Select(item => new {
+                    Display = displayValueSelector(item),
+                    Value = item.GetType().GetProperty(cmbValue).GetValue(item),
+                    Original = item
+                })
+                .ToList();
+
+            cmb.DisplayMember = "Display";
+            cmb.ValueMember = "Value";
+            cmb.DataSource = uniqueData;
         }
         public static byte[] ToByte(this HttpPostedFileBase file) {
             if (file != null && file.ContentLength > 0) {

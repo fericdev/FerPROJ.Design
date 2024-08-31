@@ -19,6 +19,7 @@ namespace FerPROJ.Design.Controls {
             StateIsActive();
             StateIsCommon();
             StateIsNormal();
+            StateIsDisabled();
             Text = "";
         }
         private void StateIsActive() {
@@ -44,6 +45,14 @@ namespace FerPROJ.Design.Controls {
             //
             StateActive.ComboBox.Border.Rounding = 10;
             StateActive.ComboBox.Content.Color1 = foreColor;
+        }
+        private void StateIsDisabled() {
+            //
+            StateDisabled.ComboBox.Border.Color1 = Color.DarkGray;
+            StateDisabled.ComboBox.Border.Color2 = borderColor;
+            //
+            StateDisabled.ComboBox.Border.Rounding = 10;
+            StateDisabled.ComboBox.Content.Color1 = foreColor;
         }
     }
 }

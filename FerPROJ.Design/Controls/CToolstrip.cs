@@ -8,10 +8,14 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Controls {
     public class CToolstrip : ToolStrip{
-        public ToolStripButton AddButton { get; private set; }
-        public ToolStripButton EditButton { get; private set; }
-        public ToolStripButton DeleteButton { get; private set; }
-        public ToolStripButton RefreshButton { get; private set; }
+        public ToolStripButton AddButton { get; set; }
+        public ToolStripButton EditButton { get; set; }
+        public ToolStripButton DeleteButton { get; set; }
+        public ToolStripButton RefreshButton { get; set; }
+        // Separator
+        public ToolStripSeparator sAdd { get; set; } = new ToolStripSeparator();
+        public ToolStripSeparator sEdit { get; set; } = new ToolStripSeparator();
+        public ToolStripSeparator sDelete { get; set; } = new ToolStripSeparator();
 
         // Add event for the button click
         public event EventHandler AddButtonClick;
@@ -62,17 +66,12 @@ namespace FerPROJ.Design.Controls {
             // Set Alignment
             RefreshButton.Alignment = ToolStripItemAlignment.Right;
 
-            // Separator
-            ToolStripSeparator s1 = new ToolStripSeparator();
-            ToolStripSeparator s2 = new ToolStripSeparator();
-            ToolStripSeparator s3 = new ToolStripSeparator();
-
             // Add buttons to the ToolStrip
-            Items.Add(s1);
+            Items.Add(sAdd);
             Items.Add(AddButton);
-            Items.Add(s2);
+            Items.Add(sEdit);
             Items.Add(EditButton);
-            Items.Add(s3);
+            Items.Add(sDelete);
             Items.Add(DeleteButton);
             Items.Add(RefreshButton);
         }

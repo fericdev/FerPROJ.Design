@@ -39,6 +39,9 @@ namespace FerPROJ.Design.Interface
         Task<string> GetNewIDAsync();
         Task LoadComboBoxAsync(CComboBoxKrypton cmb);
     }
+    public interface IEntityDetailsAsync<TDestination> : IDisposable {
+        void UpdateDetails(ICollection<TDestination> items, string foreignKey);
+    }
     public interface IEntityViewAsync<TView> : IDisposable {
         Task<IEnumerable<TView>> GetViewAsync(string searchText = "", int dataLimit = 100, DateTime? dateFrom = null, DateTime? dateTo = null);
     }

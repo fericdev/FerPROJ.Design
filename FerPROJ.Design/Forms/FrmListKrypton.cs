@@ -35,6 +35,7 @@ namespace FerPROJ.Design.Forms
         private string titleText = "Management Hub";
         private string descText = "Centralized control and insights for efficient operations.";
         private Image formIcon = null;
+        private Image other1Icon = null;
         public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
         public bool CurrentManageMode {
@@ -316,6 +317,15 @@ namespace FerPROJ.Design.Forms
                 formIcon = value;
                 pictureBoxMain1.BackgroundImage = formIcon;
                 pictureBoxMain1.BackgroundImageLayout = ImageLayout.Zoom;
+            }
+        }
+        public Image Other1Icon {
+            get {
+                return other1Icon;
+            }
+            set {
+                other1Icon = value;
+                tsbOther1.Image = other1Icon;
             }
         }
         public string ButtonNameAdd {

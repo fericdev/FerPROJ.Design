@@ -190,6 +190,31 @@ namespace FerPROJ.Design.Class {
 
             return dataTable;
         }
+        public static async Task<DataTable> ToDataTableList<T>(this List<T> items) {
+            // Create a new DataTable with the name of the type T
+            var dataTable = new DataTable(typeof(T).Name);
+
+            // Cache property info to avoid repeated reflection calls
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                      .Where(prop => prop.CanRead)  // Only consider readable properties
+                                      .ToArray();
+
+            // Create columns in the DataTable based on the properties
+            foreach (var prop in properties) {
+                var columnType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                dataTable.Columns.Add(prop.Name, columnType);
+            }
+
+            // Add rows to the DataTable asynchronously
+            await Task.Run(() => {
+                foreach (var item in items) {
+                    var values = properties.Select(prop => prop.GetValue(item, null)).ToArray();
+                    dataTable.Rows.Add(values);
+                }
+            });
+
+            return dataTable;
+        }
         public static async Task<DataTable> ToDataTable<T>(this IEnumerable<T> items) {
             // Create a new DataTable with the name of the type T
             var dataTable = new DataTable(typeof(T).Name);
@@ -211,6 +236,30 @@ namespace FerPROJ.Design.Class {
                     var values = properties.Select(prop => prop.GetValue(item, null)).ToArray();
                     dataTable.Rows.Add(values);
                 }
+            });
+
+            return dataTable;
+        }
+        public static async Task<DataTable> ToDataTable<T>(this T item) {
+            // Create a new DataTable with the name of the type T
+            var dataTable = new DataTable(typeof(T).Name);
+
+            // Cache property info to avoid repeated reflection calls
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                      .Where(prop => prop.CanRead)  // Only consider readable properties
+                                      .ToArray();
+
+            // Create columns in the DataTable based on the properties
+            foreach (var prop in properties) {
+                var columnType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                dataTable.Columns.Add(prop.Name, columnType);
+            }
+
+            // Add a row to the DataTable asynchronously
+            await Task.Run(() =>
+            {
+                var values = properties.Select(prop => prop.GetValue(item, null)).ToArray();
+                dataTable.Rows.Add(values);
             });
 
             return dataTable;

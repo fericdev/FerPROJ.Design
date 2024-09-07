@@ -117,6 +117,72 @@ namespace FerPROJ.Design.Class {
         public static TEnum GetEnum<TEnum>(this string text) where TEnum : Enum {
             return (TEnum)Enum.Parse(typeof(TEnum), text);
         }
+        public static List<T> ToListOf<T>(this List<object> values) where T : struct {
+            List<T> result = new List<T>();
+
+            foreach (var value in values) {
+                if (value is T) {
+                    result.Add((T)value);
+                    continue;
+                }
+
+                Type targetType = typeof(T);
+
+                // Check if the target type has a public static Parse method
+                MethodInfo parseMethod = targetType.GetMethod("Parse", new[] { typeof(string) });
+                if (parseMethod != null && parseMethod.IsStatic && parseMethod.ReturnType == targetType) {
+                    result.Add((T)parseMethod.Invoke(null, new[] { value.ToString() }));
+                    continue;
+                }
+
+                // Additional conversion logic
+                if (targetType == typeof(int)) {
+                    result.Add((T)(object)int.Parse(value.ToString(), CultureInfo.InvariantCulture));
+                    continue;
+                }
+
+                if (targetType == typeof(long)) {
+                    result.Add((T)(object)long.Parse(value.ToString(), CultureInfo.InvariantCulture));
+                    continue;
+                }
+
+                if (targetType == typeof(float)) {
+                    result.Add((T)(object)float.Parse(value.ToString(), CultureInfo.InvariantCulture));
+                    continue;
+                }
+
+                if (targetType == typeof(double)) {
+                    result.Add((T)(object)double.Parse(value.ToString(), CultureInfo.InvariantCulture));
+                    continue;
+                }
+
+                if (targetType == typeof(char)) {
+                    if (value.ToString().Length == 1) {
+                        result.Add((T)(object)value.ToString()[0]);
+                        continue;
+                    }
+                }
+
+                if (targetType == typeof(Guid)) {
+                    result.Add((T)(object)Guid.Parse(value.ToString()));
+                    continue;
+                }
+
+                if (targetType == typeof(bool)) {
+                    result.Add((T)(object)bool.Parse(value.ToString()));
+                    continue;
+                }
+
+                if (targetType == typeof(string)) {
+                    result.Add((T)(object)value.ToString());
+                    continue;
+                }
+
+                throw new InvalidCastException($"Cannot convert {value.GetType().Name} to {typeof(T).Name}");
+            }
+
+            return result;
+        }
         public static T To<T>(this object value) where T : struct {
 
             if (value is T) {
@@ -256,8 +322,7 @@ namespace FerPROJ.Design.Class {
             }
 
             // Add a row to the DataTable asynchronously
-            await Task.Run(() =>
-            {
+            await Task.Run(() => {
                 var values = properties.Select(prop => prop.GetValue(item, null)).ToArray();
                 dataTable.Rows.Add(values);
             });

@@ -2,6 +2,7 @@
 using FerPROJ.Design.Controls;
 using Microsoft.Office.Interop.Word;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -26,6 +27,34 @@ namespace FerPROJ.Design.Class
             }
 
             return false;
+        }
+        public static bool GetSelectedValues(this CDatagridview dgv, int columnIndex, out List<object> values) {
+            
+            values = new List<object>();
+
+            if (dgv.SelectedRows.Count > 0) {
+                foreach (DataGridViewRow selectedRow in dgv.SelectedRows) {
+                    int rowIndex = selectedRow.Index;
+
+                    if (columnIndex >= 0 && columnIndex < dgv.Columns.Count) {
+                        DataGridViewCell cell = dgv.Rows[rowIndex].Cells[columnIndex];
+                        string cellValue = cell.Value?.ToString();
+
+                        if (!string.IsNullOrEmpty(cellValue)) {
+                            values.Add(cellValue);
+                        }
+                    }
+                }
+
+                return values.Count > 0; // Return true if at least one value is added to the list
+            }
+
+            return false;
+        }
+
+        public static bool IsMultipleSelected(this CDatagridview dgv) {
+            // Return true if more than one row is selected
+            return dgv.SelectedRows.Count > 1;
         }
         public static void SetWrapMode(this CDatagridview dgv, DataGridViewTriState state) {
             var row = dgv.RowsDefaultCellStyle;

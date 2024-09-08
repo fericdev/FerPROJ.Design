@@ -15,6 +15,7 @@ namespace FerPROJ.Design.Forms
         public string Manage_IdTrack { get; set; }
         private FormMode _currentFormMode = FormMode.Add;
         public event EventHandler FormModeChanged;
+        private bool hideFunctionOnUpdate = true;
         private bool hideFunction;
         private bool hideHeader;
         private bool hideFooter;
@@ -111,7 +112,7 @@ namespace FerPROJ.Design.Forms
             {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = true;
-                baseButtonAddNew.Visible = false;
+                baseButtonAddNew.Visible = !hideFunctionOnUpdate;
                 await LoadComponents();
             }
             else
@@ -226,6 +227,13 @@ namespace FerPROJ.Design.Forms
                 HideSaveNewFunction();
             }
         }
+        public bool HideSaveNewOnUpdate {
+            get { return hideFunctionOnUpdate; }
+            set {
+                hideFunctionOnUpdate = value;
+                HideSaveNewFunctionOnUpdate();
+            }
+        }
         public string OnSaveName
         {
             get
@@ -297,6 +305,9 @@ namespace FerPROJ.Design.Forms
                 hideFooter = value;
                 basePnl1.Visible = !hideFooter;
             }
+        }
+        private void HideSaveNewFunctionOnUpdate() {
+            baseButtonAddNew.Visible = !hideFunctionOnUpdate;
         }
         private void HideSaveNewFunction()
         {

@@ -171,6 +171,12 @@
     <Compile Include="Forms\FrmManage2.designer.cs">
       <DependentUpon>FrmManage2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmPicture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPicture.Designer.cs">
+      <DependentUpon>FrmPicture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmManage2.resx">
       <DependentUpon>FrmManage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPicture.resx">
+      <DependentUpon>FrmPicture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmReport.resx">
       <DependentUpon>FrmReport.cs</DependentUpon>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -75,8 +76,17 @@ namespace FerPROJ.Design.Class {
             }
             return null;
         }
-        public static string ToImage(this byte[] file) {
+        public static string ToImageString(this byte[] file) {
             return Convert.ToBase64String(file);
+        }
+        public static Image ToImage(this byte[] file) {
+            if (file == null || file.Length == 0) {
+                return null; // Handle null or empty byte array
+            }
+            //
+            using (MemoryStream ms = new MemoryStream(file)) {
+                return Image.FromStream(ms);
+            }
         }
         public static DateTime ToDateTime(this string stringValue) {
             return Convert.ToDateTime(stringValue);

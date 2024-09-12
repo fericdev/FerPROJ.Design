@@ -44,6 +44,8 @@ namespace FerPROJ.Design.Class
             }
         }
         public bool Success => string.IsNullOrEmpty(Error);
+        public string ErrorMessage { get; set; }
+        public StringBuilder ErrorMessages { get; set; } = new StringBuilder();
         public abstract bool DataValidation();
     }
 }

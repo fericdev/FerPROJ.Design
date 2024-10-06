@@ -17,7 +17,7 @@ namespace FerPROJ.Design.Forms
         private static FrmSplasher instance; // Singleton instance
         public FrmSplasher() {
             InitializeComponent();
-            systemVersionLbl.Text = CStaticVariable.Version.ToString();
+            systemVersionLbl.Text = CAssembly.SystemVersion;
         }
         public void SetLoadingPerc(int perc) {
             pbLoadingPercent.Value = perc;

@@ -33,7 +33,7 @@ namespace FerPROJ.Design.Forms {
             lblMainUserValue.Text = CStaticVariable.Username;
             lblMainDateValue.Text = CGet.CurrentDate();
             lblMainTimeValue.Text = CGet.CurrentTime();
-            lblMainVersionValue.Text = CStaticVariable.Version;
+            lblMainVersionValue.Text = CAssembly.SystemVersion;
         }
     }
 }

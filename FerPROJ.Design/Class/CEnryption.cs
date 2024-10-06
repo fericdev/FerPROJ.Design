@@ -11,9 +11,9 @@ namespace FerPROJ.Design.Class
     public class CEnryption
     {
 
-        private static string GetKey()
+        private static string GetKey(string privateKey = null)
         {
-            string text = "FerPROJ";
+            string text = privateKey ?? "FerPROJ";
             byte[] textBytes = Encoding.UTF8.GetBytes(text);
 
             using (MD5 md5 = MD5.Create())
@@ -23,11 +23,11 @@ namespace FerPROJ.Design.Class
                 return hashHex;
             }
         }
-        public static string Encrypt(string plainText)
+        public static string Encrypt(string plainText, string privateKey = null)
         {
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Encoding.UTF8.GetBytes(GetKey());
+                aesAlg.Key = Encoding.UTF8.GetBytes(GetKey(privateKey));
                 aesAlg.IV = new byte[aesAlg.BlockSize / 8]; // IV (Initialization Vector) can be random
 
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -46,11 +46,11 @@ namespace FerPROJ.Design.Class
             }
         }
 
-        public static string Decrypt(string cipherText)
+        public static string Decrypt(string cipherText, string privateKey = null)
         {
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Encoding.UTF8.GetBytes(GetKey());
+                aesAlg.Key = Encoding.UTF8.GetBytes(GetKey(privateKey));
                 aesAlg.IV = new byte[aesAlg.BlockSize / 8];
 
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);

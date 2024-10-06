@@ -26,6 +26,9 @@ namespace FerPROJ.Design.Forms
         private string titleText = "Management Hub";
         private string descText = "Centralized control and insights for efficient operations.";
         private Image formIcon = null;
+        /// <summary>
+        /// Usage: keyboardShortcuts[Keys.F1] = Function Name;
+        /// </summary>
         public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
 

@@ -151,7 +151,7 @@ namespace FerPROJ.Design.Forms
             }
             catch (Exception ex)
             {
-                CShowMessage.Warning(ex.Message, "Error");
+                CShowMessage.Warning(ex.Message);
 
             }
 
@@ -169,7 +169,7 @@ namespace FerPROJ.Design.Forms
             }
             catch (Exception ex)
             {
-                CShowMessage.Warning(ex.Message, "Error");
+                CShowMessage.Warning(ex.Message);
 
             }
         }
@@ -203,7 +203,7 @@ namespace FerPROJ.Design.Forms
             }
             catch (Exception ex)
             {
-                CShowMessage.Warning(ex.Message, "Error");
+                CShowMessage.Warning(ex.Message);
 
             }
         }

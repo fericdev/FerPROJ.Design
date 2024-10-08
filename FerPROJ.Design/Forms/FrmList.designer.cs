@@ -118,7 +118,7 @@ namespace FerPROJ.Design.Forms
             this.SearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.SearchTextBox.Location = new System.Drawing.Point(75, 26);
-            this.SearchTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.SearchTextBox.Multiline = false;
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.OnFocus = false;
@@ -131,6 +131,7 @@ namespace FerPROJ.Design.Forms
             this.SearchTextBox.TextProperty = null;
             this.SearchTextBox.Texts = "";
             this.SearchTextBox.UnderlinedStyle = false;
+            this.SearchTextBox._TextChanged += new System.EventHandler(this.SearchTextValue__TextChanged);
             // 
             // basePnl2
             // 
@@ -161,6 +162,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonSelect.Text = "Select";
             this.baseButtonSelect.TextColor = System.Drawing.Color.White;
             this.baseButtonSelect.UseVisualStyleBackColor = false;
+            this.baseButtonSelect.Click += new System.EventHandler(this.baseButtonSelect_Click);
             // 
             // baseButtonCancel
             // 
@@ -181,6 +183,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonCancel.Text = "Cancel";
             this.baseButtonCancel.TextColor = System.Drawing.Color.White;
             this.baseButtonCancel.UseVisualStyleBackColor = false;
+            this.baseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);
             // 
             // baseDateToDateTimePicker
             // 
@@ -191,6 +194,7 @@ namespace FerPROJ.Design.Forms
             this.baseDateToDateTimePicker.Name = "baseDateToDateTimePicker";
             this.baseDateToDateTimePicker.Size = new System.Drawing.Size(115, 22);
             this.baseDateToDateTimePicker.TabIndex = 7;
+            this.baseDateToDateTimePicker.ValueChanged += new System.EventHandler(this.baseDateFromDateTimePicker_ValueChanged);
             // 
             // customLabelDescMain3
             // 
@@ -212,6 +216,7 @@ namespace FerPROJ.Design.Forms
             this.baseDateFromDateTimePicker.Name = "baseDateFromDateTimePicker";
             this.baseDateFromDateTimePicker.Size = new System.Drawing.Size(109, 22);
             this.baseDateFromDateTimePicker.TabIndex = 5;
+            this.baseDateFromDateTimePicker.ValueChanged += new System.EventHandler(this.baseDateFromDateTimePicker_ValueChanged);
             // 
             // customLabelDescMain2
             // 
@@ -280,6 +285,7 @@ namespace FerPROJ.Design.Forms
             this.tsbMainAddItem.Name = "tsbMainAddItem";
             this.tsbMainAddItem.Size = new System.Drawing.Size(75, 38);
             this.tsbMainAddItem.Text = "Add Item";
+            this.tsbMainAddItem.Click += new System.EventHandler(this.tsbMainAddItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -293,6 +299,7 @@ namespace FerPROJ.Design.Forms
             this.tsbMainEditItem.Name = "tsbMainEditItem";
             this.tsbMainEditItem.Size = new System.Drawing.Size(75, 38);
             this.tsbMainEditItem.Text = "Edit Item";
+            this.tsbMainEditItem.Click += new System.EventHandler(this.tsbMainEditItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -306,6 +313,7 @@ namespace FerPROJ.Design.Forms
             this.tsbMainDeleteItem.Name = "tsbMainDeleteItem";
             this.tsbMainDeleteItem.Size = new System.Drawing.Size(90, 38);
             this.tsbMainDeleteItem.Text = "Delete Item";
+            this.tsbMainDeleteItem.Click += new System.EventHandler(this.tsbMainDeleteItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -319,6 +327,7 @@ namespace FerPROJ.Design.Forms
             this.tsbMainViewItem.Name = "tsbMainViewItem";
             this.tsbMainViewItem.Size = new System.Drawing.Size(80, 38);
             this.tsbMainViewItem.Text = "View Item";
+            this.tsbMainViewItem.Click += new System.EventHandler(this.tsbMainViewItem_Click);
             // 
             // tsbMainRefresh
             // 
@@ -328,6 +337,7 @@ namespace FerPROJ.Design.Forms
             this.tsbMainRefresh.Name = "tsbMainRefresh";
             this.tsbMainRefresh.Size = new System.Drawing.Size(76, 38);
             this.tsbMainRefresh.Text = "Resfresh";
+            this.tsbMainRefresh.Click += new System.EventHandler(this.tsbMainRefresh_Click);
             // 
             // panelMain11
             // 
@@ -408,10 +418,11 @@ namespace FerPROJ.Design.Forms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmList";
-            this.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.Padding = new System.Windows.Forms.Padding(7);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmListMain";
+            this.Load += new System.EventHandler(this.FrmListMain_Load);
             this.basePnl1.ResumeLayout(false);
             this.basePnl1.PerformLayout();
             this.basePnl2.ResumeLayout(false);

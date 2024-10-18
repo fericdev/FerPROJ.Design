@@ -144,6 +144,40 @@ namespace FerPROJ.Design.Class
                 }
             };
         }
+        public static void FormatImageColumn(this DataGridView dgv, int columnIndex, int imageWidth = 50, int imageHeight = 50) {
+            // Set the column type to DataGridViewImageColumn
+            if (dgv.Columns[columnIndex] is DataGridViewImageColumn) {
+                // Set the ImageLayout to Zoom to ensure images are resized properly in cells
+                ((DataGridViewImageColumn)dgv.Columns[columnIndex]).ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+                // Subscribe to the CellFormatting event to resize the image
+                dgv.CellFormatting += (sender, e) =>
+                {
+                    // Check if the current column is the one specified by the index and if the value is an image
+                    if (e.ColumnIndex == columnIndex && e.Value is Image img) {
+                        // Resize the image to the specified width and height
+                        var resizedImage = new Bitmap(img, new Size(imageWidth, imageHeight));
+
+                        // Set the resized image as the cell's value
+                        e.Value = resizedImage;
+                        e.FormattingApplied = true;
+                    }
+                };
+
+                // Explicitly set the row height for each row, including the first
+                // Adjust the height to fit the image with some padding
+                foreach (DataGridViewRow row in dgv.Rows) {
+                    row.Height = imageHeight + 5; // Set the height for each row
+                }
+                dgv.RowTemplate.Height = imageHeight + 5;
+            }
+            else {
+                throw new ArgumentException("The specified column is not an image column.");
+            }
+        }
+
+
+
 
     }
 

@@ -354,5 +354,11 @@ namespace FerPROJ.Design.Class {
             }
             return age;
         }
+        public static bool DateFrom(this DateTime? date, DateTime? dateFrom) {
+            return date?.Date >= dateFrom?.Date;
+        }
+        public static bool DateTo(this DateTime? date, DateTime? dateTo) {
+            return date?.Date <= dateTo?.Date;
+        }
     }
 }

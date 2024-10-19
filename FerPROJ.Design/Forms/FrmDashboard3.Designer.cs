@@ -1,5 +1,5 @@
 ﻿namespace FerPROJ.Design.Forms {
-    partial class FrmDashboard2 {
+    partial class FrmDashboard3 {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,9 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.pnlMainTop = new System.Windows.Forms.Panel();
             this.pnlMainBot = new System.Windows.Forms.Panel();
-            this.mainTimer = new System.Windows.Forms.Timer(this.components);
             this.lblMainVersionValue = new FerPROJ.Design.Controls.CLabelDesc();
             this.lblMainTimeValue = new FerPROJ.Design.Controls.CLabelDesc();
             this.lblMainTime = new FerPROJ.Design.Controls.CLabelDesc();
@@ -35,18 +33,10 @@
             this.lblMainDate = new FerPROJ.Design.Controls.CLabelDesc();
             this.lblMainUserValue = new FerPROJ.Design.Controls.CLabelDesc();
             this.lblMainUser = new FerPROJ.Design.Controls.CLabelDesc();
+            this.pnlMainTop = new System.Windows.Forms.Panel();
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.pnlMainBot.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlMainTop
-            // 
-            this.pnlMainTop.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.pnlMainTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlMainTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlMainTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlMainTop.Name = "pnlMainTop";
-            this.pnlMainTop.Size = new System.Drawing.Size(1217, 96);
-            this.pnlMainTop.TabIndex = 0;
             // 
             // pnlMainBot
             // 
@@ -61,14 +51,10 @@
             this.pnlMainBot.Controls.Add(this.lblMainUserValue);
             this.pnlMainBot.Controls.Add(this.lblMainUser);
             this.pnlMainBot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlMainBot.Location = new System.Drawing.Point(0, 657);
+            this.pnlMainBot.Location = new System.Drawing.Point(0, 722);
             this.pnlMainBot.Name = "pnlMainBot";
-            this.pnlMainBot.Size = new System.Drawing.Size(1217, 30);
-            this.pnlMainBot.TabIndex = 1;
-            // 
-            // mainTimer
-            // 
-            this.mainTimer.Tick += new System.EventHandler(this.mainTimer_Tick);
+            this.pnlMainBot.Size = new System.Drawing.Size(1253, 30);
+            this.pnlMainBot.TabIndex = 2;
             // 
             // lblMainVersionValue
             // 
@@ -88,7 +74,7 @@
             this.lblMainTimeValue.AutoSize = true;
             this.lblMainTimeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lblMainTimeValue.ForeColor = System.Drawing.Color.White;
-            this.lblMainTimeValue.Location = new System.Drawing.Point(1109, 3);
+            this.lblMainTimeValue.Location = new System.Drawing.Point(1145, 3);
             this.lblMainTimeValue.Name = "lblMainTimeValue";
             this.lblMainTimeValue.Size = new System.Drawing.Size(18, 17);
             this.lblMainTimeValue.TabIndex = 5;
@@ -100,7 +86,7 @@
             this.lblMainTime.AutoSize = true;
             this.lblMainTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lblMainTime.ForeColor = System.Drawing.Color.White;
-            this.lblMainTime.Location = new System.Drawing.Point(1061, 3);
+            this.lblMainTime.Location = new System.Drawing.Point(1097, 3);
             this.lblMainTime.Name = "lblMainTime";
             this.lblMainTime.Size = new System.Drawing.Size(43, 17);
             this.lblMainTime.TabIndex = 4;
@@ -124,7 +110,7 @@
             this.lblMainDateValue.AutoSize = true;
             this.lblMainDateValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lblMainDateValue.ForeColor = System.Drawing.Color.White;
-            this.lblMainDateValue.Location = new System.Drawing.Point(867, 3);
+            this.lblMainDateValue.Location = new System.Drawing.Point(903, 3);
             this.lblMainDateValue.Name = "lblMainDateValue";
             this.lblMainDateValue.Size = new System.Drawing.Size(18, 17);
             this.lblMainDateValue.TabIndex = 3;
@@ -136,7 +122,7 @@
             this.lblMainDate.AutoSize = true;
             this.lblMainDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lblMainDate.ForeColor = System.Drawing.Color.White;
-            this.lblMainDate.Location = new System.Drawing.Point(819, 3);
+            this.lblMainDate.Location = new System.Drawing.Point(855, 3);
             this.lblMainDate.Name = "lblMainDate";
             this.lblMainDate.Size = new System.Drawing.Size(42, 17);
             this.lblMainDate.TabIndex = 2;
@@ -166,18 +152,31 @@
             this.lblMainUser.TabIndex = 0;
             this.lblMainUser.Text = "Username:";
             // 
-            // FrmDashboard2
+            // pnlMainTop
+            // 
+            this.pnlMainTop.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.pnlMainTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlMainTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMainTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlMainTop.Name = "pnlMainTop";
+            this.pnlMainTop.Size = new System.Drawing.Size(1253, 96);
+            this.pnlMainTop.TabIndex = 3;
+            // 
+            // timerMain
+            // 
+            this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
+            // 
+            // FrmDashboard3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1217, 687);
-            this.Controls.Add(this.pnlMainBot);
+            this.ClientSize = new System.Drawing.Size(1253, 752);
             this.Controls.Add(this.pnlMainTop);
-            this.Name = "FrmDashboard2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmDashboard2";
+            this.Controls.Add(this.pnlMainBot);
+            this.Name = "FrmDashboard3";
+            this.Text = "FrmDashboard3";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.FrmDashboard2_Load);
+            this.Load += new System.EventHandler(this.FrmDashboard3_Load);
             this.pnlMainBot.ResumeLayout(false);
             this.pnlMainBot.PerformLayout();
             this.ResumeLayout(false);
@@ -185,16 +184,16 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel pnlMainBot;
-        private Controls.CLabelDesc lblMainUser;
-        private Controls.CLabelDesc lblMainUserValue;
+        private Controls.CLabelDesc lblMainVersionValue;
         private Controls.CLabelDesc lblMainTimeValue;
         private Controls.CLabelDesc lblMainTime;
+        private Controls.CLabelDesc lblMainVersion;
         private Controls.CLabelDesc lblMainDateValue;
         private Controls.CLabelDesc lblMainDate;
-        private Controls.CLabelDesc lblMainVersionValue;
-        private Controls.CLabelDesc lblMainVersion;
+        private Controls.CLabelDesc lblMainUserValue;
+        private Controls.CLabelDesc lblMainUser;
         protected System.Windows.Forms.Panel pnlMainTop;
-        private System.Windows.Forms.Timer mainTimer;
+        protected System.Windows.Forms.Panel pnlMainBot;
+        private System.Windows.Forms.Timer timerMain;
     }
 }

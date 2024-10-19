@@ -20,11 +20,10 @@ namespace FerPROJ.Design.Class
             CREDIT,
             PREPAID
         }
-        public enum UserLevel
+        public enum UserLevelSchool
         {
             Administrator,
-            Secretary,
-            Client
+            Teacher
         }
         public enum Sort {
             DESC,

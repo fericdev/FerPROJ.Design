@@ -16,8 +16,8 @@ namespace FerPROJ.Design.Forms
     public partial class FrmListKrypton : KryptonForm {
 
         private Timer _debounceTimer;
-        public DateTime dateFrom = DateTime.Now;
-        public DateTime dateTo = DateTime.Now;
+        public DateTime? dateFrom = null;
+        public DateTime? dateTo = null;
         public string searchValue;
         public int dataLimit = 100;
         private bool _currentManageMode;

@@ -229,7 +229,7 @@ namespace FerPROJ.Design.Forms
             this.baseButtonCancel.Name = "baseButtonCancel";
             this.baseButtonCancel.Size = new System.Drawing.Size(101, 40);
             this.baseButtonCancel.TabIndex = 1;
-            this.baseButtonCancel.Text = "Cancel";
+            this.baseButtonCancel.Text = "Close";
             this.baseButtonCancel.TextColor = System.Drawing.Color.White;
             this.baseButtonCancel.UseVisualStyleBackColor = false;
             this.baseButtonCancel.Click += new System.EventHandler(this.baseButtonCancel_Click);

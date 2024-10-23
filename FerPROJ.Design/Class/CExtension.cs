@@ -346,6 +346,15 @@ namespace FerPROJ.Design.Class {
 
             return source.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0;
         }
+        public static bool SearchFor(this string[] source, string searchText) {
+            // Check for null or empty source array and null search text
+            if (source == null || source.Length == 0 || string.IsNullOrWhiteSpace(searchText))
+                return false;
+
+            // Use LINQ to check for a match
+            return source.Any(s => s.Trim().Equals(searchText.Trim(), StringComparison.OrdinalIgnoreCase));
+        }
+
         public static int GetAge(this DateTime birthDate) {
             var currentDate = DateTime.Today;
             int age = currentDate.Year - birthDate.Year;
@@ -366,5 +375,6 @@ namespace FerPROJ.Design.Class {
         public static bool DateTo(this DateTime date, DateTime? dateTo) {
             return date.Date <= dateTo?.Date;
         }
+
     }
 }

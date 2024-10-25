@@ -33,5 +33,23 @@ namespace FerPROJ.Design.Class
             ACTIVE,
             CANCELLED
         }
+        public enum AddressType {
+            Primary,
+            Secondary,
+        }
+        public enum PurokType {
+            Uno,
+            Dos,
+            Tres,
+            Kwatro,
+            Singko,
+            Says,
+            Syite,
+            Utso,
+            Nuwebi,
+            Dyes,
+            Unsi,
+            Dosi
+        }
     }
 }

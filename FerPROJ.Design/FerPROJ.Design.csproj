@@ -269,11 +269,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UC\UCMenuMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCMenuMain.Designer.cs">
+      <DependentUpon>UCMenuMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC\UCReportMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UC\UCReportMain.Designer.cs">
       <DependentUpon>UCReportMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UCTaskSidebarMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCTaskSidebarMain.Designer.cs">
+      <DependentUpon>UCTaskSidebarMain.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -344,8 +356,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCMenuMain.resx">
+      <DependentUpon>UCMenuMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UC\UCReportMain.resx">
       <DependentUpon>UCReportMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCTaskSidebarMain.resx">
+      <DependentUpon>UCTaskSidebarMain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

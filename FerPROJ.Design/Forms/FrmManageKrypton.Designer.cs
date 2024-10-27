@@ -252,6 +252,7 @@ namespace FerPROJ.Design.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Navy;
             this.ClientSize = new System.Drawing.Size(648, 441);
+            this.ControlBox = false;
             this.Controls.Add(this.basePanelMain);
             this.Controls.Add(this.basePnl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -68,6 +68,14 @@ namespace FerPROJ.Design.Class {
             cmb.ValueMember = "Value";
             cmb.DataSource = uniqueData;
         }
+        public static TEnum ToEnum<TEnum>(this string value, bool ignoreCase = true) where TEnum : struct, Enum {
+            if (Enum.TryParse(value, ignoreCase, out TEnum result)) {
+                return result;
+            }
+            throw new ArgumentException($"Cannot convert '{value}' to {typeof(TEnum).Name}");
+        }
+
+        //
         public static byte[] ToByte(this HttpPostedFileBase file) {
             if (file != null && file.ContentLength > 0) {
                 using (var binaryReader = new BinaryReader(file.InputStream)) {

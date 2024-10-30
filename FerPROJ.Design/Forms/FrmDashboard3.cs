@@ -13,8 +13,13 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmDashboard3 : KryptonForm {
+        public ToolStrip ParentToolStrip {  get; set; }
+        public ToolStripDropDownButton ParentToolStripDropDown {  get; set; }
         public FrmDashboard3() {
             InitializeComponent();
+            ParentToolStrip = tsMainSettings;
+            ParentToolStripDropDown = tsMainDropDown;
+            InitializeToolStripButtons();
         }
 
         private void FrmDashboard3_Load(object sender, EventArgs e) {
@@ -29,6 +34,10 @@ namespace FerPROJ.Design.Forms {
             }
         }
         protected virtual void LoadComponent() {
+
+        }
+        protected virtual void InitializeToolStripButtons() {
+
         }
 
         private void timerMain_Tick(object sender, EventArgs e) {

@@ -402,5 +402,11 @@
   <ItemGroup>
     <None Include="Resources\EditIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-notes.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -35,7 +35,10 @@
             this.lblMainUser = new FerPROJ.Design.Controls.CLabelDesc();
             this.pnlMainTop = new System.Windows.Forms.Panel();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
+            this.tsMainSettings = new System.Windows.Forms.ToolStrip();
+            this.tsMainDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.pnlMainBot.SuspendLayout();
+            this.tsMainSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMainBot
@@ -166,11 +169,33 @@
             // 
             this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             // 
+            // tsMainSettings
+            // 
+            this.tsMainSettings.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolTip;
+            this.tsMainSettings.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tsMainSettings.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tsMainSettings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsMainDropDown});
+            this.tsMainSettings.Location = new System.Drawing.Point(0, 96);
+            this.tsMainSettings.Name = "tsMainSettings";
+            this.tsMainSettings.Size = new System.Drawing.Size(1253, 25);
+            this.tsMainSettings.TabIndex = 4;
+            this.tsMainSettings.Text = "toolStrip1";
+            // 
+            // tsMainDropDown
+            // 
+            this.tsMainDropDown.Image = global::FerPROJ.Design.Properties.Resources.icon_settings;
+            this.tsMainDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsMainDropDown.Name = "tsMainDropDown";
+            this.tsMainDropDown.Size = new System.Drawing.Size(119, 22);
+            this.tsMainDropDown.Text = "System Settings";
+            // 
             // FrmDashboard3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1253, 752);
+            this.Controls.Add(this.tsMainSettings);
             this.Controls.Add(this.pnlMainTop);
             this.Controls.Add(this.pnlMainBot);
             this.Name = "FrmDashboard3";
@@ -179,7 +204,10 @@
             this.Load += new System.EventHandler(this.FrmDashboard3_Load);
             this.pnlMainBot.ResumeLayout(false);
             this.pnlMainBot.PerformLayout();
+            this.tsMainSettings.ResumeLayout(false);
+            this.tsMainSettings.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -195,5 +223,7 @@
         protected System.Windows.Forms.Panel pnlMainTop;
         protected System.Windows.Forms.Panel pnlMainBot;
         private System.Windows.Forms.Timer timerMain;
+        public System.Windows.Forms.ToolStrip tsMainSettings;
+        private System.Windows.Forms.ToolStripDropDownButton tsMainDropDown;
     }
 }

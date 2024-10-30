@@ -306,5 +306,19 @@ namespace FerPROJ.DBHelper.Class {
             }
             return columns;
         }
+        public static string GetEnvironmentPath(string fileName, params string[] folders) {
+            // Combine the base directory with the folder hierarchy and filename
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(folders), fileName);
+
+            // Check if the file exists
+            return File.Exists(path) ? path : null;
+        }
+        public static Image GetEnvironmentPathImage(string fileName, params string[] folders) {
+            // Combine the base directory with the folder hierarchy and filename
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(folders), fileName);
+
+            // Check if the file exists
+            return Image.FromFile(path);
+        }
     }
 }

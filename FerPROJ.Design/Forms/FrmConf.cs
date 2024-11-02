@@ -12,18 +12,6 @@ namespace FerPROJ.Design.Forms
 {
     public partial class FrmConf : Form
     {
-
-        private string configFilePath = "connString.txt";
-        private string configFilePathEntity = "entityConnString.txt";
-        private string connSettings;
-        Dictionary<string, string> settings = new Dictionary<string, string>();
-
-        public string DatabaseName;
-        public string Port;
-        public string Username;
-        public string Password;
-        public string Hostname;
-
         public FrmConf()
         {
             InitializeComponent();
@@ -34,7 +22,6 @@ namespace FerPROJ.Design.Forms
             if (CShowMessage.Ask("Save?", "Confirmation"))
             {
                 string sslMode = cbSSL.Checked ? "SslMode=None;" : "SslMode=Preferred;";
-                this.connSettings = $"Server={hostnameCustomTextBox.Text};Port={portCustomTextBox.Text};Database={databaseNameCustomTextBox.Text};Uid={usernameCustomTextBox.Text};Pwd={passwordCustomTextBox.Text};{sslMode}";
                 CSet.SetEntityConnectionString(hostnameCustomTextBox.Text, usernameCustomTextBox.Text, passwordCustomTextBox.Text, portCustomTextBox.Text, databaseNameCustomTextBox.Text, sslMode);
                 UpdateConfigurationFile();
                 this.Close();
@@ -43,44 +30,21 @@ namespace FerPROJ.Design.Forms
 
         private void FrmConnectionSettings_Load(object sender, EventArgs e)
         {
-            
-            if (File.Exists(configFilePath))
-            {
-                string configFileContent = File.ReadAllText(configFilePath);
-                string decryptedText = CEncryption.Decrypt(configFileContent);
-                foreach (var setting in decryptedText.Split(';'))
-                {
-                    var keyValue = setting.Split('=');
-                    if (keyValue.Length == 2)
-                    {
-                        settings[keyValue[0]] = keyValue[1];
-                    }
-                }
-                //
-                databaseNameCustomTextBox.Text = settings["Database"];
-                portCustomTextBox.Text = settings["Port"];
-                usernameCustomTextBox.Text = settings["Uid"];
-                passwordCustomTextBox.Text = settings["Pwd"];
-                hostnameCustomTextBox.Text = settings["Server"];
-                cbSSL.Checked = settings["SslMode"] == "None";
-                //
-            }
-            else
-            {
-                databaseNameCustomTextBox.Text = "";
-                portCustomTextBox.Text = "";
-                usernameCustomTextBox.Text = "";
-                passwordCustomTextBox.Text = "";
-                hostnameCustomTextBox.Text = "";
-                cbSSL.Checked = false;
-            }
+            databaseNameCustomTextBox.Text = CLibFilesReader.GetValue("DatabaseName", "DatabaseConfig");
+            portCustomTextBox.Text = CLibFilesReader.GetValue("Port", "DatabaseConfig");
+            usernameCustomTextBox.Text = CLibFilesReader.GetValue("Uid", "DatabaseConfig");
+            passwordCustomTextBox.Text = CLibFilesReader.GetValue("Pwd" , "DatabaseConfig");
+            hostnameCustomTextBox.Text = CLibFilesReader.GetValue("Server", "DatabaseConfig");
+            cbSSL.Checked = CLibFilesReader.GetValue("SslMode" , "DatabaseConfig") == "None";
         }
         private void UpdateConfigurationFile()
         {
-            string encryptedText = CEncryption.Encrypt(connSettings);
-            string encryptedEntityText = CEncryption.Encrypt(CStaticVariable.entityConnString);
-            File.WriteAllText(configFilePath, encryptedText);
-            File.WriteAllText(configFilePathEntity, encryptedEntityText);
+            CLibFilesWriter.CreateOrSetValue("DatabaseName", databaseNameCustomTextBox.Text, "DatabaseConfig");
+            CLibFilesWriter.CreateOrSetValue("Port", portCustomTextBox.Text, "DatabaseConfig");
+            CLibFilesWriter.CreateOrSetValue("Uid", usernameCustomTextBox.Text, "DatabaseConfig");
+            CLibFilesWriter.CreateOrSetValue("Pwd", passwordCustomTextBox.Text, "DatabaseConfig");
+            CLibFilesWriter.CreateOrSetValue("Server", hostnameCustomTextBox.Text, "DatabaseConfig");
+            CLibFilesWriter.CreateOrSetValue("SslMode", cbSSL.Checked ? "None" : "Preferred", "DatabaseConfig");
             CShowMessage.Info("Database Configuration Updated Successfully!", "Info");
         }
 

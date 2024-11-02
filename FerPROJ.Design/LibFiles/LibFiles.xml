@@ -3,4 +3,8 @@
     <status>false</status>
     <username>fdecenan</username>
   </RememberMe>
+  <GradingSettings>
+    <performance>40</performance>
+    <assignments>20</assignments>
+  </GradingSettings>
 </LibFilesRoot>

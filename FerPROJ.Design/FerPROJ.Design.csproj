@@ -106,6 +106,7 @@
     <Compile Include="Class\CExtension.cs" />
     <Compile Include="Class\CFormLayer.cs" />
     <Compile Include="Class\CLibFilesReader.cs" />
+    <Compile Include="Class\CLibFilesWriter.cs" />
     <Compile Include="Class\CMapping.cs" />
     <Compile Include="Class\CReport.cs" />
     <Compile Include="Class\CSet.cs" />

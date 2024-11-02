@@ -45,7 +45,7 @@ namespace FerPROJ.Design.Forms {
             lblMainTimeValue.Text = CGet.CurrentTime();
         }
         private void LoadVar() {
-            lblMainUserValue.Text = CStaticVariable.Username;
+            lblMainUserValue.Text = CStaticVariable.USERNAME;
             lblMainVersionValue.Text = CAssembly.SystemVersion;
         }
     }

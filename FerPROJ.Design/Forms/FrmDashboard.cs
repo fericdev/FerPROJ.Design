@@ -41,7 +41,7 @@ namespace FerPROJ.Design.Forms
 
         protected virtual void dbTimer_Tick(object sender, EventArgs e)
         {
-            Username.Text = CStaticVariable.Username;
+            Username.Text = CStaticVariable.USERNAME;
             CurrentDate.Text = CGet.CurrentDate();
             CurrentTime.Text = CGet.CurrentTime();
         }

@@ -30,7 +30,7 @@ namespace FerPROJ.Design.Forms {
         }
 
         private void mainTimer_Tick(object sender, EventArgs e) {
-            lblMainUserValue.Text = CStaticVariable.Username;
+            lblMainUserValue.Text = CStaticVariable.USERNAME;
             lblMainDateValue.Text = CGet.CurrentDate();
             lblMainTimeValue.Text = CGet.CurrentTime();
             lblMainVersionValue.Text = CAssembly.SystemVersion;

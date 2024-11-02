@@ -5,20 +5,21 @@ namespace FerPROJ.Design.Class
 {
     public static class CStaticVariable
     {
-        private static string filePath = "connString.txt";
-        private static string filePathEntity = "entityConnString.txt";
-        private static string defaultString = "Server=localhost;Port=3309;Database=schoolmanagement;Uid=adminserver;Pwd=admin123!@#;";
-        public static string Username { get; set; } = "";
-        public static string UserLevel { get; set; }
-        public static string UserID { get; set; }
-        public static string Name { get; set; }
-        public static string Version { get; set; } = "";
-        public static string mainConnection = File.Exists(filePath) ? CEncryption.Decrypt(File.ReadAllText(filePath)) : defaultString;
-        public static string connString1;
-        public static string connString2;
-        public static string entityConnString { get; set; } = File.Exists(filePathEntity) ? CEncryption.Decrypt(File.ReadAllText(filePathEntity)) : defaultString;
-        public static string ActiveStatus = "ACTIVE";
-        public static string InActiveStatus = "IN-ACTIVE";
+        private static string DefaultString = $"Server={CLibFilesReader.GetValue("Server", "DatabaseConfig")};" +
+                                              $"Port={CLibFilesReader.GetValue("Port", "DatabaseConfig")};" +
+                                              $"Database={CLibFilesReader.GetValue("DatabaseName", "DatabaseConfig")};" +
+                                              $"Uid={CLibFilesReader.GetValue("Uid", "DatabaseConfig")};" +
+                                              $"Pwd={CLibFilesReader.GetValue("Pwd", "DatabaseConfig")};" +
+                                              $"SslMode={CLibFilesReader.GetValue("SslMode", "DatabaseConfig")};";
+        public static string USERNAME { get; set; } = "";
+        public static string USER_LEVEL { get; set; }
+        public static string USER_ID { get; set; }
+        public static string NAME { get; set; }
+        public static string CONN_STRING_1;
+        public static string CONN_STRING_2;
+        public static string ENTITY_CONNECTION_STRING { get; set; } = DefaultString;
+        public static string ACTIVE_STATUS = "ACTIVE";
+        public static string IN_ACTIVE_STATUS = "IN-ACTIVE";
     }
     
 }

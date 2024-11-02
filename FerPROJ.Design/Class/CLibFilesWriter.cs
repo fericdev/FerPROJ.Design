@@ -8,9 +8,11 @@ using System.Xml.Linq;
 
 namespace FerPROJ.Design.Class {
     public static class CLibFilesWriter {
-        public static void SetValue(string key, string value, string parent = null) {
+        public static void SetValue(string key, string value, string path = null, string parent = null) {
             // Define the path to your XML file
-            string path = CGet.GetEnvironmentPath("LibFiles.xml", "LibFiles");
+            if (path == null) {
+                path = CGet.GetEnvironmentPath("LibFiles.xml", "LibFiles");
+            }
 
             if (string.IsNullOrEmpty(path)) {
                 return;

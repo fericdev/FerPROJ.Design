@@ -21,18 +21,21 @@ namespace FerPROJ.Design.Class {
                 // Load the XML document
                 var doc = XDocument.Load(path);
 
-                // Search for the key in the XML
-                var valueElement = doc.Descendants().FirstOrDefault(e => e.Name.LocalName == key);
+                // Search for the key in the XML with case-insensitive comparison
+                var valueElement = doc.Descendants()
+                                      .FirstOrDefault(e => string.Equals(e.Name.LocalName, key, StringComparison.OrdinalIgnoreCase));
 
                 // Return the value if found, or null if not found
-                return valueElement?.Value;
+                return valueElement != null ? CEncryption.Decrypt(valueElement.Value) : string.Empty;
             }
             return string.Empty;
         }
-
-        public static void ValidateRememberMe(this CheckBox checkBox, CTextBoxKrypton usernameTextBox, out string usernameValue) {
+        public static string GetRememberedPassword() {
+            return GetValue("password");
+        }
+        public static string GetRememberedUsername(CheckBox checkBox, CTextBoxKrypton usernameTextBox) {
             // Retrieve status and username from the XML using CLibFilesReader
-            usernameValue = GetValue("username");
+            var usernameValue = GetValue("username");
             var statusValue = GetValue("status");
 
             // Set initial checkbox state and username text based on XML content
@@ -49,11 +52,11 @@ namespace FerPROJ.Design.Class {
             checkBox.CheckedChanged += (sender, e) =>
             {
                 // Update the "status" value based on CheckBox state
-                CLibFilesWriter.SetValue("status", checkBox.Checked ? "true" : "false");
+                CLibFilesWriter.CreateOrSetValue("status", checkBox.Checked ? "true" : "false", parent:"rememberme");
 
                 // If unchecked, clear the username in XML
                 if (!checkBox.Checked) {
-                    CLibFilesWriter.SetValue("username", string.Empty);
+                    CLibFilesWriter.CreateOrSetValue("username", string.Empty, parent: "rememberme");
                 }
             };
 
@@ -61,8 +64,11 @@ namespace FerPROJ.Design.Class {
             usernameTextBox.TextChanged += (sender, e) =>
             {
                 // Update the "username" value in XML whenever the text changes
-                CLibFilesWriter.SetValue("username", usernameTextBox.Text);
+                CLibFilesWriter.CreateOrSetValue("username", usernameTextBox.Text, parent:"rememberme");
             };
+            
+            //
+            return usernameValue;
         }
 
     }

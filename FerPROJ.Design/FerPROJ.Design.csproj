@@ -112,7 +112,7 @@
     <Compile Include="Class\CSet.cs" />
     <Compile Include="Class\CShowMessage.cs" />
     <Compile Include="Class\CStaticVariable.cs" />
-    <Compile Include="Class\CEnryption.cs" />
+    <Compile Include="Class\CEncryption.cs" />
     <Compile Include="Class\CDGVSetting.cs" />
     <Compile Include="Class\CGet.cs" />
     <Compile Include="Class\CConf.cs" />

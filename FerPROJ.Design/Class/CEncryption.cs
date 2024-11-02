@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class
 {
-    public class CEnryption
+    public class CEncryption
     {
 
         private static string GetKey(string privateKey = null)

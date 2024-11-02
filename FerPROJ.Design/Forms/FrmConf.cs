@@ -47,7 +47,7 @@ namespace FerPROJ.Design.Forms
             if (File.Exists(configFilePath))
             {
                 string configFileContent = File.ReadAllText(configFilePath);
-                string decryptedText = CEnryption.Decrypt(configFileContent);
+                string decryptedText = CEncryption.Decrypt(configFileContent);
                 foreach (var setting in decryptedText.Split(';'))
                 {
                     var keyValue = setting.Split('=');
@@ -77,8 +77,8 @@ namespace FerPROJ.Design.Forms
         }
         private void UpdateConfigurationFile()
         {
-            string encryptedText = CEnryption.Encrypt(connSettings);
-            string encryptedEntityText = CEnryption.Encrypt(CStaticVariable.entityConnString);
+            string encryptedText = CEncryption.Encrypt(connSettings);
+            string encryptedEntityText = CEncryption.Encrypt(CStaticVariable.entityConnString);
             File.WriteAllText(configFilePath, encryptedText);
             File.WriteAllText(configFilePathEntity, encryptedEntityText);
             CShowMessage.Info("Database Configuration Updated Successfully!", "Info");

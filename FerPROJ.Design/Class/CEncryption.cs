@@ -48,6 +48,9 @@ namespace FerPROJ.Design.Class
 
         public static string Decrypt(string cipherText, string privateKey = null)
         {
+            if (string.IsNullOrEmpty(cipherText)) {
+                return string.Empty;
+            }
             using (Aes aesAlg = Aes.Create())
             {
                 aesAlg.Key = Encoding.UTF8.GetBytes(GetKey(privateKey));

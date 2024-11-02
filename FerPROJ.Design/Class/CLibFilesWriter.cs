@@ -51,7 +51,7 @@ namespace FerPROJ.Design.Class {
             }
 
             // Set the value
-            keyElement.Value = CEncryption.Encrypt(value);
+            keyElement.Value = encrypt ? CEncryption.Encrypt(value) : value;
 
             // Save changes to the XML file
             doc.Save(path);

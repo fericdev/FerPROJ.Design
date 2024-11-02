@@ -13,29 +13,50 @@ using System.Xml.Linq;
 
 namespace FerPROJ.Design.Class {
     public static class CLibFilesReader {
-        public static string GetValue(string key, string path = null) {
+        public static string GetValue(string key, string parent = null, bool encrypt = true, string path = null) {
+            //
             if (path == null) {
                 path = CGet.GetEnvironmentPath("LibFiles.xml", "LibFiles");
             }
-            if (!string.IsNullOrEmpty(path)) {
-                // Load the XML document
-                var doc = XDocument.Load(path);
 
-                // Search for the key in the XML with case-insensitive comparison
-                var valueElement = doc.Descendants()
-                                      .FirstOrDefault(e => string.Equals(e.Name.LocalName, key, StringComparison.OrdinalIgnoreCase));
+            // Load the XML document
+            var doc = XDocument.Load(path);
 
-                // Return the value if found, or null if not found
+            XElement parentElement;
+
+            if (!string.IsNullOrEmpty(parent)) {
+                // Search for the parent element with case-insensitive comparison
+                parentElement = doc.Root.Descendants()
+                                        .FirstOrDefault(e => string.Equals(e.Name.LocalName, parent, StringComparison.OrdinalIgnoreCase));
+
+                if (parentElement == null) {
+                    // If specified parent is not found, return an empty string or handle as needed
+                    return string.Empty;
+                }
+            }
+            else {
+                // If no parent specified, search within the entire document
+                parentElement = doc.Root;
+            }
+
+            // Search for the key element within the specified parent or root
+            var valueElement = parentElement.Descendants()
+                                            .FirstOrDefault(e => string.Equals(e.Name.LocalName, key, StringComparison.OrdinalIgnoreCase));
+
+            // Return the value if found, applying decryption if needed
+            if (encrypt) {
                 return valueElement != null ? CEncryption.Decrypt(valueElement.Value) : string.Empty;
             }
-            return string.Empty;
+            else {
+                return valueElement?.Value;
+            }
         }
         public static string GetRememberedPassword() {
-            return GetValue("password");
+            return GetValue("status").ToBool() ? GetValue("password") : string.Empty;
         }
         public static string GetRememberedUsername(CheckBox checkBox, CTextBoxKrypton usernameTextBox) {
             // Retrieve status and username from the XML using CLibFilesReader
-            var usernameValue = GetValue("username");
+            var usernameValue = GetValue("username", "rememberme");
             var statusValue = GetValue("status");
 
             // Set initial checkbox state and username text based on XML content
@@ -49,10 +70,9 @@ namespace FerPROJ.Design.Class {
             }
 
             // Event handler for CheckBox CheckedChanged
-            checkBox.CheckedChanged += (sender, e) =>
-            {
+            checkBox.CheckedChanged += (sender, e) => {
                 // Update the "status" value based on CheckBox state
-                CLibFilesWriter.CreateOrSetValue("status", checkBox.Checked ? "true" : "false", parent:"rememberme");
+                CLibFilesWriter.CreateOrSetValue("status", checkBox.Checked ? "true" : "false", parent: "rememberme");
 
                 // If unchecked, clear the username in XML
                 if (!checkBox.Checked) {
@@ -61,12 +81,11 @@ namespace FerPROJ.Design.Class {
             };
 
             // Event handler for TextBox TextChanged
-            usernameTextBox.TextChanged += (sender, e) =>
-            {
+            usernameTextBox.TextChanged += (sender, e) => {
                 // Update the "username" value in XML whenever the text changes
-                CLibFilesWriter.CreateOrSetValue("username", usernameTextBox.Text, parent:"rememberme");
+                CLibFilesWriter.CreateOrSetValue("username", usernameTextBox.Text, parent: "rememberme");
             };
-            
+
             //
             return usernameValue;
         }

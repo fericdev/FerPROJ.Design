@@ -105,6 +105,7 @@
     <Compile Include="Class\CEnum.cs" />
     <Compile Include="Class\CExtension.cs" />
     <Compile Include="Class\CFormLayer.cs" />
+    <Compile Include="Class\CLibFilesReader.cs" />
     <Compile Include="Class\CMapping.cs" />
     <Compile Include="Class\CReport.cs" />
     <Compile Include="Class\CSet.cs" />
@@ -407,6 +408,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon-notes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LibFiles\LibFiles.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -307,8 +307,15 @@ namespace FerPROJ.DBHelper.Class {
             return columns;
         }
         public static string GetEnvironmentPath(string fileName, params string[] folders) {
-            // Combine the base directory with the folder hierarchy and filename
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(folders), fileName);
+            string path;
+
+            // If folders have values, combine them with the base directory; otherwise, use only the filename
+            if (folders != null && folders.Length > 0) {
+                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(folders), fileName);
+            }
+            else {
+                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            }
 
             // Check if the file exists
             return File.Exists(path) ? path : null;

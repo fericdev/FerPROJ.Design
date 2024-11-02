@@ -74,6 +74,12 @@ namespace FerPROJ.Design.Class {
             }
             throw new ArgumentException($"Cannot convert '{value}' to {typeof(TEnum).Name}");
         }
+        public static bool ToBool(this string value) {
+            if (!string.IsNullOrEmpty(value)) {
+                return Convert.ToBoolean(value);
+            }
+            return false;
+        }
 
         //
         public static byte[] ToByte(this HttpPostedFileBase file) {

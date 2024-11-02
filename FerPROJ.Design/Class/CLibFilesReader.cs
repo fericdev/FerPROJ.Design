@@ -42,7 +42,7 @@ namespace FerPROJ.Design.Class {
             }
             else {
                 checkBox.Checked = false;
-                usernameTextBox.Text = string.Empty;
+                usernameValue = string.Empty;
             }
 
             // Event handler for CheckBox CheckedChanged

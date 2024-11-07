@@ -175,12 +175,16 @@ namespace FerPROJ.Design.Class
                 throw new ArgumentException("The specified column is not an image column.");
             }
         }
+        public static void HideColumns(this DataGridView dgv, bool hide = true, params int[] columnIndices) {
+            if (dgv == null) throw new ArgumentNullException(nameof(dgv));
 
-
-
-
+            foreach (var columnIndex in columnIndices) {
+                // Ensure the column index is within the valid range
+                if (columnIndex >= 0 && columnIndex < dgv.Columns.Count) {
+                    dgv.Columns[columnIndex].Visible = !hide;
+                }
+            }
+        }
     }
-
-
 }
 

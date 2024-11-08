@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,6 +35,7 @@ namespace FerPROJ.Design.Interface
     }
     public interface IEntityDataAsync<TDestination, TType> : IDisposable {
         Task<IEnumerable<TDestination>> GetAllAsync();
+        Task<IEnumerable<TDestination>> GetAllAsync(Expression<Func<TDestination, bool>> predicate);
         Task<IEnumerable<TDestination>> GetAllAsync(string searchText = "", DateTime? dateFrom = null, DateTime? dateTo = null);
         Task<TDestination> GetByIdAsync(TType id);
         Task<string> GetNewIDAsync();

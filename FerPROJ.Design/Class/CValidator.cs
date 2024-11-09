@@ -47,5 +47,11 @@ namespace FerPROJ.Design.Class
         public string ErrorMessage { get; set; }
         public StringBuilder ErrorMessages { get; set; } = new StringBuilder();
         public abstract bool DataValidation();
+        //
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }  
+        public string Status { get; set; }
     }
 }

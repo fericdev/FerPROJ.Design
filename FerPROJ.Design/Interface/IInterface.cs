@@ -35,7 +35,6 @@ namespace FerPROJ.Design.Interface
     }
     public interface IEntityDataAsync<TEntity, TType> : IDisposable {
         Task<IEnumerable<TEntity>> GetAllAsync(string searchText, DateTime? dateFrom , DateTime? dateTo);
-        Task<TEntity> GetByIdAsync(TType id);
         Task<string> GetNewIDAsync();
         Task LoadComboBoxAsync(CComboBoxKrypton cmb);
     }

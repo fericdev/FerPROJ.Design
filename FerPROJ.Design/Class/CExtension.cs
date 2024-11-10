@@ -25,12 +25,17 @@ namespace FerPROJ.Design.Class {
             var enumValues = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList();
             cmb.DataSource = new BindingList<TEnum>(enumValues);
         }
-        public static void FillComboBoxEnum<TEnum>(this CComboBoxKrypton cmb) where TEnum : Enum {
+        public static void FillComboBoxEnum<TEnum>(this CComboBoxKrypton cmb, List<TEnum> excluded = null) where TEnum : Enum {
             if (!typeof(TEnum).IsEnum) {
                 throw new ArgumentException("TEnum must be an enumeration type.");
             }
             //
             var enumValues = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList();
+
+            // Filter out excluded values, if any
+            if (excluded != null) {
+                enumValues = enumValues.Where(value => !excluded.Contains(value)).ToList();
+            }
             cmb.DataSource = new BindingList<TEnum>(enumValues);
         }
         public static void FillComboBox(this ComboBox cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {

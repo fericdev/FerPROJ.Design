@@ -48,10 +48,10 @@ namespace FerPROJ.Design.Class
         public StringBuilder ErrorMessages { get; set; } = new StringBuilder();
         public abstract bool DataValidation();
         //
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-        public string CreatedBy { get; set; }
-        public string ModifiedBy { get; set; }  
-        public string Status { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime? DateModified { get; set; } = null;
+        public string CreatedBy { get; set; } = CStaticVariable.USERNAME;
+        public string ModifiedBy { get; set; }  = string.Empty;
+        public string Status { get; set; } = CStaticVariable.ACTIVE_STATUS;
     }
 }

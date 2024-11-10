@@ -33,17 +33,14 @@ namespace FerPROJ.Design.Interface
         string GetNewID();
 
     }
-    public interface IEntityDataAsync<TDestination, TType> : IDisposable {
-        Task<IEnumerable<TDestination>> GetAllAsync(string searchText = "", DateTime? dateFrom = null, DateTime? dateTo = null);
-        Task<TDestination> GetByIdAsync(TType id);
+    public interface IEntityDataAsync<TEntity, TType> : IDisposable {
+        Task<IEnumerable<TEntity>> GetAllAsync(string searchText, DateTime? dateFrom , DateTime? dateTo);
+        Task<TEntity> GetByIdAsync(TType id);
         Task<string> GetNewIDAsync();
         Task LoadComboBoxAsync(CComboBoxKrypton cmb);
     }
-    public interface IEntityDetailAsync<TDestination> : IDisposable {
-        Task UpdateDetailAsync(ICollection<TDestination> items, string foreignKey);
-    }
-    public interface IEntityViewAsync<TView> : IDisposable {
-        Task<IEnumerable<TView>> GetViewAsync(string searchText = "", int dataLimit = 100, DateTime? dateFrom = null, DateTime? dateTo = null);
+    public interface IEntityViewAsync<TViewModel> : IDisposable {
+        Task<IEnumerable<TViewModel>> GetViewAsync(string searchText = "", int dataLimit = 100, DateTime? dateFrom = null, DateTime? dateTo = null);
     }
     public interface IEntityLoadlist
     {

@@ -58,12 +58,12 @@ namespace FerPROJ.Design.Class {
             cmb.ValueMember = cmbValue;
             cmb.DataSource = uniqueData;
         }
-        public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> displayValueSelector, string cmbValue, IEnumerable<T> dataSource) {
+        public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> cmbText, string cmbValue, IEnumerable<T> dataSource) {
             var uniqueData = dataSource
-                .GroupBy(displayValueSelector)
+                .GroupBy(cmbText)
                 .Select(group => group.First())
                 .Select(item => new {
-                    Display = displayValueSelector(item),
+                    Display = cmbText(item),
                     Value = item.GetType().GetProperty(cmbValue).GetValue(item),
                     Original = item
                 })

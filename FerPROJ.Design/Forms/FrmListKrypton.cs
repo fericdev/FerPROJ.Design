@@ -293,6 +293,7 @@ namespace FerPROJ.Design.Forms
         private async void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
             searchValue = SearchTextBox.Text;
             dateFrom = baseDateFromDateTimePicker.Value;
+            baseDateToDateTimePicker.MinDate = baseDateFromDateTimePicker.Value;
             dateTo = baseDateToDateTimePicker.Value;
             await AsyncRefresh();
         }

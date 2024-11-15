@@ -33,7 +33,7 @@ namespace FerPROJ.Design.Interface
         string GetNewID();
 
     }
-    public interface IEntityDataAsync<TEntity, TType> : IDisposable {
+    public interface IEntityDataAsync<TEntity> : IDisposable {
         Task<IEnumerable<TEntity>> GetAllAsync(string searchText, DateTime? dateFrom , DateTime? dateTo);
         Task<string> GetNewIDAsync();
         Task LoadComboBoxAsync(CComboBoxKrypton cmb);

@@ -9,19 +9,17 @@ using System.Security.Policy;
 namespace FerPROJ.Design.Class {
     public static class CMappingExtension {
 
-        public static TDestination ToDestination<TDestination>(this object source) {
+        public static TDestination ToDestination<TDestination>(this object source, TDestination prevDestination = default) {
             if (source == null) {
-                return default;
+                return prevDestination; // Return the existing instance if source is null
             }
 
-            // Use reflection to create the mapping instance dynamically
             var sourceType = source.GetType();
             var mappingType = typeof(CMapping<,>).MakeGenericType(sourceType, typeof(TDestination));
             var mappingInstance = Activator.CreateInstance(mappingType);
 
-            // Call the 'GetMappingResult' method on the mapping instance
-            var getMappingResultMethod = mappingType.GetMethod("GetMappingResult");
-            return (TDestination)getMappingResultMethod.Invoke(mappingInstance, new object[] { source });
+            var getMappingResultMethod = mappingType.GetMethod("GetMappingResult", new[] { sourceType, typeof(TDestination) });
+            return (TDestination)getMappingResultMethod.Invoke(mappingInstance, new object[] { source, prevDestination });
         }
 
         public static List<TDestination> ToDestination<TDestination>(this IEnumerable<object> source) {
@@ -57,11 +55,17 @@ namespace FerPROJ.Design.Class {
         public static MapperConfiguration GetMapperConfiguration() {
             return new MapperConfiguration(c => c.AddProfile(new CMapping<TSource, TDestination>()));
         }
-        public TDestination GetMappingResult(TSource myDTO) {
-            //
-            var conf = GetMapperConfiguration();
-            var mapper = conf.CreateMapper();
-            return mapper.Map<TSource, TDestination>(myDTO);
+        // Overload to map onto an existing destination object
+        public TDestination GetMappingResult(TSource source, TDestination prevDestination = default) {
+            var config = GetMapperConfiguration();
+            var mapper = config.CreateMapper();
+
+            // Check if existingDestination is the default value (null for reference types, default value for value types)
+            bool isDefault = EqualityComparer<TDestination>.Default.Equals(prevDestination, default);
+
+            return isDefault
+                ? mapper.Map<TSource, TDestination>(source)
+                : mapper.Map(source, prevDestination); // Use existing destination to map only properties that exist in source
         }
     }
     public class CMappingList<TSource, TDestination> {

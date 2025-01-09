@@ -46,6 +46,10 @@ namespace FerPROJ.Design.UC {
             timer.Start();
             await Task.CompletedTask;
         }
+        protected async Task ResetHeight(Panel panel) {
+            panel.Height = 54;
+            await Task.CompletedTask;
+        }
         protected virtual async Task ShowControl(UserControl userControl) {
             await HideControl();
             userControl.Visible = true;

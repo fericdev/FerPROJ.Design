@@ -26,10 +26,12 @@ namespace FerPROJ.Design.Controls {
         public CToolstrip() {
             InitializeButtons();
             GripStyle = ToolStripGripStyle.Hidden;
-            BackColor = Color.DarkGray;
-            Height = 35;
+            BackColor = Color.WhiteSmoke;
+            Height = 25;
             AutoSize = false;
             GripMargin = new Padding(2, 2, 2, 2);
+            // Set the custom renderer
+            Renderer = new CustomToolStripRenderer();
         }
 
         private void InitializeButtons() {
@@ -91,6 +93,15 @@ namespace FerPROJ.Design.Controls {
         private void OnRefreshButtonClick() {
             // Raise the AddButtonClick event with the identifier
             RefreshButtonClick?.Invoke(this, EventArgs.Empty);
+        }
+        public class CustomToolStripRenderer : ToolStripProfessionalRenderer {
+            protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e) {
+                // Custom border color
+                using (var pen = new Pen(Color.WhiteSmoke, 1)) // Set your desired border color and width here
+                {
+                    e.Graphics.DrawRectangle(pen, new Rectangle(Point.Empty, e.ToolStrip.Size - new Size(1, 1)));
+                }
+            }
         }
     }
 }

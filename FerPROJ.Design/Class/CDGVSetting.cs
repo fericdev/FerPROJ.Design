@@ -10,8 +10,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-namespace FerPROJ.Design.Class
-{
+namespace FerPROJ.Design.Class {
     public static class CDGVSettings {
         public static bool GetSelectedValue(this CDatagridview dgv, int columnIndex, out string value) {
             value = null;
@@ -29,7 +28,7 @@ namespace FerPROJ.Design.Class
             return false;
         }
         public static bool GetSelectedValues(this CDatagridview dgv, int columnIndex, out List<object> values) {
-            
+
             values = new List<object>();
 
             if (dgv.SelectedRows.Count > 0) {
@@ -89,7 +88,8 @@ namespace FerPROJ.Design.Class
                         sum += cellValue;
                     }
                 }
-            } else {
+            }
+            else {
                 // Handle the case when the column index is out of range
                 MessageBox.Show("Invalid column index: " + columnIndex);
             }
@@ -126,14 +126,14 @@ namespace FerPROJ.Design.Class
                     // Resume binding to CurrencyManager
                     currencyManager.ResumeBinding();
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
         public static void FormatBooleanColumn(this CDatagridview dgv, int columnIndex, string trueText = "Yes", string falseText = "No") {
             // Subscribe to the CellFormatting event
-            dgv.CellFormatting += (sender, e) =>
-            {
+            dgv.CellFormatting += (sender, e) => {
                 // Check if the current column is the one specified by the index
                 if (e.ColumnIndex == columnIndex) {
                     if (e.Value is bool value) {
@@ -151,8 +151,7 @@ namespace FerPROJ.Design.Class
                 ((DataGridViewImageColumn)dgv.Columns[columnIndex]).ImageLayout = DataGridViewImageCellLayout.Zoom;
 
                 // Subscribe to the CellFormatting event to resize the image
-                dgv.CellFormatting += (sender, e) =>
-                {
+                dgv.CellFormatting += (sender, e) => {
                     // Check if the current column is the one specified by the index and if the value is an image
                     if (e.ColumnIndex == columnIndex && e.Value is Image img) {
                         // Resize the image to the specified width and height
@@ -184,6 +183,43 @@ namespace FerPROJ.Design.Class
                     dgv.Columns[columnIndex].Visible = !hide;
                 }
             }
+        }
+        public static void SetColumnEditable(this CDatagridview dgv, int columnIndex, bool editable = true) {
+            if (dgv.Columns[columnIndex] is DataGridViewTextBoxColumn column) {
+                // Set the column read-only property
+                dgv.ReadOnly = !editable;
+                dgv.Columns[columnIndex].ReadOnly = !editable;
+
+                // Apply style to each cell in the column
+                foreach (DataGridViewRow row in dgv.Rows) {
+                    if (!row.IsNewRow) // Skip the new row placeholder if present
+                    {
+                        var cell = row.Cells[columnIndex];
+                        cell.Style.BackColor = editable ? Color.LightGreen : Color.Black;
+                        cell.Style.ForeColor = Color.Black;
+                        cell.Style.SelectionBackColor = editable ? Color.LightGreen : Color.Black; // Selection color
+                        cell.Style.SelectionForeColor = Color.Black;
+                    }
+                }
+
+                // Optionally, redraw the DataGridView
+                dgv.Invalidate();
+            }
+        }
+
+        public static void TrackChangesAndCallMethod(this CDatagridview dgv, int columnIndex, Action onColumnValueChanged) {
+            if (dgv == null) throw new ArgumentNullException(nameof(dgv));
+            if (onColumnValueChanged == null) throw new ArgumentNullException(nameof(onColumnValueChanged));
+            if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
+                throw new ArgumentOutOfRangeException(nameof(columnIndex), "Invalid column index.");
+
+            dgv.CellValueChanged += (sender, e) =>
+            {
+                // Trigger only if the changed cell belongs to the specified column index
+                if (e.ColumnIndex == columnIndex) {
+                    onColumnValueChanged();
+                }
+            };
         }
     }
 }

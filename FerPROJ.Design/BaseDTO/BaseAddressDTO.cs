@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.BaseDTO {
-    public class BaseAddressDTO : CValidator {
+    public class BaseAddressDTO : Class.BaseDTO {
         public Guid AddressID { get; set; } = new Guid();
         [Required]
         public string Country => "Philippines";

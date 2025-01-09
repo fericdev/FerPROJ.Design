@@ -116,7 +116,7 @@
     <Compile Include="Class\CDGVSetting.cs" />
     <Compile Include="Class\CGet.cs" />
     <Compile Include="Class\CConf.cs" />
-    <Compile Include="Class\CValidator.cs" />
+    <Compile Include="Class\BaseDTO.cs" />
     <Compile Include="Controls\CButton.cs">
       <SubType>Component</SubType>
     </Compile>

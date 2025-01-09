@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class
 {
-    public abstract class CValidator : IDataErrorInfo
+    public abstract class BaseDTO : IDataErrorInfo
     {
         [Browsable(false)]
         public string this[string property]

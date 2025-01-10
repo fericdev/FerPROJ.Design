@@ -359,6 +359,16 @@ namespace FerPROJ.Design.Class {
             return dataTable;
         }
         //string extensions
+        public static bool SearchContains(this string source, string searchText) {
+            
+            if (source == null || searchText == null)
+                return false;
+
+            source = source.ToLower();
+            searchText = searchText.ToLower();
+
+            return source.Contains(searchText);
+        }
         public static bool SearchFor(this string source, string searchText) {
             if (source == null || searchText == null)
                 return false;

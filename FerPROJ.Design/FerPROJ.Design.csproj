@@ -117,6 +117,7 @@
     <Compile Include="Class\CGet.cs" />
     <Compile Include="Class\CConf.cs" />
     <Compile Include="Class\BaseDTO.cs" />
+    <Compile Include="Class\PropertyValidator.cs" />
     <Compile Include="Controls\CButton.cs">
       <SubType>Component</SubType>
     </Compile>

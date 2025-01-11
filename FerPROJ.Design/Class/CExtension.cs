@@ -17,6 +17,8 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
     public static class CExtension {
+
+        #region FillComboBox
         public static void FillComboBoxEnum<TEnum>(this ComboBox cmb) where TEnum : Enum {
             if (!typeof(TEnum).IsEnum) {
                 throw new ArgumentException("TEnum must be an enumeration type.");
@@ -73,6 +75,10 @@ namespace FerPROJ.Design.Class {
             cmb.ValueMember = "Value";
             cmb.DataSource = uniqueData;
         }
+        #endregion
+
+        #region Conversion
+
         public static TEnum ToEnum<TEnum>(this string value, bool ignoreCase = true) where TEnum : struct, Enum {
             if (Enum.TryParse(value, ignoreCase, out TEnum result)) {
                 return result;
@@ -263,6 +269,11 @@ namespace FerPROJ.Design.Class {
 
             throw new InvalidCastException($"Cannot convert {value.GetType().Name} to {typeof(T).Name}");
         }
+
+        #endregion
+
+        #region Datatable Conversion
+
         public static DataTable ToDataTable<T>(this List<T> items) {
             DataTable dataTable = new DataTable(typeof(T).Name);
 
@@ -358,6 +369,10 @@ namespace FerPROJ.Design.Class {
 
             return dataTable;
         }
+
+        #endregion
+
+        #region Searh
         //string extensions
         public static bool SearchContains(this string source, string searchText) {
             
@@ -383,7 +398,9 @@ namespace FerPROJ.Design.Class {
             // Use LINQ to check for a match
             return source.Any(s => s.Trim().Equals(searchText.Trim(), StringComparison.OrdinalIgnoreCase));
         }
+        #endregion
 
+        #region Get
         public static int GetAge(this DateTime birthDate) {
             var currentDate = DateTime.Today;
             int age = currentDate.Year - birthDate.Year;
@@ -392,6 +409,9 @@ namespace FerPROJ.Design.Class {
             }
             return age;
         }
+        #endregion
+
+        #region Search Date
         public static bool DateFrom(this DateTime? date, DateTime? dateFrom) {
             return date?.Date >= dateFrom?.Date;
         }
@@ -404,6 +424,22 @@ namespace FerPROJ.Design.Class {
         public static bool DateTo(this DateTime date, DateTime? dateTo) {
             return date.Date <= dateTo?.Date;
         }
+        #endregion
+
+        #region Label
+        public static void SetLabelColorInfo(this Label label) {
+            label.ForeColor = Color.Blue;
+        }
+        public static void SetLabelColorDanger(this Label label) {
+            label.ForeColor = Color.Red;
+        }
+        public static void SetLabelColorWarning(this Label label) {
+            label.ForeColor = Color.Orange;
+        }
+        public static void SetLabelColorSuccess(this Label label) {
+            label.ForeColor = Color.Green;
+        }
+        #endregion
 
     }
 }

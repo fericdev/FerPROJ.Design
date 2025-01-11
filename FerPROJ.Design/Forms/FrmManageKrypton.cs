@@ -62,6 +62,7 @@ namespace FerPROJ.Design.Forms
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
+            InitializeFormProperties();
 
         }
 
@@ -73,6 +74,8 @@ namespace FerPROJ.Design.Forms
         protected virtual void InitializeKeyboardShortcuts()
         {
 
+        }
+        protected virtual void InitializeFormProperties() {
         }
         private async void OnKeyDown(object sender, KeyEventArgs e)
         {

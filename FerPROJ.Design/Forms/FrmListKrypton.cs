@@ -28,6 +28,7 @@ namespace FerPROJ.Design.Forms
         private bool hideFunctionEdit;
         private bool hideFunctionDelete;
         private bool hideFunctionView;
+        private bool hideButtonSelect;
         private bool hideFunctionOther1 = true;
         private bool hideFunctionOther2 = true;
         private bool hideDateSearch;
@@ -235,6 +236,13 @@ namespace FerPROJ.Design.Forms
                 hideFunctionAdd = value;
                 tsbMainAddItem.Visible = !hideFunctionAdd;
                 toolStripSeparator1.Visible = !hideFunctionAdd;
+            }
+        }
+        public bool HideButtonSelect {
+            get { return hideButtonSelect; }
+            set {
+                hideButtonSelect = value;
+                baseButtonSelect.Visible = !hideButtonSelect;
             }
         }
         public bool HideFunctionEdit {

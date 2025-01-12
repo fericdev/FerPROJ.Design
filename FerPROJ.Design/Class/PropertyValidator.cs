@@ -24,6 +24,7 @@ namespace FerPROJ.Design.Class {
                 return string.Empty;
             }
         }
+        [Browsable(false)]
         public string Error {
             get {
                 var results = new List<ValidationResult>();
@@ -34,8 +35,11 @@ namespace FerPROJ.Design.Class {
                 return null;
             }
         }
+        [Browsable(false)]
         public bool Success => string.IsNullOrEmpty(Error);
+        [Browsable(false)]
         public string ErrorMessage { get; set; }
+        [Browsable(false)]
         public StringBuilder ErrorMessages { get; set; } = new StringBuilder();
         public abstract bool DataValidation();
     }

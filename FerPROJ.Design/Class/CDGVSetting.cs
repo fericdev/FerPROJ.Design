@@ -221,6 +221,44 @@ namespace FerPROJ.Design.Class {
                 }
             };
         }
+        public static void ApplyCustomAttribute(this CDatagridview dgv, Type typeOfDTO) {
+            // Loop through the properties of the DTO
+            foreach (var property in typeOfDTO.GetProperties()) {
+
+                // Find all columns matching the DataPropertyName
+                var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
+                                                 .Where(c => c.DataPropertyName == property.Name)
+                                                 .ToList();
+
+                // If duplicates exist, remove all but the first column
+                if (matchingColumns.Count > 1) {
+                    for (int i = 1; i < matchingColumns.Count; i++) {
+                        dgv.Columns.Remove(matchingColumns[i]);
+                    }
+                }
+
+                // Get the custom attribute, if applied
+                var attribute = property.GetCustomAttribute<CDGVAttr>();
+
+                if (attribute != null) {
+                    // Get the first column (if any) to apply the attribute changes
+                    var column = matchingColumns.FirstOrDefault();
+                    if (column != null) {
+                        // Remove the column if IsExcluded is true
+                        if (attribute.IsExcluded) {
+                            dgv.Columns.Remove(column);
+                        }
+                        else {
+                            // Set visibility based on IsVisible
+                            column.Visible = attribute.IsVisible;
+                        }
+                    }
+                }
+            }
+
+        }
+
+
     }
 }
 

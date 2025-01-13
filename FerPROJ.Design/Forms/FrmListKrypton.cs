@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 
-namespace FerPROJ.Design.Forms
-{
+namespace FerPROJ.Design.Forms {
     public partial class FrmListKrypton : KryptonForm {
 
         private Timer _debounceTimer;
@@ -66,7 +65,7 @@ namespace FerPROJ.Design.Forms
         }
 
         private async void _debounceTimer_Tick(object sender, EventArgs e) {
-            _debounceTimer.Stop(); 
+            _debounceTimer.Stop();
 
             searchValue = SearchTextBox.Text;
             dateFrom = baseDateFromDateTimePicker.Value;
@@ -84,7 +83,8 @@ namespace FerPROJ.Design.Forms
         private async void OnKeyDown(object sender, KeyEventArgs e) {
             if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
                 keyboardShortcuts[e.KeyCode]?.Invoke();
-            } else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
+            }
+            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
                 if (boolKeyboardShortcuts[e.KeyCode]()) {
                     await AsyncRefresh();
                 }
@@ -122,9 +122,9 @@ namespace FerPROJ.Design.Forms
 
         private async void FrmListMain_Load(object sender, EventArgs e) {
             try {
-                await Task.Delay(500);
                 await AsyncRefresh();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
@@ -134,7 +134,8 @@ namespace FerPROJ.Design.Forms
                 if (result) {
                     await AsyncRefresh();
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
@@ -145,7 +146,8 @@ namespace FerPROJ.Design.Forms
                 if (result) {
                     await AsyncRefresh();
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
@@ -156,7 +158,8 @@ namespace FerPROJ.Design.Forms
                 if (result) {
                     await AsyncRefresh();
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
@@ -167,7 +170,8 @@ namespace FerPROJ.Design.Forms
                 if (result) {
                     await AsyncRefresh();
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
@@ -175,7 +179,8 @@ namespace FerPROJ.Design.Forms
         private async void tsbMainRefresh_Click(object sender, EventArgs e) {
             try {
                 await AsyncRefresh();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message, "Error");
             }
         }
@@ -387,22 +392,14 @@ namespace FerPROJ.Design.Forms
         }
 
         private async void ComboBoxKryptonDataLimit_SelectedIndexChanged(object sender, EventArgs e) {
-            if(ComboBoxKryptonDataLimit.SelectedIndex != -1) {
+            if (ComboBoxKryptonDataLimit.SelectedIndex != -1) {
                 dataLimit = ComboBoxKryptonDataLimit.Text.ToInt();
                 await AsyncRefresh();
             }
         }
 
         private async Task AsyncRefresh() {
-            await Task.Delay(500);
-            if (dataLimit >= 500) {
-                await FrmSplasherLoading.ShowSplashAsync();
-                await RefreshData();
-                FrmSplasherLoading.CloseSplash();
-            }
-            else {
-                await RefreshData();
-            }
+            await RefreshData();
         }
 
         private void SearchTextBox__TextChanged(object sender, EventArgs e) {

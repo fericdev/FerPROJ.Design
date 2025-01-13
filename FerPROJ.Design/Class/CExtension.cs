@@ -441,5 +441,14 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
+        #region Task
+        public static T AwaitValue<T>(this Task<T> task) {
+            return task.GetAwaiter().GetResult(); // Synchronously waits and retrieves the result.
+        }
+        public static void AwaitValue(this Task task) {
+            task.GetAwaiter().GetResult(); // Synchronously waits for the task to complete.
+        }
+        #endregion
+
     }
 }

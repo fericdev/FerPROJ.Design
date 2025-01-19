@@ -303,12 +303,10 @@ namespace FerPROJ.Design.Forms {
             toolStripSeparator5.Visible = !hideFunction;
             toolStripSeparator6.Visible = !hideFunction;
         }
-        private async void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
-            searchValue = SearchTextBox.Text;
-            dateFrom = baseDateFromDateTimePicker.Value;
-            baseDateToDateTimePicker.MinDate = baseDateFromDateTimePicker.Value;
-            dateTo = baseDateToDateTimePicker.Value;
-            await AsyncRefresh();
+        private void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
+            // Restart the timer every time the text changes
+            _debounceTimer.Stop();
+            _debounceTimer.Start();
         }
 
         public string FormTitle {

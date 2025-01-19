@@ -375,7 +375,7 @@ namespace FerPROJ.Design.Class {
         #region Searh
         //string extensions
         public static bool SearchContains(this string source, string searchText) {
-            
+
             if (source == null || searchText == null)
                 return false;
 
@@ -398,9 +398,52 @@ namespace FerPROJ.Design.Class {
             // Use LINQ to check for a match
             return source.Any(s => s.Trim().Equals(searchText.Trim(), StringComparison.OrdinalIgnoreCase));
         }
-        public static bool SearchFor(this object source, string searchText) {
+        public static bool SearchForDate(this object source, DateTime? dateFrom, DateTime? dateTo, string propertyName = "") {
             if (source == null)
                 return false;
+
+            if (!dateFrom.HasValue && !dateTo.HasValue) {
+                return true;
+            }
+
+            var properties = source.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
+                          .Where(p => p.PropertyType == typeof(DateTime) || p.PropertyType == typeof(DateTime?))
+                          .ToList();
+
+            properties = properties.Where(p => string.IsNullOrEmpty(propertyName) || p.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            foreach (var property in properties) {
+                // Skip properties with index parameters
+                if (property.GetIndexParameters().Length > 0)
+                    continue;
+
+                // Get the property value
+                var value = (DateTime?)property.GetValue(source);
+
+                // If the value is null, skip this property
+                if (!value.HasValue)
+                    continue;
+
+                bool isAfterStart = !dateFrom.HasValue || value >= dateFrom.Value;
+                bool isBeforeEnd = !dateTo.HasValue || value < dateTo.Value.AddDays(1);
+
+                if (isAfterStart && isBeforeEnd) {
+                    return true; // Property is within range
+                }
+
+            }
+
+            return false; // No match found
+
+        }
+
+        public static bool SearchForText(this object source, string searchText) {
+            if (source == null)
+                return false;
+
+            if (string.IsNullOrEmpty(searchText)) {
+                return true;
+            }
 
             // Get all public instance properties of the object
             var properties = source.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -411,18 +454,14 @@ namespace FerPROJ.Design.Class {
                     continue;
 
                 // Get the property value
-                var value = property.GetValue(source).ToString();
+                var value = property.GetValue(source);
 
                 // If the value is null, skip this property
                 if (value == null)
                     continue;
 
-                if (string.IsNullOrEmpty(searchText)) {
-                    return true;
-                }
-
                 // Convert the value to a string and compare it to the searchText
-                if (value.SearchContains(searchText)) {
+                if (value.ToString().SearchContains(searchText)) {
                     return true; // Match found in the text
                 }
             }

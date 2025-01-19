@@ -398,7 +398,7 @@ namespace FerPROJ.Design.Class {
             // Use LINQ to check for a match
             return source.Any(s => s.Trim().Equals(searchText.Trim(), StringComparison.OrdinalIgnoreCase));
         }
-        public static bool SearchFor(this object source, string searchText, DateTime? dateFrom = null, DateTime? dateTo = null) {
+        public static bool SearchFor(this object source, string searchText) {
             if (source == null)
                 return false;
 
@@ -411,26 +411,18 @@ namespace FerPROJ.Design.Class {
                     continue;
 
                 // Get the property value
-                var value = property.GetValue(source);
+                var value = property.GetValue(source).ToString();
 
                 // If the value is null, skip this property
                 if (value == null)
                     continue;
 
-                // Check if the property is a date and filter by the date range
-                if (value is DateTime dateValue) {
-                    if (dateFrom.HasValue && dateValue < dateFrom.Value)
-                        continue;
-
-                    if (dateTo.HasValue && dateValue > dateTo.Value)
-                        continue;
-
-                    return true; // Match found in the date range
+                if (string.IsNullOrEmpty(searchText)) {
+                    return true;
                 }
 
                 // Convert the value to a string and compare it to the searchText
-                if (!string.IsNullOrEmpty(searchText) &&
-                    value.ToString().IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0) {
+                if (value.SearchContains(searchText)) {
                     return true; // Match found in the text
                 }
             }

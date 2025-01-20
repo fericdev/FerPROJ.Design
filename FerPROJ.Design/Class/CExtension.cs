@@ -398,6 +398,10 @@ namespace FerPROJ.Design.Class {
             // Use LINQ to check for a match
             return source.Any(s => s.Trim().Equals(searchText.Trim(), StringComparison.OrdinalIgnoreCase));
         }
+        public static bool SearchFor(this object source, string searchText, DateTime? dateFrom, DateTime? dateTo, string datePropertyName) {
+            return source.SearchForText(searchText) && source.SearchForDate(dateFrom, dateTo, datePropertyName);
+        }
+
         public static bool SearchForDate(this object source, DateTime? dateFrom, DateTime? dateTo, string propertyName = "") {
             if (source == null)
                 return false;
@@ -424,7 +428,7 @@ namespace FerPROJ.Design.Class {
                 if (!value.HasValue)
                     continue;
 
-                bool isAfterStart = !dateFrom.HasValue || value >= dateFrom.Value;
+                bool isAfterStart = !dateFrom.HasValue || value > dateFrom.Value.AddDays(-1);
                 bool isBeforeEnd = !dateTo.HasValue || value < dateTo.Value.AddDays(1);
 
                 if (isAfterStart && isBeforeEnd) {

@@ -502,15 +502,27 @@ namespace FerPROJ.Design.Class {
 
         #region Label
         public static void SetLabelColorInfo(this Label label) {
+            if (label == null) {
+                return;
+            }
             label.ForeColor = Color.Blue;
         }
         public static void SetLabelColorDanger(this Label label) {
+            if (label == null) {
+                return;
+            }
             label.ForeColor = Color.Red;
         }
         public static void SetLabelColorWarning(this Label label) {
+            if (label == null) {
+                return;
+            }
             label.ForeColor = Color.Orange;
         }
         public static void SetLabelColorSuccess(this Label label) {
+            if(label == null) {
+                return;
+            }
             label.ForeColor = Color.Green;
         }
         #endregion

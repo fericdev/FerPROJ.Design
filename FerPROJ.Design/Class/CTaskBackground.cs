@@ -49,7 +49,7 @@ namespace FerPROJ.Design.Class {
 
         private static void LogError(Exception ex) {
             // Replace with your logging framework or custom logic
-            CShowMessage.Warning($"Error: {ex.Message}");
+            //CShowMessage.Warning($"Error: {ex.Message}");
         }
     }
 }

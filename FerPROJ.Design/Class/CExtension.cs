@@ -483,6 +483,24 @@ namespace FerPROJ.Design.Class {
             }
             return age;
         }
+        public static string GetFirstLetter(this string text, bool isLower = false) {
+            if (string.IsNullOrEmpty(text)) {
+                return string.Empty;
+            }
+            return isLower ? text[0].ToString().ToLower() : text[0].ToString();
+        }
+        public static string GetFirstLetters(this string text, int length) {
+            if (string.IsNullOrEmpty(text)) {
+                return string.Empty;
+            }
+            return text.Substring(0, length);
+        }
+        public static string GetLastLetter(this string text) {
+            if (string.IsNullOrEmpty(text)) {
+                return string.Empty;
+            }
+            return text[text.Length - 1].ToString();
+        }
         #endregion
 
         #region Search Date

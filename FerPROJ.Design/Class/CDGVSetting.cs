@@ -205,6 +205,14 @@ namespace FerPROJ.Design.Class {
                 // Optionally, redraw the DataGridView
                 dgv.Invalidate();
             }
+            else if (dgv.Columns[columnIndex] is DataGridViewCheckBoxColumn columnCheckBox) {
+                // Set the column read-only property
+                dgv.ReadOnly = !editable;
+                dgv.Columns[columnIndex].ReadOnly = !editable;
+
+                // Optionally, redraw the DataGridView
+                dgv.Invalidate();
+            }
         }
 
         public static void TrackChangesAndCallMethod(this CDatagridview dgv, int columnIndex, Action onColumnValueChanged) {
@@ -213,8 +221,7 @@ namespace FerPROJ.Design.Class {
             if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
                 throw new ArgumentOutOfRangeException(nameof(columnIndex), "Invalid column index.");
 
-            dgv.CellValueChanged += (sender, e) =>
-            {
+            dgv.CellValueChanged += (sender, e) => {
                 // Trigger only if the changed cell belongs to the specified column index
                 if (e.ColumnIndex == columnIndex) {
                     onColumnValueChanged();

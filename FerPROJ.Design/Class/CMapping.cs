@@ -24,7 +24,7 @@ namespace FerPROJ.Design.Class {
 
         public static List<TDestination> ToDestination<TDestination>(this IEnumerable<object> source) {
             if (source == null || !source.Any()) {
-                return default;
+                return new List<TDestination>();
             }
             var resultList = new List<TDestination>();
             foreach (var item in source) {
@@ -36,7 +36,7 @@ namespace FerPROJ.Design.Class {
 
         public static List<TDestination> ToDestination<TDestination>(this ICollection<object> source) {
             if (source == null || source.Count == 0) {
-                return default;
+                return new List<TDestination>();
             }
             var resultList = new List<TDestination>();
             foreach (var item in source) {

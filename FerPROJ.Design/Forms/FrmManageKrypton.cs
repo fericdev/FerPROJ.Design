@@ -7,13 +7,11 @@ using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using System.Threading.Tasks;
 
-namespace FerPROJ.Design.Forms
-{
-    public partial class FrmManageKrypton : KryptonForm
-    {
+namespace FerPROJ.Design.Forms {
+    public partial class FrmManageKrypton : KryptonForm {
         public Task<bool> CurrentFormResult { get; set; }
         public string Manage_IdTrack { get; set; }
-        private FormMode _currentFormMode = FormMode.Add;
+        private FormMode? _currentFormMode;
         public event EventHandler FormModeChanged;
         private bool hideFunctionOnUpdate = true;
         private bool hideFunction;
@@ -32,198 +30,161 @@ namespace FerPROJ.Design.Forms
         public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
 
-        public enum FormMode
-        {
+        public enum FormMode {
             Add,
             Update,
             ReadOnly
         }
-        public FormMode CurrentFormMode
-        {
-            get { return _currentFormMode; }
-            set
-            {
+        public FormMode CurrentFormMode {
+            get {
+                return _currentFormMode.Value;
+            }
+            set {
                 _currentFormMode = value;
                 OnFormModeChanged();
             }
         }
-        protected virtual void OnFormModeChanged()
-        {
+        protected virtual void OnFormModeChanged() {
             FormModeChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        public FrmManageKrypton()
-        {
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+            if (!_currentFormMode.HasValue) {
+                CurrentFormMode = FormMode.Add;
+            }
+        }
+        public FrmManageKrypton() {
             InitializeComponent();
             this.DoubleBuffered = true;
-            CurrentFormMode = FormMode.Add; // Default to ReadOnly mode
             FormModeChanged += FrmManageMain_FormModeChanged;
             this.KeyPreview = true;
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
             InitializeFormProperties();
-
         }
 
-        private void ConstantShortcuts()
-        {
+        private void ConstantShortcuts() {
             keyboardShortcuts[Keys.Escape] = CloseForm;
         }
 
-        protected virtual void InitializeKeyboardShortcuts()
-        {
+        protected virtual void InitializeKeyboardShortcuts() {
 
         }
         protected virtual void InitializeFormProperties() {
         }
-        private async void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (keyboardShortcuts.ContainsKey(e.KeyCode))
-            {
+        private async void OnKeyDown(object sender, KeyEventArgs e) {
+            if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
                 keyboardShortcuts[e.KeyCode]?.Invoke();
             }
-            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode))
-            {
-                if (boolKeyboardShortcuts[e.KeyCode]())
-                {
+            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
+                if (boolKeyboardShortcuts[e.KeyCode]()) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
                 }
             }
-            if (e.Control && e.KeyCode == Keys.Enter)
-            {
+            if (e.Control && e.KeyCode == Keys.Enter) {
                 var result = await OnSaveNewData();
-                if (result)
-                {
+                if (result) {
                     CurrentFormResult = Task.FromResult(true);
                 }
             }
         }
-        private async void FrmManageMain_FormModeChanged(object sender, EventArgs e)
-        {
+        private async void FrmManageMain_FormModeChanged(object sender, EventArgs e) {
             // Update button visibility based on the new CurrentFormMode
-            if (CurrentFormMode == FormMode.Add)
-            {
+            if (CurrentFormMode == FormMode.Add) {
                 baseButtonSave.Visible = true;
                 baseButtonUpdate.Visible = false;
                 await LoadComponents();
             }
-            else if (CurrentFormMode == FormMode.Update)
-            {
+            else if (CurrentFormMode == FormMode.Update) {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = true;
                 baseButtonAddNew.Visible = !hideFunctionOnUpdate;
                 await LoadComponents();
             }
-            else
-            {
+            else {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = false;
                 baseButtonAddNew.Visible = false;
                 await LoadComponents();
             }
         }
-        private void CloseForm()
-        {
-            if(CShowMessage.Ask("Are you sure to close?", "Confirmation"))
-            {
+        private void CloseForm() {
+            if (CShowMessage.Ask("Are you sure to close?", "Confirmation")) {
                 CurrentFormResult = Task.FromResult(false);
                 this.Close();
             }
         }
-        private void baseButtonCancel_Click(object sender, EventArgs e)
-        {
+        private void baseButtonCancel_Click(object sender, EventArgs e) {
             CloseForm();
         }
-        private async void btnSaveMain_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private async void btnSaveMain_Click(object sender, EventArgs e) {
+            try {
                 var result = await OnSaveData();
-                if (result)
-                {
+                if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message);
 
             }
 
         }
-        private async void btnUpdateMain_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private async void btnUpdateMain_Click(object sender, EventArgs e) {
+            try {
                 var result = await OnUpdateData();
-                if (result)
-                {
+                if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message);
 
             }
         }
-        protected async virtual Task<bool> OnSaveData()
-        {
+        protected async virtual Task<bool> OnSaveData() {
             return await CurrentFormResult;
         }
-        protected async virtual Task<bool> OnUpdateData()
-        {
+        protected async virtual Task<bool> OnUpdateData() {
             return await CurrentFormResult;
         }
-        protected async virtual Task<bool> OnSaveNewData()
-        {
+        protected async virtual Task<bool> OnSaveNewData() {
             return await OnSaveData();
         }
-        protected async virtual Task LoadComponents()
-        {
+        protected async virtual Task LoadComponents() {
             await Task.CompletedTask;
         }
 
-        private async void baseButtonAddNew_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private async void baseButtonAddNew_Click(object sender, EventArgs e) {
+            try {
                 var result = await OnSaveNewData();
-                if (result)
-                {
+                if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     ClearAllTextBoxes(this);
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 CShowMessage.Warning(ex.Message);
 
             }
         }
-        private void ClearAllTextBoxes(Control control)
-        {
-            foreach (Control childControl in control.Controls)
-            {
-                if (childControl is CTextBox textBox)
-                {
+        private void ClearAllTextBoxes(Control control) {
+            foreach (Control childControl in control.Controls) {
+                if (childControl is CTextBox textBox) {
                     textBox.TextProperty = null;
                 }
-                else if (childControl.HasChildren)
-                {
+                else if (childControl.HasChildren) {
                     ClearAllTextBoxes(childControl);
                 }
             }
         }
-        public bool HideSaveNew
-        {
+        public bool HideSaveNew {
             get { return hideFunction; }
-            set
-            {
+            set {
                 hideFunction = value;
                 HideSaveNewFunction();
             }
@@ -235,74 +196,56 @@ namespace FerPROJ.Design.Forms
                 HideSaveNewFunctionOnUpdate();
             }
         }
-        public string OnSaveName
-        {
-            get
-            {
+        public string OnSaveName {
+            get {
                 return onSaveName;
             }
-            set
-            {
+            set {
                 onSaveName = value;
                 baseButtonSave.Text = onSaveName;
             }
         }
-        public string OnUpdateName
-        {
-            get
-            {
+        public string OnUpdateName {
+            get {
                 return onUpdateName;
             }
-            set
-            {
+            set {
                 onUpdateName = value;
                 baseButtonUpdate.Text = onUpdateName;
             }
         }
-        public string OnSaveNewName
-        {
-            get
-            {
+        public string OnSaveNewName {
+            get {
                 return onSaveNewName;
             }
-            set
-            {
+            set {
                 onSaveNewName = value;
                 baseButtonAddNew.Text = onSaveNewName;
             }
         }
-        public string OnCloseName
-        {
-            get
-            {
+        public string OnCloseName {
+            get {
                 return onCloseName;
             }
-            set
-            {
+            set {
                 onCloseName = value;
                 baseButtonCancel.Text = onCloseName;
             }
         }
-        public bool HideHeader
-        {
-            get
-            {
+        public bool HideHeader {
+            get {
                 return hideHeader;
             }
-            set
-            {
+            set {
                 hideHeader = value;
                 panelMain1.Visible = !hideHeader;
             }
         }
-        public bool HideFooter
-        {
-            get
-            {
+        public bool HideFooter {
+            get {
                 return hideFooter;
             }
-            set
-            {
+            set {
                 hideFooter = value;
                 basePnl1.Visible = !hideFooter;
             }
@@ -310,33 +253,26 @@ namespace FerPROJ.Design.Forms
         private void HideSaveNewFunctionOnUpdate() {
             baseButtonAddNew.Visible = !hideFunctionOnUpdate;
         }
-        private void HideSaveNewFunction()
-        {
+        private void HideSaveNewFunction() {
             baseButtonAddNew.Visible = !hideFunction;
         }
-        public string FormTitle
-        {
+        public string FormTitle {
             get { return titleText; }
-            set
-            {
+            set {
                 titleText = value;
                 customLabelDescMain1.Text = titleText;
             }
         }
-        public string FormDescription
-        {
+        public string FormDescription {
             get { return descText; }
-            set
-            {
+            set {
                 descText = value;
                 customLabelDescMain2.Text = descText;
             }
         }
-        public Image FormIcon
-        {
+        public Image FormIcon {
             get { return formIcon; }
-            set
-            {
+            set {
                 formIcon = value;
                 pictureBoxMain1.BackgroundImage = formIcon;
                 pictureBoxMain1.BackgroundImageLayout = ImageLayout.Zoom;

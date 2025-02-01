@@ -80,6 +80,11 @@ namespace FerPROJ.Design.Class {
         #region Conversion
 
         public static TEnum ToEnum<TEnum>(this string value, bool ignoreCase = true) where TEnum : struct, Enum {
+
+            if (string.IsNullOrEmpty(value)) {
+                return default;
+            }
+
             if (Enum.TryParse(value, ignoreCase, out TEnum result)) {
                 return result;
             }

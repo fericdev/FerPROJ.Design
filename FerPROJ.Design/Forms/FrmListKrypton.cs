@@ -19,7 +19,7 @@ namespace FerPROJ.Design.Forms {
         public DateTime? dateTo = null;
         public string searchValue;
         public int dataLimit = 100;
-        private bool _currentManageMode;
+        private bool? _currentManageMode;
         public event EventHandler ManageModeChanged;
         public string Form_IdTrack;
         private bool hideFunction;
@@ -39,7 +39,9 @@ namespace FerPROJ.Design.Forms {
         public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
         public bool CurrentManageMode {
-            get { return _currentManageMode; }
+            get {
+                return _currentManageMode.Value; 
+            }
             set {
                 _currentManageMode = value;
                 OnManageModeChanged();
@@ -47,6 +49,12 @@ namespace FerPROJ.Design.Forms {
         }
         protected virtual void OnManageModeChanged() {
             ManageModeChanged?.Invoke(this, EventArgs.Empty);
+        }
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+            if(!_currentManageMode.HasValue) {
+                CurrentManageMode = true;
+            }
         }
 
         public FrmListKrypton() {
@@ -60,8 +68,6 @@ namespace FerPROJ.Design.Forms {
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
-            CurrentManageMode = true;
-
         }
 
         private async void _debounceTimer_Tick(object sender, EventArgs e) {
@@ -90,14 +96,19 @@ namespace FerPROJ.Design.Forms {
                 }
             }
         }
-        private void FrmListMain_ManageModeChanged(object sender, EventArgs e) {
+        private async void FrmListMain_ManageModeChanged(object sender, EventArgs e) {
             if (CurrentManageMode) {
                 baseButtonSelect.Visible = false;
+                await LoadComponents();
             }
             else {
                 baseButtonSelect.Visible = true;
                 HideFunctionAll = true;
+                await LoadComponents();
             }
+        }
+        protected async virtual Task LoadComponents() {
+            await Task.CompletedTask;
         }
         private async Task SelectData() {
             if (await GetSelectedData()) {

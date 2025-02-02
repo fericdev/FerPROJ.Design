@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,37 +34,32 @@ namespace FerPROJ.Design.Class {
         /// </summary>
         /// <param name="taskFunc">The function that creates the task.</param>
         // This will run a task periodically in the background every X seconds.
-        public static async Task RunTasksInBackground(this IEnumerable<Func<Task>> tasksFunc, int seconds = 3, CancellationToken cancellationToken = default) {
+        public static async Task RunTasksInBackground(
+            this IEnumerable<Func<Task>> tasksFunc,
+            int seconds = 3,
+            CancellationToken cancellationToken = default) {
             while (!cancellationToken.IsCancellationRequested) {
-                // Create tasks
+
+                // Create tasks and run them
+                //var tasks = tasksFunc.Select(taskFunc => Task.Run(taskFunc)).ToList();
                 var tasks = tasksFunc.Select(taskFunc => taskFunc()).ToList();
 
-                // Create a cancellation token for the timeout
-                using (var timeoutCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(seconds))) {
-                    var combinedToken = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCancellationTokenSource.Token).Token;
+                // Use a delay task to enforce the timeout
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(seconds), cancellationToken);
 
-                    try {
-                        // Await tasks with combined cancellation token
-                        await Task.WhenAll(tasks.Select(task => task.WithCancellation(combinedToken)));
-                    }
-                    catch (OperationCanceledException) {
-                        Console.WriteLine("Warning: Some tasks timed out or were canceled.");
-                    }
-                }
+                // Wait for either all tasks to complete or the timeout to occur
+                var completedTask = await Task.WhenAny(Task.WhenAll(tasks), timeoutTask);
 
-                // Optionally delay before running the next set of tasks
-                await Task.Delay(1000 * seconds, cancellationToken);
+                if (completedTask == timeoutTask)
+                    Console.WriteLine("Warning: Tasks are taking longer than expected but will continue in the background.");
+                else
+                    await Task.WhenAll(tasks); // Ensure exceptions are observed
+
+                // Wait for the interval before the next iteration
+                await Task.Delay(TimeSpan.FromSeconds(seconds), cancellationToken);
             }
         }
 
-        // Extension method for supporting cancellation on individual tasks
-        private static async Task WithCancellation(this Task task, CancellationToken cancellationToken) {
-            var completedTask = await Task.WhenAny(task, Task.Delay(Timeout.Infinite, cancellationToken));
-            if (completedTask != task) {
-                throw new OperationCanceledException(cancellationToken);
-            }
-            await task;  // Ensure the task completes
-        }
 
         private static void LogError(Exception ex) {
             // Replace with your logging framework or custom logic

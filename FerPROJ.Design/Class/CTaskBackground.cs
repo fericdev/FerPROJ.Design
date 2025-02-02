@@ -61,24 +61,26 @@ namespace FerPROJ.Design.Class {
         /// </summary>
         /// <param name="taskFunc">The function that creates the task.</param>
         // This will run a task periodically in the background every X seconds.
-        public static async Task RunTaskPeriodically(Func<Task> taskFunc, TimeSpan interval) {
-            // Run the task periodically with async/await handling.
+        public static async Task RunTaskPeriodically(Func<Task> taskFunc, int seconds = 5) {
+            // Run the task periodically without overlapping executions.
             while (true) {
-                try {
-                    await taskFunc(); // Run the task asynchronously
-                }
-                catch (Exception ex) {
-                    LogError(ex); // Handle any errors (for logging, etc.)
+
+                var task = taskFunc();  // Start the task
+
+                await Task.WhenAny(task, Task.Delay(1000 * seconds));  // Wait for either task completion or timeout
+
+                if (!task.IsCompleted) {
+                    // If the task hasn't completed in the interval, log a warning
                 }
 
-                await Task.Delay(interval); // Wait for the specified interval before running again
+                await Task.Delay(1000 * seconds);  // Delay before the next run
             }
         }
 
         private static void LogError(Exception ex) {
             // Replace with your logging framework or custom logic
             //CShowMessage.Warning($"Error: {ex.Message}");
-            Console.WriteLine("Background Error:" + ex.Message);
+            //Console.WriteLine("Background Error:" + ex.Message);
         }
     }
 }

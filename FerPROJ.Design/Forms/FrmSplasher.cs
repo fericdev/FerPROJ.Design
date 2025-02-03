@@ -10,20 +10,29 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FerPROJ.Design.Forms
-{
-    public partial class FrmSplasher : Form
-    {
+namespace FerPROJ.Design.Forms {
+    public partial class FrmSplasher : Form {
         private static FrmSplasher instance; // Singleton instance
         public FrmSplasher() {
             InitializeComponent();
             systemVersionLbl.Text = CAssembly.SystemVersion;
         }
         public void SetLoadingPerc(int perc) {
-            pbLoadingPercent.Value = perc;
+            if (pbLoadingPercent.InvokeRequired) {
+                pbLoadingPercent.Invoke(new Action<int>(SetLoadingPerc), perc);
+            }
+            else {
+                pbLoadingPercent.Value = perc;
+            }
         }
+
         public void SetStatus(string txt) {
-            LblLoadingMessage.Text = txt;
+            if (LblLoadingMessage.InvokeRequired) {
+                LblLoadingMessage.Invoke(new Action<string>(SetStatus), txt);
+            }
+            else {
+                LblLoadingMessage.Text = txt;
+            }
         }
         public static void ShowSplash() {
             int currentPercentage = 5;
@@ -39,9 +48,11 @@ namespace FerPROJ.Design.Forms
                 instance.SetLoadingPerc(currentPercentage);
                 if (currentPercentage == 10) {
                     instance.SetStatus("Initializing Components . . .");
-                } else if (currentPercentage == 50) {
+                }
+                else if (currentPercentage == 50) {
                     instance.SetStatus("Connecting to Database . . .");
-                } else if (currentPercentage == 80) {
+                }
+                else if (currentPercentage == 80) {
                     instance.SetStatus("Done . . .");
                 }
                 Application.DoEvents();
@@ -49,10 +60,106 @@ namespace FerPROJ.Design.Forms
                 currentPercentage++;
             }
         }
+        public static async Task ShowSplashAsync(List<Func<Task>> tasks) {
+            int currentPercentage = 5;
+            instance = new FrmSplasher();
+            instance.Show();
+            instance.Update();
+
+            instance.SetStatus("Loading . . .");
+            Application.DoEvents();
+
+            List<Task> runningTasks = null;
+
+            Task backgroundTask = null;
+
+            // Start the progress update loop
+            while (currentPercentage <= 100) {
+
+                instance.SetLoadingPerc(currentPercentage);
+                Application.DoEvents();
+
+                if (currentPercentage == 5) {
+                    runningTasks = tasks.Select(taskFunc => Task.Run(taskFunc)).ToList();
+                }
+
+                if (currentPercentage == 10) {
+                    instance.SetStatus("Initializing Components . . .");
+                    Application.DoEvents();
+                }
+                else if (currentPercentage == 50) {
+                    instance.SetStatus("Connecting to Database . . .");
+                    Application.DoEvents();
+                }
+                else if (currentPercentage == 80) {
+
+                    instance.SetStatus("Loading cached for better experience . . .");
+
+                    Application.DoEvents();
+
+                    // Await all running tasks to complete before continuing
+                    if (runningTasks != null) {
+                        await Task.WhenAll(runningTasks); // Ensure all tasks are completed
+                        currentPercentage = 100;
+                        continue;
+                    }
+                }
+                else if (currentPercentage == 100) {
+                    instance.SetLoadingPerc(currentPercentage);
+                    instance.SetStatus("Done . . .");
+                    Application.DoEvents();
+                    await PauseAsync();
+
+                    // After the delay, run the long-running tasks asynchronously
+                    backgroundTask = Task.Run(async () => {
+                        await tasks.RunTasksInBackground();
+                    });
+
+                    break; // Exit the loop when the splash screen is closed
+                }
+
+                // Continue updating progress even while the tasks are running
+                await Task.Delay(20); // Async delay for smooth UI updates
+
+                if (currentPercentage < 80) {
+                    currentPercentage++; // Increment percentage unless we're waiting for task completion
+                }
+            }
+
+            // Close the splash screen after all tasks are completed
+            CloseSplash();
+
+            // Await the background task after closing the splash
+            if (backgroundTask != null) {
+                await backgroundTask;
+            }
+        }
 
         public static void CloseSplash() {
-            instance.Close();
-            instance.Dispose();
+            if (instance.InvokeRequired) {
+                // If called from a different thread, use Invoke to call Close on the UI thread
+                instance.Invoke(new Action(() => {
+                    instance.Close();
+                    instance.Dispose();
+                }));
+            }
+            else {
+                // If already on the UI thread, directly close and dispose
+                instance.Close();
+                instance.Dispose();
+            }
+        }
+        // This method introduces a pause without blocking the UI thread
+        private static async Task PauseAsync() {
+            // Pause for 5 seconds but don't block the UI thread
+            var startTime = DateTime.UtcNow;
+            var delayTime = TimeSpan.FromSeconds(3);
+
+            // Continue updating progress while we wait
+            while (DateTime.UtcNow - startTime < delayTime) {
+                // Allow progress bar to keep moving
+                await Task.Delay(100); // Small delay to allow UI thread to update
+            }
         }
     }
 }

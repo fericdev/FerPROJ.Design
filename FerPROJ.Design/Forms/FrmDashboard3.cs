@@ -24,7 +24,7 @@ namespace FerPROJ.Design.Forms {
 
         private void FrmDashboard3_Load(object sender, EventArgs e) {
             try {
-                FrmSplasher.CloseSplash();
+                //FrmSplasher.CloseSplash();
                 timerMain.Start();
                 LoadVar();
                 LoadComponent();

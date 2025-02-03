@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="BaseDTO\BaseAddressDTO.cs" />
     <Compile Include="Class\CAssembly.cs" />
+    <Compile Include="Class\CComparison.cs" />
     <Compile Include="Class\CDGVAttr.cs" />
     <Compile Include="Class\CConvert.cs" />
     <Compile Include="Class\CEnum.cs" />

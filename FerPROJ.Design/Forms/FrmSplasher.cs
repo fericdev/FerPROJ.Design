@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace FerPROJ.Design.Forms {
         public FrmSplasher() {
             InitializeComponent();
             systemVersionLbl.Text = CAssembly.SystemVersion;
+            // Attach the MouseDown event for the panel
+            this.basePnl2.MouseDown += panel_MouseDown;
         }
         public void SetLoadingPerc(int perc) {
             if (pbLoadingPercent.InvokeRequired) {
@@ -159,6 +162,46 @@ namespace FerPROJ.Design.Forms {
             while (DateTime.UtcNow - startTime < delayTime) {
                 // Allow progress bar to keep moving
                 await Task.Delay(100); // Small delay to allow UI thread to update
+            }
+        }
+        // Win32 API functions and constants
+        public class Win32 {
+            public const int WM_NCHITTEST = 0x0084;
+            public const int HTCAPTION = 0x02;
+
+            [DllImport("user32.dll")]
+            public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            public static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            public static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+            [DllImport("user32.dll")]
+            public static extern bool ReleaseCapture();
+        }
+
+        // Override WndProc to handle messages from Win32
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == Win32.WM_NCHITTEST) {
+                base.WndProc(ref m);
+                // Check if the mouse is over a draggable area (e.g., Panel)
+                if (this.basePnl2.ClientRectangle.Contains(this.basePnl2.PointToClient(Cursor.Position))) {
+                    m.Result = (IntPtr)Win32.HTCAPTION;
+                    return;
+                }
+            }
+
+            base.WndProc(ref m);
+        }
+
+        // Mouse down event to start dragging the form
+        private void panel_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                // Start dragging
+                Win32.ReleaseCapture();
+                Win32.SendMessage(this.Handle, 0x112, 0xF012, 0);
             }
         }
     }

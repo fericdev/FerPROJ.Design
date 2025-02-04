@@ -16,7 +16,9 @@ namespace FerPROJ.Design.BaseDTO
         [CDGVAttr(IsVisible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
         [CDGVAttr(IsVisible = false)]
-        public string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy");
+        public string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
+        [CDGVAttr(IsVisible = false)]
+        public string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
         [CDGVAttr(IsVisible = false)]
         public DateTime? DateModified { get; set; } = null;
         [CDGVAttr(IsVisible = false)]

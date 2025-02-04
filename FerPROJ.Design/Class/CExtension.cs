@@ -352,18 +352,25 @@ namespace FerPROJ.Design.Class {
             return dataTable;
         }
         public static async Task<DataTable> ToDataTable<T>(this T item) {
+
+            var invalidTypes = new[] { typeof(List<>) };
+
             // Create a new DataTable with the name of the type T
             var dataTable = new DataTable(typeof(T).Name);
 
             // Cache property info to avoid repeated reflection calls
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                      .Where(prop => prop.DeclaringType.IsSubclassOf(typeof(PropertyValidator)))  // Exclude properties from PropertyValidator
                                       .Where(prop => prop.CanRead)  // Only consider readable properties
                                       .ToArray();
 
             // Create columns in the DataTable based on the properties
             foreach (var prop in properties) {
                 var columnType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-                dataTable.Columns.Add(prop.Name, columnType);
+                // Check if the columnType is a valid type before adding it to the DataTable
+                if (!invalidTypes.Contains(columnType)) {
+                    dataTable.Columns.Add(prop.Name, columnType);
+                }
             }
 
             // Add a row to the DataTable asynchronously

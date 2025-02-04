@@ -161,31 +161,14 @@ namespace FerPROJ.Design.Forms {
                 await Task.Delay(100); // Small delay to allow UI thread to update
             }
         }
-        // Win32 API functions and constants
-        public class Win32 {
-            public const int WM_NCHITTEST = 0x0084;
-            public const int HTCAPTION = 0x02;
-
-            [DllImport("user32.dll")]
-            public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
-
-            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            public static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
-
-            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            public static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
-
-            [DllImport("user32.dll")]
-            public static extern bool ReleaseCapture();
-        }
 
         // Override WndProc to handle messages from Win32
         protected override void WndProc(ref Message m) {
-            if (m.Msg == Win32.WM_NCHITTEST) {
+            if (m.Msg == CWindows32DLL.WM_NCHITTEST) {
                 base.WndProc(ref m);
                 // Check if the mouse is over a draggable area (e.g., Panel)
                 if (this.basePnl2.ClientRectangle.Contains(this.basePnl2.PointToClient(Cursor.Position))) {
-                    m.Result = (IntPtr)Win32.HTCAPTION;
+                    m.Result = (IntPtr)CWindows32DLL.HTCAPTION;
                     return;
                 }
             }
@@ -197,8 +180,8 @@ namespace FerPROJ.Design.Forms {
         private void panel_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 // Start dragging
-                Win32.ReleaseCapture();
-                Win32.SendMessage(this.Handle, 0x112, 0xF012, 0);
+                CWindows32DLL.ReleaseCapture();
+                CWindows32DLL.SendMessage(this.Handle, 0x112, 0xF012, 0);
             }
         }
     }

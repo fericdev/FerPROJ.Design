@@ -120,6 +120,7 @@
     <Compile Include="Class\CConf.cs" />
     <Compile Include="BaseDTO\BaseDTO.cs" />
     <Compile Include="Class\CTaskBackground.cs" />
+    <Compile Include="Class\CWindows32DLL.cs" />
     <Compile Include="Class\PropertyValidator.cs" />
     <Compile Include="Controls\CButton.cs">
       <SubType>Component</SubType>

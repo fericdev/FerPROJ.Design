@@ -95,34 +95,31 @@ namespace FerPROJ.Design.Forms {
                     Application.DoEvents();
                 }
                 else if (currentPercentage == 80) {
-
                     instance.SetStatus("Loading cached for better experience . . .");
-
                     Application.DoEvents();
+                    await PauseAsync();
 
                     // Await all running tasks to complete before continuing
                     if (runningTasks != null) {
                         await Task.WhenAll(runningTasks); // Ensure all tasks are completed
                         currentPercentage = 100;
-                        continue;
                     }
                 }
                 else if (currentPercentage == 100) {
                     instance.SetLoadingPerc(currentPercentage);
                     instance.SetStatus("Done . . .");
                     Application.DoEvents();
-                    await PauseAsync();
-
                     // After the delay, run the long-running tasks asynchronously
                     backgroundTask = Task.Run(async () => {
                         await tasks.RunTasksInBackground();
                     });
+                    await PauseAsync();
 
                     break; // Exit the loop when the splash screen is closed
                 }
 
                 // Continue updating progress even while the tasks are running
-                await Task.Delay(20); // Async delay for smooth UI updates
+                await Task.Delay(10); // Async delay for smooth UI updates
 
                 if (currentPercentage < 80) {
                     currentPercentage++; // Increment percentage unless we're waiting for task completion
@@ -156,7 +153,7 @@ namespace FerPROJ.Design.Forms {
         private static async Task PauseAsync() {
             // Pause for 5 seconds but don't block the UI thread
             var startTime = DateTime.UtcNow;
-            var delayTime = TimeSpan.FromSeconds(3);
+            var delayTime = TimeSpan.FromSeconds(1);
 
             // Continue updating progress while we wait
             while (DateTime.UtcNow - startTime < delayTime) {

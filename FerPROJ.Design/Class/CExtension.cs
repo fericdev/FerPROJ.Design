@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FerPROJ.Design.Controls;
+using FerPROJ.Design.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
@@ -550,11 +552,140 @@ namespace FerPROJ.Design.Class {
             label.ForeColor = Color.Orange;
         }
         public static void SetLabelColorSuccess(this Label label) {
-            if(label == null) {
+            if (label == null) {
                 return;
             }
             label.ForeColor = Color.Green;
         }
+        #endregion
+
+
+        #region Binding Class 
+        public static async Task LoadDataAsync<T>(
+            this BindingSource bindingSource,
+            Task<IEnumerable<T>> dataFetchTask) {
+            try {
+                await FrmSplasherLoading.ShowSplashAsync();
+
+                // Fetch all data asynchronously
+                var allData = (await dataFetchTask).ToList();
+                var uiControl = FindControlByBindingSource(bindingSource);
+
+                // Check if the BindingSource has more data than the fetched data
+                if (bindingSource.Count > allData.Count) {
+                    // Clear the BindingSource if it contains more data than the fetched data
+                    bindingSource.Clear();
+                }
+
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.WorkerReportsProgress = true;
+
+                worker.DoWork += (s, e) => {
+                    int batchSize = 100;
+                    int total = allData.Count;
+                    int currentIndex = 0;
+
+                    var loadedData = new List<T>();
+
+                    // Check if total data is less than batch size
+                    if (total <= batchSize) {
+                        // Load all data at once if less than batch size
+                        worker.ReportProgress(100, allData);
+                        FrmSplasherLoading.SetLoadingPerc(100);
+                    }
+                    else {
+                        // Load data in batches
+                        while (currentIndex < total) {
+
+                            var batch = allData.Skip(currentIndex).Take(batchSize).ToList();
+
+                            currentIndex += batchSize;
+
+                            int progress = (int)((double)currentIndex / total * 100);
+                            // Report progress to the UI thread to append the batch
+                            worker.ReportProgress(progress, batch);
+                            FrmSplasherLoading.SetLoadingPerc(progress);
+
+                            // Optional delay to smoothen UI load (tweak as needed)
+                            Thread.Sleep(100);
+                        }
+                    }
+                };
+
+                worker.ProgressChanged += (s, e) => {
+                    var batch = (List<T>)e.UserState;
+
+                    // Suspend updates for smoother performance
+                    bindingSource.SuspendBinding();
+
+                    if (bindingSource.DataSource is List<T> currentData) {
+                        currentData.AddRange(batch);  // Add new batch
+                    }
+                    else {
+                        // First batch initialization
+                        bindingSource.DataSource = new List<T>(batch);
+                    }
+
+                    bindingSource.ResumeBinding();
+
+                    // Offload UI updates
+                    if (e.ProgressPercentage == 100) {
+                        bindingSource.ResetBindings(false);
+                        FrmSplasherLoading.CloseSplash();
+                    }
+
+                    Console.WriteLine($"{batch.Count} items added to DataSource.");
+                };
+
+                worker.RunWorkerCompleted += (s, e) => {
+                    Console.WriteLine("All data loaded without freezing the UI.");
+                };
+
+                worker.RunWorkerAsync();
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error loading data: {ex.Message}");
+            }
+        }
+
+        #region Control 
+        private static Control FindControlByBindingSource(BindingSource bindingSource) {
+            foreach (Form form in Application.OpenForms) {
+                var control = FindControlRecursive(form, bindingSource);
+                if (control != null) {
+                    return control;
+                }
+            }
+            return null;
+        }
+
+        private static Control FindControlRecursive(Control parent, BindingSource bindingSource) {
+            foreach (Control control in parent.Controls) {
+                // Check if this control is bound to the BindingSource
+                if ((control is DataGridView dgv && dgv.DataSource == bindingSource) ||
+                    (control is CDatagridview cdgv && cdgv.DataSource == bindingSource)) {
+                    return control;
+                }
+
+                // Recursively search in child controls
+                var result = FindControlRecursive(control, bindingSource);
+                if (result != null) {
+                    return result;
+                }
+            }
+            return null;
+        }
+        private static DataGridView GetBoundDataGridView(Control control, BindingSource bindingSource) {
+            // Check if the current control is the target DataGridView and its DataSource matches
+            if ((control is CDatagridview cdgv && cdgv.DataSource == bindingSource) ||
+                (control is DataGridView dgv && dgv.DataSource == bindingSource)) {
+                return control as DataGridView;
+            }
+
+            return null; // No bound DataGridView found
+        }
+        #endregion
+
         #endregion
 
     }

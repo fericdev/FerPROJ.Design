@@ -107,68 +107,73 @@ namespace FerPROJ.Design.Class {
             return null;
         }
         public static async Task SearchDGVWithBackgroundWorkerAsync(this CDatagridview dgv, string searchValue) {
+
             FrmSplasherLoading.ShowSplashAsync().RunTaskAsync();
-            await CTaskBackground.RunWithProgressAsync(
-                async (worker, e) => {
-                    string trimValue = searchValue.Trim();
-                    var visibleRows = new List<DataGridViewRow>();
-                    int rowCount = dgv.Rows.Count;
-                    int matchedCount = 0;
 
-                    for (int i = 0; i < rowCount; i++) {
-                        if (worker.CancellationPending) {
-                            e.Cancel = true;
-                            return;
-                        }
+            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
+                string trimValue = searchValue.Trim();
+                var visibleRows = new List<DataGridViewRow>();
+                int rowCount = dgv.Rows.Count;
+                int matchedCount = 0;
 
-                        DataGridViewRow row = dgv.Rows[i];
-                        bool rowVisible = row.Cells.Cast<DataGridViewCell>()
-                                                   .Any(cell => cell?.Value != null && cell.Value.ToString().SearchFor(trimValue));
-
-                        if (rowVisible) {
-                            visibleRows.Add(row);
-                            matchedCount++;
-                        }
-
-                        // Report progress every 10 rows
-                        if (i % 10 == 0 || i == rowCount - 1) {
-                            worker.ReportProgress(i * 100 / rowCount, matchedCount);
-                        }
+                for (int i = 0; i < rowCount; i++) {
+                    if (worker.CancellationPending) {
+                        e.Cancel = true;
+                        return;
                     }
 
-                    e.Result = visibleRows;
-                    await Task.CompletedTask;  // Ensure method signature compliance
-                },
-                async (e) => {
-                    int percentage = e.ProgressPercentage;
-                    int matchedCount = (int)e.UserState;
-                    FrmSplasherLoading.SetLoadingText(percentage, $"Found: {matchedCount} | {percentage}%");
-                    await Task.CompletedTask;  // Ensure method signature compliance
-                },
-                async (e) => {
-                    if (e.Cancelled) {
-                        FrmSplasherLoading.SetLoadingText(0, "Search Cancelled");
-                    }
-                    else if (e.Error != null) {
-                        FrmSplasherLoading.SetLoadingText(0, $"Error: {e.Error.Message}");
-                    }
-                    else {
-                        var visibleRows = (List<DataGridViewRow>)e.Result;
-                        dgv.Invoke((Action)(() => {
-                            CurrencyManager currencyManager = (CurrencyManager)dgv.BindingContext[dgv.DataSource];
-                            currencyManager.SuspendBinding();
-                            foreach (DataGridViewRow row in dgv.Rows) {
-                                row.Visible = visibleRows.Contains(row);
-                            }
-                            currencyManager.ResumeBinding();
-                        }));
-                        FrmSplasherLoading.SetLoadingText(100, $"Found: {visibleRows.Count} | 100%");
+                    DataGridViewRow row = dgv.Rows[i];
+                    bool rowVisible = row.Cells.Cast<DataGridViewCell>()
+                                               .Any(cell => cell?.Value != null && cell.Value.ToString().SearchFor(trimValue));
+
+                    if (rowVisible) {
+                        visibleRows.Add(row);
+                        matchedCount++;
                     }
 
-                    FrmSplasherLoading.CloseSplash();
-                    await Task.CompletedTask;  // Ensure method signature compliance
+                    // Report progress every 10 rows
+                    if (i % 10 == 0 || i == rowCount - 1) {
+                        worker.ReportProgress(i * 100 / rowCount, matchedCount);
+                    }
                 }
-            );
+
+                e.Result = visibleRows;
+                await Task.CompletedTask;  // Ensure method signature compliance
+            };
+
+            Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
+                int percentage = e.ProgressPercentage;
+                int matchedCount = (int)e.UserState;
+                FrmSplasherLoading.SetLoadingText(percentage, $"Found: {matchedCount} | {percentage}%");
+                await Task.CompletedTask;  // Ensure method signature compliance
+            };
+
+            Func<RunWorkerCompletedEventArgs, Task> workerCompleted = async (e) => {
+                if (e.Cancelled) {
+                    FrmSplasherLoading.SetLoadingText(0, "Search Cancelled");
+                }
+                else if (e.Error != null) {
+                    FrmSplasherLoading.SetLoadingText(0, $"Error: {e.Error.Message}");
+                }
+                else {
+                    var visibleRows = (List<DataGridViewRow>)e.Result;
+                    dgv.Invoke((Action)(() => {
+                        CurrencyManager currencyManager = (CurrencyManager)dgv.BindingContext[dgv.DataSource];
+                        currencyManager.SuspendBinding();
+                        foreach (DataGridViewRow row in dgv.Rows) {
+                            row.Visible = visibleRows.Contains(row);
+                        }
+                        currencyManager.ResumeBinding();
+                    }));
+                    FrmSplasherLoading.SetLoadingText(100, $"Found: {visibleRows.Count} | 100%");
+                }
+
+                FrmSplasherLoading.CloseSplash();
+                await Task.CompletedTask;  // Ensure method signature compliance
+            };
+
+            //
+            await CTaskBackground.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompleted);
         }
         public static async Task SearchDGVAsync(this CDatagridview dgv, string searchValue) {
             try {

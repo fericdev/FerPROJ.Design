@@ -10,6 +10,15 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
     public static class CTaskBackground {
+        /// <summary>
+        /// var doWorkAsync = async (worker, e) => { worker.ReportProgress(percentage, userState); };<br />
+        /// var progressChangedAsync = async (e) => { var userStateValue = (cast)e.UserState; var percentage = e.ProgressPercentage; };<br />
+        /// var runWorkerCompletedAsync = async (e) => { var resultValue = (cast)e.Result; };
+        /// </summary>
+        /// <param name="doWorkAsync">The function that performs the asynchronous work and reports progress.</param>
+        /// <param name="progressChangedAsync">Handles progress changes by capturing the percentage and user state.</param>
+        /// <param name="runWorkerCompletedAsync">Handles the completion of the asynchronous task and retrieves the result.</param>
+        /// <returns>Returns the result of the completed worker task.</returns>
         public static async Task RunWithProgressAsync(
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync,
             Func<ProgressChangedEventArgs, Task> progressChangedAsync,

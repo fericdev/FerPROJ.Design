@@ -576,65 +576,69 @@ namespace FerPROJ.Design.Class {
                 bindingSource.Clear();
             }
 
-            await CTaskBackground.RunWithProgressAsync(
-                async (worker, e) => {
-                    int batchSize = 100;
-                    int total = allData.Count;
-                    int currentIndex = 0;
+            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
+                int batchSize = 100;
+                int total = allData.Count;
+                int currentIndex = 0;
 
-                    // Check if total data is less than batch size
-                    if (total <= batchSize) {
-                        // Load all data at once if less than batch size
-                        worker.ReportProgress(100, allData);
-                        FrmSplasherLoading.SetLoadingText(100);
-                    }
-                    else {
-                        // Load data in batches
-                        while (currentIndex < total) {
-                            var batch = allData.Skip(currentIndex).Take(batchSize).ToList();
-                            currentIndex += batchSize;
-
-                            int progress = (int)((double)currentIndex / total * 100);
-                            // Report progress to the UI thread to append the batch
-                            worker.ReportProgress(progress, batch);
-                            FrmSplasherLoading.SetLoadingText(progress);
-
-                            // Optional delay to smoothen UI load (tweak as needed)
-                            await Task.Delay(10);
-                        }
-                    }
-                },
-                async (e) => {
-                    var batch = (List<T>)e.UserState;
-
-                    // Suspend updates for smoother performance
-                    bindingSource.SuspendBinding();
-
-                    if (bindingSource.DataSource is List<T> currentData) {
-                        currentData.AddRange(batch);  // Add new batch
-                    }
-                    else {
-                        // First batch initialization
-                        bindingSource.DataSource = new List<T>(batch);
-                    }
-
-                    bindingSource.ResumeBinding();
-
-                    // Offload UI updates
-                    if (e.ProgressPercentage == 100) {
-                        bindingSource.ResetBindings(false);
-                    }
-
-                    Console.WriteLine($"{batch.Count} items added to DataSource.");
-                    await Task.CompletedTask;
-                },
-                async (e) => {
+                // Check if total data is less than batch size
+                if (total <= batchSize) {
+                    // Load all data at once if less than batch size
+                    worker.ReportProgress(100, allData);
                     FrmSplasherLoading.SetLoadingText(100);
-                    FrmSplasherLoading.CloseSplash();
-                    Console.WriteLine("All data loaded without freezing the UI.");
-                    await Task.CompletedTask;
                 }
-            );
+                else {
+                    // Load data in batches
+                    while (currentIndex < total) {
+                        var batch = allData.Skip(currentIndex).Take(batchSize).ToList();
+                        currentIndex += batchSize;
+
+                        int progress = (int)((double)currentIndex / total * 100);
+                        // Report progress to the UI thread to append the batch
+                        worker.ReportProgress(progress, batch);
+                        FrmSplasherLoading.SetLoadingText(progress);
+
+                        // Optional delay to smoothen UI load (tweak as needed)
+                        await Task.Delay(10);
+                    }
+                }
+            };
+
+            Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
+                var batch = (List<T>)e.UserState;
+
+                // Suspend updates for smoother performance
+                bindingSource.SuspendBinding();
+
+                if (bindingSource.DataSource is List<T> currentData) {
+                    currentData.AddRange(batch);  // Add new batch
+                }
+                else {
+                    // First batch initialization
+                    bindingSource.DataSource = new List<T>(batch);
+                }
+
+                bindingSource.ResumeBinding();
+
+                // Offload UI updates
+                if (e.ProgressPercentage == 100) {
+                    bindingSource.ResetBindings(false);
+                }
+
+                Console.WriteLine($"{batch.Count} items added to DataSource.");
+                await Task.CompletedTask;
+
+            };
+
+            Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
+                FrmSplasherLoading.SetLoadingText(100);
+                FrmSplasherLoading.CloseSplash();
+                Console.WriteLine("All data loaded without freezing the UI.");
+                await Task.CompletedTask;
+            };
+
+            await CTaskBackground.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
+
         }
 
         #region Control 

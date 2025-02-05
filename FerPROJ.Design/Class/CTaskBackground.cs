@@ -8,6 +8,23 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
     public static class CTaskBackground {
+
+        public static void RunTaskAsync(this Task task) {
+
+            _ = Task.Run(async () =>
+            {
+                try {
+                    await task.ConfigureAwait(false);
+                }
+                catch (Exception ex) {
+                    // Log the exception to avoid unobserved exceptions
+                    Console.WriteLine($"Task error: {ex.Message}");
+                    // You can also integrate logging frameworks here
+                }
+            });
+        
+        }
+
         /// <summary>
         /// Runs a single task in a background thread.
         /// </summary>

@@ -559,7 +559,6 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
-
         #region Binding Class 
         public static async Task LoadDataAsync<T>(
             this BindingSource bindingSource,

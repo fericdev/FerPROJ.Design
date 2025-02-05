@@ -42,18 +42,18 @@ namespace FerPROJ.Design.Forms
             this.panelLoading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelLoading.Location = new System.Drawing.Point(3, 3);
             this.panelLoading.Name = "panelLoading";
-            this.panelLoading.Size = new System.Drawing.Size(126, 23);
+            this.panelLoading.Size = new System.Drawing.Size(170, 31);
             this.panelLoading.TabIndex = 0;
             // 
             // customLabelTitleLoading
             // 
             this.customLabelTitleLoading.BackColor = System.Drawing.Color.Black;
             this.customLabelTitleLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customLabelTitleLoading.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customLabelTitleLoading.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customLabelTitleLoading.ForeColor = System.Drawing.Color.White;
             this.customLabelTitleLoading.Location = new System.Drawing.Point(0, 0);
             this.customLabelTitleLoading.Name = "customLabelTitleLoading";
-            this.customLabelTitleLoading.Size = new System.Drawing.Size(126, 23);
+            this.customLabelTitleLoading.Size = new System.Drawing.Size(170, 31);
             this.customLabelTitleLoading.TabIndex = 0;
             this.customLabelTitleLoading.Text = "Loading. . . ";
             this.customLabelTitleLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -63,7 +63,7 @@ namespace FerPROJ.Design.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(132, 29);
+            this.ClientSize = new System.Drawing.Size(176, 37);
             this.Controls.Add(this.panelLoading);
             this.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.ForeColor = System.Drawing.Color.Silver;

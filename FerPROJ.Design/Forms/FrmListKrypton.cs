@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
+using System.Web.Hosting;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmListKrypton : KryptonForm {
@@ -40,7 +41,7 @@ namespace FerPROJ.Design.Forms {
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
         public bool CurrentManageMode {
             get {
-                return _currentManageMode.Value; 
+                return _currentManageMode.Value;
             }
             set {
                 _currentManageMode = value;
@@ -52,7 +53,7 @@ namespace FerPROJ.Design.Forms {
         }
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
-            if(!_currentManageMode.HasValue) {
+            if (!_currentManageMode.HasValue) {
                 CurrentManageMode = true;
             }
         }
@@ -72,12 +73,16 @@ namespace FerPROJ.Design.Forms {
 
         private async void _debounceTimer_Tick(object sender, EventArgs e) {
             _debounceTimer.Stop();
-
             searchValue = SearchTextBox.Text;
             dateFrom = baseDateFromDateTimePicker.Value;
             dateTo = baseDateToDateTimePicker.Value;
 
-            await AsyncRefresh();
+            if (!checkBoxDGVSearch.Checked) {
+                await AsyncRefresh();
+            }
+            else {
+                RefreshDGVData().RunTaskAsync();
+            }
         }
 
         private void ConstantShortcuts() {
@@ -128,6 +133,9 @@ namespace FerPROJ.Design.Forms {
             await SelectData();
         }
         protected async virtual Task RefreshData() {
+            await Task.CompletedTask;
+        }
+        protected virtual async Task RefreshDGVData() {
             await Task.CompletedTask;
         }
 

@@ -70,6 +70,7 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain11 = new FerPROJ.Design.Controls.CLabelDesc();
             this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
             this.customLabelDescMain10 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.checkBoxDGVSearch = new System.Windows.Forms.CheckBox();
             this.basePnl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ComboBoxKryptonDataLimit)).BeginInit();
             this.basePnl2.SuspendLayout();
@@ -94,6 +95,7 @@ namespace FerPROJ.Design.Forms
             // basePnl1
             // 
             this.basePnl1.BackColor = System.Drawing.Color.Navy;
+            this.basePnl1.Controls.Add(this.checkBoxDGVSearch);
             this.basePnl1.Controls.Add(this.cLabelDesc1);
             this.basePnl1.Controls.Add(this.ComboBoxKryptonDataLimit);
             this.basePnl1.Controls.Add(this.customLabelDescMain1);
@@ -166,7 +168,7 @@ namespace FerPROJ.Design.Forms
             this.SearchTextBox.BorderSize = 2;
             this.SearchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SearchTextBox.Location = new System.Drawing.Point(75, 26);
+            this.SearchTextBox.Location = new System.Drawing.Point(73, 29);
             this.SearchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.SearchTextBox.Multiline = false;
             this.SearchTextBox.Name = "SearchTextBox";
@@ -492,6 +494,17 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain10.TabIndex = 1;
             this.customLabelDescMain10.Text = "Management Hub";
             // 
+            // checkBoxDGVSearch
+            // 
+            this.checkBoxDGVSearch.AutoSize = true;
+            this.checkBoxDGVSearch.ForeColor = System.Drawing.Color.White;
+            this.checkBoxDGVSearch.Location = new System.Drawing.Point(78, 10);
+            this.checkBoxDGVSearch.Name = "checkBoxDGVSearch";
+            this.checkBoxDGVSearch.Size = new System.Drawing.Size(86, 17);
+            this.checkBoxDGVSearch.TabIndex = 6;
+            this.checkBoxDGVSearch.Text = "DGV Search";
+            this.checkBoxDGVSearch.UseVisualStyleBackColor = true;
+            // 
             // FrmListKrypton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -563,5 +576,6 @@ namespace FerPROJ.Design.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton tsbOther2;
+        private System.Windows.Forms.CheckBox checkBoxDGVSearch;
     }
 }

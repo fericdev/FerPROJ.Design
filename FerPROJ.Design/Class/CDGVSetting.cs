@@ -1,13 +1,16 @@
 ﻿
 using FerPROJ.Design.Controls;
-using Microsoft.Office.Interop.Word;
+using FerPROJ.Design.Forms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
@@ -103,6 +106,108 @@ namespace FerPROJ.Design.Class {
 
             return null;
         }
+        public static void SearchDGVWithBackgroundWorker(this CDatagridview dgv, string searchValue) {
+            // Initialize BackgroundWorker
+            var worker = new BackgroundWorker {
+                WorkerReportsProgress = true,
+                WorkerSupportsCancellation = true
+            };
+            FrmSplasherLoading.ShowSplashAsync().RunTaskAsync();
+            // Define the DoWork event handler
+            worker.DoWork += (sender, e) => {
+                string trimValue = searchValue.Trim(); // Trim the search value
+                var visibleRows = new List<DataGridViewRow>();
+                int rowCount = dgv.Rows.Count;
+                int matchedCount = 0;
+
+                for (int i = 0; i < rowCount; i++) {
+                    if (worker.CancellationPending) {
+                        e.Cancel = true;
+                        return;
+                    }
+
+                    DataGridViewRow row = dgv.Rows[i];
+
+                    // Check if any cell contains the search value
+                    bool rowVisible = row.Cells.Cast<DataGridViewCell>()
+                                               .Any(cell => cell?.Value != null && cell.Value.ToString().SearchFor(trimValue));
+
+                    if (rowVisible) {
+                        visibleRows.Add(row);
+                        matchedCount++;
+                    }
+
+                    // Report progress every 10 rows
+                    if (i % 10 == 0 || i == rowCount - 1) {
+                        worker.ReportProgress(i * 100 / rowCount, matchedCount);
+                    }
+                }
+
+                e.Result = visibleRows;
+            };
+
+            // Define the ProgressChanged event handler
+            worker.ProgressChanged += (sender, e) => {
+                // Update progress bar (you can replace this with any progress UI element)
+                int percentage = e.ProgressPercentage;
+                int matchedCount = (int)e.UserState;
+                FrmSplasherLoading.SetLoadingText(percentage, $"Found: {matchedCount} | {percentage}%");
+            };
+
+            // Define the RunWorkerCompleted event handler
+            worker.RunWorkerCompleted += (sender, e) => {
+                var visibleRows = (List<DataGridViewRow>)e.Result;
+
+                dgv.Invoke((Action)(() => {
+                    foreach (DataGridViewRow row in dgv.Rows) {
+                        // Make rows visible only if they match the search criteria
+                        CurrencyManager currencyManager = (CurrencyManager)dgv.BindingContext[dgv.DataSource];
+                        currencyManager.SuspendBinding();
+                        row.Visible = visibleRows.Contains(row);
+                        // Resume binding to CurrencyManager
+                        currencyManager.ResumeBinding();
+
+                    }
+                }));
+                FrmSplasherLoading.SetLoadingText(100, $"Found: {visibleRows.Count} | 100%");
+                FrmSplasherLoading.CloseSplash();
+            };
+            worker.RunWorkerAsync();
+        }
+        public static async Task SearchDGVAsync(this CDatagridview dgv, string searchValue) {
+            try {
+                string trimValue = searchValue.Trim(); // Trim the search value
+                var visibleRows = new List<DataGridViewRow>();
+
+                // Run the search operation on a background thread
+                await Task.Run(() => {
+                    // Use parallelism cautiously and only if necessary
+                    foreach (DataGridViewRow row in dgv.Rows) {
+                        // Check if any cell contains the search value
+                        bool rowVisible = row.Cells.Cast<DataGridViewCell>()
+                                                   .Any(cell => cell?.Value != null && cell.Value.ToString().SearchFor(trimValue));
+
+                        if (rowVisible) {
+                            // If the row should be visible, add it to the list
+                            visibleRows.Add(row);
+                        }
+                    }
+                });
+
+                // Update the row visibility in bulk on the UI thread (only once)
+                dgv.Invoke((Action)(() => {
+                    foreach (DataGridViewRow row in dgv.Rows) {
+                        // Make rows visible only if they match the search criteria
+                        row.Visible = visibleRows.Contains(row);
+                    }
+                }));
+            }
+            catch (Exception ex) {
+                // Handle any exceptions here (optional)
+                // CShowMessage.Warning(ex.Message, "Error");
+            }
+        }
+
         public static void SearchDGV(this CDatagridview dgv, CTextBox searchValue) {
             try {
                 string trimValue = searchValue.Text.Trim(); // Trim the search value

@@ -23,10 +23,10 @@ namespace FerPROJ.Design.Forms
                           ControlStyles.AllPaintingInWmPaint, true);
             this.UpdateStyles();
         }
-        public static void SetLoadingPerc(int perc) {
+        public static void SetLoadingText(int perc, string overrideText = null) {
             // Check if splashForm is initialized and not disposed
             if (splashForm != null && !splashForm.IsDisposed) {
-                splashForm.UpdateLoadingLabel(perc);
+                splashForm.UpdateLoadingLabel(perc, overrideText);
             }
         }
         public static async Task ShowSplashAsync() {
@@ -53,16 +53,17 @@ namespace FerPROJ.Design.Forms
                 }));
             }
         }
-        private void UpdateLoadingLabel(int perc) {
+        private void UpdateLoadingLabel(int perc, string additionText = null) {
             try {
                 // Check if the form or label is disposed
                 if (this.IsDisposed || customLabelTitleLoading.IsDisposed) {
                     return; // Prevent updating if the form or label is disposed
                 }
+                // Set default value for percText if additionText is null
+                var percText = string.IsNullOrEmpty(additionText) ? $"Loading... {perc}%" : additionText;
 
-                var percText = $"Loading. . . {perc}%";
                 if (customLabelTitleLoading.InvokeRequired) {
-                    customLabelTitleLoading.Invoke(new Action<int>(UpdateLoadingLabel), perc);
+                    customLabelTitleLoading.Invoke(new Action<int, string>(UpdateLoadingLabel), perc, additionText);
                 }
                 else {
                     customLabelTitleLoading.Text = percText;

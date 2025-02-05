@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -590,7 +591,7 @@ namespace FerPROJ.Design.Class {
                     if (total <= batchSize) {
                         // Load all data at once if less than batch size
                         worker.ReportProgress(100, allData);
-                        FrmSplasherLoading.SetLoadingPerc(100);
+                        FrmSplasherLoading.SetLoadingText(100);
                     }
                     else {
                         // Load data in batches
@@ -603,10 +604,10 @@ namespace FerPROJ.Design.Class {
                             int progress = (int)((double)currentIndex / total * 100);
                             // Report progress to the UI thread to append the batch
                             worker.ReportProgress(progress, batch);
-                            FrmSplasherLoading.SetLoadingPerc(progress);
+                            FrmSplasherLoading.SetLoadingText(progress);
 
                             // Optional delay to smoothen UI load (tweak as needed)
-                            Thread.Sleep(100);
+                            Thread.Sleep(10);
                         }
                     }
                 };
@@ -630,13 +631,14 @@ namespace FerPROJ.Design.Class {
                     // Offload UI updates
                     if (e.ProgressPercentage == 100) {
                         bindingSource.ResetBindings(false);
-                        FrmSplasherLoading.CloseSplash();
                     }
 
                     Console.WriteLine($"{batch.Count} items added to DataSource.");
                 };
 
                 worker.RunWorkerCompleted += (s, e) => {
+                    FrmSplasherLoading.SetLoadingText(100);
+                    FrmSplasherLoading.CloseSplash();
                     Console.WriteLine("All data loaded without freezing the UI.");
                 };
 

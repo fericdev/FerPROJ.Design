@@ -564,28 +564,23 @@ namespace FerPROJ.Design.Class {
         public static async Task LoadDataAsync<T>(
             this BindingSource bindingSource,
             Task<IEnumerable<T>> dataFetchTask) {
-            try {
-                await FrmSplasherLoading.ShowSplashAsync();
+            await FrmSplasherLoading.ShowSplashAsync();
 
-                // Fetch all data asynchronously
-                var allData = (await dataFetchTask).ToList();
-                var uiControl = FindControlByBindingSource(bindingSource);
+            // Fetch all data asynchronously
+            var allData = (await dataFetchTask).ToList();
+            var uiControl = FindControlByBindingSource(bindingSource);
 
-                // Check if the BindingSource has more data than the fetched data
-                if (bindingSource.Count > allData.Count) {
-                    // Clear the BindingSource if it contains more data than the fetched data
-                    bindingSource.Clear();
-                }
+            // Check if the BindingSource has more data than the fetched data
+            if (bindingSource.Count > allData.Count) {
+                // Clear the BindingSource if it contains more data than the fetched data
+                bindingSource.Clear();
+            }
 
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.WorkerReportsProgress = true;
-
-                worker.DoWork += (s, e) => {
+            await CTaskBackground.RunWithProgressAsync(
+                async (worker, e) => {
                     int batchSize = 100;
                     int total = allData.Count;
                     int currentIndex = 0;
-
-                    var loadedData = new List<T>();
 
                     // Check if total data is less than batch size
                     if (total <= batchSize) {
@@ -596,9 +591,7 @@ namespace FerPROJ.Design.Class {
                     else {
                         // Load data in batches
                         while (currentIndex < total) {
-
                             var batch = allData.Skip(currentIndex).Take(batchSize).ToList();
-
                             currentIndex += batchSize;
 
                             int progress = (int)((double)currentIndex / total * 100);
@@ -607,12 +600,11 @@ namespace FerPROJ.Design.Class {
                             FrmSplasherLoading.SetLoadingText(progress);
 
                             // Optional delay to smoothen UI load (tweak as needed)
-                            Thread.Sleep(10);
+                            await Task.Delay(10);
                         }
                     }
-                };
-
-                worker.ProgressChanged += (s, e) => {
+                },
+                async (e) => {
                     var batch = (List<T>)e.UserState;
 
                     // Suspend updates for smoother performance
@@ -634,19 +626,15 @@ namespace FerPROJ.Design.Class {
                     }
 
                     Console.WriteLine($"{batch.Count} items added to DataSource.");
-                };
-
-                worker.RunWorkerCompleted += (s, e) => {
+                    await Task.CompletedTask;
+                },
+                async (e) => {
                     FrmSplasherLoading.SetLoadingText(100);
                     FrmSplasherLoading.CloseSplash();
                     Console.WriteLine("All data loaded without freezing the UI.");
-                };
-
-                worker.RunWorkerAsync();
-            }
-            catch (Exception ex) {
-                Console.WriteLine($"Error loading data: {ex.Message}");
-            }
+                    await Task.CompletedTask;
+                }
+            );
         }
 
         #region Control 

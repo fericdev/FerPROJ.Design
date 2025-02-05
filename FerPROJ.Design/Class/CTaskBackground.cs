@@ -1,13 +1,48 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
     public static class CTaskBackground {
+        public static async Task RunWithProgressAsync(
+            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync,
+            Func<ProgressChangedEventArgs, Task> progressChangedAsync,
+            Func<RunWorkerCompletedEventArgs, Task> runWorkerCompletedAsync) {
+            var backgroundWorker = new BackgroundWorker {
+                WorkerReportsProgress = true,
+                WorkerSupportsCancellation = true
+            };
+
+            backgroundWorker.DoWork += (sender, e) =>
+            {
+                var worker = sender as BackgroundWorker;
+                var task = doWorkAsync(worker, e);
+                task.Wait(); // Ensure the async work completes before moving on
+            };
+
+            backgroundWorker.ProgressChanged += async (sender, e) =>
+            {
+                await progressChangedAsync(e);
+            };
+
+            backgroundWorker.RunWorkerCompleted += async (sender, e) =>
+            {
+                await runWorkerCompletedAsync(e);
+            };
+
+            backgroundWorker.RunWorkerAsync();
+
+            // Wait until the background worker has completed
+            while (backgroundWorker.IsBusy) {
+                await Task.Delay(1);
+            }
+        }
 
         public static void RunTaskAsync(this Task task) {
 

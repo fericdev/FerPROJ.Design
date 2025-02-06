@@ -106,49 +106,59 @@ namespace FerPROJ.Design.Class {
 
             return null;
         }
-        public static async Task SearchDGVWithBackgroundWorkerAsync(this CDatagridview dgv, string searchValue) {
-
+        public static async Task SearchDGVWithBackgroundWorkerAsync<TEntity>(this CDatagridview dgv, string searchValue) where TEntity : class {
             FrmSplasherLoading.ShowSplashAsync().RunTaskAsync();
 
-            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
+            // Ensure BindingSource is set before processing
+            var dgvBindingSource = dgv.DataSource as BindingSource;
+
+            if (dgvBindingSource == null)
+                return;
+
+            var originalData = dgvBindingSource.List.Cast<TEntity>().ToList();
+
+            if (dgv.Tag == null || ((List<TEntity>)dgv.Tag).Count < originalData.Count) {
+                dgv.Tag = originalData;
+            }
+
+            var oldData = dgv.Tag as List<TEntity> ?? originalData;
+            if (string.IsNullOrWhiteSpace(searchValue)) {
+                dgv.Invoke((MethodInvoker)(() => dgv.DataSource = new BindingSource { DataSource = oldData }));
+                FrmSplasherLoading.CloseSplash();
+                return;
+            }
+
+            var filteredData = new BindingList<TEntity>(); // Use a new list
+            dgv.Invoke((MethodInvoker)(() => dgv.DataSource = new BindingSource { DataSource = filteredData }));
+
+            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = (worker, e) => {
+
                 string trimValue = searchValue.Trim();
-                var visibleRows = new List<DataGridViewRow>();
-                int rowCount = dgv.Rows.Count;
+                int totalCount = originalData.Count;
                 int matchedCount = 0;
 
-                for (int i = 0; i < rowCount; i++) {
-                    if (worker.CancellationPending) {
-                        e.Cancel = true;
-                        return;
-                    }
+                foreach (var data in originalData.Where(c => c.SearchForText(trimValue))) {
+                    dgv.Invoke((MethodInvoker)(() => filteredData.Add(data))); // Avoid clearing before adding new
+                    matchedCount++;
 
-                    DataGridViewRow row = dgv.Rows[i];
-                    bool rowVisible = row.Cells.Cast<DataGridViewCell>()
-                                               .Any(cell => cell?.Value != null && cell.Value.ToString().SearchFor(trimValue));
-
-                    if (rowVisible) {
-                        visibleRows.Add(row);
-                        matchedCount++;
-                    }
-
-                    // Report progress every 10 rows
-                    if (i % 10 == 0 || i == rowCount - 1) {
-                        worker.ReportProgress(i * 100 / rowCount, matchedCount);
-                    }
+                    int progressPercentage = (int)((matchedCount / (double)totalCount) * 100);
+                    worker.ReportProgress(progressPercentage, matchedCount);
                 }
 
-                e.Result = visibleRows;
-                await Task.CompletedTask;  // Ensure method signature compliance
+                worker.ReportProgress(100, matchedCount);
+
+                e.Result = matchedCount;
+                return Task.CompletedTask; // Maintain method signature
             };
 
-            Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
+            Func<ProgressChangedEventArgs, Task> progressChangedAsync = (e) => {
                 int percentage = e.ProgressPercentage;
                 int matchedCount = (int)e.UserState;
                 FrmSplasherLoading.SetLoadingText(percentage, $"Found: {matchedCount} | {percentage}%");
-                await Task.CompletedTask;  // Ensure method signature compliance
+                return Task.CompletedTask;
             };
 
-            Func<RunWorkerCompletedEventArgs, Task> workerCompleted = async (e) => {
+            Func<RunWorkerCompletedEventArgs, Task> workerCompleted = (e) => {
                 if (e.Cancelled) {
                     FrmSplasherLoading.SetLoadingText(0, "Search Cancelled");
                 }
@@ -156,23 +166,14 @@ namespace FerPROJ.Design.Class {
                     FrmSplasherLoading.SetLoadingText(0, $"Error: {e.Error.Message}");
                 }
                 else {
-                    var visibleRows = (List<DataGridViewRow>)e.Result;
-                    dgv.Invoke((Action)(() => {
-                        CurrencyManager currencyManager = (CurrencyManager)dgv.BindingContext[dgv.DataSource];
-                        currencyManager.SuspendBinding();
-                        foreach (DataGridViewRow row in dgv.Rows) {
-                            row.Visible = visibleRows.Contains(row);
-                        }
-                        currencyManager.ResumeBinding();
-                    }));
-                    FrmSplasherLoading.SetLoadingText(100, $"Found: {visibleRows.Count} | 100%");
+                    var matchedCount = (int)e.Result;
+                    FrmSplasherLoading.SetLoadingText(100, $"Found: {matchedCount} | 100%");
                 }
 
                 FrmSplasherLoading.CloseSplash();
-                await Task.CompletedTask;  // Ensure method signature compliance
+                return Task.CompletedTask;
             };
 
-            //
             await CTaskBackground.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompleted);
         }
         public static async Task SearchDGVAsync(this CDatagridview dgv, string searchValue) {

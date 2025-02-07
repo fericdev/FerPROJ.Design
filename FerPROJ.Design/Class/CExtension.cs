@@ -305,13 +305,19 @@ namespace FerPROJ.Design.Class {
             return dataTable;
         }
         public static async Task<DataTable> ToDataTableList<T>(this List<T> items) {
+            var invalidTypes = new[] { typeof(List<>), typeof(ICollection<>), typeof(IEnumerable<>) };
             // Create a new DataTable with the name of the type T
             var dataTable = new DataTable(typeof(T).Name);
 
             // Cache property info to avoid repeated reflection calls
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                      .Where(prop => prop.CanRead)  // Only consider readable properties
+                                      .Where(prop => prop.CanRead) // Only consider readable properties
+                                      .Where(prop => typeof(T).IsSubclassOf(typeof(PropertyValidator))
+                                             ? prop.DeclaringType.IsSubclassOf(typeof(PropertyValidator))
+                                             : true)
                                       .ToArray();
+
+            properties = properties.Where(c => !IsInvalidType(c.PropertyType, invalidTypes)).ToArray();
 
             // Create columns in the DataTable based on the properties
             foreach (var prop in properties) {
@@ -330,13 +336,19 @@ namespace FerPROJ.Design.Class {
             return dataTable;
         }
         public static async Task<DataTable> ToDataTable<T>(this IEnumerable<T> items) {
+            var invalidTypes = new[] { typeof(List<>), typeof(ICollection<>), typeof(IEnumerable<>) };
             // Create a new DataTable with the name of the type T
             var dataTable = new DataTable(typeof(T).Name);
 
             // Cache property info to avoid repeated reflection calls
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                      .Where(prop => prop.CanRead)  // Only consider readable properties
+                                      .Where(prop => prop.CanRead) // Only consider readable properties
+                                      .Where(prop => typeof(T).IsSubclassOf(typeof(PropertyValidator))
+                                             ? prop.DeclaringType.IsSubclassOf(typeof(PropertyValidator))
+                                             : true)
                                       .ToArray();
+
+            properties = properties.Where(c => !IsInvalidType(c.PropertyType, invalidTypes)).ToArray();
 
             // Create columns in the DataTable based on the properties
             foreach (var prop in properties) {
@@ -356,24 +368,24 @@ namespace FerPROJ.Design.Class {
         }
         public static async Task<DataTable> ToDataTable<T>(this T item) {
 
-            var invalidTypes = new[] { typeof(List<>) };
-
+            var invalidTypes = new[] { typeof(List<>), typeof(ICollection<>), typeof(IEnumerable<>) };
             // Create a new DataTable with the name of the type T
             var dataTable = new DataTable(typeof(T).Name);
 
             // Cache property info to avoid repeated reflection calls
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                      .Where(prop => prop.DeclaringType.IsSubclassOf(typeof(PropertyValidator)))  // Exclude properties from PropertyValidator
-                                      .Where(prop => prop.CanRead)  // Only consider readable properties
+                                      .Where(prop => prop.CanRead) // Only consider readable properties
+                                      .Where(prop => typeof(T).IsSubclassOf(typeof(PropertyValidator))
+                                             ? prop.DeclaringType.IsSubclassOf(typeof(PropertyValidator))
+                                             : true)
                                       .ToArray();
+
+            properties = properties.Where(c => !IsInvalidType(c.PropertyType, invalidTypes)).ToArray();
 
             // Create columns in the DataTable based on the properties
             foreach (var prop in properties) {
                 var columnType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-                // Check if the columnType is a valid type before adding it to the DataTable
-                if (!invalidTypes.Contains(columnType)) {
-                    dataTable.Columns.Add(prop.Name, columnType);
-                }
+                dataTable.Columns.Add(prop.Name, columnType);
             }
 
             // Add a row to the DataTable asynchronously
@@ -383,6 +395,11 @@ namespace FerPROJ.Design.Class {
             });
 
             return dataTable;
+        }
+
+        private static bool IsInvalidType(Type type, Type[] invalidTypes) {
+            return type.IsGenericType && invalidTypes.Any(invalidType =>
+                type.GetGenericTypeDefinition() == invalidType);
         }
 
         #endregion

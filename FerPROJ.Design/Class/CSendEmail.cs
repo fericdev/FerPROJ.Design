@@ -22,10 +22,10 @@ namespace FerPROJ.Design.Class {
                 //
                 using (SmtpClient smtpClient = new SmtpClient(middleWareEmail.Host, middleWareEmail.Port)) {
                     //
-                    smtpClient.Credentials = new NetworkCredential(CEncryption.Decrypt(middleWareEmail.Email), CEncryption.Decrypt(middleWareEmail.Password));
+                    smtpClient.Credentials = new NetworkCredential(CEncryption.Decrypt(middleWareEmail.EncryptedEmail), CEncryption.Decrypt(middleWareEmail.EncryptedPassword));
                     smtpClient.EnableSsl = true;
                     //
-                    using (MailMessage mail = new MailMessage(middleWareEmail.Email, email.ReceiverEmail)) {
+                    using (MailMessage mail = new MailMessage(middleWareEmail.EncryptedEmail, email.ReceiverEmail)) {
                         //
                         mail.Subject = email.Subject;
                         mail.IsBodyHtml = true;
@@ -102,8 +102,8 @@ namespace FerPROJ.Design.Class {
         public string Signature { get; set; }
     }
     public class MiddlewareEmailDTO {
-        public string Email => "nNLr4u9051gEqbyLND0N5QvlNrRvHt2eHcDdHq6goqKGmkHQRe/a0dyHOckS8mGY";
-        public string Password => "h7Du6M91YI5d8KJy+m1k5qbqrfEgNX3Lq5KSGAXAoxQ=";
+        public string EncryptedEmail => "nNLr4u9051gEqbyLND0N5QvlNrRvHt2eHcDdHq6goqKGmkHQRe/a0dyHOckS8mGY";
+        public string EncryptedPassword => "h7Du6M91YI5d8KJy+m1k5qbqrfEgNX3Lq5KSGAXAoxQ=";
         public string Host => "smtp.gmail.com";
         public int Port => 587;
     }

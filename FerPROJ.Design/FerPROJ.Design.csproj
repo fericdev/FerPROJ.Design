@@ -111,6 +111,7 @@
     <Compile Include="Class\CLibFilesWriter.cs" />
     <Compile Include="Class\CMapping.cs" />
     <Compile Include="Class\CReport.cs" />
+    <Compile Include="Class\CSendEmail.cs" />
     <Compile Include="Class\CSet.cs" />
     <Compile Include="Class\CShowMessage.cs" />
     <Compile Include="Class\CStaticVariable.cs" />

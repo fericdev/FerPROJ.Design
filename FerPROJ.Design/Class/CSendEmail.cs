@@ -19,14 +19,18 @@ namespace FerPROJ.Design.Class {
         private static async Task SendEmailAsync(EmailDTO email) {
             try {
                 var middleWareEmail = new MiddlewareEmailDTO();
+                var senderEmail = CEncryption.Decrypt(middleWareEmail.EncryptedEmail);
+                var senderPassword = CEncryption.Decrypt(middleWareEmail.EncryptedPassword);
                 //
                 using (SmtpClient smtpClient = new SmtpClient(middleWareEmail.Host, middleWareEmail.Port)) {
                     //
-                    smtpClient.Credentials = new NetworkCredential(CEncryption.Decrypt(middleWareEmail.EncryptedEmail), CEncryption.Decrypt(middleWareEmail.EncryptedPassword));
+                    smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
                     smtpClient.EnableSsl = true;
                     //
-                    using (MailMessage mail = new MailMessage(middleWareEmail.EncryptedEmail, email.ReceiverEmail)) {
+                    using (MailMessage mail = new MailMessage()) {
                         //
+                        mail.From = new MailAddress(senderEmail, middleWareEmail.SenderName);
+                        mail.To.Add(email.ReceiverEmail);
                         mail.Subject = email.Subject;
                         mail.IsBodyHtml = true;
                         mail.Body = GenerateBody(email.Header, email.ReceiverName, email.Description, email.Signature);
@@ -102,6 +106,7 @@ namespace FerPROJ.Design.Class {
         public string Signature { get; set; }
     }
     public class MiddlewareEmailDTO {
+        public string SenderName { get; set; } = "Blancia College Foundation";
         public string EncryptedEmail => "nNLr4u9051gEqbyLND0N5QvlNrRvHt2eHcDdHq6goqKGmkHQRe/a0dyHOckS8mGY";
         public string EncryptedPassword => "h7Du6M91YI5d8KJy+m1k5qbqrfEgNX3Lq5KSGAXAoxQ=";
         public string Host => "smtp.gmail.com";

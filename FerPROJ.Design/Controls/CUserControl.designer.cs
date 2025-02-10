@@ -30,11 +30,11 @@ namespace FerPROJ.Design.Controls
         private void InitializeComponent()
         {
             this.ucPanelMain = new System.Windows.Forms.Panel();
+            this.ucPanelMain1 = new System.Windows.Forms.Panel();
             this.ucLabelMain4 = new System.Windows.Forms.Label();
             this.ucLabelMain3 = new System.Windows.Forms.Label();
             this.ucLabelMain2 = new System.Windows.Forms.Label();
             this.ucLabelMain1 = new System.Windows.Forms.Label();
-            this.ucPanelMain1 = new System.Windows.Forms.Panel();
             this.ucPanelMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +50,15 @@ namespace FerPROJ.Design.Controls
             this.ucPanelMain.Name = "ucPanelMain";
             this.ucPanelMain.Size = new System.Drawing.Size(799, 542);
             this.ucPanelMain.TabIndex = 0;
+            // 
+            // ucPanelMain1
+            // 
+            this.ucPanelMain1.AutoScroll = true;
+            this.ucPanelMain1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucPanelMain1.Location = new System.Drawing.Point(3, 3);
+            this.ucPanelMain1.Name = "ucPanelMain1";
+            this.ucPanelMain1.Size = new System.Drawing.Size(793, 536);
+            this.ucPanelMain1.TabIndex = 4;
             // 
             // ucLabelMain4
             // 
@@ -91,20 +100,13 @@ namespace FerPROJ.Design.Controls
             this.ucLabelMain1.TabIndex = 0;
             this.ucLabelMain1.Text = "1";
             // 
-            // ucPanelMain1
-            // 
-            this.ucPanelMain1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucPanelMain1.Location = new System.Drawing.Point(3, 3);
-            this.ucPanelMain1.Name = "ucPanelMain1";
-            this.ucPanelMain1.Size = new System.Drawing.Size(793, 536);
-            this.ucPanelMain1.TabIndex = 4;
-            // 
-            // ucCustom
+            // CUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.ucPanelMain);
-            this.Name = "ucCustom";
+            this.Name = "CUserControl";
             this.Size = new System.Drawing.Size(799, 542);
             this.Load += new System.EventHandler(this.ucCustom_Load);
             this.ucPanelMain.ResumeLayout(false);

@@ -22,8 +22,6 @@ namespace FerPROJ.Design.Controls
         {
             Bitmap b = new Bitmap(Width, Height);
             Graphics g = Graphics.FromImage(b);
-            if (!DesignMode)
-                SelectedTab.BackColor = SystemColors.Control;
             g.Clear(SystemColors.Control);
             g.FillRectangle(new SolidBrush(Color.FromArgb(246, 248, 252)),
                 new Rectangle(0, 0, ItemSize.Height + 4, Height));

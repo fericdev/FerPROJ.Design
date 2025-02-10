@@ -585,10 +585,9 @@ namespace FerPROJ.Design.Class {
 
             // Fetch all data asynchronously
             var allData = (await dataFetchTask).ToList();
-            var uiControl = FindControlByBindingSource(bindingSource);
 
             // Check if the BindingSource has more data than the fetched data
-            if (bindingSource.Count > allData.Count) {
+            if (bindingSource.Count >= allData.Count) {
                 // Clear the BindingSource if it contains more data than the fetched data
                 bindingSource.Clear();
             }

@@ -18,13 +18,13 @@ namespace FerPROJ.Design.Controls
         {
             InitializeComponent();
         }
-        protected virtual void RefreshData()
+        protected virtual async Task RefreshData()
         {
-
+            await Task.CompletedTask;
         }
-        protected virtual void LoadComponents()
+        protected virtual async Task LoadComponents()
         {
-
+            await Task.CompletedTask;
         }
 
         public Color BorderColor
@@ -67,10 +67,10 @@ namespace FerPROJ.Design.Controls
         }
 
 
-        private void ucCustom_Load(object sender, EventArgs e)
+        private async void ucCustom_Load(object sender, EventArgs e)
         {
-            LoadComponents();
-            RefreshData();
+            await LoadComponents();
+            await RefreshData();
         }
     }
 }

@@ -586,11 +586,8 @@ namespace FerPROJ.Design.Class {
             // Fetch all data asynchronously
             var allData = (await dataFetchTask).ToList();
 
-            // Check if the BindingSource has more data than the fetched data
-            if (bindingSource.Count >= allData.Count) {
-                // Clear the BindingSource if it contains more data than the fetched data
-                bindingSource.Clear();
-            }
+            // Clear
+            bindingSource.Clear();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
                 int batchSize = 100;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FerPROJ.Design.Class;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace FerPROJ.Design.Controls
         {
             InitializeDGV();
             CellPainting += CustomDataGridView_CellPainting;
+            DataError += CustomDataGridView_DataError;
         }
         public Color HeaderColor
         {
@@ -90,6 +92,11 @@ namespace FerPROJ.Design.Controls
 
                 e.Handled = true;
             }
+        }
+        private void CustomDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e) {
+            string columnName = this.Columns[e.ColumnIndex].HeaderText;
+            CShowMessage.Warning($"Error in {columnName}");
+            e.Cancel = true;
         }
         private void InitializeDGV()
         {

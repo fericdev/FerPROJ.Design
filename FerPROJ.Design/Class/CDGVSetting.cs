@@ -291,35 +291,48 @@ namespace FerPROJ.Design.Class {
                 }
             }
         }
-        public static void SetColumnEditable(this CDatagridview dgv, int columnIndex, bool editable = true) {
-            if (dgv.Columns[columnIndex] is DataGridViewTextBoxColumn column) {
-                // Set the column read-only property
-                dgv.ReadOnly = !editable;
-                dgv.Columns[columnIndex].ReadOnly = !editable;
+        public static void SetColumnsEditable(this CDatagridview dgv, bool editable, params int[] columnIndices) {
 
-                // Apply style to each cell in the column
-                foreach (DataGridViewRow row in dgv.Rows) {
-                    if (!row.IsNewRow) // Skip the new row placeholder if present
-                    {
-                        var cell = row.Cells[columnIndex];
-                        cell.Style.BackColor = editable ? Color.LightGreen : Color.Black;
-                        cell.Style.ForeColor = Color.Black;
-                        cell.Style.SelectionBackColor = editable ? Color.LightGreen : Color.Black; // Selection color
-                        cell.Style.SelectionForeColor = Color.Black;
-                    }
+            // Prevent errors if no columns are provided
+            if (columnIndices == null || columnIndices.Length == 0) {
+                return; 
+            }
+
+            if (editable) {
+                // Enable editing on DataGridView
+                dgv.ReadOnly = false;
+
+                // Make all columns read-only first
+                foreach (DataGridViewColumn col in dgv.Columns) {
+                    col.ReadOnly = true;
                 }
 
-                // Optionally, redraw the DataGridView
-                dgv.Invalidate();
-            }
-            else if (dgv.Columns[columnIndex] is DataGridViewCheckBoxColumn columnCheckBox) {
-                // Set the column read-only property
-                dgv.ReadOnly = !editable;
-                dgv.Columns[columnIndex].ReadOnly = !editable;
+                // Enable only the specified columns
+                foreach (int columnIndex in columnIndices) {
+                    if (columnIndex >= 0 && columnIndex < dgv.Columns.Count) {
+                        dgv.Columns[columnIndex].ReadOnly = false;
 
-                // Optionally, redraw the DataGridView
-                dgv.Invalidate();
+                        // Apply style to each cell in the editable columns
+                        foreach (DataGridViewRow row in dgv.Rows) {
+                            if (!row.IsNewRow) // Skip new row placeholder
+                            {
+                                var cell = row.Cells[columnIndex];
+                                cell.Style.BackColor = Color.LightGreen;
+                                cell.Style.ForeColor = Color.Black;
+                                cell.Style.SelectionBackColor = Color.LightGreen;
+                                cell.Style.SelectionForeColor = Color.Black;
+                            }
+                        }
+                    }
+                }
             }
+            else {
+                // Enable editing on DataGridView
+                dgv.ReadOnly = true;
+            }
+
+            // Redraw DataGridView to apply changes
+            dgv.Invalidate();
         }
 
         public static void TrackChangesAndCallMethod(this CDatagridview dgv, int columnIndex, Action onColumnValueChanged) {

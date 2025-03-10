@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ComponentFactory.Krypton.Toolkit;
+using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.ViewerObjectModel;
 
 namespace FerPROJ.Design.Controls {
@@ -21,6 +22,9 @@ namespace FerPROJ.Design.Controls {
             StateIsNormal();
             StateIsDisabled();
             Text = "";
+            //
+            AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            AutoCompleteSource = AutoCompleteSource.ListItems;
         }
         private void StateIsActive() {
 

@@ -1,4 +1,4 @@
-﻿using FerPROJ.Design.BaseDTO;
+﻿using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Class;
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,9 @@ using System.Windows.Forms;
 namespace FerPROJ.Design.Forms {
     public partial class FrmAddressDetail : FrmManageKrypton {
 
-        public BaseAddressDTO Address { get; set; }
+        public BaseAddressModel Address { get; set; }
 
-        public FrmAddressDetail(BaseAddressDTO baseAddress) {
+        public FrmAddressDetail(BaseAddressModel baseAddress) {
             InitializeComponent();
             Address = baseAddress;
         }

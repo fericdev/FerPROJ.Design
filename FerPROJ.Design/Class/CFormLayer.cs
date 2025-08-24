@@ -1,4 +1,4 @@
-﻿using FerPROJ.Design.BaseDTO;
+﻿using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Forms;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using static FerPROJ.Design.Forms.FrmManageKrypton;
 namespace FerPROJ.Design.Class {
     public static class CFormLayer {
         public static class ManageForm {
-            public static bool ManageBaseAddressDetail(FormMode formMode, BaseAddressDTO addressDTO, string id = "") {
+            public static bool ManageBaseAddressDetail(FormMode formMode, BaseAddressModel addressDTO, string id = "") {
                 using (var frm = new FrmAddressDetail(addressDTO)) {
                     frm.CurrentFormMode = formMode;
                     frm.Manage_IdTrack = id;

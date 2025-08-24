@@ -1,4 +1,4 @@
-﻿using FerPROJ.Design.BaseDTO;
+﻿using FerPROJ.Design.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -102,8 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDTO\BaseAddressDTO.cs" />
-    <Compile Include="BaseModels\BaseModel.cs" />
+    <Compile Include="BaseModels\BaseAddressModel.cs" />
     <Compile Include="Class\CAssembly.cs" />
     <Compile Include="Class\CComparison.cs" />
     <Compile Include="Class\CDGVAttr.cs" />
@@ -124,7 +123,7 @@
     <Compile Include="Class\CDGVSetting.cs" />
     <Compile Include="Class\CGet.cs" />
     <Compile Include="Class\CConf.cs" />
-    <Compile Include="BaseDTO\BaseDTO.cs" />
+    <Compile Include="BaseModels\BaseModel.cs" />
     <Compile Include="Class\CTaskBackground.cs" />
     <Compile Include="Class\CWindows32DLL.cs" />
     <Compile Include="Class\PropertyValidator.cs" />

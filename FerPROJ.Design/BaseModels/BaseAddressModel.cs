@@ -7,8 +7,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace FerPROJ.Design.BaseDTO {
-    public class BaseAddressDTO : BaseDTO {
+namespace FerPROJ.Design.BaseModels {
+    public class BaseAddressModel : BaseModel {
         public Guid AddressID { get; set; } = new Guid();
         [Required]
         public string Country => "Philippines";

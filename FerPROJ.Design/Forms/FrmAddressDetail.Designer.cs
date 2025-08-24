@@ -220,7 +220,7 @@
             // 
             // baseAddressDTOBindingSource
             // 
-            this.baseAddressDTOBindingSource.DataSource = typeof(FerPROJ.Design.BaseDTO.BaseAddressDTO);
+            this.baseAddressDTOBindingSource.DataSource = typeof(FerPROJ.Design.BaseModels.BaseAddressModel);
             // 
             // provinceCComboBoxKrypton
             // 

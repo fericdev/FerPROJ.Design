@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.IO;
 
 namespace FerPROJ.Design.Class
@@ -13,7 +14,7 @@ namespace FerPROJ.Design.Class
                                               $"SslMode={CLibFilesReader.GetValue("SslMode", "DatabaseConfig")};";
         public static string USERNAME { get; set; } = "";
         public static string USER_LEVEL { get; set; }
-        public static string USER_ID { get; set; }
+        public static Guid USER_ID { get; set; }
         public static string NAME { get; set; }
         public static string CONN_STRING_1;
         public static string CONN_STRING_2;

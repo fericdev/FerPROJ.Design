@@ -53,6 +53,9 @@ namespace FerPROJ.Design.Interface
         Task<string> GetNewIDAsync();
         Task LoadComboBoxAsync(CComboBoxKrypton cmb);
     }
+    public interface IDbContextMigration<DbContext> : IDisposable {
+        Task RunMigrationAsync(DbContext dbContext);
+    }
     public interface IEntityViewAsync<TViewModel> : IDisposable {
         Task<IEnumerable<TViewModel>> GetViewAsync(string searchText = "", int dataLimit = 100, DateTime? dateFrom = null, DateTime? dateTo = null);
     }

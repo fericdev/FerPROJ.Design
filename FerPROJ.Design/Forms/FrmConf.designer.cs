@@ -33,6 +33,7 @@ namespace FerPROJ.Design.Forms
         private void InitializeComponent()
         {
             this.customPanel1 = new FerPROJ.Design.Forms.CPanel();
+            this.cbSSL = new System.Windows.Forms.CheckBox();
             this.saveConfigCustomButton = new FerPROJ.Design.Controls.CButton();
             this.passwordCustomTextBox = new FerPROJ.Design.Controls.CTextBox();
             this.usernameCustomTextBox = new FerPROJ.Design.Controls.CTextBox();
@@ -44,12 +45,17 @@ namespace FerPROJ.Design.Forms
             this.customLabelDesc3 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDesc2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDesc1 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.cbSSL = new System.Windows.Forms.CheckBox();
+            this.cButtonRunMigration = new FerPROJ.Design.Controls.CButton();
             this.customPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // customPanel1
             // 
+            this.customPanel1.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.customPanel1.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.customPanel1.BorderRadius = 0;
+            this.customPanel1.BorderSize = 2;
+            this.customPanel1.Controls.Add(this.cButtonRunMigration);
             this.customPanel1.Controls.Add(this.cbSSL);
             this.customPanel1.Controls.Add(this.saveConfigCustomButton);
             this.customPanel1.Controls.Add(this.passwordCustomTextBox);
@@ -67,6 +73,18 @@ namespace FerPROJ.Design.Forms
             this.customPanel1.Name = "customPanel1";
             this.customPanel1.Size = new System.Drawing.Size(377, 448);
             this.customPanel1.TabIndex = 0;
+            this.customPanel1.UnderlinedStyle = false;
+            // 
+            // cbSSL
+            // 
+            this.cbSSL.AutoSize = true;
+            this.cbSSL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSSL.Location = new System.Drawing.Point(41, 348);
+            this.cbSSL.Name = "cbSSL";
+            this.cbSSL.Size = new System.Drawing.Size(109, 20);
+            this.cbSSL.TabIndex = 6;
+            this.cbSSL.Text = "SSL Disabled";
+            this.cbSSL.UseVisualStyleBackColor = true;
             // 
             // saveConfigCustomButton
             // 
@@ -80,9 +98,9 @@ namespace FerPROJ.Design.Forms
             this.saveConfigCustomButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveConfigCustomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.saveConfigCustomButton.ForeColor = System.Drawing.Color.White;
-            this.saveConfigCustomButton.Location = new System.Drawing.Point(85, 376);
+            this.saveConfigCustomButton.Location = new System.Drawing.Point(41, 383);
             this.saveConfigCustomButton.Name = "saveConfigCustomButton";
-            this.saveConfigCustomButton.Size = new System.Drawing.Size(218, 40);
+            this.saveConfigCustomButton.Size = new System.Drawing.Size(147, 40);
             this.saveConfigCustomButton.TabIndex = 5;
             this.saveConfigCustomButton.Text = "Save Configuration";
             this.saveConfigCustomButton.TextColor = System.Drawing.Color.White;
@@ -259,16 +277,26 @@ namespace FerPROJ.Design.Forms
             this.customLabelDesc1.TabIndex = 0;
             this.customLabelDesc1.Text = "Hostname:";
             // 
-            // cbSSL
+            // cButtonRunMigration
             // 
-            this.cbSSL.AutoSize = true;
-            this.cbSSL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbSSL.Location = new System.Drawing.Point(41, 348);
-            this.cbSSL.Name = "cbSSL";
-            this.cbSSL.Size = new System.Drawing.Size(110, 20);
-            this.cbSSL.TabIndex = 6;
-            this.cbSSL.Text = "SSL Disabled";
-            this.cbSSL.UseVisualStyleBackColor = true;
+            this.cButtonRunMigration.BackColor = System.Drawing.Color.Red;
+            this.cButtonRunMigration.BackgroundColor = System.Drawing.Color.Red;
+            this.cButtonRunMigration.BorderColor = System.Drawing.Color.Green;
+            this.cButtonRunMigration.BorderRadius = 20;
+            this.cButtonRunMigration.BorderSize = 0;
+            this.cButtonRunMigration.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cButtonRunMigration.FlatAppearance.BorderSize = 0;
+            this.cButtonRunMigration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cButtonRunMigration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.cButtonRunMigration.ForeColor = System.Drawing.Color.White;
+            this.cButtonRunMigration.Location = new System.Drawing.Point(204, 383);
+            this.cButtonRunMigration.Name = "cButtonRunMigration";
+            this.cButtonRunMigration.Size = new System.Drawing.Size(147, 40);
+            this.cButtonRunMigration.TabIndex = 7;
+            this.cButtonRunMigration.Text = "Run Migration";
+            this.cButtonRunMigration.TextColor = System.Drawing.Color.White;
+            this.cButtonRunMigration.UseVisualStyleBackColor = false;
+            this.cButtonRunMigration.Click += new System.EventHandler(this.cButtonRunMigration_Click);
             // 
             // FrmConf
             // 
@@ -304,5 +332,6 @@ namespace FerPROJ.Design.Forms
         private CLabelDesc customLabelDesc2;
         private CLabelDesc customLabelDesc1;
         private System.Windows.Forms.CheckBox cbSSL;
+        private CButton cButtonRunMigration;
     }
 }

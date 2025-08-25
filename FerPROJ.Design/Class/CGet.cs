@@ -79,7 +79,7 @@ namespace FerPROJ.DBHelper.Class {
             return DateTime.Now.ToString("yyyy-MM-dd");
         }
         public static string CurrentDateTime() {
-            return DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            return DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt");
         }
         public static string CurrentTime() {
             return DateTime.Now.ToString("hh:mm:ss tt");

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.Forms {
     public partial class FrmManageKrypton : KryptonForm {
         public Task<bool> CurrentFormResult { get; set; }
-        public string Manage_IdTrack { get; set; }
+        public Guid Manage_IdTrack { get; set; }
         private FormMode? _currentFormMode;
         public event EventHandler FormModeChanged;
         private bool hideFunctionOnUpdate = true;

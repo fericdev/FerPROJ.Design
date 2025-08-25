@@ -81,6 +81,12 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Conversion
+        public static Guid ToGuid(this string value) {
+            if (!string.IsNullOrEmpty(value)) {
+                return Guid.Parse(value);
+            }
+            return Guid.Empty;
+        }
 
         public static TEnum ToEnum<TEnum>(this string value, bool ignoreCase = true) where TEnum : struct, Enum {
 

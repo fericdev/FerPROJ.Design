@@ -51,5 +51,10 @@ namespace FerPROJ.Design.Class
             Unsi,
             Dosi
         }
+        public enum Gender {
+            Male, 
+            Female,
+            Others
+        }
     }
 }

@@ -9,7 +9,7 @@
             CStaticVariable.CONN_STRING_2 = $"Server={Hostname};Port={Port};Database={Database};Uid={Username};Pwd={Password};";
         }
         public static void SetEntityConnectionString(string Hostname, string Username, string Password, string Port, string Database, string sslMode) {
-            CStaticVariable.ENTITY_CONNECTION_STRING = $"server={Hostname};user id={Username};port={Port};persistsecurityinfo=True;database={Database};password={Password};{sslMode}";
+            CStaticVariable.ENTITY_CONNECTION_STRING = $"server={Hostname};port={Port};database={Database};uid={Username};pwd={Password};{sslMode}";
         }
     }
 }

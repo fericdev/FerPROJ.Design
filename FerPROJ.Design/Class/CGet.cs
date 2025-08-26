@@ -78,8 +78,9 @@ namespace FerPROJ.DBHelper.Class {
         public static string CurrentDate() {
             return DateTime.Now.ToString("yyyy-MM-dd");
         }
-        public static string CurrentDateTime() {
-            return DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt");
+        public static string CurrentDateTime(bool isFormatted = false) {
+
+            return isFormatted ? $"{DateTime.Now.ToString("MMM dd, yyyy hh:mm:ss tt")}" : DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt");
         }
         public static string CurrentTime() {
             return DateTime.Now.ToString("hh:mm:ss tt");

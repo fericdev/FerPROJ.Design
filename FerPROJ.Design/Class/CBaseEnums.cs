@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class
 {
-    public class CEnum
+    public static class CBaseEnums
     {
         public enum AllowedOpenDB
         {

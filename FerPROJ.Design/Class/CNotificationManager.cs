@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
-    public static class CNotification {
+    public static class CNotificationManager {
         public static async Task CreateNotificationAndDisplayAsync(NotificationDTO notification, Func<Task> runTaskWhenClick) {
             if(notification == null) {
                 return;

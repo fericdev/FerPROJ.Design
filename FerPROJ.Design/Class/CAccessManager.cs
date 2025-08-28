@@ -1,5 +1,4 @@
-﻿using FerPROJ.Design.Class;
-using Microsoft.Office.Interop.Word;
+﻿using Microsoft.Office.Interop.Word;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -13,8 +12,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FerPROJ.DBHelper.Class {
-    public static class CGet {
+namespace FerPROJ.Design.Class {
+    public static class CAccessManager {
+
+        #region Getters
         public static string RandomBankNo() {
             var r1 = RandomNumber(4);
             var r2 = RandomNumber(4);
@@ -132,12 +133,14 @@ namespace FerPROJ.DBHelper.Class {
                         if (!excludeName.Contains(property.Name)) {
                             if (property.Name == "Item" || property.Name == "Error" || property.Name == "IsValid") {
                                 continue; // Skip the loop iteration
-                            } else {
+                            }
+                            else {
                                 if (property.PropertyType == typeof(DateTime)) {
                                     var value = property.GetValue(data, null);
                                     var convertedDate = Convert.ToDateTime(value).ToString();
                                     worksheet.Cells[row, col].Value = convertedDate;
-                                } else {
+                                }
+                                else {
                                     var value = property.GetValue(data, null);
                                     worksheet.Cells[row, col].Value = value;
                                 }
@@ -158,7 +161,7 @@ namespace FerPROJ.DBHelper.Class {
                         using (var fileStream = new FileStream(selectedFilePath, FileMode.Create)) {
                             pack.SaveAs(fileStream);
                         }
-                        if (CShowMessage.Ask("Data Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
+                        if (CDialogManager.Ask("Data Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
                             Process.Start(selectedFilePath);
                         }
                     }
@@ -198,7 +201,8 @@ namespace FerPROJ.DBHelper.Class {
                                             if (property.PropertyType == typeof(DateTime)) {
                                                 var convertedValue = Convert.ToDateTime(cellValue);
                                                 property.SetValue(item, convertedValue);
-                                            } else {
+                                            }
+                                            else {
                                                 var convertedValue = Convert.ChangeType(cellValue, property.PropertyType);
                                                 property.SetValue(item, convertedValue);
                                             }
@@ -282,14 +286,15 @@ namespace FerPROJ.DBHelper.Class {
 
                         // Delete the temporary file
                         File.Delete(tempFilePath);
-                        if (CShowMessage.Ask("Data Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
+                        if (CDialogManager.Ask("Data Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
                             Process.Start(selectedFilePath);
                         }
                     }
 
 
                 }
-            } finally {
+            }
+            finally {
                 // Quit the Word application
                 wordApp.Quit();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
@@ -328,5 +333,19 @@ namespace FerPROJ.DBHelper.Class {
             // Check if the file exists
             return Image.FromFile(path);
         }
+        #endregion
+
+        #region Setters
+        public static void SetConnectionString(string Hostname, string Username, string Password, int Port, string Database) {
+            CAppConstants.CONN_STRING_1 = $"Server={Hostname};Port={Port};Database={Database};Uid={Username};Pwd={Password};";
+        }
+        public static void SetConnectionString2(string Hostname, string Username, string Password, int Port, string Database) {
+            CAppConstants.CONN_STRING_2 = $"Server={Hostname};Port={Port};Database={Database};Uid={Username};Pwd={Password};";
+        }
+        public static void SetEntityConnectionString(string Hostname, string Username, string Password, string Port, string Database, string sslMode) {
+            CAppConstants.ENTITY_CONNECTION_STRING = $"server={Hostname};port={Port};database={Database};uid={Username};pwd={Password};{sslMode}";
+        }
+        #endregion
+
     }
 }

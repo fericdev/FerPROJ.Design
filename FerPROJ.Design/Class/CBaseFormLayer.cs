@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using static FerPROJ.Design.Forms.FrmManageKrypton;
 
 namespace FerPROJ.Design.Class {
-    public static class CFormLayer {
+    public static class CBaseFormLayer {
         public static class ManageForm {
             public static bool ManageBaseAddressDetail(FormMode formMode, BaseAddressModel addressDTO, Guid id) {
                 using (var frm = new FrmAddressDetail(addressDTO)) {

@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.BaseModels {
     public abstract class BaseModel : PropertyValidator 
     {
-        [CDGVAttr(IsVisible = false)]
+        [CDGVAttributes(IsVisible = false)]
         public Guid Id { get; set; } = Guid.NewGuid();
         public string FormId { get; set; }
         public string Name { get; set; }
-        [CDGVAttr(IsVisible = false)]
+        [CDGVAttributes(IsVisible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        [CDGVAttr(IsVisible = false)]
+        [CDGVAttributes(IsVisible = false)]
         public string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
-        [CDGVAttr(IsVisible = false)]
+        [CDGVAttributes(IsVisible = false)]
         public string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
-        [CDGVAttr(IsVisible = false)]
+        [CDGVAttributes(IsVisible = false)]
         public DateTime? DateModified { get; set; } = null;
-        [CDGVAttr(IsVisible = false)]
-        public string CreatedBy { get; set; } = CStaticVariable.USERNAME;
-        [CDGVAttr(IsVisible = false)]
+        [CDGVAttributes(IsVisible = false)]
+        public string CreatedBy { get; set; } = CAppConstants.USERNAME;
+        [CDGVAttributes(IsVisible = false)]
         public string ModifiedBy { get; set; }  = string.Empty;
-        [CDGVAttr(IsVisible = false)]
-        public string Status { get; set; } = CStaticVariable.ACTIVE_STATUS;
+        [CDGVAttributes(IsVisible = false)]
+        public string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }
 }

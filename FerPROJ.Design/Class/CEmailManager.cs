@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
-    public static class CSendEmail {
+    public static class CEmailManager {
         public static async Task CreateEmailAndSendAsync(EmailDTO email) {
             if (email == null) {
-                CShowMessage.Warning("Email is empty.", "Email Empty");
+                CDialogManager.Warning("Email is empty.", "Email Empty");
                 return;
             }
             await SendEmailAsync(email);
@@ -19,8 +19,8 @@ namespace FerPROJ.Design.Class {
         private static async Task SendEmailAsync(EmailDTO email) {
             try {
                 var middleWareEmail = new MiddlewareEmailDTO();
-                var senderEmail = CEncryption.Decrypt(middleWareEmail.EncryptedEmail);
-                var senderPassword = CEncryption.Decrypt(middleWareEmail.EncryptedPassword);
+                var senderEmail = CEncryptionManager.Decrypt(middleWareEmail.EncryptedEmail);
+                var senderPassword = CEncryptionManager.Decrypt(middleWareEmail.EncryptedPassword);
                 //
                 using (SmtpClient smtpClient = new SmtpClient(middleWareEmail.Host, middleWareEmail.Port)) {
                     //
@@ -38,7 +38,7 @@ namespace FerPROJ.Design.Class {
                         await smtpClient.SendMailAsync(mail);
                         // 
                         smtpClient.SendCompleted += (sender, e) => {
-                            CShowMessage.Info("The email has been sent successfully.", "Sent Successfully");
+                            CDialogManager.Info("The email has been sent successfully.", "Sent Successfully");
                         };
                     }
                 }

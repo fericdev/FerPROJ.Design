@@ -17,9 +17,9 @@ namespace FerPROJ.Design.Forms {
         }
 
         private void saveConfigCustomButton_Click(object sender, EventArgs e) {
-            if (CShowMessage.Ask("Save?", "Confirmation")) {
+            if (CDialogManager.Ask("Save?", "Confirmation")) {
                 string sslMode = cbSSL.Checked ? "SslMode=None;" : "SslMode=Preferred;";
-                CSet.SetEntityConnectionString(hostnameCustomTextBox.Text, usernameCustomTextBox.Text, passwordCustomTextBox.Text, portCustomTextBox.Text, databaseNameCustomTextBox.Text, sslMode);
+                CAccessManager.SetEntityConnectionString(hostnameCustomTextBox.Text, usernameCustomTextBox.Text, passwordCustomTextBox.Text, portCustomTextBox.Text, databaseNameCustomTextBox.Text, sslMode);
                 UpdateConfigurationFile();
                 this.Close();
             }
@@ -40,12 +40,12 @@ namespace FerPROJ.Design.Forms {
             CConfigurationManager.CreateOrSetValue("Pwd", passwordCustomTextBox.Text, "DatabaseConfig");
             CConfigurationManager.CreateOrSetValue("Server", hostnameCustomTextBox.Text, "DatabaseConfig");
             CConfigurationManager.CreateOrSetValue("SslMode", cbSSL.Checked ? "None" : "Preferred", "DatabaseConfig");
-            CShowMessage.Info("Database Configuration Updated Successfully!", "Info");
+            CDialogManager.Info("Database Configuration Updated Successfully!", "Info");
         }
 
         private void cButtonRunMigration_Click(object sender, EventArgs e) {
-            if (CShowMessage.Ask("Run Database Migration?", "Confirmation")) {
-                CShowMessage.Info("Database Updated Successfully!", "Info");
+            if (CDialogManager.Ask("Run Database Migration?", "Confirmation")) {
+                CDialogManager.Info("Database Updated Successfully!", "Info");
             }
         }
     }

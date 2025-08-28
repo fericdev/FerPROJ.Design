@@ -1,5 +1,4 @@
-﻿using FerPROJ.DBHelper.Class;
-using FerPROJ.Design.Class;
+﻿using FerPROJ.Design.Class;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,17 +22,17 @@ namespace FerPROJ.Design.Forms {
                 mainTimer.Start();
                 LoadComponent();
             } catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Warning");
+                CDialogManager.Warning(ex.Message, "Warning");
             }
         }
         protected virtual void LoadComponent() {
         }
 
         private void mainTimer_Tick(object sender, EventArgs e) {
-            lblMainUserValue.Text = CStaticVariable.USERNAME;
-            lblMainDateValue.Text = CGet.CurrentDate();
-            lblMainTimeValue.Text = CGet.CurrentTime();
-            lblMainVersionValue.Text = CAssembly.SystemVersion;
+            lblMainUserValue.Text = CAppConstants.USERNAME;
+            lblMainDateValue.Text = CAccessManager.CurrentDate();
+            lblMainTimeValue.Text = CAccessManager.CurrentTime();
+            lblMainVersionValue.Text = CBaseAssembly.SystemVersion;
         }
     }
 }

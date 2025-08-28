@@ -121,7 +121,7 @@ namespace FerPROJ.Design.Forms {
             }
         }
         private void CloseForm() {
-            if (CShowMessage.Ask("Are you sure to close?", "Confirmation")) {
+            if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
                 this.Close();
             }
         }
@@ -144,7 +144,7 @@ namespace FerPROJ.Design.Forms {
                 await AsyncRefresh();
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
         private async void tsbMainAddItem_Click(object sender, EventArgs e) {
@@ -155,7 +155,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
 
@@ -167,7 +167,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
 
@@ -179,7 +179,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
 
@@ -191,7 +191,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
 
@@ -200,7 +200,7 @@ namespace FerPROJ.Design.Forms {
                 await AsyncRefresh();
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
         protected async virtual Task<bool> GetSelectedData() {
@@ -433,7 +433,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
 
@@ -445,7 +445,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
     }

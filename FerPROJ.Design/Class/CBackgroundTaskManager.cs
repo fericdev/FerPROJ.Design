@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
-    public static class CTaskBackground {
+    public static class CBackgroundTaskManager {
         /// <summary>
         /// var doWorkAsync = async (worker, e) => { worker.ReportProgress(percentage, userState); };<br />
         /// var progressChangedAsync = async (e) => { var userStateValue = (cast)e.UserState; var percentage = e.ProgressPercentage; };<br />

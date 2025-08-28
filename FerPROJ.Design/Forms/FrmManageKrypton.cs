@@ -111,7 +111,7 @@ namespace FerPROJ.Design.Forms {
             }
         }
         private void CloseForm() {
-            if (CShowMessage.Ask("Are you sure to close?", "Confirmation")) {
+            if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
                 CurrentFormResult = Task.FromResult(false);
                 this.Close();
             }
@@ -128,7 +128,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message);
+                CDialogManager.Warning(ex.Message);
 
             }
 
@@ -142,7 +142,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message);
+                CDialogManager.Warning(ex.Message);
 
             }
         }
@@ -168,7 +168,7 @@ namespace FerPROJ.Design.Forms {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message);
+                CDialogManager.Warning(ex.Message);
 
             }
         }

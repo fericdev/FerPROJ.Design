@@ -39,8 +39,8 @@ namespace FerPROJ.Design.Forms {
             baseAddressDTOBindingSource.DataSource = Address;
         }
         private async Task LoadComboEnum() {
-            typeCComboBoxKrypton.FillComboBoxEnum<CEnum.AddressType>();
-            purokCComboBoxKrypton.FillComboBoxEnum<CEnum.PurokType>();
+            typeCComboBoxKrypton.FillComboBoxEnum<CBaseEnums.AddressType>();
+            purokCComboBoxKrypton.FillComboBoxEnum<CBaseEnums.PurokType>();
             await Task.CompletedTask;
         }
         private async Task LoadLocation() {

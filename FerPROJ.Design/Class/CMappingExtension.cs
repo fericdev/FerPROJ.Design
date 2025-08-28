@@ -15,7 +15,7 @@ namespace FerPROJ.Design.Class {
             }
 
             var sourceType = source.GetType();
-            var mappingType = typeof(CMapping<,>).MakeGenericType(sourceType, typeof(TDestination));
+            var mappingType = typeof(CMappingExtension<,>).MakeGenericType(sourceType, typeof(TDestination));
             var mappingInstance = Activator.CreateInstance(mappingType);
 
             var getMappingResultMethod = mappingType.GetMethod("GetMappingResult", new[] { sourceType, typeof(TDestination) });
@@ -48,12 +48,12 @@ namespace FerPROJ.Design.Class {
 
     }
 
-    public class CMapping<TSource, TDestination> : Profile {
-        public CMapping() {
+    public class CMappingExtension<TSource, TDestination> : Profile {
+        public CMappingExtension() {
             CreateMap<TSource, TDestination>().ReverseMap();
         }
         public static MapperConfiguration GetMapperConfiguration() {
-            return new MapperConfiguration(c => c.AddProfile(new CMapping<TSource, TDestination>()));
+            return new MapperConfiguration(c => c.AddProfile(new CMappingExtension<TSource, TDestination>()));
         }
         // Overload to map onto an existing destination object
         public TDestination GetMappingResult(TSource source, TDestination prevDestination = default) {
@@ -73,7 +73,7 @@ namespace FerPROJ.Design.Class {
             //
             List<TDestination> resultList = new List<TDestination>();
             foreach (var item in source) {
-                var itemToMapp = new CMapping<TSource, TDestination>().GetMappingResult(item);
+                var itemToMapp = new CMappingExtension<TSource, TDestination>().GetMappingResult(item);
                 resultList.Add(itemToMapp);
             }
             return resultList;
@@ -82,7 +82,7 @@ namespace FerPROJ.Design.Class {
             //
             List<TDestination> resultList = new List<TDestination>();
             foreach (var item in source) {
-                var itemToMapp = new CMapping<TSource, TDestination>().GetMappingResult(item);
+                var itemToMapp = new CMappingExtension<TSource, TDestination>().GetMappingResult(item);
                 resultList.Add(itemToMapp);
             }
             return resultList;
@@ -91,7 +91,7 @@ namespace FerPROJ.Design.Class {
             //
             List<TDestination> resultList = new List<TDestination>();
             foreach (var item in source) {
-                var itemToMapp = new CMapping<TSource, TDestination>().GetMappingResult(item);
+                var itemToMapp = new CMappingExtension<TSource, TDestination>().GetMappingResult(item);
                 resultList.Add(itemToMapp);
             }
             return resultList;

@@ -95,7 +95,7 @@ namespace FerPROJ.Design.Controls
         }
         private void CustomDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e) {
             string columnName = this.Columns[e.ColumnIndex].HeaderText;
-            CShowMessage.Warning($"Error in {columnName}");
+            CDialogManager.Warning($"Error in {columnName}");
             e.Cancel = true;
         }
         private void InitializeDGV()

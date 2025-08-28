@@ -19,7 +19,7 @@ using System.Web;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
-    public static class CExtension {
+    public static class CBaseExtensions {
 
         #region FillComboBox
         public static void FillComboBoxEnum<TEnum>(this ComboBox cmb) where TEnum : Enum {
@@ -656,7 +656,7 @@ namespace FerPROJ.Design.Class {
                 await Task.CompletedTask;
             };
 
-            await CTaskBackground.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
+            await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
 
         }
 

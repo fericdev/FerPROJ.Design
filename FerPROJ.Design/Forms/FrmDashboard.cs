@@ -1,5 +1,4 @@
-﻿using FerPROJ.DBHelper.Class;
-using FerPROJ.Design.Class;
+﻿using FerPROJ.Design.Class;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +29,7 @@ namespace FerPROJ.Design.Forms
             }
             catch (Exception ex)
             {
-                CShowMessage.Warning(ex.Message, "Warning");
+                CDialogManager.Warning(ex.Message, "Warning");
             }
 
         }
@@ -41,9 +40,9 @@ namespace FerPROJ.Design.Forms
 
         protected virtual void dbTimer_Tick(object sender, EventArgs e)
         {
-            Username.Text = CStaticVariable.USERNAME;
-            CurrentDate.Text = CGet.CurrentDate();
-            CurrentTime.Text = CGet.CurrentTime();
+            Username.Text = CAppConstants.USERNAME;
+            CurrentDate.Text = CAccessManager.CurrentDate();
+            CurrentTime.Text = CAccessManager.CurrentTime();
         }
     }
 }

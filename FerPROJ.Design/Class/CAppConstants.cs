@@ -4,7 +4,7 @@ using System.IO;
 
 namespace FerPROJ.Design.Class
 {
-    public static class CStaticVariable
+    public static class CAppConstants
     {
         private static string DefaultString = $"Server={CConfigurationManager.GetValue("Server", "DatabaseConfig")};" +
                                               $"Port={CConfigurationManager.GetValue("Port", "DatabaseConfig")};" +

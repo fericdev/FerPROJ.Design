@@ -174,7 +174,7 @@ namespace FerPROJ.Design.Class {
                 return Task.CompletedTask;
             };
 
-            await CTaskBackground.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompleted);
+            await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompleted);
         }
         public static async Task SearchDGVAsync(this CDatagridview dgv, string searchValue) {
             try {
@@ -235,7 +235,7 @@ namespace FerPROJ.Design.Class {
                 }
             }
             catch (Exception ex) {
-                CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
         public static void FormatBooleanColumn(this CDatagridview dgv, int columnIndex, string trueText = "Yes", string falseText = "No") {
@@ -365,7 +365,7 @@ namespace FerPROJ.Design.Class {
                 }
 
                 // Get the custom attribute, if applied
-                var attribute = property.GetCustomAttribute<CDGVAttr>();
+                var attribute = property.GetCustomAttribute<CDGVAttributes>();
 
                 if (attribute != null) {
                     // Get the first column (if any) to apply the attribute changes

@@ -1,5 +1,4 @@
-﻿using FerPROJ.DBHelper.Class;
-using FerPROJ.Design.Controls;
+﻿using FerPROJ.Design.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +18,7 @@ namespace FerPROJ.Design.Class {
 
             // Determine the path to the XML file
             if (string.IsNullOrEmpty(path)) {
-                path = CGet.GetEnvironmentPath("AppSettings.xml", "Config");
+                path = CAccessManager.GetEnvironmentPath("AppSettings.xml", "Config");
             }
 
             // Ensure key and value are valid XML names
@@ -61,7 +60,7 @@ namespace FerPROJ.Design.Class {
             }
 
             // Set the value
-            keyElement.Value = encrypt ? CEncryption.Encrypt(value) : value;
+            keyElement.Value = encrypt ? CEncryptionManager.Encrypt(value) : value;
 
             // Save changes to the XML file
             doc.Save(path);
@@ -72,7 +71,7 @@ namespace FerPROJ.Design.Class {
         public static string GetValue(string key, string parent = null, bool encrypt = true, string path = null) {
             //
             if (path == null) {
-                path = CGet.GetEnvironmentPath("AppSettings.xml", "Config");
+                path = CAccessManager.GetEnvironmentPath("AppSettings.xml", "Config");
             }
 
             // Load the XML document
@@ -101,7 +100,7 @@ namespace FerPROJ.Design.Class {
 
             // Return the value if found, applying decryption if needed
             if (encrypt) {
-                return valueElement != null ? CEncryption.Decrypt(valueElement.Value) : string.Empty;
+                return valueElement != null ? CEncryptionManager.Decrypt(valueElement.Value) : string.Empty;
             }
             else {
                 return valueElement?.Value;

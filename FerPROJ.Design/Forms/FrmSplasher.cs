@@ -16,7 +16,7 @@ namespace FerPROJ.Design.Forms {
         private static FrmSplasher instance; // Singleton instance
         public FrmSplasher() {
             InitializeComponent();
-            systemVersionLbl.Text = CAssembly.SystemVersion;
+            systemVersionLbl.Text = CBaseAssembly.SystemVersion;
             // Attach the MouseDown event for the panel
             this.basePnl2.MouseDown += panel_MouseDown;
         }

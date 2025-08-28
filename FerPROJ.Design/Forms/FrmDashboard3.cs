@@ -1,5 +1,4 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
-using FerPROJ.DBHelper.Class;
 using FerPROJ.Design.Class;
 using System;
 using System.Collections.Generic;
@@ -41,12 +40,12 @@ namespace FerPROJ.Design.Forms {
         }
 
         private void timerMain_Tick(object sender, EventArgs e) {
-            lblMainDateValue.Text = CGet.CurrentDate();
-            lblMainTimeValue.Text = CGet.CurrentTime();
+            lblMainDateValue.Text = CAccessManager.CurrentDate();
+            lblMainTimeValue.Text = CAccessManager.CurrentTime();
         }
         private void LoadVar() {
-            lblMainUserValue.Text = CStaticVariable.USERNAME;
-            lblMainVersionValue.Text = CAssembly.SystemVersion;
+            lblMainUserValue.Text = CAppConstants.USERNAME;
+            lblMainVersionValue.Text = CBaseAssembly.SystemVersion;
         }
     }
 }

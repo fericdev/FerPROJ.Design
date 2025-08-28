@@ -27,7 +27,7 @@ namespace FerPROJ.Design.BaseModels {
         public string AddressString => $"{Purok}, {Barangay}, {City}, {Province}, {Region}, {Country} {ZipCode}".Trim();       
         public override bool DataValidation() {
             if (Error != null) {
-                CShowMessage.Warning(Error);
+                CDialogManager.Warning(Error);
                 return false;
             }
             return true;

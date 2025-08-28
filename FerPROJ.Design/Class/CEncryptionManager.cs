@@ -8,21 +8,9 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class
 {
-    public class CEncryption
+    public class CEncryptionManager
     {
-
-        private static string GetKey(string privateKey = null)
-        {
-            string text = privateKey ?? "FerPROJ";
-            byte[] textBytes = Encoding.UTF8.GetBytes(text);
-
-            using (MD5 md5 = MD5.Create())
-            {
-                byte[] hashBytes = md5.ComputeHash(textBytes);
-                string hashHex = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-                return hashHex;
-            }
-        }
+        #region Encrypt
         public static string Encrypt(string plainText, string privateKey = null)
         {
             using (Aes aesAlg = Aes.Create())
@@ -45,7 +33,9 @@ namespace FerPROJ.Design.Class
                 }
             }
         }
+        #endregion
 
+        #region Decrypt
         public static string Decrypt(string cipherText, string privateKey = null)
         {
             if (string.IsNullOrEmpty(cipherText)) {
@@ -70,5 +60,19 @@ namespace FerPROJ.Design.Class
                 }
             }
         }
+        #endregion
+
+        #region Private Methods
+        private static string GetKey(string privateKey = null) {
+            string text = privateKey ?? "FerPROJ";
+            byte[] textBytes = Encoding.UTF8.GetBytes(text);
+
+            using (MD5 md5 = MD5.Create()) {
+                byte[] hashBytes = md5.ComputeHash(textBytes);
+                string hashHex = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                return hashHex;
+            }
+        }
+        #endregion
     }
 }

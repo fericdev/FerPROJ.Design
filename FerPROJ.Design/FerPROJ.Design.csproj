@@ -106,13 +106,12 @@
     <Compile Include="BaseModels\BaseAddressModel.cs" />
     <Compile Include="Class\CAssembly.cs" />
     <Compile Include="Class\CComparison.cs" />
+    <Compile Include="Class\CConfigurationManager.cs" />
     <Compile Include="Class\CDGVAttr.cs" />
     <Compile Include="Class\CConvert.cs" />
     <Compile Include="Class\CEnum.cs" />
     <Compile Include="Class\CExtension.cs" />
     <Compile Include="Class\CFormLayer.cs" />
-    <Compile Include="Class\CLibFilesReader.cs" />
-    <Compile Include="Class\CLibFilesWriter.cs" />
     <Compile Include="Class\CMapping.cs" />
     <Compile Include="Class\CNotification.cs" />
     <Compile Include="Class\CReport.cs" />
@@ -422,8 +421,8 @@
     <None Include="Resources\icon-notes.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LibFiles\LibFiles.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Config\AppSettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,12 +6,12 @@ namespace FerPROJ.Design.Class
 {
     public static class CStaticVariable
     {
-        private static string DefaultString = $"Server={CLibFilesReader.GetValue("Server", "DatabaseConfig")};" +
-                                              $"Port={CLibFilesReader.GetValue("Port", "DatabaseConfig")};" +
-                                              $"Database={CLibFilesReader.GetValue("DatabaseName", "DatabaseConfig")};" +
-                                              $"Uid={CLibFilesReader.GetValue("Uid", "DatabaseConfig")};" +
-                                              $"Pwd={CLibFilesReader.GetValue("Pwd", "DatabaseConfig")};" +
-                                              $"SslMode={CLibFilesReader.GetValue("SslMode", "DatabaseConfig")};";
+        private static string DefaultString = $"Server={CConfigurationManager.GetValue("Server", "DatabaseConfig")};" +
+                                              $"Port={CConfigurationManager.GetValue("Port", "DatabaseConfig")};" +
+                                              $"Database={CConfigurationManager.GetValue("DatabaseName", "DatabaseConfig")};" +
+                                              $"Uid={CConfigurationManager.GetValue("Uid", "DatabaseConfig")};" +
+                                              $"Pwd={CConfigurationManager.GetValue("Pwd", "DatabaseConfig")};" +
+                                              $"SslMode={CConfigurationManager.GetValue("SslMode", "DatabaseConfig")};";
         public static string USERNAME { get; set; } = "";
         public static string USER_LEVEL { get; set; }
         public static Guid USER_ID { get; set; }

@@ -313,6 +313,10 @@ namespace FerPROJ.Design.Class {
             return columns;
         }
         public static string GetOrCreateEnvironmentPath(string fileName, params string[] folders) {
+
+            // Ensure the filename is valid
+            fileName = GetValidFileName(fileName);
+
             // Combine the base directory with the folder hierarchy and filename
             string path;
 
@@ -341,6 +345,22 @@ namespace FerPROJ.Design.Class {
 
             // Check if the file exists
             return Image.FromFile(path);
+        }
+        public static string GetValidFileName(string name) {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Name cannot be null or empty.");
+
+            // Replace spaces with underscore
+            string validName = name.Replace(" ", "_");
+
+            // Remove any other invalid characters for XML names
+            validName = System.Text.RegularExpressions.Regex.Replace(validName, @"[^A-Za-z0-9_\-\.]", "");
+
+            // Ensure the first character is a letter or underscore
+            if (!char.IsLetter(validName[0]) && validName[0] != '_')
+                validName = "_" + validName;
+
+            return validName;
         }
         #endregion
 

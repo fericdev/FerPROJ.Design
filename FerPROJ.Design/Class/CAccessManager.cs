@@ -312,19 +312,28 @@ namespace FerPROJ.Design.Class {
             }
             return columns;
         }
-        public static string GetEnvironmentPath(string fileName, params string[] folders) {
+        public static string GetOrCreateEnvironmentPath(string fileName, params string[] folders) {
+            // Combine the base directory with the folder hierarchy and filename
             string path;
 
             // If folders have values, combine them with the base directory; otherwise, use only the filename
             if (folders != null && folders.Length > 0) {
-                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(folders), fileName);
+                string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine(folders));
+                Directory.CreateDirectory(folderPath); // ✅ Ensure folder exists
+                path = Path.Combine(folderPath, fileName);
             }
             else {
-                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+                string folderPath = AppDomain.CurrentDomain.BaseDirectory;
+                Directory.CreateDirectory(folderPath); // ✅ Ensure base folder exists
+                path = Path.Combine(folderPath, fileName);
             }
 
-            // Check if the file exists
-            return File.Exists(path) ? path : null;
+            // If file does not exist, create it
+            if (!File.Exists(path)) {
+                using (File.Create(path)) { } // creates and closes immediately
+            }
+
+            return path;
         }
         public static Image GetEnvironmentPathImage(string fileName, params string[] folders) {
             // Combine the base directory with the folder hierarchy and filename

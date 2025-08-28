@@ -18,7 +18,7 @@ namespace FerPROJ.Design.Class {
 
             // Determine the path to the XML file
             if (string.IsNullOrEmpty(path)) {
-                path = CAccessManager.GetEnvironmentPath("AppSettings.xml", "Config");
+                path = CAccessManager.GetOrCreateEnvironmentPath("AppSettings.xml", "Config");
             }
 
             // Ensure key and value are valid XML names
@@ -71,7 +71,7 @@ namespace FerPROJ.Design.Class {
         public static string GetValue(string key, string parent = null, bool encrypt = true, string path = null) {
             //
             if (path == null) {
-                path = CAccessManager.GetEnvironmentPath("AppSettings.xml", "Config");
+                path = CAccessManager.GetOrCreateEnvironmentPath("AppSettings.xml", "Config");
             }
 
             // Load the XML document

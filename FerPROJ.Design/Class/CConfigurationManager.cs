@@ -60,7 +60,7 @@ namespace FerPROJ.Design.Class {
             }
 
             // Set the value
-            keyElement.Value = encrypt ? CEncryptionManager.Encrypt(value) : value;
+            keyElement.Value = encrypt ? CEncryptionManager.EncryptText(value) : value;
 
             // Save changes to the XML file
             doc.Save(path);
@@ -100,7 +100,7 @@ namespace FerPROJ.Design.Class {
 
             // Return the value if found, applying decryption if needed
             if (encrypt) {
-                return valueElement != null ? CEncryptionManager.Decrypt(valueElement.Value) : string.Empty;
+                return valueElement != null ? CEncryptionManager.DecryptText(valueElement.Value) : string.Empty;
             }
             else {
                 return valueElement?.Value;

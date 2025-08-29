@@ -19,8 +19,8 @@ namespace FerPROJ.Design.Class {
         private static async Task SendEmailAsync(EmailDTO email) {
             try {
                 var middleWareEmail = new MiddlewareEmailDTO();
-                var senderEmail = CEncryptionManager.Decrypt(middleWareEmail.EncryptedEmail);
-                var senderPassword = CEncryptionManager.Decrypt(middleWareEmail.EncryptedPassword);
+                var senderEmail = CEncryptionManager.DecryptText(middleWareEmail.EncryptedEmail);
+                var senderPassword = CEncryptionManager.DecryptText(middleWareEmail.EncryptedPassword);
                 //
                 using (SmtpClient smtpClient = new SmtpClient(middleWareEmail.Host, middleWareEmail.Port)) {
                     //

@@ -10,8 +10,8 @@ namespace FerPROJ.Design.Class
 {
     public class CEncryptionManager
     {
-        #region Encrypt
-        public static string Encrypt(string plainText, string privateKey = null)
+        #region Encrypt Text
+        public static string EncryptText(string plainText, string privateKey = null)
         {
             using (Aes aesAlg = Aes.Create())
             {
@@ -35,8 +35,26 @@ namespace FerPROJ.Design.Class
         }
         #endregion
 
-        #region Decrypt
-        public static string Decrypt(string cipherText, string privateKey = null)
+        #region Encrypt File
+        public static void EncryptFile(string inputFile, string outputFile, string privateKey = null) {
+            byte[] key = new Rfc2898DeriveBytes(GetKey(privateKey), Encoding.UTF8.GetBytes(GetKey(privateKey))).GetBytes(32);
+
+            using (FileStream fsOut = new FileStream(outputFile, FileMode.Create))
+            using (Aes aes = Aes.Create()) {
+                aes.Key = key;
+                aes.GenerateIV();
+                fsOut.Write(aes.IV, 0, aes.IV.Length);
+
+                using (CryptoStream cs = new CryptoStream(fsOut, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                using (FileStream fsIn = new FileStream(inputFile, FileMode.Open)) {
+                    fsIn.CopyTo(cs);
+                }
+            }
+        }
+        #endregion
+
+        #region Decrypt Text
+        public static string DecryptText(string cipherText, string privateKey = null)
         {
             if (string.IsNullOrEmpty(cipherText)) {
                 return string.Empty;
@@ -57,6 +75,25 @@ namespace FerPROJ.Design.Class
                             return srDecrypt.ReadToEnd();
                         }
                     }
+                }
+            }
+        }
+        #endregion
+
+        #region Decrypt File
+        public static void DecryptFile(string inputFile, string outputFile, string privateKey = null) {
+            byte[] key = new Rfc2898DeriveBytes(GetKey(privateKey), Encoding.UTF8.GetBytes(GetKey(privateKey))).GetBytes(32);
+
+            using (FileStream fsIn = new FileStream(inputFile, FileMode.Open))
+            using (Aes aes = Aes.Create()) {
+                byte[] iv = new byte[16];
+                fsIn.Read(iv, 0, iv.Length);
+                aes.Key = key;
+                aes.IV = iv;
+
+                using (CryptoStream cs = new CryptoStream(fsIn, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                using (FileStream fsOut = new FileStream(outputFile, FileMode.Create)) {
+                    cs.CopyTo(fsOut);
                 }
             }
         }

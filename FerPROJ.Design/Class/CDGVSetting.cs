@@ -348,9 +348,9 @@ namespace FerPROJ.Design.Class {
                 }
             };
         }
-        public static void ApplyCustomAttribute(this CDatagridview dgv, Type typeOfDTO) {
+        public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType) {
             // Loop through the properties of the DTO
-            foreach (var property in typeOfDTO.GetProperties()) {
+            foreach (var property in modelType.GetProperties()) {
 
                 // Find all columns matching the DataPropertyName
                 var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()

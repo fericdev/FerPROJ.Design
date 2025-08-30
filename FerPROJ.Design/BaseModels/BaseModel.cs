@@ -25,7 +25,11 @@ namespace FerPROJ.Design.BaseModels {
         [CDGVAttributes(IsVisible = false)]
         public string CreatedBy { get; set; } = CAppConstants.USERNAME;
         [CDGVAttributes(IsVisible = false)]
+        public Guid CreatedById { get; set; } = CAppConstants.USER_ID;
+        [CDGVAttributes(IsVisible = false)]
         public string ModifiedBy { get; set; }  = string.Empty;
+        [CDGVAttributes(IsVisible = false)]
+        public Guid? ModifiedById { get; set; } = null;
         [CDGVAttributes(IsVisible = false)]
         public string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }

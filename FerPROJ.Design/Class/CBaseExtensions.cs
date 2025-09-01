@@ -310,7 +310,7 @@ namespace FerPROJ.Design.Class {
 
             return dataTable;
         }
-        public static async Task<DataTable> ToDataTableList<T>(this List<T> items) {
+        public static async Task<DataTable> ToDataTableListAsync<T>(this List<T> items) {
             var invalidTypes = new[] { typeof(List<>), typeof(ICollection<>), typeof(IEnumerable<>) };
             // Create a new DataTable with the name of the type T
             var dataTable = new DataTable(typeof(T).Name);
@@ -341,7 +341,7 @@ namespace FerPROJ.Design.Class {
 
             return dataTable;
         }
-        public static async Task<DataTable> ToDataTable<T>(this IEnumerable<T> items) {
+        public static async Task<DataTable> ToDataTableAsync<T>(this IEnumerable<T> items) {
             var invalidTypes = new[] { typeof(List<>), typeof(ICollection<>), typeof(IEnumerable<>) };
             // Create a new DataTable with the name of the type T
             var dataTable = new DataTable(typeof(T).Name);
@@ -372,7 +372,7 @@ namespace FerPROJ.Design.Class {
 
             return dataTable;
         }
-        public static async Task<DataTable> ToDataTable<T>(this T item) {
+        public static async Task<DataTable> ToDataTableAsync<T>(this T item) {
 
             var invalidTypes = new[] { typeof(List<>), typeof(ICollection<>), typeof(IEnumerable<>) };
             // Create a new DataTable with the name of the type T

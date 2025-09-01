@@ -51,33 +51,8 @@ namespace FerPROJ.Design.Class {
             string boldString = new string(boldLetters);
             return boldString;
         }
-        public static DateTime CurrentDT() {
-            DateTime currentDateTime = DateTime.Now;
-            //
-            int year = currentDateTime.Year;
-            int month = currentDateTime.Month;
-            int day = currentDateTime.Day;
-            int hour = currentDateTime.Hour;
-            int minute = currentDateTime.Minute;
-            int second = currentDateTime.Second;
-            //
-            DateTime resultDateTime = new DateTime(year, month, day, hour, minute, second);
-
-            return resultDateTime;
-        }
-        public static DateTime CurrentD() {
-            DateTime currentDateTime = DateTime.Now;
-            //
-            int year = currentDateTime.Year;
-            int month = currentDateTime.Month;
-            int day = currentDateTime.Day;
-            //
-            DateTime resultDateTime = new DateTime(year, month, day);
-
-            return resultDateTime;
-        }
         public static string CurrentDate() {
-            return DateTime.Now.ToString("yyyy-MM-dd");
+            return DateTime.Now.ToString("MM/dd/yyyy");
         }
         public static string CurrentDateTime(bool isFormatted = false) {
 
@@ -94,14 +69,14 @@ namespace FerPROJ.Design.Class {
             DateTime currentDate = DateTime.Now;
             DateTime previousDate = currentDate.AddYears(-years);
 
-            string formattedDate = previousDate.ToString("MM-dd-yyyy");
+            string formattedDate = previousDate.ToString("MM/dd/yyyy");
             return formattedDate;
         }
         public static string DateLater(int years) {
             DateTime currentDate = DateTime.Now;
             DateTime previousDate = currentDate.AddYears(years);
 
-            string formattedDate = previousDate.ToString("MM-dd-yyyy");
+            string formattedDate = previousDate.ToString("MM/dd/yyyy");
             return formattedDate;
         }
         public static void ExportToExcel<T>(List<T> dto, string fileName, string[] excludeName = null) {

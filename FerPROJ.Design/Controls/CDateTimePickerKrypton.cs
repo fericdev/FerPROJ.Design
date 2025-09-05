@@ -5,21 +5,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FerPROJ.Design.Controls {
     public class CDateTimePickerKrypton : KryptonDateTimePicker {
-        private Color enterColor = Color.WhiteSmoke;
-        private Color leaveColor = Color.WhiteSmoke;
         private Color borderColor = Color.White;
         private Color foreColor = Color.Black;
-        private Font font = new Font("Tahoma", 10, FontStyle.Regular);
 
         public CDateTimePickerKrypton() {
             StateIsActive();
             StateIsCommon();
             StateIsNormal();
-            Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            ShowUpDown = true;
+            Format = DateTimePickerFormat.Long;
+            ShowUpDown = false;
         }
         private void StateIsActive() {
 

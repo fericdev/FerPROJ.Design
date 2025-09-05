@@ -52,11 +52,11 @@ namespace BECMS.Main {
             var backColor = panel.BackColor;
             if (currentHeight == 54) {
                 basePanelTargetHeight = 54 * buttonCount;
-                baseStep = 5; 
+                baseStep = 5;
             }
             else {
                 basePanelTargetHeight = 54;
-                baseStep = -5; 
+                baseStep = -5;
             }
             basePanel = panel;
             baseTimer.Start();
@@ -64,7 +64,7 @@ namespace BECMS.Main {
         protected void AddMenuSection(BaseMenuButtonModel menu) {
             // Parent panel (group)
             var groupPanel = new FlowLayoutPanel {
-                Name = $"{menu.Title.Replace(" ","")}GroupPanel",
+                Name = $"{menu.Title.Replace(" ", "")}GroupPanel",
                 Width = 269,
                 Height = 54,
                 BorderStyle = BorderStyle.None,
@@ -143,8 +143,16 @@ namespace BECMS.Main {
             }
             // Add the complete group panel to the main flow layout panel
             baseFlowLayoutPanel.Controls.Add(groupPanel);
-            mainMenuButton.Tag = new MenuButtonTag { GroupPanel = groupPanel, SubMenuCount = menu.SubMenus.Count + 1}; 
-            mainMenuButton.Click += mainButtonClicked;
+            // Configure main button click event
+            mainMenuButton.Tag = new MenuButtonTag { GroupPanel = groupPanel, SubMenuCount = menu.SubMenus.Count + 1 };
+            // Assign ClickActionAsync if provided
+            if (menu.ClickActionAsync != null) {
+                mainMenuButton.Click += async (sender, e) => await menu.ClickActionAsync();
+            }
+            // Only add the toggle functionality if there are submenus
+            if (menu.SubMenus.Count > 0) {
+                mainMenuButton.Click += mainButtonClicked;
+            }
         }
 
         private void mainButtonClicked(object sender, EventArgs e) {

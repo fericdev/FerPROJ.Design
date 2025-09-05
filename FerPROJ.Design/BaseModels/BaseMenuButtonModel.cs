@@ -12,6 +12,7 @@ namespace FerPROJ.Design.BaseModels {
         public List<BaseMenuButtonModel> SubMenus { get; set; } = new List<BaseMenuButtonModel>();
         public Func<Task> ClickActionAsync { get; set; }
         public Color ButtonColor { get; set; } = Color.WhiteSmoke;
+        public Color ForeColor { get; set; } = Color.Black;
     }
     public class MenuButtonTag {
         public FlowLayoutPanel GroupPanel { get; set; }

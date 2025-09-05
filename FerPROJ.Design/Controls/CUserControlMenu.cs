@@ -30,12 +30,13 @@ namespace BECMS.Main {
         protected virtual void InitializeSideMenu() {
 
         }
+
+        #region Logic
         private void LoadSideMenu() {
             foreach (var menu in baseMenuButtonModels) {
                 AddMenuSection(menu);
             }
         }
-        #region Logic
         private void Timer_Tick(object sender, EventArgs e) {
             int currentHeight = basePanel.Height;
             if ((baseStep > 0 && currentHeight >= basePanelTargetHeight) || (baseStep < 0 && currentHeight <= basePanelTargetHeight)) {
@@ -79,7 +80,8 @@ namespace BECMS.Main {
                 AutoSizeMode = AutoSizeMode.GrowOnly,
                 Height = 44,
                 Width = 260,
-                BorderStyle = BorderStyle.None,
+                BackColor = menu.ButtonColor,
+                BorderStyle = BorderStyle.FixedSingle,
             };
             // Main button
             var mainMenuButton = new Button {
@@ -91,6 +93,7 @@ namespace BECMS.Main {
                 Width = 260,
                 TextAlign = ContentAlignment.MiddleLeft,
                 BackColor = menu.ButtonColor,
+                ForeColor = menu.ForeColor,
                 Cursor = Cursors.Hand,
 
             };
@@ -110,7 +113,8 @@ namespace BECMS.Main {
                         AutoSizeMode = AutoSizeMode.GrowOnly,
                         Height = 44,
                         Width = 238,
-                        BorderStyle = BorderStyle.None,
+                        BackColor = sub.ButtonColor,
+                        BorderStyle = BorderStyle.FixedSingle,
                     };
                     // Submenu button
                     var submenuButton = new Button {
@@ -122,6 +126,7 @@ namespace BECMS.Main {
                         Width = 238,
                         TextAlign = ContentAlignment.MiddleLeft,
                         BackColor = sub.ButtonColor,
+                        ForeColor = sub.ForeColor,
                         Cursor = Cursors.Hand,
                     };
                     // Add submenu button to its panel

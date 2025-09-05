@@ -21,7 +21,11 @@ namespace BECMS.Main {
             InitializeSideMenu();
             baseTimer.Tick += Timer_Tick;
         }
-
+        /// <summary>
+        /// Initializes the side menu with menu buttons and their corresponding submenus.
+        /// This method is intended to be overridden in derived classes to define
+        /// the specific menu structure.
+        /// </summary>
         protected virtual void InitializeSideMenu() {
 
         }
@@ -62,7 +66,7 @@ namespace BECMS.Main {
                 AutoSizeMode = AutoSizeMode.GrowOnly,
                 FlowDirection = FlowDirection.TopDown,
             };
-
+            // Main button panel
             var mainMenuButtonPanel = new Panel {
                 Name = $"{menu.Title.Replace(" ", "")}MainButtonPanel",
                 Dock = DockStyle.None,
@@ -72,7 +76,6 @@ namespace BECMS.Main {
                 Width = 260,
                 BorderStyle = BorderStyle.None,
             };
-
             // Main button
             var mainMenuButton = new Button {
                 Name = $"{menu.Title.Replace(" ", "")}MainButton",
@@ -85,15 +88,15 @@ namespace BECMS.Main {
                 BackColor = menu.ButtonColor,
                 
             };
-
+            // Add main button to its panel
             mainMenuButtonPanel.Controls.Add(mainMenuButton);
-
+            // Add main button panel to group panel
             groupPanel.Controls.Add(mainMenuButtonPanel);
-
+            // Submenu buttons
             if (menu.SubMenus != null && menu.SubMenus.Count > 0) {
-
+                // Iterate through each submenu and create buttons
                 foreach (var sub in menu.SubMenus) {
-
+                    // Submenu button panel
                     var submenuButtonPanel = new Panel {
                         Name = $"{sub.Title.Replace(" ", "")}SubmenuButtonPanel",
                         Dock = DockStyle.None,
@@ -103,7 +106,7 @@ namespace BECMS.Main {
                         Width = 238,
                         BorderStyle = BorderStyle.None,
                     };
-
+                    // Submenu button
                     var submenuButton = new Button {
                         Name = $"{sub.Title.Replace(" ", "")}SubmenuButton",
                         Text = sub.Title,
@@ -114,19 +117,19 @@ namespace BECMS.Main {
                         TextAlign = ContentAlignment.MiddleLeft,
                         BackColor = sub.ButtonColor,
                     };
-
+                    // Add submenu button to its panel
                     submenuButtonPanel.Controls.Add(submenuButton);
-
+                    // Assign ClickActionAsync if provided
                     if (sub.ClickActionAsync != null) {
                         // You need to create a new method that wraps the Action
                         // to avoid issues with event handlers.
                         submenuButton.Click += async (sender, e) => await sub.ClickActionAsync();
                     }
-
+                    // Add submenu button panel to group panel
                     groupPanel.Controls.Add(submenuButtonPanel);
                 }
             }
-
+            // Add the complete group panel to the main flow layout panel
             baseFlowLayoutPanel.Controls.Add(groupPanel);
             mainMenuButton.Tag = new MenuButtonTag { GroupPanel = groupPanel, SubMenuCount = menu.SubMenus.Count + 1}; 
             mainMenuButton.Click += mainButtonClicked;

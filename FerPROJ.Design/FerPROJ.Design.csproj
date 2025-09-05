@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModels\BaseAddressModel.cs" />
+    <Compile Include="BaseModels\BaseMenuButtonModel.cs" />
     <Compile Include="Class\CAccessManager.cs" />
     <Compile Include="Class\CBaseAssembly.cs" />
     <Compile Include="Class\CComparison.cs" />
@@ -174,6 +175,12 @@
     </Compile>
     <Compile Include="Controls\CUserControl.designer.cs">
       <DependentUpon>CUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CUserControlMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CUserControlMenu.Designer.cs">
+      <DependentUpon>CUserControlMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmAddressDetail.cs">
       <SubType>Form</SubType>
@@ -312,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CUserControl.resx">
       <DependentUpon>CUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CUserControlMenu.resx">
+      <DependentUpon>CUserControlMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmAddressDetail.resx">
       <DependentUpon>FrmAddressDetail.cs</DependentUpon>

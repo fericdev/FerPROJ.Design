@@ -1,0 +1,143 @@
+﻿using FerPROJ.Design.BaseModels;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace BECMS.Main {
+    public partial class CUserControlMenu : UserControl {
+        protected Timer baseTimer = new Timer { Interval = 10 };
+        protected FlowLayoutPanel basePanel = new FlowLayoutPanel();
+        protected List<BaseMenuButtonModel> baseMenuButtonModels = new List<BaseMenuButtonModel>();
+        protected int basePanelTargetHeight;
+        protected int baseStep;
+        public CUserControlMenu() {
+            InitializeComponent();
+            InitializeSideMenu();
+            baseTimer.Tick += Timer_Tick;
+        }
+
+        protected virtual void InitializeSideMenu() {
+
+        }
+
+        #region Logic
+        private void Timer_Tick(object sender, EventArgs e) {
+            int currentHeight = basePanel.Height;
+            if ((baseStep > 0 && currentHeight >= basePanelTargetHeight) || (baseStep < 0 && currentHeight <= basePanelTargetHeight)) {
+                baseTimer.Stop();
+                basePanel.Height = basePanelTargetHeight;
+            }
+            else {
+                basePanel.Height += baseStep;
+            }
+        }
+        private void ChangeHeight(FlowLayoutPanel panel, int buttonCount = 3) {
+            int currentHeight = panel.Height;
+            var backColor = panel.BackColor;
+            if (currentHeight == 54) {
+                basePanelTargetHeight = 54 * buttonCount;
+                baseStep = 5; 
+            }
+            else {
+                basePanelTargetHeight = 54;
+                baseStep = -5; 
+            }
+            basePanel = panel;
+            baseTimer.Start();
+        }
+        protected void AddMenuSection(BaseMenuButtonModel menu) {
+            // Parent panel (group)
+            var groupPanel = new FlowLayoutPanel {
+                Name = $"{menu.Title.Replace(" ","")}GroupPanel",
+                Width = 269,
+                Height = 54,
+                BorderStyle = BorderStyle.None,
+                AutoSize = false,
+                AutoSizeMode = AutoSizeMode.GrowOnly,
+                FlowDirection = FlowDirection.TopDown,
+            };
+
+            var mainMenuButtonPanel = new Panel {
+                Name = $"{menu.Title.Replace(" ", "")}MainButtonPanel",
+                Dock = DockStyle.None,
+                AutoSize = false,
+                AutoSizeMode = AutoSizeMode.GrowOnly,
+                Height = 44,
+                Width = 260,
+                BorderStyle = BorderStyle.None,
+            };
+
+            // Main button
+            var mainMenuButton = new Button {
+                Name = $"{menu.Title.Replace(" ", "")}MainButton",
+                Text = menu.Title,
+                Font = new Font("Verdana", 16, FontStyle.Bold),
+                Dock = DockStyle.Fill,
+                Height = 44,
+                Width = 260,
+                TextAlign = ContentAlignment.MiddleLeft,
+                BackColor = menu.ButtonColor,
+                
+            };
+
+            mainMenuButtonPanel.Controls.Add(mainMenuButton);
+
+            groupPanel.Controls.Add(mainMenuButtonPanel);
+
+            if (menu.SubMenus != null && menu.SubMenus.Count > 0) {
+
+                foreach (var sub in menu.SubMenus) {
+
+                    var submenuButtonPanel = new Panel {
+                        Name = $"{sub.Title.Replace(" ", "")}SubmenuButtonPanel",
+                        Dock = DockStyle.None,
+                        AutoSize = false,
+                        AutoSizeMode = AutoSizeMode.GrowOnly,
+                        Height = 44,
+                        Width = 238,
+                        BorderStyle = BorderStyle.None,
+                    };
+
+                    var submenuButton = new Button {
+                        Name = $"{sub.Title.Replace(" ", "")}SubmenuButton",
+                        Text = sub.Title,
+                        Font = new Font("Verdana", 14, FontStyle.Bold),
+                        Dock = DockStyle.Fill,
+                        Height = 44,
+                        Width = 238,
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        BackColor = sub.ButtonColor,
+                    };
+
+                    submenuButtonPanel.Controls.Add(submenuButton);
+
+                    if (sub.ClickActionAsync != null) {
+                        // You need to create a new method that wraps the Action
+                        // to avoid issues with event handlers.
+                        submenuButton.Click += async (sender, e) => await sub.ClickActionAsync();
+                    }
+
+                    groupPanel.Controls.Add(submenuButtonPanel);
+                }
+            }
+
+            baseFlowLayoutPanel.Controls.Add(groupPanel);
+            mainMenuButton.Tag = new MenuButtonTag { GroupPanel = groupPanel, SubMenuCount = menu.SubMenus.Count + 1}; 
+            mainMenuButton.Click += mainButtonClicked;
+        }
+
+        private void mainButtonClicked(object sender, EventArgs e) {
+            if (sender is Button btn && btn.Tag is MenuButtonTag info) {
+                ChangeHeight(info.GroupPanel, info.SubMenuCount);
+            }
+        }
+        #endregion
+
+    }
+}

@@ -19,6 +19,7 @@ namespace BECMS.Main {
         public CUserControlMenu() {
             InitializeComponent();
             InitializeSideMenu();
+            LoadSideMenu();
             baseTimer.Tick += Timer_Tick;
         }
         /// <summary>
@@ -29,7 +30,11 @@ namespace BECMS.Main {
         protected virtual void InitializeSideMenu() {
 
         }
-
+        private void LoadSideMenu() {
+            foreach (var menu in baseMenuButtonModels) {
+                AddMenuSection(menu);
+            }
+        }
         #region Logic
         private void Timer_Tick(object sender, EventArgs e) {
             int currentHeight = basePanel.Height;
@@ -86,7 +91,8 @@ namespace BECMS.Main {
                 Width = 260,
                 TextAlign = ContentAlignment.MiddleLeft,
                 BackColor = menu.ButtonColor,
-                
+                Cursor = Cursors.Hand,
+
             };
             // Add main button to its panel
             mainMenuButtonPanel.Controls.Add(mainMenuButton);
@@ -116,6 +122,7 @@ namespace BECMS.Main {
                         Width = 238,
                         TextAlign = ContentAlignment.MiddleLeft,
                         BackColor = sub.ButtonColor,
+                        Cursor = Cursors.Hand,
                     };
                     // Add submenu button to its panel
                     submenuButtonPanel.Controls.Add(submenuButton);

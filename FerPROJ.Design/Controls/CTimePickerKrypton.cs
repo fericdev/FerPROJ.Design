@@ -8,19 +8,15 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Controls {
     public class CTimePickerKrypton : KryptonDateTimePicker {
-        private Color enterColor = Color.WhiteSmoke;
-        private Color leaveColor = Color.WhiteSmoke;
         private Color borderColor = Color.White;
         private Color foreColor = Color.Black;
-        private Font font = new Font("Tahoma", 10, FontStyle.Regular);
 
         public CTimePickerKrypton() {
             StateIsActive();
             StateIsCommon();
             StateIsNormal();
-            Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            CustomFormat = "hh:mm tt";
-            ShowUpDown = true;
+            Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            ShowUpDown = false;
         }
         private void StateIsActive() {
 

@@ -170,12 +170,6 @@
     <Compile Include="Controls\CToolstrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\CUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\CUserControl.designer.cs">
-      <DependentUpon>CUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\CUserControlMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -316,9 +310,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Controls\CTextBox.resx">
       <DependentUpon>CTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CUserControl.resx">
-      <DependentUpon>CUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CUserControlMenu.resx">
       <DependentUpon>CUserControlMenu.cs</DependentUpon>

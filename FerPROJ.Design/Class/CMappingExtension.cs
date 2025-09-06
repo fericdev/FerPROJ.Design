@@ -68,7 +68,7 @@ namespace FerPROJ.Design.Class {
                 : mapper.Map(source, prevDestination); // Use existing destination to map only properties that exist in source
         }
     }
-    public class CMappingList<TSource, TDestination> {
+    public class CMappingExtensionList<TSource, TDestination> {
         public List<TDestination> GetMappingResultList(ICollection<TSource> source) {
             //
             List<TDestination> resultList = new List<TDestination>();

@@ -49,6 +49,7 @@ namespace FerPROJ.Design.Forms {
         }
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
+            InitializeFormProperties();
             if (!_currentFormMode.HasValue) {
                 CurrentFormMode = FormMode.Add;
             }
@@ -61,7 +62,6 @@ namespace FerPROJ.Design.Forms {
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
-            InitializeFormProperties();
         }
 
         private void ConstantShortcuts() {
@@ -95,20 +95,18 @@ namespace FerPROJ.Design.Forms {
             if (CurrentFormMode == FormMode.Add) {
                 baseButtonSave.Visible = true;
                 baseButtonUpdate.Visible = false;
-                await LoadComponents();
             }
             else if (CurrentFormMode == FormMode.Update) {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = true;
                 baseButtonAddNew.Visible = !hideFunctionOnUpdate;
-                await LoadComponents();
             }
             else {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = false;
                 baseButtonAddNew.Visible = false;
-                await LoadComponents();
             }
+            await LoadComponents();
         }
         private void CloseForm() {
             if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {

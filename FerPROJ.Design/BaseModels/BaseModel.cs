@@ -33,4 +33,13 @@ namespace FerPROJ.Design.BaseModels {
         [CDGVAttributes(IsVisible = false)]
         public string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }
+    public abstract class BaseModelItem : PropertyValidator 
+    {
+        [CDGVAttributes(IsVisible = false)]
+        public Guid Id { get; set; } = Guid.NewGuid();
+        [CDGVAttributes(IsVisible = false)]
+        public Guid? ParentId { get; set; }
+        [CDGVAttributes(IsEditable = true)]
+        public string Description { get; set; }
+    }
 }

@@ -9,6 +9,7 @@ namespace FerPROJ.Design.Class {
         #region Properties
         public bool IsVisible { get; set; } = true;
         public bool IsExcluded { get; set; } = false;
+        public bool IsEditable { get; set; } = false;
         #endregion
     }
 }

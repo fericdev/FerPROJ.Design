@@ -56,7 +56,7 @@ namespace FerPROJ.Design.Interface
     public interface IDbContextMigration<DbContext> : IDisposable {
         Task RunMigrationAsync(DbContext dbContext);
     }
-    public interface IEntityViewAsync<TViewModel> : IDisposable {
+    public interface IModelViewAsync<TViewModel> : IDisposable {
         Task<IEnumerable<TViewModel>> GetViewAsync(string searchText = "", int dataLimit = 100, DateTime? dateFrom = null, DateTime? dateTo = null);
     }
     public interface IEntityDTOAsync<TModel> : IDisposable {

@@ -292,7 +292,7 @@ namespace FerPROJ.Design.Class {
             }
         }
         public static void SetColumnsEditable(this CDatagridview dgv, bool editable, params int[] columnIndices) {
-
+            dgv.EditMode = DataGridViewEditMode.EditOnEnter;
             // Prevent errors if no columns are provided
             if (columnIndices == null || columnIndices.Length == 0) {
                 return; 
@@ -349,40 +349,41 @@ namespace FerPROJ.Design.Class {
             };
         }
         public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType) {
-            // Loop through the properties of the DTO
-            foreach (var property in modelType.GetProperties()) {
+            var editableColumns = new List<int>();
 
-                // Find all columns matching the DataPropertyName
+            var properties = modelType.GetProperties(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            foreach (var property in properties) {
                 var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
-                                                 .Where(c => c.DataPropertyName == property.Name)
+                                                 .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
                                                  .ToList();
 
-                // If duplicates exist, remove all but the first column
                 if (matchingColumns.Count > 1) {
                     for (int i = 1; i < matchingColumns.Count; i++) {
                         dgv.Columns.Remove(matchingColumns[i]);
                     }
                 }
 
-                // Get the custom attribute, if applied
                 var attribute = property.GetCustomAttribute<CDGVAttributes>();
-
                 if (attribute != null) {
-                    // Get the first column (if any) to apply the attribute changes
                     var column = matchingColumns.FirstOrDefault();
                     if (column != null) {
-                        // Remove the column if IsExcluded is true
                         if (attribute.IsExcluded) {
                             dgv.Columns.Remove(column);
                         }
                         else {
-                            // Set visibility based on IsVisible
                             column.Visible = attribute.IsVisible;
+                            if (attribute.IsEditable) {
+                                editableColumns.Add(column.Index);
+                            }
                         }
                     }
                 }
             }
 
+            // Apply editable setting once for all collected indices
+            dgv.SetColumnsEditable(true, editableColumns.ToArray());
         }
 
 

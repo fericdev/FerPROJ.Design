@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
-    public class CDGVAttributes : Attribute {
+    public class GridColumnAttributes : Attribute {
         #region Properties
         public bool IsVisible { get; set; } = true;
         public bool IsExcluded { get; set; } = false;

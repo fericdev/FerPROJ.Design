@@ -365,7 +365,7 @@ namespace FerPROJ.Design.Class {
                     }
                 }
 
-                var attribute = property.GetCustomAttribute<CDGVAttributes>();
+                var attribute = property.GetCustomAttribute<GridColumnAttributes>();
                 if (attribute != null) {
                     var column = matchingColumns.FirstOrDefault();
                     if (column != null) {

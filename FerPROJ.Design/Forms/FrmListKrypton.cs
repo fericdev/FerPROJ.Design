@@ -464,7 +464,9 @@ namespace FerPROJ.Design.Forms {
         private async Task RefreshAsync() {
             await RefreshDataAsync();
         }
-
+        protected async Task LoadDataGridViewAsync<T>(Task<IEnumerable<T>> dataFetchTask) {
+            await MainModelBindingSource.LoadDataAsync(dataFetchTask);
+        }
         private async Task SelectDataAsync() {
             if (await GetSelectedDataAsync()) {
                 this.Close();

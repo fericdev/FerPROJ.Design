@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using System.Threading.Tasks;
+using FerPROJ.Design.BaseModels;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmManageKrypton : KryptonForm {
@@ -78,17 +79,20 @@ namespace FerPROJ.Design.Forms {
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
+
         }
         protected virtual void OnFormModeChanged() {
             FormModeChanged?.Invoke(this, EventArgs.Empty);
         }
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
+            LoadFormEventHandler();
             if (!_currentFormMode.HasValue) {
                 CurrentFormMode = FormMode.Add;
             }
         }
-
+        protected virtual void LoadFormEventHandler() {
+        }
         protected virtual async Task InitializeFormPropertiesAsync() {
             await RefreshDataSourceAsync();
         }
@@ -337,6 +341,17 @@ namespace FerPROJ.Design.Forms {
         }
         private void HideSaveNewFunction() {
             baseButtonAddNew.Visible = !hideFunction;
+        }
+        #endregion
+
+        #region Extension
+        protected async Task<TModelItem> GetDataGridViewModelItemAsync<TModelItem>() where TModelItem : BaseModelItem {
+
+            var dgv = ItemModelDataGridView;
+
+            await Task.CompletedTask;
+
+            return dgv.GetItemDTO<TModelItem>();
         }
         #endregion
     }

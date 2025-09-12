@@ -263,6 +263,7 @@ namespace FerPROJ.Design.Forms
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmManageMain";
+            this.Load += new System.EventHandler(this.FrmManageKrypton_Load);
             this.basePnl1.ResumeLayout(false);
             this.basePnl2.ResumeLayout(false);
             this.basePanelMain.ResumeLayout(false);

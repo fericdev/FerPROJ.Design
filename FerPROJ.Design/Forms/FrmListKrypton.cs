@@ -1,4 +1,6 @@
-﻿using FerPROJ.Design.Class;
+﻿using ComponentFactory.Krypton.Toolkit;
+using FerPROJ.Design.Class;
+using FerPROJ.Design.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,12 +10,13 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
 using System.Web.Hosting;
+using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmListKrypton : KryptonForm {
+
+        #region Fields
 
         private Timer _debounceTimer;
         public DateTime? dateFrom = null;
@@ -39,6 +42,11 @@ namespace FerPROJ.Design.Forms {
         private Image other1Icon = null;
         public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
+
+        #endregion
+
+        #region Properties
+
         public bool CurrentManageMode {
             get {
                 return _currentManageMode.Value;
@@ -48,182 +56,7 @@ namespace FerPROJ.Design.Forms {
                 OnManageModeChanged();
             }
         }
-        protected virtual void OnManageModeChanged() {
-            ManageModeChanged?.Invoke(this, EventArgs.Empty);
-        }
-        protected override void OnLoad(EventArgs e) {
-            base.OnLoad(e);
-            if (!_currentManageMode.HasValue) {
-                CurrentManageMode = true;
-            }
-        }
 
-        public FrmListKrypton() {
-            InitializeComponent();
-            _debounceTimer = new Timer();
-            _debounceTimer.Interval = 500; // Set delay to 100 milliseconds
-            _debounceTimer.Tick += _debounceTimer_Tick;
-            this.DoubleBuffered = true;
-            ManageModeChanged += FrmListMain_ManageModeChanged;
-            this.KeyPreview = true;
-            this.KeyDown += OnKeyDown;
-            ConstantShortcuts();
-            InitializeKeyboardShortcuts();
-        }
-
-        private async void _debounceTimer_Tick(object sender, EventArgs e) {
-            _debounceTimer.Stop();
-            searchValue = SearchTextBox.Text;
-            dateFrom = baseDateFromDateTimePicker.Value;
-            dateTo = baseDateToDateTimePicker.Value;
-
-            if (!checkBoxDGVSearch.Checked) {
-                await AsyncRefresh();
-            }
-            else {
-                RefreshDGVData().RunTaskAsync();
-            }
-        }
-
-        private void ConstantShortcuts() {
-            keyboardShortcuts[Keys.Escape] = CloseForm;
-        }
-        protected virtual void InitializeKeyboardShortcuts() {
-
-        }
-        private async void OnKeyDown(object sender, KeyEventArgs e) {
-            if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
-                keyboardShortcuts[e.KeyCode]?.Invoke();
-            }
-            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
-                if (boolKeyboardShortcuts[e.KeyCode]()) {
-                    await AsyncRefresh();
-                }
-            }
-        }
-        private async void FrmListMain_ManageModeChanged(object sender, EventArgs e) {
-            if (CurrentManageMode) {
-                baseButtonSelect.Visible = false;
-                await LoadComponents();
-            }
-            else {
-                baseButtonSelect.Visible = true;
-                HideFunctionAll = true;
-                await LoadComponents();
-            }
-        }
-        protected async virtual Task LoadComponents() {
-            await Task.CompletedTask;
-        }
-        private async Task SelectData() {
-            if (await GetSelectedData()) {
-                this.Close();
-            }
-        }
-        private void CloseForm() {
-            if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
-                this.Close();
-            }
-        }
-        private void baseButtonCancel_Click(object sender, EventArgs e) {
-            CloseForm();
-        }
-
-        private async void baseButtonSelect_Click(object sender, EventArgs e) {
-            await SelectData();
-        }
-        protected async virtual Task RefreshData() {
-            await Task.CompletedTask;
-        }
-        protected virtual async Task RefreshDGVData() {
-            await Task.CompletedTask;
-        }
-
-        private async void FrmListMain_Load(object sender, EventArgs e) {
-            try {
-                await AsyncRefresh();
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
-        }
-        private async void tsbMainAddItem_Click(object sender, EventArgs e) {
-            try {
-                var result = await AddNewItem();
-                if (result) {
-                    await AsyncRefresh();
-                }
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
-        }
-
-        private async void tsbMainEditItem_Click(object sender, EventArgs e) {
-            try {
-                var result = await UpdateItem();
-                if (result) {
-                    await AsyncRefresh();
-                }
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
-        }
-
-        private async void tsbMainDeleteItem_Click(object sender, EventArgs e) {
-            try {
-                var result = await DeleteItem();
-                if (result) {
-                    await AsyncRefresh();
-                }
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
-        }
-
-        private async void tsbMainViewItem_Click(object sender, EventArgs e) {
-            try {
-                var result = await ViewItem();
-                if (result) {
-                    await AsyncRefresh();
-                }
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
-        }
-
-        private async void tsbMainRefresh_Click(object sender, EventArgs e) {
-            try {
-                await AsyncRefresh();
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
-        }
-        protected async virtual Task<bool> GetSelectedData() {
-            return await Task.FromResult(true);
-        }
-        protected async virtual Task<bool> AddNewItem() {
-            return await Task.FromResult(true);
-        }
-        protected async virtual Task<bool> UpdateItem() {
-            return await Task.FromResult(true);
-        }
-        protected async virtual Task<bool> DeleteItem() {
-            return await Task.FromResult(true);
-        }
-        protected async virtual Task<bool> ViewItem() {
-            return await Task.FromResult(true);
-        }
-        protected async virtual Task<bool> Other1() {
-            return await Task.FromResult(true);
-        }
-        protected async virtual Task<bool> Other2() {
-            return await Task.FromResult(true);
-        }
         public bool HideHeader {
             get {
                 return hideHeader;
@@ -233,6 +66,7 @@ namespace FerPROJ.Design.Forms {
                 panelMain11.Visible = !hideHeader;
             }
         }
+
         public bool HideFunctionAll {
             get { return hideFunction; }
             set {
@@ -262,6 +96,7 @@ namespace FerPROJ.Design.Forms {
                 toolStripSeparator1.Visible = !hideFunctionAdd;
             }
         }
+
         public bool HideButtonSelect {
             get { return hideButtonSelect; }
             set {
@@ -269,6 +104,7 @@ namespace FerPROJ.Design.Forms {
                 baseButtonSelect.Visible = !hideButtonSelect;
             }
         }
+
         public bool HideFunctionEdit {
             get { return hideFunctionEdit; }
             set {
@@ -277,6 +113,7 @@ namespace FerPROJ.Design.Forms {
                 toolStripSeparator2.Visible = !hideFunctionEdit;
             }
         }
+
         public bool HideFunctionDelete {
             get { return hideFunctionDelete; }
             set {
@@ -285,6 +122,7 @@ namespace FerPROJ.Design.Forms {
                 toolStripSeparator3.Visible = !hideFunctionDelete;
             }
         }
+
         public bool HideFunctionView {
             get { return hideFunctionView; }
             set {
@@ -292,6 +130,7 @@ namespace FerPROJ.Design.Forms {
                 tsbMainViewItem.Visible = !hideFunctionView;
             }
         }
+
         public bool HideFunctionOther1 {
             get { return hideFunctionOther1; }
             set {
@@ -300,12 +139,311 @@ namespace FerPROJ.Design.Forms {
                 toolStripSeparator5.Visible = !hideFunctionOther1;
             }
         }
+
         public bool HideFunctionOther2 {
             get { return hideFunctionOther2; }
             set {
                 hideFunctionOther2 = value;
                 tsbOther2.Visible = !hideFunctionOther2;
                 toolStripSeparator6.Visible = !hideFunctionOther2;
+            }
+        }
+
+        public string FormTitle {
+            get { return titleText; }
+            set {
+                titleText = value;
+                customLabelDescMain10.Text = titleText;
+            }
+        }
+
+        public string FormDescription {
+            get { return descText; }
+            set {
+                descText = value;
+                customLabelDescMain11.Text = descText;
+            }
+        }
+
+        public Image FormIcon {
+            get { return formIcon; }
+            set {
+                formIcon = value;
+                pictureBoxMain1.BackgroundImage = formIcon;
+                pictureBoxMain1.BackgroundImageLayout = ImageLayout.Zoom;
+            }
+        }
+
+        public Image Other1Icon {
+            get {
+                return other1Icon;
+            }
+            set {
+                other1Icon = value;
+                tsbOther1.Image = other1Icon;
+            }
+        }
+
+        public string ButtonNameAdd {
+            get {
+                return tsbMainAddItem.Text;
+            }
+            set {
+                tsbMainAddItem.Text = value;
+            }
+        }
+
+        public string ButtonNameEdit {
+            get {
+                return tsbMainEditItem.Text;
+            }
+            set {
+                tsbMainEditItem.Text = value;
+            }
+        }
+
+        public string ButtonNameDelete {
+            get {
+                return tsbMainDeleteItem.Text;
+            }
+            set {
+                tsbMainDeleteItem.Text = value;
+            }
+        }
+
+        public string ButtonNameView {
+            get {
+                return tsbMainViewItem.Text;
+            }
+            set {
+                tsbMainViewItem.Text = value;
+            }
+        }
+
+        public string ButtonNameOther1 {
+            get {
+                return tsbOther1.Text;
+            }
+            set {
+                tsbOther1.Text = value;
+            }
+        }
+
+        public string ButtonNameOther2 {
+            get {
+                return tsbOther2.Text;
+            }
+            set {
+                tsbOther2.Text = value;
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        public FrmListKrypton() {
+            InitializeComponent();
+            _debounceTimer = new Timer();
+            _debounceTimer.Interval = 500; // Set delay to 100 milliseconds
+            _debounceTimer.Tick += _debounceTimer_Tick;
+            this.DoubleBuffered = true;
+            ManageModeChanged += FrmListMain_ManageModeChanged;
+            this.KeyPreview = true;
+            this.KeyDown += OnKeyDown;
+            ConstantShortcuts();
+            InitializeKeyboardShortcuts();
+        }
+
+        #endregion
+
+        #region Binding Sources and DataGridViews
+        protected BindingSource MainModelBindingSource { get; set; }
+        protected CDatagridview MainModelDataGridView { get; set; }
+        #endregion
+
+        #region Event Handlers
+
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+            if (!_currentManageMode.HasValue) {
+                CurrentManageMode = true;
+            }
+        }
+
+        private async void FrmListMain_Load(object sender, EventArgs e) {
+            try {
+                await RefreshAsync();
+                await InitializeFormPropertiesAsync();
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void _debounceTimer_Tick(object sender, EventArgs e) {
+            _debounceTimer.Stop();
+            searchValue = SearchTextBox.Text;
+            dateFrom = baseDateFromDateTimePicker.Value;
+            dateTo = baseDateToDateTimePicker.Value;
+
+            if (!checkBoxDGVSearch.Checked) {
+                await RefreshAsync();
+            }
+            else {
+                RefreshDataGridViewAsync().RunTaskAsync();
+            }
+        }
+
+        private void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
+            // Restart the timer every time the text changes
+            _debounceTimer.Stop();
+            _debounceTimer.Start();
+        }
+
+        private void SearchTextBox__TextChanged(object sender, EventArgs e) {
+            // Restart the timer every time the text changes
+            _debounceTimer.Stop();
+            _debounceTimer.Start();
+        }
+
+        private async void ComboBoxKryptonDataLimit_SelectedIndexChanged(object sender, EventArgs e) {
+            if (ComboBoxKryptonDataLimit.SelectedIndex != -1) {
+                dataLimit = ComboBoxKryptonDataLimit.Text.ToInt();
+                await RefreshAsync();
+            }
+        }
+
+        private void baseButtonCancel_Click(object sender, EventArgs e) {
+            CloseForm();
+        }
+
+        private async void baseButtonSelect_Click(object sender, EventArgs e) {
+            await SelectDataAsync();
+        }
+
+        private async void tsbMainAddItem_Click(object sender, EventArgs e) {
+            try {
+                var result = await AddNewItemAsync();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void tsbMainEditItem_Click(object sender, EventArgs e) {
+            try {
+                var result = await UpdateItemAsync();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void tsbMainDeleteItem_Click(object sender, EventArgs e) {
+            try {
+                var result = await DeleteItemAsync();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void tsbMainViewItem_Click(object sender, EventArgs e) {
+            try {
+                var result = await ViewItemAsync();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void tsbMainRefresh_Click(object sender, EventArgs e) {
+            try {
+                await RefreshAsync();
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void tsbOther1_Click(object sender, EventArgs e) {
+            try {
+                var result = await Other1Async();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void tsbOther2_Click(object sender, EventArgs e) {
+            try {
+                var result = await Other2Async();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
+        private async void OnKeyDown(object sender, KeyEventArgs e) {
+            if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
+                keyboardShortcuts[e.KeyCode]?.Invoke();
+            }
+            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
+                if (boolKeyboardShortcuts[e.KeyCode]()) {
+                    await RefreshAsync();
+                }
+            }
+        }
+
+        private async void FrmListMain_ManageModeChanged(object sender, EventArgs e) {
+            if (CurrentManageMode) {
+                baseButtonSelect.Visible = false;
+            }
+            else {
+                baseButtonSelect.Visible = true;
+                HideFunctionAll = true;
+            }
+            await LoadComponentsAsync();
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected virtual void OnManageModeChanged() {
+            ManageModeChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ConstantShortcuts() {
+            keyboardShortcuts[Keys.Escape] = CloseForm;
+        }
+
+        protected virtual void InitializeKeyboardShortcuts() {
+
+        }
+
+        private void CloseForm() {
+            if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
+                this.Close();
             }
         }
 
@@ -322,131 +460,74 @@ namespace FerPROJ.Design.Forms {
             toolStripSeparator5.Visible = !hideFunction;
             toolStripSeparator6.Visible = !hideFunction;
         }
-        private void baseDateFromDateTimePicker_ValueChanged(object sender, EventArgs e) {
-            // Restart the timer every time the text changes
-            _debounceTimer.Stop();
-            _debounceTimer.Start();
+
+        private async Task RefreshAsync() {
+            await RefreshDataAsync();
         }
 
-        public string FormTitle {
-            get { return titleText; }
-            set {
-                titleText = value;
-                customLabelDescMain10.Text = titleText;
-            }
-        }
-        public string FormDescription {
-            get { return descText; }
-            set {
-                descText = value;
-                customLabelDescMain11.Text = descText;
-            }
-        }
-        public Image FormIcon {
-            get { return formIcon; }
-            set {
-                formIcon = value;
-                pictureBoxMain1.BackgroundImage = formIcon;
-                pictureBoxMain1.BackgroundImageLayout = ImageLayout.Zoom;
-            }
-        }
-        public Image Other1Icon {
-            get {
-                return other1Icon;
-            }
-            set {
-                other1Icon = value;
-                tsbOther1.Image = other1Icon;
-            }
-        }
-        public string ButtonNameAdd {
-            get {
-                return tsbMainAddItem.Text;
-            }
-            set {
-                tsbMainAddItem.Text = value;
-            }
-        }
-        public string ButtonNameEdit {
-            get {
-                return tsbMainEditItem.Text;
-            }
-            set {
-                tsbMainEditItem.Text = value;
-            }
-        }
-        public string ButtonNameDelete {
-            get {
-                return tsbMainDeleteItem.Text;
-            }
-            set {
-                tsbMainDeleteItem.Text = value;
-            }
-        }
-        public string ButtonNameView {
-            get {
-                return tsbMainViewItem.Text;
-            }
-            set {
-                tsbMainViewItem.Text = value;
-            }
-        }
-        public string ButtonNameOther1 {
-            get {
-                return tsbOther1.Text;
-            }
-            set {
-                tsbOther1.Text = value;
-            }
-        }
-        public string ButtonNameOther2 {
-            get {
-                return tsbOther2.Text;
-            }
-            set {
-                tsbOther2.Text = value;
+        private async Task SelectDataAsync() {
+            if (await GetSelectedDataAsync()) {
+                this.Close();
             }
         }
 
-        private async void ComboBoxKryptonDataLimit_SelectedIndexChanged(object sender, EventArgs e) {
-            if (ComboBoxKryptonDataLimit.SelectedIndex != -1) {
-                dataLimit = ComboBoxKryptonDataLimit.Text.ToInt();
-                await AsyncRefresh();
+        protected virtual async Task InitializeFormPropertiesAsync() {
+            await RefreshDataSourceAsync();
+        }
+        protected virtual async Task RefreshDataSourceAsync() {
+            if (MainModelBindingSource != null) {
+                MainModelBindingSource?.ResetBindings(false);
             }
+            if (MainModelDataGridView != null) {
+                MainModelDataGridView?.ApplyCustomAttribute();
+            }
+            await Task.CompletedTask;
         }
 
-        private async Task AsyncRefresh() {
-            await RefreshData();
+        #endregion
+
+        #region Data Methods
+
+        protected async virtual Task LoadComponentsAsync() {
+            await Task.CompletedTask;
         }
 
-        private void SearchTextBox__TextChanged(object sender, EventArgs e) {
-            // Restart the timer every time the text changes
-            _debounceTimer.Stop();
-            _debounceTimer.Start();
+        protected async virtual Task RefreshDataAsync() {
+            await Task.CompletedTask;
         }
 
-        private async void tsbOther1_Click(object sender, EventArgs e) {
-            try {
-                var result = await Other1();
-                if (result) {
-                    await AsyncRefresh();
-                }
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
+        protected virtual async Task RefreshDataGridViewAsync() {
+            await Task.CompletedTask;
         }
 
-        private async void tsbOther2_Click(object sender, EventArgs e) {
-            try {
-                var result = await Other2();
-                if (result) {
-                    await AsyncRefresh();
-                }
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message, "Error");
-            }
+        protected async virtual Task<bool> GetSelectedDataAsync() {
+            return await Task.FromResult(true);
         }
+
+        protected async virtual Task<bool> AddNewItemAsync() {
+            return await Task.FromResult(true);
+        }
+
+        protected async virtual Task<bool> UpdateItemAsync() {
+            return await Task.FromResult(true);
+        }
+
+        protected async virtual Task<bool> DeleteItemAsync() {
+            return await Task.FromResult(true);
+        }
+
+        protected async virtual Task<bool> ViewItemAsync() {
+            return await Task.FromResult(true);
+        }
+
+        protected async virtual Task<bool> Other1Async() {
+            return await Task.FromResult(true);
+        }
+
+        protected async virtual Task<bool> Other2Async() {
+            return await Task.FromResult(true);
+        }
+
+        #endregion
     }
 }

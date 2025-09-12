@@ -86,10 +86,31 @@ namespace FerPROJ.Design.Forms {
         }
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
-            LoadFormEventHandler();
             if (!_currentFormMode.HasValue) {
                 CurrentFormMode = FormMode.Add;
             }
+        }
+        private async void FrmManageKrypton_Load(object sender, EventArgs e) {
+            await InitializeFormPropertiesAsync();
+            LoadFormEventHandler();
+        }
+        private async void FrmManageMain_FormModeChanged(object sender, EventArgs e) {
+            // Update button visibility based on the new CurrentFormMode
+            if (CurrentFormMode == FormMode.Add) {
+                baseButtonSave.Visible = true;
+                baseButtonUpdate.Visible = false;
+            }
+            else if (CurrentFormMode == FormMode.Update) {
+                baseButtonSave.Visible = false;
+                baseButtonUpdate.Visible = true;
+                baseButtonAddNew.Visible = !hideFunctionOnUpdate;
+            }
+            else {
+                baseButtonSave.Visible = false;
+                baseButtonUpdate.Visible = false;
+                baseButtonAddNew.Visible = false;
+            }
+            await LoadComponentsAsync();
         }
         protected virtual void LoadFormEventHandler() {
         }
@@ -110,25 +131,6 @@ namespace FerPROJ.Design.Forms {
                 ItemModelDataGridView?.ApplyCustomAttribute();
             }
             await Task.CompletedTask;
-        }
-        private async void FrmManageMain_FormModeChanged(object sender, EventArgs e) {
-            // Update button visibility based on the new CurrentFormMode
-            if (CurrentFormMode == FormMode.Add) {
-                baseButtonSave.Visible = true;
-                baseButtonUpdate.Visible = false;
-            }
-            else if (CurrentFormMode == FormMode.Update) {
-                baseButtonSave.Visible = false;
-                baseButtonUpdate.Visible = true;
-                baseButtonAddNew.Visible = !hideFunctionOnUpdate;
-            }
-            else {
-                baseButtonSave.Visible = false;
-                baseButtonUpdate.Visible = false;
-                baseButtonAddNew.Visible = false;
-            }
-            await LoadComponentsAsync();
-            await InitializeFormPropertiesAsync();
         }
         #endregion
 

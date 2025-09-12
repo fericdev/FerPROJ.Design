@@ -374,7 +374,7 @@ namespace FerPROJ.Design.Forms
             this.tsbOther1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOther1.Name = "tsbOther1";
             this.tsbOther1.Size = new System.Drawing.Size(63, 38);
-            this.tsbOther1.Text = "Other1";
+            this.tsbOther1.Text = "Other1Async";
             this.tsbOther1.Visible = false;
             this.tsbOther1.Click += new System.EventHandler(this.tsbOther1_Click);
             // 
@@ -390,7 +390,7 @@ namespace FerPROJ.Design.Forms
             this.tsbOther2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOther2.Name = "tsbOther2";
             this.tsbOther2.Size = new System.Drawing.Size(63, 38);
-            this.tsbOther2.Text = "Other2";
+            this.tsbOther2.Text = "Other2Async";
             this.tsbOther2.Visible = false;
             this.tsbOther2.Click += new System.EventHandler(this.tsbOther2_Click);
             // 

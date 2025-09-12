@@ -20,7 +20,7 @@ namespace FerPROJ.Design.Forms {
             _picture = picture;
         }
         //
-        protected override Task LoadComponents() {
+        protected override Task LoadComponentsAsync() {
             switch (CurrentFormMode) {
                 case FormMode.Add:
                     break;
@@ -31,7 +31,7 @@ namespace FerPROJ.Design.Forms {
             }
             return Task.CompletedTask;
         }
-        protected override async Task<bool> OnSaveNewData() {
+        protected override async Task<bool> OnSaveNewDataAsync() {
             using (OpenFileDialog ofd = new OpenFileDialog()) {
                 if (ofd.ShowDialog() == DialogResult.OK) {
                     string imagePath = ofd.FileName;
@@ -41,10 +41,10 @@ namespace FerPROJ.Design.Forms {
             }
             return await Task.FromResult(false);
         }
-        protected override async Task<bool> OnSaveData() {
+        protected override async Task<bool> OnSaveDataAsync() {
             return await Task.FromResult(true);
         }
-        protected override async Task<bool> OnUpdateData() {
+        protected override async Task<bool> OnUpdateDataAsync() {
             NewPicture = _tempPicture != null ? _tempPicture : _picture;
             return await Task.FromResult(true);
         }

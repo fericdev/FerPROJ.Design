@@ -21,7 +21,7 @@ namespace FerPROJ.Design.Forms {
             InitializeComponent();
             Address = baseAddress;
         }
-        protected override async Task LoadComponents() {
+        protected override async Task LoadComponentsAsync() {
             await LoadComboEnum();
             await LoadLocation();
             switch (CurrentFormMode) {
@@ -95,10 +95,10 @@ namespace FerPROJ.Design.Forms {
             }
             await Task.CompletedTask;
         }
-        protected override async Task<bool> OnSaveData() {
+        protected override async Task<bool> OnSaveDataAsync() {
             return await Task.FromResult(Address != null && Address.DataValidation());
         }
-        protected override async Task<bool> OnUpdateData() {
+        protected override async Task<bool> OnUpdateDataAsync() {
             return await Task.FromResult(Address != null && Address.DataValidation());
         }
 

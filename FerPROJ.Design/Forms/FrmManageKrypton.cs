@@ -9,27 +9,15 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmManageKrypton : KryptonForm {
+
+        #region Task and Guid
         public Task<bool> CurrentFormResult { get; set; }
         public Guid Manage_IdTrack { get; set; }
+        #endregion
+
+        #region FormMode
         private FormMode? _currentFormMode;
         public event EventHandler FormModeChanged;
-        private bool hideFunctionOnUpdate = true;
-        private bool hideFunction;
-        private bool hideHeader;
-        private bool hideFooter;
-        private string onSaveNewName = "Save and New";
-        private string onSaveName = "Save";
-        private string onUpdateName = "Update";
-        private string onCloseName = "Cancel";
-        private string titleText = "Management Hub";
-        private string descText = "Centralized control and insights for efficient operations.";
-        private Image formIcon = null;
-        /// <summary>
-        /// Usage: keyboardShortcuts[Keys.F1] = Function Name;
-        /// </summary>
-        public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
-        public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
-
         public enum FormMode {
             Add,
             Update,
@@ -44,16 +32,44 @@ namespace FerPROJ.Design.Forms {
                 OnFormModeChanged();
             }
         }
-        protected virtual void OnFormModeChanged() {
-            FormModeChanged?.Invoke(this, EventArgs.Empty);
-        }
-        protected override void OnLoad(EventArgs e) {
-            base.OnLoad(e);
-            InitializeFormProperties();
-            if (!_currentFormMode.HasValue) {
-                CurrentFormMode = FormMode.Add;
-            }
-        }
+        #endregion
+
+        #region Hide/Show Flags
+        private bool hideFunctionOnUpdate = true;
+        private bool hideFunction;
+        private bool hideHeader;
+        private bool hideFooter;
+        #endregion
+
+        #region Button Names
+        private string onSaveNewName = "Save and New";
+        private string onSaveName = "Save";
+        private string onUpdateName = "Update";
+        private string onCloseName = "Cancel";
+        #endregion
+
+        #region Form Title/Description/Icon
+        private string titleText = "Management Hub";
+        private string descText = "Centralized control and insights for efficient operations.";
+        private Image formIcon = null;
+        #endregion
+
+        #region Keyboard Shortcuts
+        /// <summary>
+        /// Usage: keyboardShortcuts[Keys.F1] = Function Name;
+        /// </summary>
+        public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
+        public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
+        #endregion
+
+        #region Binding Sources and DataGridViews
+        protected BindingSource MainModelBindingSource { get; set; }
+        protected BindingSource ItemModelBindingSource { get; set; }
+        protected CDatagridview MainModelDataGridView { get; set; }
+        protected CDatagridview ItemModelDataGridView { get; set; }
+        #endregion
+
+        #region Constructor and OnLoad
         public FrmManageKrypton() {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -63,32 +79,33 @@ namespace FerPROJ.Design.Forms {
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
         }
-
-        private void ConstantShortcuts() {
-            keyboardShortcuts[Keys.Escape] = CloseForm;
+        protected virtual void OnFormModeChanged() {
+            FormModeChanged?.Invoke(this, EventArgs.Empty);
+        }
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+            if (!_currentFormMode.HasValue) {
+                CurrentFormMode = FormMode.Add;
+            }
         }
 
-        protected virtual void InitializeKeyboardShortcuts() {
-
+        protected virtual async Task InitializeFormPropertiesAsync() {
+            await RefreshDataSourceAsync();
         }
-        protected virtual void InitializeFormProperties() {
-        }
-        private async void OnKeyDown(object sender, KeyEventArgs e) {
-            if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
-                keyboardShortcuts[e.KeyCode]?.Invoke();
+        protected virtual async Task RefreshDataSourceAsync() {
+            if (MainModelBindingSource != null) {
+                MainModelBindingSource?.ResetBindings(false);
             }
-            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
-                if (boolKeyboardShortcuts[e.KeyCode]()) {
-                    CurrentFormResult = Task.FromResult(true);
-                    this.Close();
-                }
+            if (ItemModelBindingSource != null) {
+                ItemModelBindingSource?.ResetBindings(false);
             }
-            if (e.Control && e.KeyCode == Keys.Enter) {
-                var result = await OnSaveNewData();
-                if (result) {
-                    CurrentFormResult = Task.FromResult(true);
-                }
+            if (MainModelDataGridView != null) {
+                MainModelDataGridView?.ApplyCustomAttribute();
             }
+            if (ItemModelDataGridView != null) {
+                ItemModelDataGridView?.ApplyCustomAttribute();
+            }
+            await Task.CompletedTask;
         }
         private async void FrmManageMain_FormModeChanged(object sender, EventArgs e) {
             // Update button visibility based on the new CurrentFormMode
@@ -106,8 +123,41 @@ namespace FerPROJ.Design.Forms {
                 baseButtonUpdate.Visible = false;
                 baseButtonAddNew.Visible = false;
             }
-            await LoadComponents();
+            await LoadComponentsAsync();
+            await InitializeFormPropertiesAsync();
         }
+        #endregion
+
+        #region Keyboard Shortcuts Methods
+        private void ConstantShortcuts() {
+            keyboardShortcuts[Keys.Escape] = CloseForm;
+        }
+
+        protected virtual void InitializeKeyboardShortcuts() {
+
+        }
+
+        private async void OnKeyDown(object sender, KeyEventArgs e) {
+            if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
+                keyboardShortcuts[e.KeyCode]?.Invoke();
+            }
+            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
+                if (boolKeyboardShortcuts[e.KeyCode]()) {
+                    CurrentFormResult = Task.FromResult(true);
+                    this.Close();
+                }
+            }
+            if (e.Control && e.KeyCode == Keys.Enter) {
+                var result = await OnSaveNewDataAsync();
+                if (result) {
+                    CurrentFormResult = Task.FromResult(true);
+                }
+            }
+        }
+        #endregion
+
+        #region CRUD and Form Control Button Methods
+
         private void CloseForm() {
             if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
                 CurrentFormResult = Task.FromResult(false);
@@ -119,7 +169,7 @@ namespace FerPROJ.Design.Forms {
         }
         private async void btnSaveMain_Click(object sender, EventArgs e) {
             try {
-                var result = await OnSaveData();
+                var result = await OnSaveDataAsync();
                 if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
@@ -133,7 +183,7 @@ namespace FerPROJ.Design.Forms {
         }
         private async void btnUpdateMain_Click(object sender, EventArgs e) {
             try {
-                var result = await OnUpdateData();
+                var result = await OnUpdateDataAsync();
                 if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
@@ -144,22 +194,22 @@ namespace FerPROJ.Design.Forms {
 
             }
         }
-        protected async virtual Task<bool> OnSaveData() {
+        protected async virtual Task<bool> OnSaveDataAsync() {
             return await CurrentFormResult;
         }
-        protected async virtual Task<bool> OnUpdateData() {
+        protected async virtual Task<bool> OnUpdateDataAsync() {
             return await CurrentFormResult;
         }
-        protected async virtual Task<bool> OnSaveNewData() {
-            return await OnSaveData();
+        protected async virtual Task<bool> OnSaveNewDataAsync() {
+            return await OnSaveDataAsync();
         }
-        protected async virtual Task LoadComponents() {
+        protected async virtual Task LoadComponentsAsync() {
             await Task.CompletedTask;
         }
 
         private async void baseButtonAddNew_Click(object sender, EventArgs e) {
             try {
-                var result = await OnSaveNewData();
+                var result = await OnSaveNewDataAsync();
                 if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     ClearAllTextBoxes(this);
@@ -180,6 +230,9 @@ namespace FerPROJ.Design.Forms {
                 }
             }
         }
+        #endregion
+
+        #region Hide/Show Properties
         public bool HideSaveNew {
             get { return hideFunction; }
             set {
@@ -194,6 +247,27 @@ namespace FerPROJ.Design.Forms {
                 HideSaveNewFunctionOnUpdate();
             }
         }
+        public bool HideHeader {
+            get {
+                return hideHeader;
+            }
+            set {
+                hideHeader = value;
+                panelMain1.Visible = !hideHeader;
+            }
+        }
+        public bool HideFooter {
+            get {
+                return hideFooter;
+            }
+            set {
+                hideFooter = value;
+                basePnl1.Visible = !hideFooter;
+            }
+        }
+        #endregion
+
+        #region Button Name Properties
         public string OnSaveName {
             get {
                 return onSaveName;
@@ -230,30 +304,9 @@ namespace FerPROJ.Design.Forms {
                 baseButtonCancel.Text = onCloseName;
             }
         }
-        public bool HideHeader {
-            get {
-                return hideHeader;
-            }
-            set {
-                hideHeader = value;
-                panelMain1.Visible = !hideHeader;
-            }
-        }
-        public bool HideFooter {
-            get {
-                return hideFooter;
-            }
-            set {
-                hideFooter = value;
-                basePnl1.Visible = !hideFooter;
-            }
-        }
-        private void HideSaveNewFunctionOnUpdate() {
-            baseButtonAddNew.Visible = !hideFunctionOnUpdate;
-        }
-        private void HideSaveNewFunction() {
-            baseButtonAddNew.Visible = !hideFunction;
-        }
+        #endregion
+
+        #region Form Title/Description/Icon Properties
         public string FormTitle {
             get { return titleText; }
             set {
@@ -276,5 +329,15 @@ namespace FerPROJ.Design.Forms {
                 pictureBoxMain1.BackgroundImageLayout = ImageLayout.Zoom;
             }
         }
+        #endregion
+
+        #region Hide/Show Methods
+        private void HideSaveNewFunctionOnUpdate() {
+            baseButtonAddNew.Visible = !hideFunctionOnUpdate;
+        }
+        private void HideSaveNewFunction() {
+            baseButtonAddNew.Visible = !hideFunction;
+        }
+        #endregion
     }
 }

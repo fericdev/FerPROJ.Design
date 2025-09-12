@@ -348,7 +348,12 @@ namespace FerPROJ.Design.Class {
                 }
             };
         }
-        public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType) {
+        public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType = null) {
+            
+            if (modelType == null) {
+                modelType = dgv.GetModelTypeFromDataGridView();
+            }
+
             var editableColumns = new List<int>();
 
             var properties = modelType.GetProperties(
@@ -384,6 +389,33 @@ namespace FerPROJ.Design.Class {
 
             // Apply editable setting once for all collected indices
             dgv.SetColumnsEditable(true, editableColumns.ToArray());
+        }
+        public static Type GetModelTypeFromDataGridView(this CDatagridview dgv) {
+            if (dgv.DataSource is BindingSource bs) {
+                // If the BindingSource is bound to a generic list (e.g., BindingList<T> or List<T>)
+                if (bs.DataSource != null) {
+                    var dataSourceType = bs.DataSource.GetType();
+                    if (dataSourceType.IsGenericType) {
+                        // Handles List<T>, BindingList<T>, etc.
+                        return dataSourceType.GetGenericArguments()[0];
+                    }
+                    // If it's an array
+                    if (bs.DataSource is System.Collections.IEnumerable enumerable && bs.DataSource.GetType().IsArray) {
+                        return bs.DataSource.GetType().GetElementType();
+                    }
+                    // If it's a single object
+                    return bs.DataSource.GetType();
+                }
+                // If the BindingSource has items, get the type from the first item
+                if (bs.Count > 0 && bs[0] != null) {
+                    return bs[0].GetType();
+                }
+            }
+            // Fallback: Try to get from the first row's DataBoundItem
+            if (dgv.Rows.Count > 0 && dgv.Rows[0].DataBoundItem != null) {
+                return dgv.Rows[0].DataBoundItem.GetType();
+            }
+            return null;
         }
 
 

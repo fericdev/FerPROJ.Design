@@ -7,7 +7,6 @@ namespace FerPROJ.Design.Forms
 {
     public class CPanel : Panel
     {
-        private Panel panel;
         private Color borderColor = Color.MediumSlateBlue;
         private Color borderFocusColor = Color.HotPink;
         private int borderSize = 2;
@@ -52,7 +51,6 @@ namespace FerPROJ.Design.Forms
             get { return base.ForeColor; }
             set {
                 base.ForeColor = value;
-                panel.ForeColor = value;
             }
         }
 
@@ -108,13 +106,7 @@ namespace FerPROJ.Design.Forms
             }
         }
         private void SetTextBoxRoundedRegion() {
-            GraphicsPath pathTxt;
 
-
-            pathTxt = GetFigurePath(panel.ClientRectangle, borderSize * 2);
-            panel.Region = new Region(pathTxt);
-
-            pathTxt.Dispose();
         }
         private GraphicsPath GetFigurePath(Rectangle rect, int radius) {
             GraphicsPath path = new GraphicsPath();

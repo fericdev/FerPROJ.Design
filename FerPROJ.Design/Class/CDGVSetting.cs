@@ -206,7 +206,7 @@ namespace FerPROJ.Design.Class {
             }
             catch (Exception ex) {
                 // Handle any exceptions here (optional)
-                // CShowMessage.Warning(ex.Message, "Error");
+                CDialogManager.Warning(ex.Message, "Error");
             }
         }
 

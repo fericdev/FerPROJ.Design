@@ -30,6 +30,7 @@ namespace FerPROJ.Design.Forms {
             }
             catch (Exception ex) {
                 // catch exception here
+                CDialogManager.Warning(ex.Message);
             }
         }
         protected virtual void LoadComponent() {

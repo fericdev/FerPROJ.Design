@@ -19,6 +19,7 @@ namespace FerPROJ.Design.Class
         public static string CONN_STRING_1;
         public static string CONN_STRING_2;
         public static string ENTITY_CONNECTION_STRING { get; set; } = DefaultString;
+        public static string BASE_CONNECTION_STRING_NAME { get; set; } 
         public static bool DATABASE_CONNECTION_SUCCESS { get; set; }
         public static string ACTIVE_STATUS = "ACTIVE";
         public static string IN_ACTIVE_STATUS = "IN-ACTIVE";

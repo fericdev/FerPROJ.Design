@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BECMS.Main {
+namespace FerPROJ.Design.Controls {
     public partial class CUserControlMenu : UserControl {
         protected Timer baseTimer = new Timer { Interval = 10 };
         protected FlowLayoutPanel basePanel = new FlowLayoutPanel();

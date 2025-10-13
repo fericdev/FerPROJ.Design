@@ -1,4 +1,4 @@
-﻿namespace BECMS.Main {
+﻿namespace FerPROJ.Design.Controls {
     partial class CUserControlMenu {
         /// <summary> 
         /// Required designer variable.

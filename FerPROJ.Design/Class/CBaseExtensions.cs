@@ -82,10 +82,7 @@ namespace FerPROJ.Design.Class {
 
         #region Conversion
         public static Guid ToGuid(this string value) {
-            if (!string.IsNullOrEmpty(value)) {
-                return Guid.Parse(value);
-            }
-            return Guid.Empty;
+            return value.To<Guid>();
         }
 
         public static TEnum ToEnum<TEnum>(this string value, bool ignoreCase = true) where TEnum : struct, Enum {
@@ -233,6 +230,10 @@ namespace FerPROJ.Design.Class {
             return result;
         }
         public static T To<T>(this object value) where T : struct {
+            
+            if (value == null) {
+                return (T)default;
+            }
 
             if (value is T) {
                 return (T)value;

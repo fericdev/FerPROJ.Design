@@ -129,6 +129,7 @@ namespace FerPROJ.Design.Forms {
             }
             if (ItemModelDataGridView != null) {
                 ItemModelDataGridView?.ApplyCustomAttribute();
+                ItemModelDataGridView?.TrackChangesAndCallMethod(RefreshDataSourceAsync);
             }
             await Task.CompletedTask;
         }

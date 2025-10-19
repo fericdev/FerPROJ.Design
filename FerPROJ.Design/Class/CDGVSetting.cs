@@ -295,7 +295,7 @@ namespace FerPROJ.Design.Class {
             dgv.EditMode = DataGridViewEditMode.EditOnEnter;
             // Prevent errors if no columns are provided
             if (columnIndices == null || columnIndices.Length == 0) {
-                return; 
+                return;
             }
 
             if (editable) {
@@ -335,21 +335,38 @@ namespace FerPROJ.Design.Class {
             dgv.Invalidate();
         }
 
-        public static void TrackChangesAndCallMethod(this CDatagridview dgv, int columnIndex, Action onColumnValueChanged) {
-            if (dgv == null) throw new ArgumentNullException(nameof(dgv));
-            if (onColumnValueChanged == null) throw new ArgumentNullException(nameof(onColumnValueChanged));
-            if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
-                throw new ArgumentOutOfRangeException(nameof(columnIndex), "Invalid column index.");
+        public static void TrackChangesAndCallMethod(this CDatagridview dgv, Func<Task> onColumnValueChanged) {
+            if (dgv == null) {
+                throw new ArgumentNullException(nameof(dgv));
+            }
 
-            dgv.CellValueChanged += (sender, e) => {
-                // Trigger only if the changed cell belongs to the specified column index
-                if (e.ColumnIndex == columnIndex) {
-                    onColumnValueChanged();
-                }
-            };
+            if (onColumnValueChanged == null) {
+                throw new ArgumentNullException(nameof(onColumnValueChanged));
+            }
+
+            var editableColumns = GetDataGridViewEditableColumns(dgv);
+
+            foreach (var columnIndex in editableColumns) {
+                if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
+                    throw new ArgumentOutOfRangeException(nameof(columnIndex), "Invalid column index.");
+
+                dgv.CellValueChanged += async (sender, e) => {
+                    if (e.ColumnIndex == columnIndex) {
+                        await onColumnValueChanged();
+                    }
+                };
+            }
         }
         public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType = null) {
-            
+
+            List<int> editableColumns = GetDataGridViewEditableColumns(dgv, modelType);
+
+            // Apply editable setting once for all collected indices
+            dgv.SetColumnsEditable(true, editableColumns.ToArray());
+        }
+
+        private static List<int> GetDataGridViewEditableColumns(CDatagridview dgv, Type modelType = null) {
+
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
             }
@@ -387,9 +404,9 @@ namespace FerPROJ.Design.Class {
                 }
             }
 
-            // Apply editable setting once for all collected indices
-            dgv.SetColumnsEditable(true, editableColumns.ToArray());
+            return editableColumns;
         }
+
         public static Type GetModelTypeFromDataGridView(this CDatagridview dgv) {
             if (dgv.DataSource is BindingSource bs) {
                 // If the BindingSource is bound to a generic list (e.g., BindingList<T> or List<T>)

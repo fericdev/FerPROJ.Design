@@ -496,7 +496,7 @@ namespace FerPROJ.Design.Forms {
         }
 
         protected async virtual Task<bool> GetSelectedDataAsync() {
-            return await Task.FromResult(true);
+            return await Task.FromResult(MainModelDataGridView.GetSelectedValue(0, out Form_IdTrack));
         }
 
         protected async virtual Task<bool> AddNewItemAsync() {

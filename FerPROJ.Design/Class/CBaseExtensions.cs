@@ -287,6 +287,33 @@ namespace FerPROJ.Design.Class {
 
         #endregion
 
+        #region Null Check
+        public static bool IsNullOrEmpty(this Guid? value) {
+            try {
+                return value == null || value.Value == Guid.Empty;
+            }
+            catch {
+                return false;
+            }
+        }
+        public static bool IsNullOrEmpty(this Guid value) {
+            try {
+                return value == null || value == Guid.Empty;
+            }
+            catch {
+                return false;
+            }
+        }
+        public static bool IsNullOrEmpty(this string value) {
+            try {
+                return string.IsNullOrEmpty(value);
+            }
+            catch {
+                return false;
+            }
+        }
+        #endregion
+
         #region Datatable Conversion
 
         public static DataTable ToDataTable<T>(this List<T> items) {

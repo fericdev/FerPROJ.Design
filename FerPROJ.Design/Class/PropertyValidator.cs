@@ -42,5 +42,9 @@ namespace FerPROJ.Design.Class {
         [Browsable(false)]
         public StringBuilder ErrorMessages { get; set; } = new StringBuilder();
         public abstract bool DataValidation();
+        public bool AddErrorMessage(string message) {
+            ErrorMessage = message;
+            return false;
+        }
     }
 }

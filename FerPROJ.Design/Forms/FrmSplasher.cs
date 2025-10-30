@@ -111,7 +111,7 @@ namespace FerPROJ.Design.Forms {
                     Application.DoEvents();
                     // After the delay, run the long-running tasks asynchronously
                     backgroundTask = Task.Run(async () => {
-                        await tasks.RunTasksInBackground();
+                        await tasks.RunTasksInBackgroundAsync();
                     });
                     await PauseAsync();
 

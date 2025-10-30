@@ -107,7 +107,7 @@ namespace FerPROJ.Design.Class {
             return null;
         }
         public static async Task SearchDGVWithBackgroundWorkerAsync<TEntity>(this CDatagridview dgv, string searchValue) where TEntity : class {
-            FrmSplasherLoading.ShowSplashAsync().RunTaskAsync();
+            FrmSplasherLoading.ShowSplashAsync().RunTask();
 
             // Ensure BindingSource is set before processing
             var dgvBindingSource = dgv.DataSource as BindingSource;

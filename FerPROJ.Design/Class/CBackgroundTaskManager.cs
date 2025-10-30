@@ -53,7 +53,7 @@ namespace FerPROJ.Design.Class {
             }
         }
 
-        public static void RunTaskAsync(this Task task) {
+        public static void RunTask(this Task task) {
 
             _ = Task.Run(async () =>
             {
@@ -75,19 +75,19 @@ namespace FerPROJ.Design.Class {
         /// <param name="task"></param>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        public static async Task RunTaskInBackground(this Task task, int seconds = 5, CancellationToken cancellationToken = default) {
-            // Run the task periodically without overlapping executions.
+        public static async Task RunTaskInBackgroundAsync(
+            Func<Task> taskFactory,
+            int seconds = 5,
+            CancellationToken cancellationToken = default) {
             while (!cancellationToken.IsCancellationRequested) {
-
-                await Task.Delay(1000 * seconds);  // Wait for the specified interval before the next run
-
                 try {
-                    await task; // Execute the task asynchronously
+                    await taskFactory(); // run a new task each cycle
                 }
                 catch (Exception ex) {
-                    LogError(ex); // Log any errors that occur during task execution
+                    LogError(ex);
                 }
 
+                await Task.Delay(TimeSpan.FromSeconds(seconds), cancellationToken);
             }
         }
         /// <summary>
@@ -95,7 +95,7 @@ namespace FerPROJ.Design.Class {
         /// </summary>
         /// <param name="taskFunc">The function that creates the task.</param>
         // This will run a task periodically in the background every X seconds.
-        public static async Task RunTasksInBackground(
+        public static async Task RunTasksInBackgroundAsync(
             this IEnumerable<Func<Task>> tasksFunc,
             int seconds = 3,
             CancellationToken cancellationToken = default) {

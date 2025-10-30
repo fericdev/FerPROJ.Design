@@ -290,7 +290,7 @@ namespace FerPROJ.Design.Forms {
                 await RefreshAsync();
             }
             else {
-                RefreshDataGridViewAsync().RunTaskAsync();
+                RefreshDataGridViewAsync().RunTask();
             }
         }
 

@@ -23,7 +23,7 @@ namespace FerPROJ.Design.Forms {
             }
         }
         private void RefreshLayout() {
-            this.Height = baseMenuButtonModels.Count * 40 + 35;
+            this.Height = baseMenuButtonModels.Count * 40 + 42;
         }
         private async Task LoadButtonsAsync() {
             flowLayoutPanelContextMenu.Controls.Clear();
@@ -65,7 +65,10 @@ namespace FerPROJ.Design.Forms {
             flowLayoutPanelContextMenu.Controls.Add(mainMenuButtonPanel);
 
             if (menu.ClickActionAsync != null) {
-                mainButton.Click += async (sender, e) => await menu.ClickActionAsync();
+                mainButton.Click += async (sender, e) => {
+                    await menu.ClickActionAsync();
+                    CloseInstance();
+                };
             }
         }
         public static async Task ShowContextMenuAsync(List<BaseMenuButtonModel> baseMenus) {
@@ -81,6 +84,10 @@ namespace FerPROJ.Design.Forms {
             await Task.CompletedTask;
         }
         private void FrmContextMenu_FormClosed(object sender, FormClosedEventArgs e) {
+            CloseInstance();
+        }
+
+        private static void CloseInstance() {
             if (frmInstance != null) {
                 frmInstance.Invoke((Action)(() => {
                     frmInstance.Close();

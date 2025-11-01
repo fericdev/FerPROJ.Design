@@ -1,4 +1,5 @@
 ﻿
+using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Controls;
 using FerPROJ.Design.Forms;
 using System;
@@ -435,7 +436,25 @@ namespace FerPROJ.Design.Class {
             return null;
         }
 
+        public static void OpenContextMenu(this CDatagridview dgv, List<BaseMenuButtonModel> baseMenus) {
+            // Ensure right-click is detected on cell
+            dgv.MouseDown += async (sender, e) =>
+            {
+                if (e.Button == MouseButtons.Right) {
+                    var hitTest = dgv.HitTest(e.X, e.Y);
 
+                    if (hitTest.RowIndex >= 0 && hitTest.ColumnIndex >= 0) {
+                        // Optional: select the clicked row
+                        dgv.ClearSelection();
+                        dgv.Rows[hitTest.RowIndex].Selected = true;
+
+                        // Call your async context menu function
+                        await FrmContextMenu.ShowContextMenuAsync(baseMenus);
+                    }
+                }
+            };
+
+        }
     }
 }
 

@@ -50,7 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightGray;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(242, 97);
             this.Controls.Add(this.panelBackgroundContextMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -59,7 +59,7 @@
             this.Name = "FrmContextMenu";
             this.Padding = new System.Windows.Forms.Padding(10, 0, 10, 10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Select:";
+            this.Text = "Please select a choice:";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmContextMenu_FormClosed);
             this.Load += new System.EventHandler(this.FrmContextMenu_Load);
             this.panelBackgroundContextMenu.ResumeLayout(false);

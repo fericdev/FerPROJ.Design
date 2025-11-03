@@ -95,7 +95,7 @@ namespace FerPROJ.Design.Controls {
                 BackColor = menu.ButtonColor,
                 ForeColor = menu.ForeColor,
                 Cursor = Cursors.Hand,
-
+                BorderRadius = 1,
             };
             // Add main button to its panel
             mainMenuButtonPanel.Controls.Add(mainMenuButton);
@@ -128,6 +128,7 @@ namespace FerPROJ.Design.Controls {
                         BackColor = sub.ButtonColor,
                         ForeColor = sub.ForeColor,
                         Cursor = Cursors.Hand,
+                        BorderRadius = 1,
                     };
                     // Add submenu button to its panel
                     submenuButtonPanel.Controls.Add(submenuButton);

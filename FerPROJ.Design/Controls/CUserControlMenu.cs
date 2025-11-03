@@ -84,7 +84,7 @@ namespace FerPROJ.Design.Controls {
                 BorderStyle = BorderStyle.FixedSingle,
             };
             // Main button
-            var mainMenuButton = new Button {
+            var mainMenuButton = new CButton {
                 Name = $"{menu.Title.Replace(" ", "")}MainButton",
                 Text = menu.Title,
                 Font = new Font("Verdana", 16, FontStyle.Bold),
@@ -117,7 +117,7 @@ namespace FerPROJ.Design.Controls {
                         BorderStyle = BorderStyle.FixedSingle,
                     };
                     // Submenu button
-                    var submenuButton = new Button {
+                    var submenuButton = new CButton {
                         Name = $"{sub.Title.Replace(" ", "")}SubmenuButton",
                         Text = sub.Title,
                         Font = new Font("Verdana", 14, FontStyle.Bold),

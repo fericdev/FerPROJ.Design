@@ -19,13 +19,8 @@ namespace FerPROJ.Design.Forms {
         #region Fields
 
         private Timer _debounceTimer;
-        public DateTime? dateFrom = null;
-        public DateTime? dateTo = null;
-        public string searchValue;
-        public int dataLimit = 100;
+        private event EventHandler _manageModeChanged;
         private bool? _currentManageMode;
-        public event EventHandler ManageModeChanged;
-        public string Form_IdTrack;
         private bool hideFunction;
         private bool hideFunctionAdd;
         private bool hideFunctionEdit;
@@ -40,6 +35,11 @@ namespace FerPROJ.Design.Forms {
         private string descText = "Centralized control and insights for efficient operations.";
         private Image formIcon = null;
         private Image other1Icon = null;
+        public DateTime? dateFrom = null;
+        public DateTime? dateTo = null;
+        public string searchValue;
+        public int dataLimit = 100;
+        public string Form_IdTrack;
         public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
 
@@ -245,10 +245,10 @@ namespace FerPROJ.Design.Forms {
         public FrmListKrypton() {
             InitializeComponent();
             _debounceTimer = new Timer();
-            _debounceTimer.Interval = 500; // Set delay to 100 milliseconds
-            _debounceTimer.Tick += _debounceTimer_Tick;
+            _debounceTimer.Interval = 1000; // Set delay to 100 milliseconds
+            _debounceTimer.Tick += DebounceTimer_Tick;
+            _manageModeChanged += FrmListMain_ManageModeChanged;
             this.DoubleBuffered = true;
-            ManageModeChanged += FrmListMain_ManageModeChanged;
             this.KeyPreview = true;
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
@@ -280,7 +280,7 @@ namespace FerPROJ.Design.Forms {
             }
         }
 
-        private async void _debounceTimer_Tick(object sender, EventArgs e) {
+        private async void DebounceTimer_Tick(object sender, EventArgs e) {
             _debounceTimer.Stop();
             searchValue = SearchTextBox.Text;
             dateFrom = baseDateFromDateTimePicker.Value;
@@ -429,7 +429,7 @@ namespace FerPROJ.Design.Forms {
         #region Methods
 
         protected virtual void OnManageModeChanged() {
-            ManageModeChanged?.Invoke(this, EventArgs.Empty);
+            _manageModeChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void ConstantShortcuts() {

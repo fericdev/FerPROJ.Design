@@ -58,7 +58,7 @@ namespace FerPROJ.Design.Forms {
                 ForeColor = menu.ForeColor,
                 Cursor = Cursors.Hand,
                 Margin = new Padding(3),
-                BorderRadius = 10,
+                BorderRadius = 5,
             };
             // Add main button to its panel
             mainMenuButtonPanel.Controls.Add(mainButton);

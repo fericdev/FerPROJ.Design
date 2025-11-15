@@ -109,6 +109,7 @@
     <Compile Include="Class\CBaseAssembly.cs" />
     <Compile Include="Class\CComparison.cs" />
     <Compile Include="Class\CConfigurationManager.cs" />
+    <Compile Include="Class\CHtmlReportManager.cs" />
     <Compile Include="Class\GridColumnAttributes.cs" />
     <Compile Include="Class\CBaseEnums.cs" />
     <Compile Include="Class\CBaseExtensions.cs" />

@@ -163,6 +163,16 @@ namespace FerPROJ.Design.Class {
         public static TEnum GetEnum<TEnum>(this string text) where TEnum : Enum {
             return (TEnum)Enum.Parse(typeof(TEnum), text);
         }
+        public static string ToDateAndTime(this DateTime dateTime) {
+            return dateTime.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
+        }
+        public static string ToDateAndTime(this DateTime? dateTime) {
+            if (!dateTime.HasValue) {
+                return string.Empty;
+            }
+            return dateTime.Value.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
+        }
+
         public static List<T> ToListOf<T>(this List<object> values) where T : struct {
             List<T> result = new List<T>();
 

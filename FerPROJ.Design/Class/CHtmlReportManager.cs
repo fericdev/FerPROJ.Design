@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FerPROJ.Design.Forms;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -218,10 +219,9 @@ namespace FerPROJ.Design.Class {
 
             File.WriteAllText(filePath, model.ReportHtml);
 
-            Process.Start(new ProcessStartInfo() {
-                FileName = filePath,
-                UseShellExecute = true
-            });
+            var reportForm = new FrmHtmReport(filePath);
+
+            reportForm.ShowDialog();
 
             await Task.CompletedTask;
             #endregion

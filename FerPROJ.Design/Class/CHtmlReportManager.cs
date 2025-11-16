@@ -237,7 +237,7 @@ namespace FerPROJ.Design.Class {
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }
         public List<string> ReportBodyColumns { get; set; } = new List<string>();
-        public List<List<string>> ReportBodyRows { get; set; } = new List<List<string>>();
+        public List<List<object>> ReportBodyRows { get; set; } = new List<List<object>>();
         public List<(string Label, object Value)> ReportHeaderLeft { get; set; } = new List<(string Label, object Value)>();
         public List<(string Label, object Value)> ReportHeaderRight { get; set; } = new List<(string Label, object Value)>();
         public string GeneratedOn => $"<strong>Print Date:</strong> {DateTime.Now.ToDateAndTime()} <br />";

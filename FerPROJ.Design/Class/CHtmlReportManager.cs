@@ -151,8 +151,8 @@ namespace FerPROJ.Design.Class {
             var headerCells = string.Empty;
             var rowCells = string.Empty;
             if (model.ReportBodyColumns.Count > 0) {
-                headerCells = string.Join("", 
-                    model.ReportBodyColumns.Select(c => 
+                headerCells = string.Join("",
+                    model.ReportBodyColumns.Select(c =>
                         $"<th>{c}</th>"
                     )
                 );
@@ -219,9 +219,11 @@ namespace FerPROJ.Design.Class {
 
             File.WriteAllText(filePath, model.ReportHtml);
 
-            var reportForm = new FrmHtmReport(filePath);
+            using (var frm = new FrmHtmReport(filePath)) {
+                frm.ShowDialog();
+            }
 
-            reportForm.ShowDialog();
+            File.Delete(filePath);
 
             await Task.CompletedTask;
             #endregion

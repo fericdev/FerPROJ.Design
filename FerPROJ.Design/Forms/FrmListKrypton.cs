@@ -25,7 +25,7 @@ namespace FerPROJ.Design.Forms {
         private bool hideFunctionAdd;
         private bool hideFunctionEdit;
         private bool hideFunctionDelete;
-        private bool hideFunctionView;
+        private bool hideFunctionView = true;
         private bool hideButtonSelect;
         private bool hideFunctionOther1 = true;
         private bool hideFunctionOther2 = true;

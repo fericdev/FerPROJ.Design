@@ -231,6 +231,8 @@ namespace FerPROJ.Design.Class {
         }
 
     }
+
+    #region model
     public class HtmlReportModel {
         public bool IsLandscape { get; set; }
         public string ReportTitle { get; set; }
@@ -243,4 +245,6 @@ namespace FerPROJ.Design.Class {
         public string GeneratedOn => $"<strong>Print Date:</strong> {DateTime.Now.ToDateAndTime()} <br />";
 
     }
+    #endregion
+
 }

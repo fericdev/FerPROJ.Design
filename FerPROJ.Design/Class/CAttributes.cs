@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
-    public class GridColumnAttributes : Attribute {
+    public class CAttributes : Attribute {
+
         #region Properties
         public bool IsVisible { get; set; } = true;
         public bool IsExcluded { get; set; } = false;
         public bool IsEditable { get; set; } = false;
         #endregion
+
     }
 }

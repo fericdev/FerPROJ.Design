@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
-    public static class CBaseAssembly {
+    public static class CAssembly {
         // Static properties to get the assembly name and version
         public static string SystemName { get; private set; }
         public static string SystemVersion { get; private set; }

@@ -46,7 +46,7 @@ namespace FerPROJ.Design.Forms {
         }
         private void LoadVar() {
             lblMainUserValue.Text = CAppConstants.USERNAME;
-            lblMainVersionValue.Text = CBaseAssembly.SystemVersion;
+            lblMainVersionValue.Text = CAssembly.SystemVersion;
         }
     }
 }

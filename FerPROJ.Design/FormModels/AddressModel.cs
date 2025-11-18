@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.BaseModels {
-    public class BaseAddressModel : BaseModel {
+    public class AddressModel : BaseModel {
         public Guid AddressID { get; set; } = new Guid();
         [Required]
         public string Country => "Philippines";

@@ -114,14 +114,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseModels\BaseAddressModel.cs" />
+    <Compile Include="FormModels\AddressModel.cs" />
     <Compile Include="BaseModels\BaseMenuButtonModel.cs" />
     <Compile Include="Class\CAccessManager.cs" />
-    <Compile Include="Class\CBaseAssembly.cs" />
+    <Compile Include="Class\CAssembly.cs" />
     <Compile Include="Class\CComparison.cs" />
     <Compile Include="Class\CConfigurationManager.cs" />
     <Compile Include="Class\CHtmlReportManager.cs" />
-    <Compile Include="Class\GridColumnAttributes.cs" />
+    <Compile Include="Class\CAttributes.cs" />
     <Compile Include="Class\CBaseEnums.cs" />
     <Compile Include="Class\CBaseExtensions.cs" />
     <Compile Include="Class\CBaseFormLayer.cs" />
@@ -132,11 +132,10 @@
     <Compile Include="Class\CDialogManager.cs" />
     <Compile Include="Class\CAppConstants.cs" />
     <Compile Include="Class\CEncryptionManager.cs" />
-    <Compile Include="Class\CDGVSetting.cs" />
     <Compile Include="BaseModels\BaseModel.cs" />
     <Compile Include="Class\CBackgroundTaskManager.cs" />
     <Compile Include="Class\CWindows32DLL.cs" />
-    <Compile Include="Class\PropertyValidator.cs" />
+    <Compile Include="Class\CPropertyValidator.cs" />
     <Compile Include="Controls\CButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -296,8 +295,8 @@
     <Compile Include="Forms\FrmSplasher.designer.cs">
       <DependentUpon>FrmSplasher.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\IInterface.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Interface\BaseInterface.cs" />
+    <Compile Include="FormModels\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

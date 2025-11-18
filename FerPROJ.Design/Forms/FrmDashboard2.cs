@@ -32,7 +32,7 @@ namespace FerPROJ.Design.Forms {
             lblMainUserValue.Text = CAppConstants.USERNAME;
             lblMainDateValue.Text = CAccessManager.CurrentDate();
             lblMainTimeValue.Text = CAccessManager.CurrentTime();
-            lblMainVersionValue.Text = CBaseAssembly.SystemVersion;
+            lblMainVersionValue.Text = CAssembly.SystemVersion;
         }
     }
 }

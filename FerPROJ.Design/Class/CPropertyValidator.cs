@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
-    public abstract class PropertyValidator : IDataErrorInfo {
+    public abstract class CPropertyValidator : IDataErrorInfo {
         [Browsable(false)]
         public string this[string property] {
 

@@ -15,9 +15,9 @@ using System.Windows.Forms;
 namespace FerPROJ.Design.Forms {
     public partial class FrmAddressDetail : FrmManageKrypton {
 
-        public BaseAddressModel Address { get; set; }
+        public AddressModel Address { get; set; }
 
-        public FrmAddressDetail(BaseAddressModel baseAddress) {
+        public FrmAddressDetail(AddressModel baseAddress) {
             InitializeComponent();
             Address = baseAddress;
         }

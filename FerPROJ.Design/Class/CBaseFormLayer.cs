@@ -10,7 +10,7 @@ using static FerPROJ.Design.Forms.FrmManageKrypton;
 namespace FerPROJ.Design.Class {
     public class CBaseFormLayer {
         public static class BaseManageForm {
-            public static bool ManageBaseAddressDetail(FormMode formMode, BaseAddressModel addressDTO, Guid id) {
+            public static bool ManageBaseAddressDetail(FormMode formMode, AddressModel addressDTO, Guid id) {
                 using (var frm = new FrmAddressDetail(addressDTO)) {
                     frm.CurrentFormMode = formMode;
                     frm.Manage_IdTrack = id;

@@ -188,7 +188,7 @@ namespace FerPROJ.Design.Class {
                         </head>
                         <body>
                             <div class='report-paper {(model.IsLandscape ? "landscape" : "portrait")}'>
-                                <h1><strong>{model.ReportTitle}</strong> </h1> <br />
+                                <h1><strong>{model.ReportTitle}</strong> </h1> <hr /> <br />
                                 <div class='report-header'>
                                     <div class='header-left'>
                                         {reportHeaderLeft}
@@ -197,7 +197,6 @@ namespace FerPROJ.Design.Class {
                                         {reportHeaderRight}
                                     </div>
                                 </div>
-                                <hr />
                                 <div class ='report-body'>
                                     <table>
                                         <thead>

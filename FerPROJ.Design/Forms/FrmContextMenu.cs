@@ -66,8 +66,8 @@ namespace FerPROJ.Design.Forms {
 
             if (menu.ClickActionAsync != null) {
                 mainButton.Click += async (sender, e) => {
-                    await menu.ClickActionAsync();
                     CloseInstance();
+                    await menu.ClickActionAsync();
                 };
             }
         }

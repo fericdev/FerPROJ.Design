@@ -440,9 +440,10 @@ namespace FerPROJ.Design.Forms {
 
         }
 
-        private void CloseForm() {
+        private async void CloseForm() {
             if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
                 this.Close();
+                await CEventManager.RaiseRefreshTaskMethodAsync();
             }
         }
 
@@ -462,7 +463,6 @@ namespace FerPROJ.Design.Forms {
 
         private async Task RefreshAsync() {
             await RefreshDataAsync();
-            await CEventManager.RaiseRefreshTaskMethodAsync();
         }
         private async Task SelectDataAsync() {
             if (await GetSelectedDataAsync()) {

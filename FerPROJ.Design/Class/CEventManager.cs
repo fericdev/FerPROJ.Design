@@ -9,8 +9,8 @@ namespace FerPROJ.Design.Class {
 
         public static Func<Task> OnRefreshTaskMethod;
 
-        public static Task RaiseRefreshTaskMethodAsync() {
-            return OnRefreshTaskMethod?.Invoke() ?? Task.CompletedTask;
+        public static async Task RaiseRefreshTaskMethodAsync() {
+            await OnRefreshTaskMethod();
         }
 
     }

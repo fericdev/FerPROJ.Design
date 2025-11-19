@@ -169,7 +169,7 @@ namespace FerPROJ.Design.Forms {
             if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
                 CurrentFormResult = Task.FromResult(false);
                 this.Close();
-                await CEventManager.RaiseMethodsOnManageFormButtonClosedAsync();
+                await CEventManager.RaiseMethodsOnManageFormClosedAsync();
             }
         }
         private void baseButtonCancel_Click(object sender, EventArgs e) {
@@ -181,6 +181,7 @@ namespace FerPROJ.Design.Forms {
                 if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
+                    await CEventManager.RaiseMethodsOnManageFormClosedAsync();
                 }
             }
             catch (Exception ex) {
@@ -195,6 +196,7 @@ namespace FerPROJ.Design.Forms {
                 if (result) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
+                    await CEventManager.RaiseMethodsOnManageFormClosedAsync();
                 }
             }
             catch (Exception ex) {

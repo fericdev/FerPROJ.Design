@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.Class {
     public class CEventManager {
 
-        public static Func<Task> OnListFormButtonClosedAsync;
-        public static Func<Task> OnManageFormButtonClosedAsync;
+        public static Func<Task> OnListFormClosedAsync;
+        public static Func<Task> OnManageFormClosedAsync;
 
-        public static async Task RaiseMethodsOnListFormButtonClosedAsync() {
-            if (OnListFormButtonClosedAsync != null) {
-                await OnListFormButtonClosedAsync();
+        public static async Task RaiseMethodsOnListFormClosedAsync() {
+            if (OnListFormClosedAsync != null) {
+                await OnListFormClosedAsync();
             }
         }
-        public static async Task RaiseMethodsOnManageFormButtonClosedAsync() {
-            if (OnManageFormButtonClosedAsync != null) {
-                await OnManageFormButtonClosedAsync();
+        public static async Task RaiseMethodsOnManageFormClosedAsync() {
+            if (OnManageFormClosedAsync != null) {
+                await OnManageFormClosedAsync();
             }
         }
 

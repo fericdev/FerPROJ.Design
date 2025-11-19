@@ -114,6 +114,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\CEventManager.cs" />
     <Compile Include="FormModels\AddressModel.cs" />
     <Compile Include="BaseModels\BaseMenuButtonModel.cs" />
     <Compile Include="Class\CAccessManager.cs" />

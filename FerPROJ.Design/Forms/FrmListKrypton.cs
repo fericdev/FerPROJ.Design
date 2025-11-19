@@ -462,6 +462,7 @@ namespace FerPROJ.Design.Forms {
 
         private async Task RefreshAsync() {
             await RefreshDataAsync();
+            await CEventManager.RaiseRefreshTaskMethodAsync();
         }
         private async Task SelectDataAsync() {
             if (await GetSelectedDataAsync()) {

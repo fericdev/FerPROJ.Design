@@ -443,7 +443,7 @@ namespace FerPROJ.Design.Forms {
         private async void CloseForm() {
             if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
                 this.Close();
-                await CEventManager.RaiseRefreshTaskMethodAsync();
+                await CEventManager.RaiseMethodsOnListFormButtonClosedAsync();
             }
         }
 

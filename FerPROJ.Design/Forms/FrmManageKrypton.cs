@@ -165,10 +165,11 @@ namespace FerPROJ.Design.Forms {
 
         #region CRUD and Form Control Button Methods
 
-        private void CloseForm() {
+        private async void CloseForm() {
             if (CDialogManager.Ask("Are you sure to close?", "Confirmation")) {
                 CurrentFormResult = Task.FromResult(false);
                 this.Close();
+                await CEventManager.RaiseMethodsOnManageFormButtonClosedAsync();
             }
         }
         private void baseButtonCancel_Click(object sender, EventArgs e) {

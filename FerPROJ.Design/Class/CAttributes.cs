@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.Class {
     public class CAttributes : Attribute {
 
-        #region Properties
+        #region DGV Grid Properties
         public bool IsVisible { get; set; } = true;
         public bool IsExcluded { get; set; } = false;
         public bool IsEditable { get; set; } = false;
+        public string HeaderText { get; set; } = string.Empty;
         #endregion
 
     }

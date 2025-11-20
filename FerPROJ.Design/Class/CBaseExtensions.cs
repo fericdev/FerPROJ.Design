@@ -241,7 +241,7 @@ namespace FerPROJ.Design.Class {
             return result;
         }
         public static T To<T>(this object value) where T : struct {
-            
+
             if (value == null) {
                 return (T)default;
             }
@@ -1123,6 +1123,9 @@ namespace FerPROJ.Design.Class {
                             column.Visible = attribute.IsVisible;
                             if (attribute.IsEditable) {
                                 editableColumns.Add(column.Index);
+                            }
+                            if (!attribute.HeaderText.IsNullOrEmpty()) {
+                                column.HeaderText = attribute.HeaderText;
                             }
                         }
                     }

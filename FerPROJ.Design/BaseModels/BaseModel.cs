@@ -16,13 +16,13 @@ namespace FerPROJ.Design.BaseModels {
         public string Name { get; set; }
         [CAttributes(IsVisible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        [CAttributes(IsVisible = false)]
+        [CAttributes(HeaderText = "Date Created")]
         public string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
-        [CAttributes(IsVisible = false)]
+        [CAttributes(HeaderText = "Date Modified")]
         public string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
         [CAttributes(IsVisible = false)]
         public DateTime? DateModified { get; set; } = null;
-        [CAttributes(IsVisible = false)]
+        [CAttributes(HeaderText = "Created By")]
         public string CreatedBy { get; set; } = CAppConstants.USERNAME;
         [CAttributes(IsVisible = false)]
         public Guid CreatedById { get; set; } = CAppConstants.USER_ID;

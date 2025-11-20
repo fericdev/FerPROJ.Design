@@ -8,6 +8,12 @@ namespace FerPROJ.Design.Class
 {
     public static class CBaseEnums
     {
+        public enum FormMode {
+            Add,
+            Update,
+            ReadOnly
+        }
+
         public enum AllowedOpenDB
         {
             One,

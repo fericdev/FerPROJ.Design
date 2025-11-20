@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmAddressDetail : FrmManageKrypton {

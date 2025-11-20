@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using System.Threading.Tasks;
 using FerPROJ.Design.BaseModels;
+using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmManageKrypton : KryptonForm {
@@ -19,11 +20,6 @@ namespace FerPROJ.Design.Forms {
         #region FormMode
         private FormMode? _currentFormMode;
         public event EventHandler FormModeChanged;
-        public enum FormMode {
-            Add,
-            Update,
-            ReadOnly
-        }
         public FormMode CurrentFormMode {
             get {
                 return _currentFormMode.Value;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Forms
 {
@@ -26,12 +27,6 @@ namespace FerPROJ.Design.Forms
         public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
         public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
 
-        public enum FormMode
-        {
-            Add,
-            Update,
-            ReadOnly
-        }
         public FormMode CurrentFormMode
         {
             get { return _currentFormMode; }

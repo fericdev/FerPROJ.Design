@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static FerPROJ.Design.Class.CBaseEnums;
 using static FerPROJ.Design.Forms.FrmManageKrypton;
 
 namespace FerPROJ.Design.Class {

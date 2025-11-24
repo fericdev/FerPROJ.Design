@@ -81,6 +81,20 @@ namespace FerPROJ.Design.Class {
                         font-size: 14px;
                     }
 
+                    .table-header {
+                        background: #1E3A8A;
+                        font-weight: bold;
+                        color: white;
+                    }
+
+                    .table-row {
+                        font-weight: normal;
+                    }
+
+                    .table-row-summary {
+                        font-weight: bold;
+                    }
+
                     th, td {
                         border: 1px solid #444;
                         padding: 8px 10px;
@@ -153,16 +167,19 @@ namespace FerPROJ.Design.Class {
             if (model.ReportBodyColumns.Count > 0) {
                 headerCells = string.Join("",
                     model.ReportBodyColumns.Select(c =>
-                        $"<th>{c}</th>"
+                        $"<th class='table-header'>{c}</th>"
                     )
                 );
             }
             if (model.ReportBodyRows.Count > 0) {
                 rowCells = string.Join("",
                     model.ReportBodyRows.Select(row =>
-                        "<tr>" + string.Join("", row.Select(col => $"<td>{col}</td>")) + "</tr>"
+                        "<tr class='table-row'>" + string.Join("", row.Select(col => $"<td>{col}</td>")) + "</tr>"
                     )
                 );
+            }
+            if (model.ReportBodyRowsSummary.Count > 0) {
+                rowCells += "<tr class='table-row-summary'>" + string.Join("", model.ReportBodyRowsSummary.Select(col => $"<td>{col}</td>")) + "</tr>";
             }
             #endregion
 
@@ -239,6 +256,7 @@ namespace FerPROJ.Design.Class {
         public string ReportHtml { get; set; }
         public List<string> ReportBodyColumns { get; set; } = new List<string>();
         public List<List<object>> ReportBodyRows { get; set; } = new List<List<object>>();
+        public List<object> ReportBodyRowsSummary { get; set; } = new List<object>();
         public List<(string Label, object Value)> ReportHeaderLeft { get; set; } = new List<(string Label, object Value)>();
         public List<(string Label, object Value)> ReportHeaderRight { get; set; } = new List<(string Label, object Value)>();
         public string GeneratedOn => $"<strong>Print Date:</strong> {DateTime.Now.ToDateAndTime()} <br />";

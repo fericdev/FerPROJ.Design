@@ -85,7 +85,9 @@ namespace FerPROJ.Design.Class {
         public static Guid ToGuid(this string value) {
             return value.To<Guid>();
         }
-
+        public static TEnum ToEnum<TEnum>(this string value) where TEnum : Enum {
+            return ToEnum<TEnum>(value);
+        }
         public static TEnum ToEnum<TEnum>(this string value, bool ignoreCase = true) where TEnum : struct, Enum {
 
             if (string.IsNullOrEmpty(value)) {
@@ -161,9 +163,6 @@ namespace FerPROJ.Design.Class {
         public static float ToFloat(this string stringValue) {
             return float.Parse(stringValue);
         }
-        public static TEnum GetEnum<TEnum>(this string text) where TEnum : Enum {
-            return (TEnum)Enum.Parse(typeof(TEnum), text);
-        }
         public static string ToDateAndTime(this DateTime dateTime) {
             return dateTime.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
         }
@@ -172,6 +171,12 @@ namespace FerPROJ.Design.Class {
                 return string.Empty;
             }
             return dateTime.Value.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
+        }
+        public static string ToPesoCurrency(this decimal decimalValue) {
+            return decimalValue.ToString("C", new CultureInfo("en-PH"));
+        }
+        public static string ToTwoDecimals(this decimal decimalValue) {
+            return decimalValue.ToString("F2");
         }
 
         public static List<T> ToListOf<T>(this List<object> values) where T : struct {

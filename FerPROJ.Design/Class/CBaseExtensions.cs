@@ -54,7 +54,7 @@ namespace FerPROJ.Design.Class {
             cmb.ValueMember = cmbValue;
             cmb.DataSource = uniqueData;
         }
-        public static void FillComboBox(this CComboBoxKrypton cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {
+        public static void FillComboBox(this CComboBoxKrypton cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource, bool assignSelectedValue = false) {
             var uniqueData = dataSource
                 .GroupBy(item => item.GetType().GetProperty(cmbText).GetValue(item))
                 .Select(group => group.First())
@@ -63,8 +63,24 @@ namespace FerPROJ.Design.Class {
             cmb.DisplayMember = cmbText;
             cmb.ValueMember = cmbValue;
             cmb.DataSource = uniqueData;
+
+            if (uniqueData.Count > 0 && assignSelectedValue) {
+                var firstItem = uniqueData[0]; 
+                var firstValue = firstItem.GetType().GetProperty(cmbValue)?.GetValue(firstItem); 
+                
+                cmb.BeginInvoke(new Action(() => { 
+                    var binding = cmb.DataBindings["SelectedValue"]; 
+                    
+                    if (binding?.DataSource is BindingSource bs && bs.Current != null) {
+                        var model = bs.Current; var modelProp = model.GetType().GetProperty(binding.BindingMemberInfo.BindingField); 
+                        modelProp?.SetValue(model, firstValue); bs.ResetCurrentItem(); 
+                    } else { 
+                        cmb.SelectedValue = firstValue; 
+                    } 
+                })); 
+            }
         }
-        public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> cmbText, string cmbValue, IEnumerable<T> dataSource) {
+        public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> cmbText, string cmbValue, IEnumerable<T> dataSource, bool assignSelectedValue = false) {
             var uniqueData = dataSource
                 .GroupBy(cmbText)
                 .Select(group => group.First())
@@ -78,6 +94,23 @@ namespace FerPROJ.Design.Class {
             cmb.DisplayMember = "Display";
             cmb.ValueMember = "Value";
             cmb.DataSource = uniqueData;
+
+            if (uniqueData.Count > 0 && assignSelectedValue) {
+                var firstItem = uniqueData[0];
+                var firstValue = firstItem.GetType().GetProperty(cmbValue)?.GetValue(firstItem);
+
+                cmb.BeginInvoke(new Action(() => {
+                    var binding = cmb.DataBindings["SelectedValue"];
+
+                    if (binding?.DataSource is BindingSource bs && bs.Current != null) {
+                        var model = bs.Current; var modelProp = model.GetType().GetProperty(binding.BindingMemberInfo.BindingField);
+                        modelProp?.SetValue(model, firstValue); bs.ResetCurrentItem();
+                    }
+                    else {
+                        cmb.SelectedValue = firstValue;
+                    }
+                }));
+            }
         }
         #endregion
 

@@ -350,6 +350,7 @@ namespace FerPROJ.Design.Forms {
                 var result = await DeleteItemAsync();
                 if (result) {
                     await RefreshAsync();
+                    await CEventManager.RaiseMethodsOnListFormDeleteAsync();
                 }
             }
             catch (Exception ex) {

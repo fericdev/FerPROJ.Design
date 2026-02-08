@@ -75,6 +75,8 @@ namespace FerPROJ.Design.Forms {
             if (frmInstance == null) {
                 frmInstance = new FrmContextMenu();
                 frmInstance.baseMenuButtonModels = baseMenus;
+                frmInstance.StartPosition = FormStartPosition.Manual;
+                frmInstance.Location = Cursor.Position;
 
                 // Don’t call LoadButtonsAsync() here!
                 frmInstance.ShowDialog();

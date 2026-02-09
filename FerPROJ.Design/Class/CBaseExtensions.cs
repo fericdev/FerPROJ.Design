@@ -118,8 +118,8 @@ namespace FerPROJ.Design.Class {
         public static Guid ToGuid(this string value) {
             return value.To<Guid>();
         }
-        public static TEnum ToEnum<TEnum>(this string value) where TEnum : Enum {
-            return ToEnum<TEnum>(value);
+        public static TEnum ToEnum<TEnum>(this string value) where TEnum : struct, Enum {
+            return value.ToEnum<TEnum>(true);
         }
         public static TEnum ToEnum<TEnum>(this string value, bool ignoreCase = true) where TEnum : struct, Enum {
 

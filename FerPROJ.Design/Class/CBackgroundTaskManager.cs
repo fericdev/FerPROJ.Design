@@ -68,6 +68,17 @@ namespace FerPROJ.Design.Class {
             });
         
         }
+        public static TResult RunTask<TResult>(this Task<TResult> task) {
+            try {
+                return task.ConfigureAwait(false)
+                           .GetAwaiter()
+                           .GetResult();
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Task error: {ex.Message}");
+                throw;
+            }
+        }
 
         /// <summary>
         /// Runs a single task in a background thread.

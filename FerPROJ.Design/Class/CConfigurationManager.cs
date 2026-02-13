@@ -110,12 +110,12 @@ namespace FerPROJ.Design.Class {
 
         #region Utilities
         public static string GetRememberedPassword() {
-            return GetValue("status").ToBool() ? GetValue("password") : string.Empty;
+            return GetValue("status", "rememberme").ToBool() ? GetValue("password") : string.Empty;
         }
         public static string GetRememberedUsername(CheckBox checkBox, CTextBoxKrypton usernameTextBox) {
             // Retrieve status and username from the XML using CLibFilesReader
             var usernameValue = GetValue("username", "rememberme");
-            var statusValue = GetValue("status");
+            var statusValue = GetValue("status", "rememberme");
 
             // Set initial checkbox state and username text based on XML content
             if (statusValue == "true") {
@@ -146,6 +146,27 @@ namespace FerPROJ.Design.Class {
 
             //
             return usernameValue;
+        }
+        public static bool IsLoginSkipped() {
+            return GetValue("status", "skiplogin").ToBool();
+        }
+        public static void SkipLogin(CheckBox checkBox) {
+            // Retrieve status and username from the XML using CLibFilesReader
+            var statusValue = GetValue("status", "skiplogin");
+
+            // Set initial checkbox state and username text based on XML content
+            if (statusValue == "true") {
+                checkBox.Checked = true;
+            }
+            else {
+                checkBox.Checked = false;
+            }
+
+            // Event handler for CheckBox CheckedChanged
+            checkBox.CheckedChanged += (sender, e) => {
+                // Update the "status" value based on CheckBox state
+                CreateOrSetValue("status", checkBox.Checked ? "true" : "false", parent: "skiplogin");
+            };
         }
         #endregion
 

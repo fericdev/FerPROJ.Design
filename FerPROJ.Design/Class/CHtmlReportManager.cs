@@ -23,21 +23,30 @@ namespace FerPROJ.Design.Class {
 
                     .report-header {
                         display: flex;
-                        justify-content: space-between; 
-                        align-items: flex-start;        
+                        justify-content: space-between;
+                        align-items: flex-start;
                         width: 100%;
-                        margin-bottom: 15px;
-                        flex-wrap: wrap;                
+                        margin-bottom: 15px;              
                     }
 
-                    .header-left {
-                        font-size: 14px;
-                        text-align: left;
-                    }
-
+                    .header-left,
                     .header-right {
                         font-size: 14px;
-                        text-align: right;
+                        width: 48%;
+                    }
+
+                    .info-row {
+                        display: grid;
+                        grid-template-columns: 140px 1fr;
+                        margin-bottom: 4px;
+                    }
+
+                    .label {
+                        font-weight: 600;
+                    }
+
+                    .value {
+                        word-break: break-word;
                     }
 
                     .report-paper {
@@ -186,12 +195,22 @@ namespace FerPROJ.Design.Class {
             #region report header
             var reportHeaderLeft = new StringBuilder();
             foreach (var item in model.ReportHeaderLeft) {
-                reportHeaderLeft.AppendLine($"<strong>{item.Label}:</strong> {item.Value} <br/>");
+                reportHeaderLeft.AppendLine(
+                    $"<div class='info-row'>" +
+                    $"   <span class='label'>{item.Label}:</span>" +
+                    $"   <span class='value'>{item.Value}</span>" +
+                    $"</div>"
+                );
             }
 
             var reportHeaderRight = new StringBuilder();
             foreach (var item in model.ReportHeaderRight) {
-                reportHeaderRight.AppendLine($"<strong>{item.Label}:</strong> {item.Value} <br/>");
+                reportHeaderRight.AppendLine(
+                    $"<div class='info-row'>" +
+                    $"   <span class='label'>{item.Label}:</span>" +
+                    $"   <span class='value'>{item.Value}</span>" +
+                    $"</div>"
+                );
             }
             #endregion
 

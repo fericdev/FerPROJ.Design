@@ -65,19 +65,20 @@ namespace FerPROJ.Design.Class {
             cmb.DataSource = uniqueData;
 
             if (uniqueData.Count > 0 && assignSelectedValue) {
-                var firstItem = uniqueData[0]; 
-                var firstValue = firstItem.GetType().GetProperty(cmbValue)?.GetValue(firstItem); 
-                
-                cmb.BeginInvoke(new Action(() => { 
-                    var binding = cmb.DataBindings["SelectedValue"]; 
-                    
+                var firstItem = uniqueData[0];
+                var firstValue = firstItem.GetType().GetProperty(cmbValue)?.GetValue(firstItem);
+
+                cmb.BeginInvoke(new Action(() => {
+                    var binding = cmb.DataBindings["SelectedValue"];
+
                     if (binding?.DataSource is BindingSource bs && bs.Current != null) {
-                        var model = bs.Current; var modelProp = model.GetType().GetProperty(binding.BindingMemberInfo.BindingField); 
-                        modelProp?.SetValue(model, firstValue); bs.ResetCurrentItem(); 
-                    } else { 
-                        cmb.SelectedValue = firstValue; 
-                    } 
-                })); 
+                        var model = bs.Current; var modelProp = model.GetType().GetProperty(binding.BindingMemberInfo.BindingField);
+                        modelProp?.SetValue(model, firstValue); bs.ResetCurrentItem();
+                    }
+                    else {
+                        cmb.SelectedValue = firstValue;
+                    }
+                }));
             }
         }
         public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> cmbText, string cmbValue, IEnumerable<T> dataSource, bool assignSelectedValue = false) {
@@ -111,6 +112,40 @@ namespace FerPROJ.Design.Class {
                     }
                 }));
             }
+        }
+        public static void TrackValueChangesAndCallMethod(this CComboBoxKrypton cmb, Func<Task> onValueChanged) {
+            if (cmb == null) {
+                throw new ArgumentNullException(nameof(cmb));
+            }
+
+            if (onValueChanged == null) {
+                throw new ArgumentNullException(nameof(onValueChanged));
+            }
+
+            cmb.SelectedValueChanged += async (s, e) =>
+            {
+                var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
+                binding?.WriteValue();   // push value to model NOW
+
+                await onValueChanged();
+            };
+        }
+        public static void TrackIndexChangesAndCallMethod(this CComboBoxKrypton cmb, Func<Task> onValueChanged) {
+            if (cmb == null) {
+                throw new ArgumentNullException(nameof(cmb));
+            }
+
+            if (onValueChanged == null) {
+                throw new ArgumentNullException(nameof(onValueChanged));
+            }
+
+            cmb.SelectedIndexChanged += async (s, e) => {
+
+                var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
+                binding?.WriteValue();   // push value to model NOW
+
+                await onValueChanged();
+            };
         }
         #endregion
 

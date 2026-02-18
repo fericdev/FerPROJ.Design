@@ -122,13 +122,21 @@ namespace FerPROJ.Design.Class {
                 throw new ArgumentNullException(nameof(onValueChanged));
             }
 
+            var isSelectedValueChanged = false;
+
             cmb.SelectedValueChanged += async (s, e) =>
             {
+                isSelectedValueChanged = true;
+
                 var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
                 binding?.WriteValue();   // push value to model NOW
 
                 await onValueChanged();
             };
+
+            if (!isSelectedValueChanged) {
+                onValueChanged().RunTask();
+            }
         }
         public static void TrackIndexChangesAndCallMethod(this CComboBoxKrypton cmb, Func<Task> onValueChanged) {
             if (cmb == null) {
@@ -139,13 +147,21 @@ namespace FerPROJ.Design.Class {
                 throw new ArgumentNullException(nameof(onValueChanged));
             }
 
+            var isSelectedValueChanged = false;
+
             cmb.SelectedIndexChanged += async (s, e) => {
+
+                isSelectedValueChanged = true;
 
                 var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
                 binding?.WriteValue();   // push value to model NOW
 
                 await onValueChanged();
             };
+
+            if (!isSelectedValueChanged) {
+                onValueChanged().RunTask();
+            }
         }
         #endregion
 

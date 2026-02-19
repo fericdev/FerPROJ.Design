@@ -36,6 +36,7 @@ namespace FerPROJ.Design.Forms {
         private bool hideFunction;
         private bool hideHeader;
         private bool hideFooter;
+        private bool hideSave;
         #endregion
 
         #region Button Names
@@ -93,12 +94,16 @@ namespace FerPROJ.Design.Forms {
         private async void FrmManageMain_FormModeChanged(object sender, EventArgs e) {
             // Update button visibility based on the new CurrentFormMode
             if (CurrentFormMode == FormMode.Add) {
-                baseButtonSave.Visible = true;
-                baseButtonUpdate.Visible = false;
+                if (!hideSave) {
+                    baseButtonSave.Visible = true;
+                    baseButtonUpdate.Visible = false;
+                }
             }
             else if (CurrentFormMode == FormMode.Update) {
-                baseButtonSave.Visible = false;
-                baseButtonUpdate.Visible = true;
+                if (!hideSave) {
+                    baseButtonSave.Visible = false;
+                    baseButtonUpdate.Visible = true;
+                }
                 baseButtonAddNew.Visible = !hideFunctionOnUpdate;
             }
             else {
@@ -269,6 +274,16 @@ namespace FerPROJ.Design.Forms {
             set {
                 hideFooter = value;
                 basePnl1.Visible = !hideFooter;
+            }
+        }
+        public bool HideSave {
+            get {
+                return hideSave;
+            }
+            set {
+                hideSave = value;
+                baseButtonSave.Visible = !hideSave;
+                baseButtonUpdate.Visible = !hideSave;
             }
         }
         #endregion

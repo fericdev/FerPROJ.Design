@@ -124,8 +124,7 @@ namespace FerPROJ.Design.Class {
 
             var isSelectedValueChanged = false;
 
-            cmb.SelectedValueChanged += async (s, e) =>
-            {
+            cmb.SelectedValueChanged += async (s, e) => {
                 isSelectedValueChanged = true;
 
                 var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
@@ -162,6 +161,53 @@ namespace FerPROJ.Design.Class {
             if (!isSelectedValueChanged) {
                 onValueChanged().RunTask();
             }
+        }
+        public static void ValidateTextExistAndAssign<TModel>(this CComboBoxKrypton cmb, TModel model,
+            Expression<Func<TModel, string>> propertyExpression) where TModel : BaseModel {
+
+            if (cmb == null)
+                throw new ArgumentNullException(nameof(cmb));
+
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
+
+            cmb.Validating += (s, e) => {
+
+                string text = cmb.Text?.Trim();
+
+                if (string.IsNullOrWhiteSpace(text))
+                    return;
+
+                // ✔ Check if exists in ComboBox
+                bool exists = false;
+
+                if (cmb.DataSource != null) {
+                    foreach (var item in cmb.Items) {
+                        if (cmb.GetItemText(item)
+                               .Equals(text, StringComparison.OrdinalIgnoreCase)) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                }
+                else {
+                    exists = cmb.Items.Cast<object>()
+                                      .Any(x => cmb.GetItemText(x)
+                                      .Equals(text, StringComparison.OrdinalIgnoreCase));
+                }
+
+                // ✔ If NOT exists → assign to model property
+                if (!exists) {
+                    var member = propertyExpression.Body as MemberExpression;
+
+                    if (member?.Member is PropertyInfo prop) {
+                        prop.SetValue(model, text);
+                    }
+                }
+            };
         }
         #endregion
 
@@ -1204,6 +1250,17 @@ namespace FerPROJ.Design.Class {
                 var attribute = property.GetCustomAttribute<CAttributes>();
                 if (attribute != null) {
                     var column = matchingColumns.FirstOrDefault();
+
+                    if (column == null) {
+
+                        column = new DataGridViewTextBoxColumn {
+                            Name = property.Name,
+                            DataPropertyName = property.Name,
+                        };
+
+                        dgv.Columns.Add(column);
+                    }
+
                     if (column != null) {
                         if (attribute.IsExcluded) {
                             dgv.Columns.Remove(column);
@@ -1221,7 +1278,62 @@ namespace FerPROJ.Design.Class {
                 }
             }
 
+            ApplyDisplayOrder(dgv);
+
             return editableColumns;
+        }
+        private static void ApplyDisplayOrder(CDatagridview dgv) {
+            var modelType = dgv.GetModelTypeFromDataGridView();
+
+            var properties = modelType.GetProperties(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            // Store column + order
+            var orderedColumns = new List<(DataGridViewColumn column, int order)>();
+
+            foreach (var property in properties) {
+                var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
+                    .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
+                    .ToList();
+
+                // remove duplicates
+                if (matchingColumns.Count > 1) {
+                    for (int i = 1; i < matchingColumns.Count; i++)
+                        dgv.Columns.Remove(matchingColumns[i]);
+                }
+
+                var attribute = property.GetCustomAttribute<CAttributes>();
+
+                var column = matchingColumns.FirstOrDefault();
+
+                // only consider columns that actually exist
+                if (column == null)
+                    continue;
+
+                // determine order (default 1000)
+                int order = attribute?.DisplayOrder ?? 1000;
+
+                orderedColumns.Add((column, order));
+            }
+
+            // include any extra columns not mapped to properties
+            foreach (var column in dgv.Columns.Cast<DataGridViewColumn>()) {
+                if (!orderedColumns.Any(c => c.column == column)) {
+                    orderedColumns.Add((column, 1000));
+                }
+            }
+
+            // sort
+            var sorted = orderedColumns
+                .OrderBy(c => c.order)
+                .ThenBy(c => c.column.DisplayIndex) // keeps stable order
+                .Select(c => c.column)
+                .ToList();
+
+            // apply display indexes
+            for (int i = 0; i < sorted.Count; i++) {
+                sorted[i].DisplayIndex = i;
+            }
         }
 
         public static Type GetModelTypeFromDataGridView(this CDatagridview dgv) {

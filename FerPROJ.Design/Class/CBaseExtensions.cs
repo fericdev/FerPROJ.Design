@@ -1151,6 +1151,39 @@ namespace FerPROJ.Design.Class {
                 }
             }
         }
+        public static void SetRowColorOfColumnValue(
+            this DataGridView dgv,
+            int columnIndex,
+            string containsValue,
+            Color backColor,
+            Color foreColor) {
+            if (dgv == null)
+                throw new ArgumentNullException(nameof(dgv));
+
+            if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
+                throw new ArgumentOutOfRangeException(nameof(columnIndex));
+
+            foreach (DataGridViewRow row in dgv.Rows) {
+
+                if (row.IsNewRow)
+                    continue;
+
+                var cellValue = row.Cells[columnIndex].Value;
+
+                if (cellValue == null)
+                    continue;
+
+                if (containsValue == null) 
+                    continue;
+                
+                var isMatch = cellValue.ToString().SearchContains(containsValue);
+
+                if (isMatch) {
+                    row.DefaultCellStyle.BackColor = backColor;
+                    row.DefaultCellStyle.ForeColor = foreColor;
+                }
+            }
+        }
         public static void SetColumnsEditable(this CDatagridview dgv, bool editable, params int[] columnIndices) {
             dgv.EditMode = DataGridViewEditMode.EditOnEnter;
             // Prevent errors if no columns are provided

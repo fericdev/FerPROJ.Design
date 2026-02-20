@@ -162,6 +162,17 @@ namespace FerPROJ.Design.Class {
                 onValueChanged().RunTask();
             }
         }
+        public static void TrackValueChangesAndBindModel(this CComboBoxKrypton cmb) {
+
+            if (cmb == null) {
+                throw new ArgumentNullException(nameof(cmb));
+            }
+
+            cmb.SelectedValueChanged += async (s, e) => {
+                var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
+                binding?.WriteValue();   // push value to model NOW
+            };
+        }
         public static void ValidateTextExistAndAssign<TModel>(this CComboBoxKrypton cmb, TModel model,
             Expression<Func<TModel, string>> propertyExpression) where TModel : BaseModel {
 
@@ -174,38 +185,34 @@ namespace FerPROJ.Design.Class {
             if (propertyExpression == null)
                 throw new ArgumentNullException(nameof(propertyExpression));
 
-            cmb.Validating += (s, e) => {
+            cmb.Validating += (s, e) =>
+            {
+                var text = cmb.Text?.Trim();
 
-                string text = cmb.Text?.Trim();
-
-                if (string.IsNullOrWhiteSpace(text))
+                if (text.IsNullOrEmpty())
                     return;
 
-                // ✔ Check if exists in ComboBox
-                bool exists = false;
+                var exists = cmb.Items.Cast<object>()
+                            .Any(x => cmb.GetItemText(x)
+                            .Equals(text, StringComparison.OrdinalIgnoreCase));
 
-                if (cmb.DataSource != null) {
-                    foreach (var item in cmb.Items) {
-                        if (cmb.GetItemText(item)
-                               .Equals(text, StringComparison.OrdinalIgnoreCase)) {
-                            exists = true;
-                            break;
-                        }
-                    }
+                var binding = cmb.DataBindings["SelectedValue"];
+
+                if (!exists) {
+
+                    // Assign to model property
+                    var member = propertyExpression.Body as MemberExpression;
+                    if (member?.Member is PropertyInfo prop)
+                        prop.SetValue(model, text);
+
+                    // Disable binding updates
+                    if (binding != null)
+                        binding.DataSourceUpdateMode = DataSourceUpdateMode.Never;
                 }
                 else {
-                    exists = cmb.Items.Cast<object>()
-                                      .Any(x => cmb.GetItemText(x)
-                                      .Equals(text, StringComparison.OrdinalIgnoreCase));
-                }
-
-                // ✔ If NOT exists → assign to model property
-                if (!exists) {
-                    var member = propertyExpression.Body as MemberExpression;
-
-                    if (member?.Member is PropertyInfo prop) {
-                        prop.SetValue(model, text);
-                    }
+                    // Re-enable binding if user selected valid value
+                    if (binding != null)
+                        binding.DataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
                 }
             };
         }

@@ -173,7 +173,7 @@ namespace FerPROJ.Design.Class {
                 binding?.WriteValue();   // push value to model NOW
             };
         }
-        public static void ValidateTextExistAndAssign<TModel>(this CComboBoxKrypton cmb, TModel model,
+        public static void ValidateTextAndBindModel<TModel>(this CComboBoxKrypton cmb, TModel model,
             Expression<Func<TModel, string>> propertyExpression) where TModel : BaseModel {
 
             if (cmb == null)

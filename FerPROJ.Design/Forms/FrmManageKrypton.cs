@@ -56,8 +56,8 @@ namespace FerPROJ.Design.Forms {
         /// <summary>
         /// Usage: keyboardShortcuts[Keys.F1] = Function Name;
         /// </summary>
-        public Dictionary<Keys, Action> keyboardShortcuts = new Dictionary<Keys, Action>();
-        public Dictionary<Keys, Func<bool>> boolKeyboardShortcuts = new Dictionary<Keys, Func<bool>>();
+        public Dictionary<Keys, Func<Task>> keyboardShortcuts = new Dictionary<Keys, Func<Task>>();
+        public Dictionary<Keys, Func<Task<bool>>> boolKeyboardShortcuts = new Dictionary<Keys, Func<Task<bool>>>();
         #endregion
 
         #region Binding Sources and DataGridViews
@@ -97,12 +97,14 @@ namespace FerPROJ.Design.Forms {
                 if (!hideSave) {
                     baseButtonSave.Visible = true;
                     baseButtonUpdate.Visible = false;
+                    keyboardShortcuts[Keys.Control | Keys.S] = () => { baseButtonSave.PerformClick(); return Task.CompletedTask; };
                 }
             }
             else if (CurrentFormMode == FormMode.Update) {
                 if (!hideSave) {
                     baseButtonSave.Visible = false;
                     baseButtonUpdate.Visible = true;
+                    keyboardShortcuts[Keys.Control | Keys.S] = () => { baseButtonUpdate.PerformClick(); return Task.CompletedTask; };
                 }
                 baseButtonAddNew.Visible = !hideFunctionOnUpdate;
             }
@@ -138,7 +140,7 @@ namespace FerPROJ.Design.Forms {
 
         #region Keyboard Shortcuts Methods
         private void ConstantShortcuts() {
-            keyboardShortcuts[Keys.Escape] = CloseForm;
+            keyboardShortcuts[Keys.Escape] = () => { baseButtonCancel.PerformClick(); return Task.CompletedTask; };
         }
 
         protected virtual void InitializeKeyboardShortcuts() {
@@ -146,21 +148,33 @@ namespace FerPROJ.Design.Forms {
         }
 
         private async void OnKeyDown(object sender, KeyEventArgs e) {
-            if (keyboardShortcuts.ContainsKey(e.KeyCode)) {
-                keyboardShortcuts[e.KeyCode]?.Invoke();
+
+            // Build combined key (Ctrl/Shift/Alt + main key)
+            var key = BuildShortcutKey(e);
+
+            // 1️⃣ Async shortcuts dictionary
+            if (keyboardShortcuts.TryGetValue(key, out var asyncAction)) {
+                await asyncAction();
+                e.SuppressKeyPress = true;
+                return;
             }
-            else if (boolKeyboardShortcuts.ContainsKey(e.KeyCode)) {
-                if (boolKeyboardShortcuts[e.KeyCode]()) {
+
+            if (boolKeyboardShortcuts.TryGetValue(e.KeyCode, out var boolAsyncAction)) {
+                if (await boolAsyncAction()) {
                     CurrentFormResult = Task.FromResult(true);
                     this.Close();
                 }
+                return;
             }
-            if (e.Control && e.KeyCode == Keys.Enter) {
-                var result = await OnSaveNewDataAsync();
-                if (result) {
-                    CurrentFormResult = Task.FromResult(true);
-                }
-            }
+        }
+        private static Keys BuildShortcutKey(KeyEventArgs e) {
+            Keys key = e.KeyCode;
+
+            if (e.Control) key |= Keys.Control;
+            if (e.Shift) key |= Keys.Shift;
+            if (e.Alt) key |= Keys.Alt;
+
+            return key;
         }
         #endregion
 

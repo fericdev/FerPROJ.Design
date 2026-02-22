@@ -185,8 +185,7 @@ namespace FerPROJ.Design.Class {
             if (propertyExpression == null)
                 throw new ArgumentNullException(nameof(propertyExpression));
 
-            cmb.Validating += (s, e) =>
-            {
+            cmb.Validating += (s, e) => {
                 var text = cmb.Text?.Trim();
 
                 if (text.IsNullOrEmpty())
@@ -300,8 +299,16 @@ namespace FerPROJ.Design.Class {
         public static float ToFloat(this string stringValue) {
             return float.Parse(stringValue);
         }
+        public static string ToDate(this DateTime dateTime) {
+            return dateTime.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
+        }
         public static string ToDateAndTime(this DateTime dateTime) {
             return dateTime.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
+        }
+        public static (DateTime DateFrom, DateTime DateTo) ToMonthlyDateRange(this DateTime date) {
+            var firstDay = new DateTime(date.Year, date.Month, 1);
+            var lastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+            return (firstDay, lastDay);
         }
         public static string ToDateAndTime(this DateTime? dateTime) {
             if (!dateTime.HasValue) {
@@ -620,7 +627,23 @@ namespace FerPROJ.Design.Class {
         public static bool SearchFor(this object source, string searchText, DateTime? dateFrom, DateTime? dateTo, string datePropertyName) {
             return source.SearchForText(searchText) && source.SearchForDate(dateFrom, dateTo, datePropertyName);
         }
+        public static bool SearchForDate(this DateTime? source, DateTime? dateFrom, DateTime? dateTo) {
 
+            if (!dateFrom.HasValue && !dateTo.HasValue)
+                return true;
+
+            if (!source.HasValue)
+                return true;
+
+            bool afterStart = !dateFrom.HasValue || source >= dateFrom.Value.Date;
+
+            bool beforeEnd = !dateTo.HasValue || source <= dateTo.Value.Date.AddDays(1).AddTicks(-1);
+
+            return afterStart && beforeEnd;
+        }
+        public static bool SearchForDate(this DateTime source, DateTime dateFrom, DateTime dateTo) {
+            return source.SearchForDate(dateFrom, dateTo);
+        }
         public static bool SearchForDate(this object source, DateTime? dateFrom, DateTime? dateTo, string propertyName = "") {
             if (source == null)
                 return false;
@@ -1180,9 +1203,9 @@ namespace FerPROJ.Design.Class {
                 if (cellValue == null)
                     continue;
 
-                if (containsValue == null) 
+                if (containsValue == null)
                     continue;
-                
+
                 var isMatch = cellValue.ToString().SearchContains(containsValue);
 
                 if (isMatch) {

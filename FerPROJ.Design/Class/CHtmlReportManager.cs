@@ -34,11 +34,14 @@ namespace FerPROJ.Design.Class {
                         font-size: 14px;
                         width: 48%;
                     }
-
-                    .info-row {
+                    .info-container {
                         display: grid;
-                        grid-template-columns: 140px 1fr;
-                        margin-bottom: 4px;
+                        grid-template-columns: max-content 1fr;
+                        column-gap: 12px;
+                        row-gap: 4px;
+                    }
+                    .info-row {
+                        display: contents;
                     }
 
                     .label {
@@ -227,10 +230,14 @@ namespace FerPROJ.Design.Class {
                                 <h1><strong>{model.ReportTitle}</strong> </h1> <hr /> <br />
                                 <div class='report-header'>
                                     <div class='header-left'>
-                                        {reportHeaderLeft}
+                                        <div class='info-container'>
+                                            {reportHeaderLeft}
+                                        </div>
                                     </div>
                                     <div class='header-right'>
-                                        {reportHeaderRight}
+                                        <div class='info-container'>
+                                            {reportHeaderRight}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class ='report-body'>

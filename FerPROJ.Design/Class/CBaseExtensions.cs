@@ -633,7 +633,7 @@ namespace FerPROJ.Design.Class {
                 return true;
 
             if (!source.HasValue)
-                return true;
+                return false;
 
             bool afterStart = !dateFrom.HasValue || source >= dateFrom.Value.Date;
 
@@ -670,12 +670,7 @@ namespace FerPROJ.Design.Class {
                 if (!value.HasValue)
                     continue;
 
-                bool isAfterStart = !dateFrom.HasValue || value > dateFrom.Value.AddDays(-1);
-                bool isBeforeEnd = !dateTo.HasValue || value < dateTo.Value.AddDays(1);
-
-                if (isAfterStart && isBeforeEnd) {
-                    return true; // Property is within range
-                }
+                return value.SearchForDate(dateFrom, dateTo);
 
             }
 

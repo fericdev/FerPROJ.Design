@@ -87,7 +87,7 @@ namespace FerPROJ.Design.Controls {
             var mainMenuButton = new CButton {
                 Name = $"{menu.Title.Replace(" ", "")}MainButton",
                 Text = menu.Title,
-                Font = new Font("Verdana", 16, FontStyle.Bold),
+                Font = new Font("Verdana", menu.FontSize > 0 ? menu.FontSize : 16, FontStyle.Bold),
                 Dock = DockStyle.Fill,
                 Height = 44,
                 Width = 260,
@@ -120,7 +120,7 @@ namespace FerPROJ.Design.Controls {
                     var submenuButton = new CButton {
                         Name = $"{sub.Title.Replace(" ", "")}SubmenuButton",
                         Text = sub.Title,
-                        Font = new Font("Verdana", 14, FontStyle.Bold),
+                        Font = new Font("Verdana", sub.FontSize > 0 ? sub.FontSize : 14, FontStyle.Bold),
                         Dock = DockStyle.Fill,
                         Height = 44,
                         Width = 238,

@@ -3,6 +3,7 @@ using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Controls;
 using FerPROJ.Design.Forms;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,6 +44,72 @@ namespace FerPROJ.Design.Class {
                 enumValues = enumValues.Where(value => !excluded.Contains(value)).ToList();
             }
             cmb.DataSource = new BindingList<TEnum>(enumValues);
+        }
+        public static void FillComboBox(this CComboBoxKrypton cmb, Dictionary<int, string> dataSource) {
+            if (dataSource == null || dataSource.Count == 0) {
+                cmb.DataSource = null;
+                return;
+            }
+
+            var uniqueDict = dataSource
+                .GroupBy(kvp => kvp.Key)
+                .ToDictionary(g => g.Key, g => g.First().Value);
+
+            // 🔎 Compare with existing datasource
+            if (cmb.DataSource is IEnumerable existingItems) {
+                var existingDict = new Dictionary<int, string>();
+
+                foreach (var item in existingItems) {
+                    var type = item.GetType();
+
+                    var valueProp = type.GetProperty("Value");
+                    var displayProp = type.GetProperty("Display");
+
+                    if (valueProp == null || displayProp == null)
+                        continue;
+
+                    int value = (int)valueProp.GetValue(item);
+                    string display = displayProp.GetValue(item)?.ToString();
+
+                    existingDict[value] = display;
+                }
+
+                // Compare dictionary content
+                bool same =
+                    existingDict.Count == uniqueDict.Count &&
+                    !uniqueDict.Except(existingDict).Any();
+
+                if (same)
+                    return; // ✅ identical → skip rebinding
+            }
+
+            // Remove duplicate keys (keep first occurrence)
+            var uniqueItems = dataSource
+                .GroupBy(kvp => kvp.Key)
+                .Select(g => g.First())
+                .Select(c => new {
+                    Display = c.Value,
+                    Value = c.Key
+                })
+                .ToList();
+
+            cmb.DisplayMember = "Display"; // what will be shown in the dropdown
+            cmb.ValueMember = "Value";     // the actual value of the selected item
+            cmb.DataSource = uniqueItems;
+        }
+        public static void FillComboBox(this CComboBoxKrypton cmb, int valueRange, int valueGap, string valueLabel) {
+
+            var dataSource = new Dictionary<int, string>();
+
+            // Ensure gap is valid
+            if (valueRange <= 0)
+                valueRange = valueGap;
+
+            for (int i = valueGap; i <= valueRange; i += valueGap) {
+                dataSource[i] = $"{valueLabel} {i}";
+            }
+
+            cmb.FillComboBox(dataSource);
         }
         public static void FillComboBox(this ComboBox cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {
             var uniqueData = dataSource
@@ -782,33 +849,109 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
+        #region Binding Class Test
+        public static async Task LoadDataAsync<T>(
+            this BindingSource bindingSource,
+            Task<IEnumerable<T>> dataFetchTask,
+            CComboBoxKrypton comboBoxPage,
+            CComboBoxKrypton comboBoxLimit,
+            int dataPage,
+            int dataLimit) {
+
+            await FrmSplasherLoading.ShowSplashAsync();
+
+            // Fetch all data asynchronously
+            var data = (await dataFetchTask).ToList();
+
+            int total = data.Count;
+
+            // 1️⃣ Compute pages
+            int totalPages = Math.Max(1, (int)Math.Ceiling(total / (double)dataLimit));
+
+            comboBoxPage.FillComboBox(totalPages, 1, "Page");
+
+            int totalLimits = ((total + 20 - 1) / 20) * 20;
+
+            comboBoxLimit.FillComboBox(totalLimits, 20, "Limit to");
+
+            // Clear
+            bindingSource.Clear();
+
+            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
+
+                // Clamp page to valid range
+                dataPage = Math.Max(1, Math.Min(dataPage, totalPages));
+
+                // 3️⃣ Compute slice for selected page
+                int skip = (dataPage - 1) * dataLimit;
+
+                var pageData = data.Skip(skip)
+                                   .Take(dataLimit)
+                                   .ToList();
+
+                // 4️⃣ Report that page only
+                worker.ReportProgress(100, pageData);
+                FrmSplasherLoading.SetLoadingText(100);
+
+                await Task.Delay(10);
+            };
+
+            Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
+                var batch = (List<T>)e.UserState;
+
+                bindingSource.SuspendBinding();
+
+                // Replace datasource (important: paging should NOT append)
+                bindingSource.DataSource = new List<T>(batch);
+
+                bindingSource.ResumeBinding();
+                bindingSource.ResetBindings(false);
+
+                Console.WriteLine($"Loaded {batch.Count} items for selected page.");
+
+                await Task.CompletedTask;
+            };
+
+            Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
+                FrmSplasherLoading.SetLoadingText(100);
+                FrmSplasherLoading.CloseSplash();
+                Console.WriteLine("All data loaded without freezing the UI.");
+                await Task.CompletedTask;
+            };
+
+            await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
+
+        }
+        #endregion
+
         #region Binding Class 
         public static async Task LoadDataAsync<T>(
             this BindingSource bindingSource,
             Task<IEnumerable<T>> dataFetchTask) {
+
             await FrmSplasherLoading.ShowSplashAsync();
 
             // Fetch all data asynchronously
-            var allData = (await dataFetchTask).ToList();
+            var data = (await dataFetchTask).ToList();
 
             // Clear
             bindingSource.Clear();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
                 int batchSize = 100;
-                int total = allData.Count;
+                int total = data.Count;
                 int currentIndex = 0;
 
                 // Check if total data is less than batch size
                 if (total <= batchSize) {
                     // Load all data at once if less than batch size
-                    worker.ReportProgress(100, allData);
+                    worker.ReportProgress(100, data);
                     FrmSplasherLoading.SetLoadingText(100);
                 }
                 else {
                     // Load data in batches
                     while (currentIndex < total) {
-                        var batch = allData.Skip(currentIndex).Take(batchSize).ToList();
+                        var batch = data.Skip(currentIndex).Take(batchSize).ToList();
                         currentIndex += batchSize;
 
                         int progress = (int)((double)currentIndex / total * 100);

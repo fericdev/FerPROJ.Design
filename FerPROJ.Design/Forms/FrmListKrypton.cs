@@ -17,7 +17,6 @@ namespace FerPROJ.Design.Forms {
     public partial class FrmListKrypton : KryptonForm {
 
         #region Fields
-
         private Timer _debounceTimer;
         private event EventHandler _manageModeChanged;
         private bool? _currentManageMode;
@@ -38,11 +37,11 @@ namespace FerPROJ.Design.Forms {
         public DateTime? dateFrom = null;
         public DateTime? dateTo = null;
         public string searchValue;
-        public int dataLimit = 100;
+        public int dataLimit = 20;
+        public int dataPage = 1;
         public string Form_IdTrack;
         public Dictionary<Keys, Func<Task>> keyboardShortcuts = new Dictionary<Keys, Func<Task>>();
         public Dictionary<Keys, Func<Task<bool>>> boolKeyboardShortcuts = new Dictionary<Keys, Func<Task<bool>>>();
-
         #endregion
 
         #region Properties
@@ -264,10 +263,10 @@ namespace FerPROJ.Design.Forms {
         #region Event Handlers
 
         protected override void OnLoad(EventArgs e) {
-            base.OnLoad(e);
             if (!_currentManageMode.HasValue) {
                 CurrentManageMode = true;
             }
+            base.OnLoad(e);
         }
 
         private async void FrmListMain_Load(object sender, EventArgs e) {
@@ -290,7 +289,7 @@ namespace FerPROJ.Design.Forms {
                 await RefreshAsync();
             }
             else {
-                RefreshDataGridViewAsync().RunTask();
+                await RefreshDataGridViewAsync();
             }
         }
 
@@ -308,7 +307,13 @@ namespace FerPROJ.Design.Forms {
 
         private async void ComboBoxKryptonDataLimit_SelectedIndexChanged(object sender, EventArgs e) {
             if (ComboBoxKryptonDataLimit.SelectedIndex != -1) {
-                dataLimit = ComboBoxKryptonDataLimit.Text.ToInt();
+                dataLimit = ComboBoxKryptonDataLimit.SelectedValue.To<int>();
+                await RefreshAsync();
+            }
+        }
+        private async void ComboBoxKryptonPage_SelectedIndexChanged(object sender, EventArgs e) {
+            if (ComboBoxKryptonPage.SelectedIndex != -1) {
+                dataPage = ComboBoxKryptonPage.SelectedValue.To<int>();
                 await RefreshAsync();
             }
         }

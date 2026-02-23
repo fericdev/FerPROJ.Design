@@ -82,10 +82,10 @@ namespace FerPROJ.Design.Forms {
             FormModeChanged?.Invoke(this, EventArgs.Empty);
         }
         protected override void OnLoad(EventArgs e) {
-            base.OnLoad(e);
             if (!_currentFormMode.HasValue) {
                 CurrentFormMode = FormMode.Add;
             }
+            base.OnLoad(e);
         }
         private async void FrmManageKrypton_Load(object sender, EventArgs e) {
             await InitializeFormPropertiesAsync();

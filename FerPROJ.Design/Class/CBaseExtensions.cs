@@ -891,7 +891,6 @@ namespace FerPROJ.Design.Class {
 
                 // 4️⃣ Report that page only
                 worker.ReportProgress(100, pageData);
-                FrmSplasherLoading.SetLoadingText(100);
 
                 await Task.Delay(10);
             };
@@ -905,7 +904,10 @@ namespace FerPROJ.Design.Class {
                 bindingSource.DataSource = new List<T>(batch);
 
                 bindingSource.ResumeBinding();
-                bindingSource.ResetBindings(false);
+
+                if (e.ProgressPercentage == 100) {
+                    bindingSource.ResetBindings(false);
+                }
 
                 Console.WriteLine($"Loaded {batch.Count} items for selected page.");
 
@@ -913,9 +915,13 @@ namespace FerPROJ.Design.Class {
             };
 
             Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
+
                 FrmSplasherLoading.SetLoadingText(100);
+
                 FrmSplasherLoading.CloseSplash();
+
                 Console.WriteLine("All data loaded without freezing the UI.");
+
                 await Task.CompletedTask;
             };
 

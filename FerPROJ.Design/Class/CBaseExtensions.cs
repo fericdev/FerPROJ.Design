@@ -573,6 +573,25 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
+        #region Properties Function
+        public static bool IsCurrentDate(this DateTime? value) {
+            try {
+                return !value.IsNullOrEmpty() && value.Value.Date == DateTime.Today;
+            }
+            catch {
+                return false;
+            }
+        }
+        public static bool IsCurrentDate(this DateTime value) {
+            try {
+                return !value.IsNullOrEmpty() && value.Date == DateTime.Today;
+            }
+            catch {
+                return false;
+            }
+        }
+        #endregion
+
         #region Total List
         public static bool IsSumTotalGreaterThanZero<T>(this List<T> value, Func<T, decimal> selector) {
             if (value == null || value.Count == 0) {
@@ -740,6 +759,8 @@ namespace FerPROJ.Design.Class {
 
             if (dateFrom.IsNullOrEmpty() && dateTo.IsNullOrEmpty())
                 return true;
+
+            dateFrom = dateFrom.IsCurrentDate() ? null : dateFrom;
 
             bool afterStart = dateFrom.IsNullOrEmpty() || source >= dateFrom.Value.Date;
 

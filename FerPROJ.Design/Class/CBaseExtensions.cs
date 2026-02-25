@@ -673,6 +673,7 @@ namespace FerPROJ.Design.Class {
                 return false;
 
             source = source.ToLower();
+
             searchText = searchText.ToLower();
 
             return source.Contains(searchText);
@@ -691,16 +692,13 @@ namespace FerPROJ.Design.Class {
             // Use LINQ to check for a match
             return source.Any(s => s.Trim().Equals(searchText.Trim(), StringComparison.OrdinalIgnoreCase));
         }
-        public static bool SearchFor(this object source, string searchText, DateTime? dateFrom, DateTime? dateTo, string datePropertyName) {
-            return source.SearchForText(searchText) && source.SearchForDate(dateFrom, dateTo, datePropertyName);
+        public static bool SearchFor<TSource>(this TSource source, string searchText, DateTime? dateFrom, DateTime? dateTo, Expression<Func<TSource, DateTime>> dateFilter) {
+            return source.SearchForText(searchText) || source.SearchForDate(dateFrom, dateTo, dateFilter);
         }
-        public static bool SearchForDate(this DateTime? source, DateTime? dateFrom, DateTime? dateTo) {
+        public static bool SearchForDate(this DateTime source, DateTime? dateFrom, DateTime? dateTo) {
 
             if (!dateFrom.HasValue && !dateTo.HasValue)
                 return true;
-
-            if (!source.HasValue)
-                return false;
 
             bool afterStart = !dateFrom.HasValue || source >= dateFrom.Value.Date;
 
@@ -708,41 +706,21 @@ namespace FerPROJ.Design.Class {
 
             return afterStart && beforeEnd;
         }
-        public static bool SearchForDate(this DateTime source, DateTime dateFrom, DateTime dateTo) {
-            return source.SearchForDate(dateFrom, dateTo);
-        }
-        public static bool SearchForDate(this object source, DateTime? dateFrom, DateTime? dateTo, string propertyName = "") {
+        public static bool SearchForDate<TSource>(this TSource source, DateTime? dateFrom, DateTime? dateTo, Expression<Func<TSource, DateTime>> dateFilter) {
+
             if (source == null)
                 return false;
 
-            if (!dateFrom.HasValue && !dateTo.HasValue) {
+            // If no filter range → always valid
+            if (!dateFrom.HasValue && !dateTo.HasValue)
                 return true;
-            }
 
-            var properties = source.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
-                          .Where(p => p.PropertyType == typeof(DateTime) || p.PropertyType == typeof(DateTime?))
-                          .ToList();
+            // Compile expression and get value
+            var getter = dateFilter.Compile();
 
-            properties = properties.Where(p => string.IsNullOrEmpty(propertyName) || p.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase)).ToList();
+            var value = getter(source);
 
-            foreach (var property in properties) {
-                // Skip properties with index parameters
-                if (property.GetIndexParameters().Length > 0)
-                    continue;
-
-                // Get the property value
-                var value = (DateTime?)property.GetValue(source);
-
-                // If the value is null, skip this property
-                if (!value.HasValue)
-                    continue;
-
-                return value.SearchForDate(dateFrom, dateTo);
-
-            }
-
-            return false; // No match found
-
+            return value.SearchForDate(dateFrom, dateTo);
         }
 
         public static bool SearchForText(this object source, string searchText) {
@@ -768,10 +746,7 @@ namespace FerPROJ.Design.Class {
                 if (value == null)
                     continue;
 
-                // Convert the value to a string and compare it to the searchText
-                if (value.ToString().SearchContains(searchText)) {
-                    return true; // Match found in the text
-                }
+                return value.ToString().SearchContains(searchText);
             }
 
             return false; // No match found

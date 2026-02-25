@@ -539,6 +539,47 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
+        public static bool IsNullOrEmpty(this DateTime? value) {
+            try {
+                return value == null || value.Value == default || value.Value == DateTime.MinValue;
+            }
+            catch {
+                return false;
+            }
+        }
+        public static bool IsNullOrEmpty(this DateTime value) {
+            try {
+                return value == null || value == default || value == DateTime.MinValue;
+            }
+            catch {
+                return false;
+            }
+        }
+        public static bool IsNullOrEmpty<T>(this T value) where T : class {
+            try {
+                return value == null;
+            }
+            catch {
+                return false;
+            }
+        }
+        public static bool IsNullOrEmpty<T>(this List<T> value) where T : class {
+            try {
+                return value == null || value.Count == 0;
+            }
+            catch {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Total List
+        public static bool IsSumTotalGreaterThanZero<T>(this List<T> value, Func<T, decimal> selector) {
+            if (value == null || value.Count == 0) {
+                return false;
+            }
+            return value.Sum(selector) > 0;
+        }
         #endregion
 
         #region Datatable Conversion
@@ -697,12 +738,12 @@ namespace FerPROJ.Design.Class {
         }
         public static bool SearchForDate(this DateTime source, DateTime? dateFrom, DateTime? dateTo) {
 
-            if (!dateFrom.HasValue && !dateTo.HasValue)
+            if (dateFrom.IsNullOrEmpty() && dateTo.IsNullOrEmpty())
                 return true;
 
-            bool afterStart = !dateFrom.HasValue || source >= dateFrom.Value.Date;
+            bool afterStart = dateFrom.IsNullOrEmpty() || source >= dateFrom.Value.Date;
 
-            bool beforeEnd = !dateTo.HasValue || source <= dateTo.Value.Date.AddDays(1).AddTicks(-1);
+            bool beforeEnd = dateTo.IsNullOrEmpty() || source <= dateTo.Value.Date.AddDays(1).AddTicks(-1);
 
             return afterStart && beforeEnd;
         }
@@ -712,7 +753,7 @@ namespace FerPROJ.Design.Class {
                 return false;
 
             // If no filter range → always valid
-            if (!dateFrom.HasValue && !dateTo.HasValue)
+            if (dateFrom.IsNullOrEmpty() && dateTo.IsNullOrEmpty())
                 return true;
 
             // Compile expression and get value
@@ -746,7 +787,8 @@ namespace FerPROJ.Design.Class {
                 if (value == null)
                     continue;
 
-                return value.ToString().SearchContains(searchText);
+                if (value.ToString().SearchContains(searchText))
+                    return true;
             }
 
             return false; // No match found

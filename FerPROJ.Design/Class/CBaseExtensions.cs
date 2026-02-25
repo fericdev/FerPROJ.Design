@@ -693,7 +693,7 @@ namespace FerPROJ.Design.Class {
             return source.Any(s => s.Trim().Equals(searchText.Trim(), StringComparison.OrdinalIgnoreCase));
         }
         public static bool SearchFor<TSource>(this TSource source, string searchText, DateTime? dateFrom, DateTime? dateTo, Expression<Func<TSource, DateTime>> dateFilter) {
-            return source.SearchForText(searchText) || source.SearchForDate(dateFrom, dateTo, dateFilter);
+            return source.SearchForText(searchText) && source.SearchForDate(dateFrom, dateTo, dateFilter);
         }
         public static bool SearchForDate(this DateTime source, DateTime? dateFrom, DateTime? dateTo) {
 

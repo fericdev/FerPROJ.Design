@@ -44,6 +44,8 @@ namespace FerPROJ.Design.Class {
                 enumValues = enumValues.Where(value => !excluded.Contains(value)).ToList();
             }
             cmb.DataSource = new BindingList<TEnum>(enumValues);
+
+            cmb.TrackIndexChangesAndBindModel();
         }
         public static void FillComboBox(this CComboBoxKrypton cmb, Dictionary<int, string> dataSource) {
             if (dataSource == null || dataSource.Count == 0) {
@@ -147,6 +149,8 @@ namespace FerPROJ.Design.Class {
                     }
                 }));
             }
+
+            cmb.TrackValueChangesAndBindModel();
         }
         public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> cmbText, string cmbValue, IEnumerable<T> dataSource, bool assignSelectedValue = false) {
             var uniqueData = dataSource
@@ -179,6 +183,7 @@ namespace FerPROJ.Design.Class {
                     }
                 }));
             }
+            cmb.TrackValueChangesAndBindModel();
         }
         public static void TrackValueChangesAndCallMethod(this CComboBoxKrypton cmb, Func<Task> onValueChanged) {
             if (cmb == null) {
@@ -238,6 +243,20 @@ namespace FerPROJ.Design.Class {
             cmb.SelectedValueChanged += async (s, e) => {
                 var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
                 binding?.WriteValue();   // push value to model NOW
+            };
+        }
+        public static void TrackIndexChangesAndBindModel(this CComboBoxKrypton cmb) {
+
+            if (cmb == null) {
+                throw new ArgumentNullException(nameof(cmb));
+            }
+
+            cmb.SelectedIndexChanged += async (s, e) => {
+                var bindingValue = cmb.DataBindings[nameof(cmb.SelectedValue)];
+                bindingValue?.WriteValue();   // push value to model NOW
+
+                var bindingText = cmb.DataBindings[nameof(cmb.SelectedText)];
+                bindingText?.WriteValue();   // push value to model NOW
             };
         }
         public static void ValidateTextAndBindModel<TModel>(this CComboBoxKrypton cmb, TModel model,

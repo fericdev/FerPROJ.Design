@@ -6,18 +6,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static FerPROJ.Design.Class.CBaseEnums;
-using static FerPROJ.Design.Forms.FrmManageKrypton;
 
 namespace FerPROJ.Design.Class {
     public class CBaseFormLayer {
         public static class BaseManageForm {
-            public static bool ManageBaseAddressDetail(FormMode formMode, AddressModel addressDTO, Guid id) {
+            public static async Task<bool> ManageBaseAddressDetail(FormMode formMode, AddressModel addressDTO, Guid id) {
                 using (var frm = new FrmAddressDetail(addressDTO)) {
                     frm.CurrentFormMode = formMode;
                     frm.Manage_IdTrack = id;
                     frm.ShowDialog();
                     addressDTO = frm.Address;
-                    return frm.CurrentFormResult.Result;
+                    return await frm.CurrentFormResult;
+                }
+            }
+        }
+        public static class BaseListForm {
+            public async static Task<bool> ListBaseGrid(Type repositoryType, Type dbContextType, CrudOptions crudoptions) {
+                using (var frm = new FrmListGridKrypton(repositoryType, dbContextType, crudoptions)) {
+                    frm.ShowDialog();
+                    return await Task.FromResult(true);
+                }
+            }
+        }
+        public static class BaseSelectListForm {
+            public static Task<bool> ListBaseGrid(Type repositoryType, Type dbContextType, out Guid id) {
+                using (var frm = new FrmListGridKrypton(repositoryType, dbContextType)) {
+                    frm.CurrentManageMode = false;
+                    frm.ShowDialog();
+                    id = frm.Form_IdTrack.ToGuid();
+                    return Task.FromResult(true);
                 }
             }
         }

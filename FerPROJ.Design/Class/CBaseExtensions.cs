@@ -1516,27 +1516,23 @@ namespace FerPROJ.Design.Class {
                     var column = matchingColumns.FirstOrDefault();
 
                     if (column == null) {
+                        if (attribute.IsAdded) {
+                            column = new DataGridViewTextBoxColumn {
+                                Name = property.Name,
+                                DataPropertyName = property.Name,
+                            };
 
-                        column = new DataGridViewTextBoxColumn {
-                            Name = property.Name,
-                            DataPropertyName = property.Name,
-                        };
-
-                        dgv.Columns.Add(column);
+                            dgv.Columns.Add(column);
+                        }
                     }
 
                     if (column != null) {
-                        if (attribute.IsExcluded) {
-                            dgv.Columns.Remove(column);
+                        column.Visible = attribute.IsVisible;
+                        if (attribute.IsEditable) {
+                            editableColumns.Add(column.Index);
                         }
-                        else {
-                            column.Visible = attribute.IsVisible;
-                            if (attribute.IsEditable) {
-                                editableColumns.Add(column.Index);
-                            }
-                            if (!attribute.HeaderText.IsNullOrEmpty()) {
-                                column.HeaderText = attribute.HeaderText;
-                            }
+                        if (!attribute.HeaderText.IsNullOrEmpty()) {
+                            column.HeaderText = attribute.HeaderText;
                         }
                     }
                 }

@@ -224,6 +224,12 @@
     <Compile Include="Forms\FrmHtmReport.Designer.cs">
       <DependentUpon>FrmHtmReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmListGridKrypton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmListGridKrypton.designer.cs">
+      <DependentUpon>FrmListGridKrypton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmListKrypton.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,6 +336,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\FerPROJ.Design.BaseDTO.BaseAddressDTO.datasource" />
+    <None Include="Properties\DataSources\FerPROJ.Design.BaseModels.BaseModel.datasource" />
     <None Include="Resources\Custom-Icon-Design-Flatastic-9-Login.512.png" />
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDashboard3.resx">
       <DependentUpon>FrmDashboard3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmListGridKrypton.resx">
+      <DependentUpon>FrmListGridKrypton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmListKrypton.resx">
       <DependentUpon>FrmListKrypton.cs</DependentUpon>

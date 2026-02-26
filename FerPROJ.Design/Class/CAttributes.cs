@@ -9,7 +9,7 @@ namespace FerPROJ.Design.Class {
 
         #region DGV Grid Properties
         public bool IsVisible { get; set; } = true;
-        public bool IsExcluded { get; set; } = false;
+        public bool IsAdded { get; set; } = true;
         public bool IsEditable { get; set; } = false;
         public int DisplayOrder { get; set; } = 1000;
         public string HeaderText { get; set; } = string.Empty;

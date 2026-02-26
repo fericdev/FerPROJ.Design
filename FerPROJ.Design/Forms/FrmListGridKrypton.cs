@@ -513,10 +513,11 @@ namespace FerPROJ.Design.Forms {
                 // Invoke method
                 var taskObject = method.Invoke(instance, parameters);
 
+                var taskType = taskObject.GetType();
+                var enumerableType = taskType.GetGenericArguments()[0];
+                var modelType = enumerableType.GetGenericArguments()[0];
+
                 if (baseModelCDatagridview != null) {
-                    var taskType = taskObject.GetType();
-                    var enumerableType = taskType.GetGenericArguments()[0];
-                    var modelType = enumerableType.GetGenericArguments()[0];
                     baseModelCDatagridview?.ApplyCustomAttribute(modelType);
                 }
 

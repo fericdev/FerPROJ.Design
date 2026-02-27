@@ -570,6 +570,9 @@ namespace FerPROJ.Design.Forms {
             HideFunctionView = _crudOptions?.HideView ?? false;
             HideFunctionOther1 = _crudOptions?.HideOther1 ?? false;
             HideFunctionOther2 = _crudOptions?.HideOther2 ?? false;
+            ButtonNameOther1 = _crudOptions?.Other1Name ?? "View Other 1";
+            ButtonNameOther2 = _crudOptions?.Other2Name ?? "View Other 2";
+            ButtonNameView = _crudOptions?.ViewName ?? "View";
         }
         #endregion
     }
@@ -584,8 +587,11 @@ public class CrudOptions {
     public Func<Task<bool>> OnAddAsync { get; set; }
     public Func<Guid, Task<bool>> OnUpdateAsync { get; set; }
     public Func<Guid, Task<bool>> OnViewAsync { get; set; }
+    public string ViewName { get; set; }
     public Func<Guid, Task<bool>> OnOther1Async { get; set; }
+    public string Other1Name { get; set; }
     public Func<Guid, Task<bool>> OnOther2Async { get; set; }
+    public string Other2Name { get; set; }
 
     #region Utilities 
     public object OnViewSearchParameter { get; set; }

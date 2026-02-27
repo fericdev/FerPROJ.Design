@@ -1574,6 +1574,10 @@ namespace FerPROJ.Design.Class {
                 }
             }
 
+            if (dgv.Columns.Count >= 5) {
+                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            }
+
             ApplyDisplayOrder(dgv);
 
             return editableColumns;

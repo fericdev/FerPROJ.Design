@@ -1385,7 +1385,7 @@ namespace FerPROJ.Design.Class {
         public static void SetRowColorOfColumnValue(
             this DataGridView dgv,
             int columnIndex,
-            string containsValue,
+            object containsValue,
             Color backColor,
             Color foreColor) {
             if (dgv == null)
@@ -1407,7 +1407,43 @@ namespace FerPROJ.Design.Class {
                 if (containsValue == null)
                     continue;
 
-                var isMatch = cellValue.ToString().SearchContains(containsValue);
+                var isMatch = cellValue.ToString().SearchContains(containsValue.ToString());
+
+                if (isMatch) {
+                    row.DefaultCellStyle.BackColor = backColor;
+                    row.DefaultCellStyle.ForeColor = foreColor;
+                }
+            }
+        }
+        public static void SetRowColorOfColumnValue(
+            this DataGridView dgv,
+            string columnName,
+            object containsValue,
+            Color backColor,
+            Color foreColor) {
+            if (dgv == null)
+                throw new ArgumentNullException(nameof(dgv));
+
+            if (string.IsNullOrWhiteSpace(columnName))
+                throw new ArgumentNullException(nameof(columnName));
+
+            if (!dgv.Columns.Contains(columnName))
+                throw new ArgumentException($"Column '{columnName}' not found.");
+
+            var column = dgv.Columns[columnName];
+
+            foreach (DataGridViewRow row in dgv.Rows) {
+                if (row.IsNewRow)
+                    continue;
+
+                var cellValue = row.Cells[column.Index].Value;
+
+                if (cellValue == null || containsValue == null)
+                    continue;
+
+                var isMatch = cellValue
+                    .ToString()
+                    .SearchContains(containsValue.ToString());
 
                 if (isMatch) {
                     row.DefaultCellStyle.BackColor = backColor;

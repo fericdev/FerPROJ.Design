@@ -589,9 +589,7 @@ public class CrudOptions {
 
     #region Utilities 
     public object OnViewSearchParameter { get; set; }
-    public int RowColorOnRefreshColumnIndex { get; set; }
-    public object RowColorOnRefreshColumnValue { get; set; }
-    public Color RowColorOnRefresh { get; set; } 
+    public (string ColumnName, object ColumnValue, Color RowColor) RowColorOnRefreshParameters { get; set; }
     public bool RowColorOnRefreshEnabled { get; set; } = false;
     #endregion
 }

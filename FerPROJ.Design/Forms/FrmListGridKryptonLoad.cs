@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +18,7 @@ namespace FerPROJ.Design.Forms {
             if (_repositoryType == null)
                 return;
 
-            if (_baseDatagridview != null) {
-                _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
-            }
+            _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
             if (_crudOptions?.OnViewSearchParameter != null) {
                 var result = CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
@@ -56,6 +55,16 @@ namespace FerPROJ.Design.Forms {
                     dataLimit
                 );
             }
+
+            if (_crudOptions.RowColorOnRefreshEnabled) {
+                _baseDatagridview.SetRowColorOfColumnValue(
+                    _crudOptions.RowColorOnRefreshParameters.ColumnName,
+                    _crudOptions.RowColorOnRefreshParameters.ColumnValue,
+                    _crudOptions.RowColorOnRefreshParameters.RowColor,
+                    Color.White
+                );
+            }
+
         }
     }
 }

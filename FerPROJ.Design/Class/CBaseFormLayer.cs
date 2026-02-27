@@ -30,7 +30,7 @@ namespace FerPROJ.Design.Class {
         }
         public static class BaseSelectListForm {
             public static Task<bool> ListBaseGrid<TModel>(Type repositoryType, out Guid id) where TModel : BaseModel {
-                using (var frm = new FrmListGridKryptonLoad<TModel>(repositoryType)) {
+                using (var frm = new FrmListGridKryptonLoad<TModel>(repositoryType, new CrudOptions())) {
                     frm.CurrentManageMode = false;
                     frm.ShowDialog();
                     id = frm.Form_IdTrack.ToGuid();

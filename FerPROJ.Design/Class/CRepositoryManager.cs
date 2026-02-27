@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,18 @@ namespace FerPROJ.DBHelper.DBCrud {
 
                 throw new InvalidOperationException("Method must return Task or Task<TResult>.");
             }
+        }
+        public static LambdaExpression Equal(
+            Type entityType,
+            string propertyName,
+            object value) {
+            var parameter = Expression.Parameter(entityType, "x");
+            var property = Expression.Property(parameter, propertyName);
+            var constant = Expression.Constant(value);
+
+            var body = Expression.Equal(property, constant);
+
+            return Expression.Lambda(body, parameter);
         }
         private static MethodInfo ResolveMethod(
             Type repositoryType,

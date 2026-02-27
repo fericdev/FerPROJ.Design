@@ -18,7 +18,7 @@ using System.Web.Hosting;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
-    public partial class FrmListGridKrypton: KryptonForm  {
+    public partial class FrmListGridKrypton : KryptonForm {
 
         #region Fields
         private Timer _debounceTimer;
@@ -251,7 +251,7 @@ namespace FerPROJ.Design.Forms {
         #endregion
 
         #region Constructor
-        public FrmListGridKrypton(Type repoType, CrudOptions crudOptions = null) {
+        public FrmListGridKrypton(Type repoType, CrudOptions crudOptions) {
             InitializeComponent();
             _repositoryType = repoType;
             _crudOptions = crudOptions;
@@ -586,4 +586,12 @@ public class CrudOptions {
     public Func<Guid, Task<bool>> OnViewAsync { get; set; }
     public Func<Guid, Task<bool>> OnOther1Async { get; set; }
     public Func<Guid, Task<bool>> OnOther2Async { get; set; }
+
+    #region Utilities 
+    public object OnViewSearchParameter { get; set; }
+    public int RowColorOnRefreshColumnIndex { get; set; }
+    public object RowColorOnRefreshColumnValue { get; set; }
+    public Color RowColorOnRefresh { get; set; } 
+    public bool RowColorOnRefreshEnabled { get; set; } = false;
+    #endregion
 }

@@ -464,6 +464,8 @@
     <Content Include="Config\AppSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\FolderIcon2.png" />
+    <None Include="Resources\FolderIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\LMS.Main\packages\Microsoft.Web.WebView2.1.0.3595.46\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\LMS.Main\packages\Microsoft.Web.WebView2.1.0.3595.46\build\Microsoft.Web.WebView2.targets')" />

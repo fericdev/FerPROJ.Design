@@ -138,6 +138,7 @@ namespace FerPROJ.Design.Forms {
             set {
                 hideFunctionView = value;
                 tsbMainViewItem.Visible = !hideFunctionView;
+                toolStripSeparator4.Visible = !hideFunctionView;
             }
         }
 

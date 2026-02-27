@@ -261,7 +261,6 @@ namespace FerPROJ.Design.Forms {
             _debounceTimer.Interval = 1000; // Set delay to 100 milliseconds
             _debounceTimer.Tick += DebounceTimer_Tick;
             _manageModeChanged += FrmListMain_ManageModeChanged;
-            this.Text = $"{_repositoryType.Name} List";
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.KeyDown += OnKeyDown;
@@ -581,6 +580,9 @@ namespace FerPROJ.Design.Forms {
             ButtonNameOther1 = _crudOptions?.Other1Name ?? "View Other 1";
             ButtonNameOther2 = _crudOptions?.Other2Name ?? "View Other 2";
             ButtonNameView = _crudOptions?.ViewName ?? "View";
+            this.Text = $"{_repositoryType.Name} List";
+            this.FormTitle = GetFormTitle();
+            this.FormDescription = GetFormDescription();
             this.Height = GetFormSize(_crudOptions?.FormSizeType ?? FormSizeTypes.Default).Height;
             this.Width = GetFormSize(_crudOptions?.FormSizeType ?? FormSizeTypes.Default).Width;
         }
@@ -593,6 +595,28 @@ namespace FerPROJ.Design.Forms {
                 default:
                     return (661, 1086);
             }
+        }
+        private string GetFormTitle() {
+            var name = _repositoryType.Name;
+
+            const string suffix = "Repository";
+
+            if (name.EndsWith(suffix)) {
+                name = name.Substring(0, name.Length - suffix.Length);
+            }
+
+            return $"{name} Hub";
+        }
+        private string GetFormDescription() {
+            var name = _repositoryType.Name;
+
+            const string suffix = "Repository";
+
+            if (name.EndsWith(suffix)) {
+                name = name.Substring(0, name.Length - suffix.Length);
+            }
+
+            return $"Manage {name} in one place.";
         }
         #endregion
     }
@@ -621,7 +645,7 @@ public class CrudOptions {
     public bool RowColorOnRefreshEnabled { get; set; } = false;
     #endregion
 }
-public enum FormSizeTypes {     
+public enum FormSizeTypes {
     Default = 0,
     Small = 1,
     Large = 2,

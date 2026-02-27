@@ -138,7 +138,7 @@ namespace FerPROJ.Design.Forms {
             set {
                 hideFunctionView = value;
                 tsbMainViewItem.Visible = !hideFunctionView;
-                toolStripSeparator4.Visible = !hideFunctionView;
+                toolStripSeparator5.Visible = !hideFunctionView;
             }
         }
 
@@ -147,7 +147,7 @@ namespace FerPROJ.Design.Forms {
             set {
                 hideFunctionOther1 = value;
                 tsbOther1.Visible = !hideFunctionOther1;
-                toolStripSeparator5.Visible = !hideFunctionOther1;
+                toolStripSeparator6.Visible = !hideFunctionOther1;
             }
         }
 
@@ -156,7 +156,6 @@ namespace FerPROJ.Design.Forms {
             set {
                 hideFunctionOther2 = value;
                 tsbOther2.Visible = !hideFunctionOther2;
-                toolStripSeparator6.Visible = !hideFunctionOther2;
             }
         }
 

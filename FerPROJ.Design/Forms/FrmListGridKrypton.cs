@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using FerPROJ.DBHelper.DBCrud;
 using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Class;
 using FerPROJ.Design.Controls;
@@ -528,33 +529,11 @@ namespace FerPROJ.Design.Forms {
         protected async virtual Task<bool> DeleteItemAsync() {
 
             if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-
-                var method = _repositoryType.GetMethod("DeleteByIdAsync",
-                    new Type[] { typeof(Guid) }
+                return await CRepositoryManager.ExecuteMethodAsync<bool>(
+                    _repositoryType,
+                    "DeleteAsync",
+                    Form_IdTrack.ToGuid()
                 );
-
-                using (var freshDbContext = (DbContext)Activator.CreateInstance(CAppConstants.DbContextType)) {
-
-                    var instance = Activator.CreateInstance(_repositoryType, freshDbContext);
-
-                    var parameters = new object[]
-                    {
-                        Form_IdTrack.ToGuid(),
-                    };
-
-                    // Invoke method
-                    var taskObject = method.Invoke(instance, parameters);
-
-                    var task = (Task)taskObject;
-
-                    await task;
-
-                    var resultProperty = task.GetType().GetProperty("Result");
-
-                    var result = resultProperty.GetValue(task);
-
-                    return (bool)result;
-                }
             }
             return false;
         }

@@ -581,6 +581,18 @@ namespace FerPROJ.Design.Forms {
             ButtonNameOther1 = _crudOptions?.Other1Name ?? "View Other 1";
             ButtonNameOther2 = _crudOptions?.Other2Name ?? "View Other 2";
             ButtonNameView = _crudOptions?.ViewName ?? "View";
+            this.Height = GetFormSize(_crudOptions?.FormSizeType ?? FormSizeTypes.Default).Height;
+            this.Width = GetFormSize(_crudOptions?.FormSizeType ?? FormSizeTypes.Default).Width;
+        }
+        private (int Height, int Width) GetFormSize(FormSizeTypes formSizeType) {
+            switch (formSizeType) {
+                case FormSizeTypes.Small:
+                    return (500, 800);
+
+                case FormSizeTypes.Default:
+                default:
+                    return (661, 1086);
+            }
         }
         #endregion
     }
@@ -604,7 +616,13 @@ public class CrudOptions {
 
     #region Utilities 
     public object OnRefreshSearchParameter { get; set; }
+    public FormSizeTypes FormSizeType { get; set; } = FormSizeTypes.Default;
     public (string ColumnName, object ColumnValue, Color RowColor) RowColorOnRefreshParameters { get; set; }
     public bool RowColorOnRefreshEnabled { get; set; } = false;
     #endregion
+}
+public enum FormSizeTypes {     
+    Default = 0,
+    Small = 1,
+    Large = 2,
 }

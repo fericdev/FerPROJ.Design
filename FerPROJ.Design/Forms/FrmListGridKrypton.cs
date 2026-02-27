@@ -517,7 +517,15 @@ namespace FerPROJ.Design.Forms {
         }
 
         protected async virtual Task<bool> AddNewItemAsync() {
-            return await _crudOptions?.OnAddAsync();
+            if (_crudOptions?.OnAddAsync != null) {
+                return await _crudOptions?.OnAddAsync();
+            }
+            else {
+                if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
+                    return await _crudOptions?.OnAddIdAsync(Form_IdTrack.ToGuid());
+                }
+            }
+            return false;
         }
 
         protected async virtual Task<bool> UpdateItemAsync() {
@@ -585,6 +593,7 @@ public class CrudOptions {
     public bool HideOther1 { get; set; } = true;
     public bool HideOther2 { get; set; } = true;
     public Func<Task<bool>> OnAddAsync { get; set; }
+    public Func<Guid, Task<bool>> OnAddIdAsync { get; set; }
     public Func<Guid, Task<bool>> OnUpdateAsync { get; set; }
     public Func<Guid, Task<bool>> OnViewAsync { get; set; }
     public string ViewName { get; set; }
@@ -594,7 +603,7 @@ public class CrudOptions {
     public string Other2Name { get; set; }
 
     #region Utilities 
-    public object OnViewSearchParameter { get; set; }
+    public object OnRefreshSearchParameter { get; set; }
     public (string ColumnName, object ColumnValue, Color RowColor) RowColorOnRefreshParameters { get; set; }
     public bool RowColorOnRefreshEnabled { get; set; } = false;
     #endregion

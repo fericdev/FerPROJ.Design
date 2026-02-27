@@ -20,11 +20,11 @@ namespace FerPROJ.Design.Forms {
 
             _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
-            if (_crudOptions?.OnViewSearchParameter != null) {
+            if (_crudOptions?.OnRefreshSearchParameter != null) {
                 var result = CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
                     _repositoryType,
                     "GetViewModelWithSearchAsync",
-                    _crudOptions?.OnViewSearchParameter,
+                    _crudOptions?.OnRefreshSearchParameter,
                     searchValue,
                     dateFrom,
                     dateTo,

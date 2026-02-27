@@ -267,6 +267,7 @@ namespace FerPROJ.Design.Forms {
             this.KeyDown += OnKeyDown;
             ConstantShortcuts();
             InitializeKeyboardShortcuts();
+            LoadFormButtons();
         }
         #endregion
 
@@ -546,18 +547,43 @@ namespace FerPROJ.Design.Forms {
         }
 
         protected async virtual Task<bool> Other1Async() {
-            return await Task.FromResult(true);
+            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
+                return await _crudOptions?.OnOther1Async(Form_IdTrack.ToGuid());
+            }
+            return false;
         }
 
         protected async virtual Task<bool> Other2Async() {
-            return await Task.FromResult(true);
+            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
+                return await _crudOptions?.OnOther2Async(Form_IdTrack.ToGuid());
+            }
+            return false;
         }
 
+        #endregion
+
+        #region Buttons
+        private void LoadFormButtons() {
+            HideFunctionAdd = _crudOptions?.HideAdd ?? false;
+            HideFunctionEdit = _crudOptions?.HideUpdate ?? false;
+            HideFunctionDelete = _crudOptions?.HideDelete ?? false;
+            HideFunctionView = _crudOptions?.HideView ?? false;
+            HideFunctionOther1 = _crudOptions?.HideOther1 ?? false;
+            HideFunctionOther2 = _crudOptions?.HideOther2 ?? false;
+        }
         #endregion
     }
 }
 public class CrudOptions {
+    public bool HideAdd { get; set; }
+    public bool HideUpdate { get; set; }
+    public bool HideDelete { get; set; }
+    public bool HideView { get; set; } = true;
+    public bool HideOther1 { get; set; } = true;
+    public bool HideOther2 { get; set; } = true;
     public Func<Task<bool>> OnAddAsync { get; set; }
     public Func<Guid, Task<bool>> OnUpdateAsync { get; set; }
     public Func<Guid, Task<bool>> OnViewAsync { get; set; }
+    public Func<Guid, Task<bool>> OnOther1Async { get; set; }
+    public Func<Guid, Task<bool>> OnOther2Async { get; set; }
 }

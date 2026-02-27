@@ -531,7 +531,7 @@ namespace FerPROJ.Design.Forms {
             if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
                 return await CRepositoryManager.ExecuteMethodAsync<bool>(
                     _repositoryType,
-                    "DeleteAsync",
+                    "DeleteByIdAsync",
                     Form_IdTrack.ToGuid()
                 );
             }

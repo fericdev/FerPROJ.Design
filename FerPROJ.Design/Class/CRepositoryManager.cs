@@ -9,36 +9,33 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.DBHelper.DBCrud {
     public static class CRepositoryManager {
-        public static async Task<TResult> ExecuteMethodAsync<TResult>(Type repositoryType, string methodName, params object[] parameters) {
+        public static async Task<TResult> ExecuteMethodAsync<TResult>(
+            Type repositoryType,
+            string methodName,
+            params object[] parameters) {
 
             var method = ResolveMethod(repositoryType, methodName, parameters);
 
-            if (method == null) {
+            if (method == null)
                 throw new InvalidOperationException("Method not found.");
-            }
 
             using (var freshDbContext = (DbContext)Activator.CreateInstance(CAppConstants.DbContextType)) {
-                
                 var instance = Activator.CreateInstance(repositoryType, freshDbContext);
 
-                // Invoke method
-                var taskObject = method.Invoke(instance, parameters);
+                var finalParameters = BuildParameterList(method, parameters);
 
-                if (taskObject is Task task)
-                {
-                    // Await the task to ensure it completes
-                    await task;
+                var taskObject = method.Invoke(instance, finalParameters);
 
-                    // If it's Task<TResult>, extract Result
-                    if (task.GetType().IsGenericType) {
-                        var resultProperty = task.GetType().GetProperty("Result");
-                        return (TResult)resultProperty.GetValue(task);
-                    }
+                if (taskObject is Task<TResult> typedTask)
+                    return await typedTask;
+
+                if (taskObject is Task nonGenericTask) {
+                    await nonGenericTask;
+                    return default;
                 }
-            }
 
-            // If it's just Task (no result)
-            return default;
+                throw new InvalidOperationException("Method must return Task or Task<TResult>.");
+            }
         }
         private static MethodInfo ResolveMethod(
             Type repositoryType,
@@ -81,6 +78,36 @@ namespace FerPROJ.DBHelper.DBCrud {
                 if (isMatch)
                     return method;
             }
+
+            return null;
+        }
+        private static object[] BuildParameterList(
+            MethodInfo method,
+            object[] suppliedParams) {
+            var methodParams = method.GetParameters();
+            var finalParams = new object[methodParams.Length];
+
+            for (int i = 0; i < methodParams.Length; i++) {
+                if (i < suppliedParams.Length) {
+                    finalParams[i] = suppliedParams[i];
+                }
+                else {
+                    // Use default value if optional
+                    if (methodParams[i].HasDefaultValue) {
+                        finalParams[i] = methodParams[i].DefaultValue;
+                    }
+                    else {
+                        finalParams[i] = GetDefault(methodParams[i].ParameterType);
+                    }
+                }
+            }
+
+            return finalParams;
+        }
+
+        private static object GetDefault(Type type) {
+            if (type.IsValueType)
+                return Activator.CreateInstance(type);
 
             return null;
         }

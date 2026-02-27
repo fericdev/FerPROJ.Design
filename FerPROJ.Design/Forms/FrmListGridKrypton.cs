@@ -1,6 +1,7 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Class;
+using FerPROJ.Design.Controls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ using System.Web.Hosting;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
-    public partial class FrmListGridKrypton : KryptonForm {
+    public partial class FrmListGridKrypton: KryptonForm  {
 
         #region Fields
         private Timer _debounceTimer;
@@ -47,9 +48,10 @@ namespace FerPROJ.Design.Forms {
         #endregion
 
         #region Readonly Properties
-        private readonly Type _repositoryType;
-        private readonly Type _dbContextType;
-        private readonly CrudOptions _crudOptions;
+        protected readonly Type _repositoryType;
+        protected readonly CrudOptions _crudOptions;
+        protected readonly CDatagridview _baseDatagridview;
+        protected readonly BindingSource _baseBindingSource;
         #endregion
 
         #region Properties
@@ -248,11 +250,12 @@ namespace FerPROJ.Design.Forms {
         #endregion
 
         #region Constructor
-        public FrmListGridKrypton(Type repoType, Type dbContextType, CrudOptions crudOptions = null) {
+        public FrmListGridKrypton(Type repoType, CrudOptions crudOptions = null) {
             InitializeComponent();
             _repositoryType = repoType;
-            _dbContextType = dbContextType;
             _crudOptions = crudOptions;
+            _baseBindingSource = baseModelBindingSource;
+            _baseDatagridview = baseModelCDatagridview;
             _debounceTimer = new Timer();
             _debounceTimer.Interval = 1000; // Set delay to 100 milliseconds
             _debounceTimer.Tick += DebounceTimer_Tick;
@@ -487,61 +490,8 @@ namespace FerPROJ.Design.Forms {
             toolStripSeparator6.Visible = !hideFunction;
         }
 
-        private async Task RefreshAsync() {
-            if (_repositoryType == null)
-                return;
-
-            var method = _repositoryType.GetMethod("GetViewModelWithSearchAsync",
-                new Type[] { typeof(string), typeof(DateTime?), typeof(DateTime?), typeof(int) }
-            );
-
-            if (method == null)
-                return;
-
-            using (var freshDbContext = (DbContext)Activator.CreateInstance(_dbContextType)) {
-
-                var instance = Activator.CreateInstance(_repositoryType, freshDbContext);
-
-                object[] parameters = new object[]
-                {
-                    searchValue,
-                    dateFrom,
-                    dateTo,
-                    int.MaxValue
-                };
-
-                // Invoke method
-                var taskObject = method.Invoke(instance, parameters);
-
-                var taskType = taskObject.GetType();
-                var enumerableType = taskType.GetGenericArguments()[0];
-                var modelType = enumerableType.GetGenericArguments()[0];
-
-                if (baseModelCDatagridview != null) {
-                    baseModelCDatagridview?.ApplyCustomAttribute(modelType);
-                }
-
-                var task = (Task)taskObject;
-
-                await task;
-
-                var resultProperty = task.GetType().GetProperty("Result");
-
-                var result = resultProperty.GetValue(task);
-
-                var baseModels = ((IEnumerable)result).Cast<BaseModel>();
-
-                var taskBaseModels = Task.FromResult(baseModels);
-
-                await baseModelBindingSource.LoadDataAsync(
-                    taskBaseModels,
-                    ComboBoxKryptonPage,
-                    ComboBoxKryptonDataLimit,
-                    dataPage,
-                    dataLimit
-                );
-
-            }
+        protected virtual async Task RefreshAsync() {
+            await Task.CompletedTask;
         }
         private async Task SelectDataAsync() {
             if (await GetSelectedDataAsync()) {
@@ -583,7 +533,7 @@ namespace FerPROJ.Design.Forms {
                     new Type[] { typeof(Guid) }
                 );
 
-                using (var freshDbContext = (DbContext)Activator.CreateInstance(_dbContextType)) {
+                using (var freshDbContext = (DbContext)Activator.CreateInstance(CAppConstants.DbContextType)) {
 
                     var instance = Activator.CreateInstance(_repositoryType, freshDbContext);
 

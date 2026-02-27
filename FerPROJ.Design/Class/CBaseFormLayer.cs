@@ -21,16 +21,16 @@ namespace FerPROJ.Design.Class {
             }
         }
         public static class BaseListForm {
-            public async static Task<bool> ListBaseGrid(Type repositoryType, Type dbContextType, CrudOptions crudoptions) {
-                using (var frm = new FrmListGridKrypton(repositoryType, dbContextType, crudoptions)) {
+            public async static Task<bool> ListBaseGrid<TModel>(Type repositoryType, CrudOptions crudoptions) where TModel : BaseModel {
+                using (var frm = new FrmListGridKryptonLoad<TModel>(repositoryType, crudoptions)) {
                     frm.ShowDialog();
                     return await Task.FromResult(true);
                 }
             }
         }
         public static class BaseSelectListForm {
-            public static Task<bool> ListBaseGrid(Type repositoryType, Type dbContextType, out Guid id) {
-                using (var frm = new FrmListGridKrypton(repositoryType, dbContextType)) {
+            public static Task<bool> ListBaseGrid<TModel>(Type repositoryType, out Guid id) where TModel : BaseModel {
+                using (var frm = new FrmListGridKryptonLoad<TModel>(repositoryType)) {
                     frm.CurrentManageMode = false;
                     frm.ShowDialog();
                     id = frm.Form_IdTrack.ToGuid();

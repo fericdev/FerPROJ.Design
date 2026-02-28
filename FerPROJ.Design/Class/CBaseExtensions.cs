@@ -1591,9 +1591,6 @@ namespace FerPROJ.Design.Class {
                         if (!attribute.HeaderText.IsNullOrEmpty()) {
                             column.HeaderText = attribute.HeaderText;
                         }
-                        else {
-                            column.HeaderText = column.HeaderText.ToStringWithSpaces();
-                        }
                     }
                 }
             }

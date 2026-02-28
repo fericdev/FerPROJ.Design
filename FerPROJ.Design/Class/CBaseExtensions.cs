@@ -408,6 +408,24 @@ namespace FerPROJ.Design.Class {
         public static string ToTwoDecimals(this decimal decimalValue) {
             return decimalValue.ToString("F2");
         }
+        public static string ToStringWithoutSpaces(this string stringValue) {
+            return stringValue.Replace(" ", "");
+        }
+        public static string ToStringWithSpaces(this string stringValue) {
+            if (stringValue.IsNullOrEmpty()) {
+                return stringValue;
+            }
+
+            var result = new StringBuilder();
+
+            foreach (char c in stringValue) {
+                if (char.IsUpper(c) && result.Length > 0) {
+                    result.Append(' ');
+                }
+                result.Append(c);
+            }
+            return result.ToString();
+        }
 
         public static List<T> ToListOf<T>(this List<object> values) where T : struct {
             List<T> result = new List<T>();
@@ -1523,6 +1541,9 @@ namespace FerPROJ.Design.Class {
 
             // Apply editable setting once for all collected indices
             dgv.SetColumnsEditable(true, editableColumns.ToArray());
+
+            ApplyDisplayOrder(dgv);
+
         }
 
         private static List<int> GetDataGridViewEditableColumns(CDatagridview dgv, Type modelType = null) {
@@ -1570,6 +1591,9 @@ namespace FerPROJ.Design.Class {
                         if (!attribute.HeaderText.IsNullOrEmpty()) {
                             column.HeaderText = attribute.HeaderText;
                         }
+                        else {
+                            column.HeaderText = column.HeaderText.ToStringWithSpaces();
+                        }
                     }
                 }
             }
@@ -1577,8 +1601,6 @@ namespace FerPROJ.Design.Class {
             if (dgv.Columns.Count >= 5) {
                 dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             }
-
-            ApplyDisplayOrder(dgv);
 
             return editableColumns;
         }

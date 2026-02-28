@@ -10,29 +10,29 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.BaseModels {
     public abstract class BaseModel : CPropertyValidator 
     {
-        [CAttributes(IsVisible = false, IsAdded = true)]
+        [CAttributes(IsVisible = false)]
         public Guid Id { get; set; } = Guid.NewGuid();
         [CAttributes(IsVisible = false)]
         public string FormId { get; set; }
-        [CAttributes(IsVisible = true, IsAdded = true)]
+        [CAttributes(IsVisible = true)]
         public string Name { get; set; }
         [CAttributes(IsVisible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
         [CAttributes(HeaderText = "Date Created")]
         public string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
-        [CAttributes(IsVisible = false, IsAdded = false)]
+        [CAttributes(IsVisible = false)]
         public string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
-        [CAttributes(IsVisible = false, IsAdded = false)]
+        [CAttributes(IsVisible = false)]
         public DateTime? DateModified { get; set; } = null;
         [CAttributes(HeaderText = "Created By", IsVisible = false)]
         public string CreatedBy { get; set; } = CAppConstants.USERNAME;
-        [CAttributes(IsVisible = false, IsAdded = false)]
+        [CAttributes(IsVisible = false)]
         public Guid CreatedById { get; set; } = CAppConstants.USER_ID;
-        [CAttributes(IsVisible = false, IsAdded = false)]
+        [CAttributes(IsVisible = false)]
         public string ModifiedBy { get; set; }  = string.Empty;
-        [CAttributes(IsVisible = false, IsAdded = false)]
+        [CAttributes(IsVisible = false)]
         public Guid? ModifiedById { get; set; } = null;
-        [CAttributes(IsVisible = false, IsAdded = false)]
+        [CAttributes(IsVisible = false)]
         public string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }
     public abstract class BaseModelItem : CPropertyValidator 

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Models {
     public partial class UserModel : BaseModel {
-        [CAttributes(IsVisible = true, IsAdded = true)]
+        [CAttributes(IsVisible = true)]
         public string UserName { get; set; }
         public string Password { get; set; }
-        [CAttributes(IsVisible = true, IsAdded = true)]
+        [CAttributes(IsVisible = true)]
         public string UserRole { get; set; }
         public override bool DataValidation() {
             Password = CEncryptionManager.EncryptText(Password);

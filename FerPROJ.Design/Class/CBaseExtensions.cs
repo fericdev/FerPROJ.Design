@@ -1522,7 +1522,7 @@ namespace FerPROJ.Design.Class {
                 throw new ArgumentNullException(nameof(onColumnValueChanged));
             }
 
-            var editableColumns = GetDataGridViewEditableColumns(dgv);
+            var editableColumns = GetIndexOfEditableColumns(dgv);
 
             foreach (var columnIndex in editableColumns) {
                 if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
@@ -1537,22 +1537,25 @@ namespace FerPROJ.Design.Class {
         }
         public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType = null) {
 
-            List<int> editableColumns = GetDataGridViewEditableColumns(dgv, modelType);
+            // Apply attributes to columns (visibility, header text) and remove duplicates first
+            ApplyAttributeToColumns(dgv, modelType);
+
+            // Collect indices of editable columns based on attributes
+            var editableColumns = GetIndexOfEditableColumns(dgv, modelType);
 
             // Apply editable setting once for all collected indices
             dgv.SetColumnsEditable(true, editableColumns.ToArray());
 
+            // Lastly, apply display order based on attributes (after all columns are set up)
             ApplyDisplayOrder(dgv);
 
         }
 
-        private static List<int> GetDataGridViewEditableColumns(CDatagridview dgv, Type modelType = null) {
+        private static void ApplyAttributeToColumns(CDatagridview dgv, Type modelType = null) {
 
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
             }
-
-            var editableColumns = new List<int>();
 
             var properties = modelType.GetProperties(
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
@@ -1569,35 +1572,59 @@ namespace FerPROJ.Design.Class {
                 }
 
                 var attribute = property.GetCustomAttribute<CAttributes>();
-                if (attribute != null) {
-                    var column = matchingColumns.FirstOrDefault();
+                if (attribute == null)
+                    continue;
 
-                    if (column == null) {
-                        if (attribute.IsAdded) {
-                            column = new DataGridViewTextBoxColumn {
-                                Name = property.Name,
-                                DataPropertyName = property.Name,
-                            };
-
-                            dgv.Columns.Add(column);
-                        }
-                    }
-
-                    if (column != null) {
-                        column.Visible = attribute.IsVisible;
-                        if (attribute.IsEditable) {
-                            editableColumns.Add(column.Index);
-                        }
-                        if (!attribute.HeaderText.IsNullOrEmpty()) {
-                            column.HeaderText = attribute.HeaderText;
-                        }
-                    }
+                var column = matchingColumns.FirstOrDefault();
+                if (column == null) {
+                    column = new DataGridViewTextBoxColumn {
+                        Name = property.Name,
+                        DataPropertyName = property.Name,
+                    };
+                    dgv.Columns.Add(column);
                 }
+
+                column.Visible = attribute.IsVisible;
+
+                column.HeaderText = !attribute.HeaderText.IsNormalized() ?
+                                     attribute.HeaderText : column.HeaderText;
+
             }
 
             if (dgv.Columns.Count >= 5) {
                 dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             }
+
+        }
+        private static List<int> GetIndexOfEditableColumns(CDatagridview dgv, Type modelType = null) {
+            if (modelType == null) {
+                modelType = dgv.GetModelTypeFromDataGridView();
+            }
+
+            var editableColumns = new List<int>();
+
+            var properties = modelType.GetProperties(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            foreach (var property in properties) {
+
+                var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
+                                                 .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
+                                                 .ToList();
+
+                var column = matchingColumns.FirstOrDefault();
+                if (column == null)
+                    continue;
+
+                var attribute = property.GetCustomAttribute<CAttributes>();
+                if (attribute == null)
+                    continue;
+
+                if (attribute.IsEditable) {
+                    editableColumns.Add(column.Index);
+                }
+            }
+
 
             return editableColumns;
         }

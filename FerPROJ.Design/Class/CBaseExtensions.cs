@@ -1538,20 +1538,17 @@ namespace FerPROJ.Design.Class {
         public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType = null) {
 
             // Apply attributes to columns (visibility, header text) and remove duplicates first
-            ApplyAttributeToColumns(dgv, modelType);
-
-            // Collect indices of editable columns based on attributes
-            var editableColumns = GetIndexOfEditableColumns(dgv, modelType);
+            dgv.ApplyAttributeToColumns(modelType);
 
             // Apply editable setting once for all collected indices
-            dgv.SetColumnsEditable(true, editableColumns.ToArray());
+            dgv.SetColumnsEditable(true, GetIndexOfEditableColumns(dgv, modelType).ToArray());
 
             // Lastly, apply display order based on attributes (after all columns are set up)
-            ApplyDisplayOrder(dgv);
+            dgv.ApplyDisplayOrder();
 
         }
 
-        private static void ApplyAttributeToColumns(CDatagridview dgv, Type modelType = null) {
+        private static void ApplyAttributeToColumns(this CDatagridview dgv, Type modelType = null) {
 
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
@@ -1586,7 +1583,7 @@ namespace FerPROJ.Design.Class {
 
                 column.Visible = attribute.IsVisible;
 
-                column.HeaderText = !attribute.HeaderText.IsNormalized() ?
+                column.HeaderText = !attribute.HeaderText.IsNullOrEmpty() ?
                                      attribute.HeaderText : column.HeaderText;
 
             }
@@ -1628,7 +1625,7 @@ namespace FerPROJ.Design.Class {
 
             return editableColumns;
         }
-        private static void ApplyDisplayOrder(CDatagridview dgv) {
+        private static void ApplyDisplayOrder(this CDatagridview dgv) {
             var modelType = dgv.GetModelTypeFromDataGridView();
 
             var properties = modelType.GetProperties(

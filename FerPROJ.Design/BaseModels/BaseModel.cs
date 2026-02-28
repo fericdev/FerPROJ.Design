@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.BaseModels {
     public abstract class BaseModel : CPropertyValidator 
     {
-        [CAttributes(IsVisible = false)]
+        [CAttributes(IsVisible = false, DisplayOrder = 1)]
         public Guid Id { get; set; } = Guid.NewGuid();
-        [CAttributes(IsVisible = false)]
+        [CAttributes(IsVisible = false, DisplayOrder = 2)]
         public string FormId { get; set; }
-        [CAttributes(IsVisible = true)]
+        [CAttributes(IsVisible = true, DisplayOrder = 3)]
         public string Name { get; set; }
         [CAttributes(IsVisible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;

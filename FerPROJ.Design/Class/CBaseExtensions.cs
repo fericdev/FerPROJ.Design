@@ -1544,7 +1544,7 @@ namespace FerPROJ.Design.Class {
             dgv.SetColumnsEditable(true, GetIndexOfEditableColumns(dgv, modelType).ToArray());
 
             // Lastly, apply display order based on attributes (after all columns are set up)
-            dgv.ApplyDisplayOrder();
+            dgv.ApplyDisplayOrder(modelType);
 
         }
 
@@ -1625,8 +1625,11 @@ namespace FerPROJ.Design.Class {
 
             return editableColumns;
         }
-        private static void ApplyDisplayOrder(this CDatagridview dgv) {
-            var modelType = dgv.GetModelTypeFromDataGridView();
+        private static void ApplyDisplayOrder(this CDatagridview dgv, Type modelType = null) {
+
+            if (modelType == null) {
+                modelType = dgv.GetModelTypeFromDataGridView();
+            }
 
             var properties = modelType.GetProperties(
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);

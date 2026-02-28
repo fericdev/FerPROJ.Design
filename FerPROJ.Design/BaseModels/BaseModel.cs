@@ -13,27 +13,27 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(IsVisible = false, DisplayOrder = 1)]
         public Guid Id { get; set; } = Guid.NewGuid();
         [CAttributes(IsVisible = false, DisplayOrder = 2)]
-        public string FormId { get; set; }
+        public virtual string FormId { get; set; }
         [CAttributes(IsVisible = true, DisplayOrder = 3)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
         [CAttributes(IsVisible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
         [CAttributes(HeaderText = "Date Created")]
-        public string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
+        public virtual string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
         [CAttributes(IsVisible = false)]
-        public string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
+        public virtual string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
         [CAttributes(IsVisible = false)]
         public DateTime? DateModified { get; set; } = null;
         [CAttributes(HeaderText = "Created By", IsVisible = false)]
-        public string CreatedBy { get; set; } = CAppConstants.USERNAME;
+        public virtual string CreatedBy { get; set; } = CAppConstants.USERNAME;
         [CAttributes(IsVisible = false)]
         public Guid CreatedById { get; set; } = CAppConstants.USER_ID;
         [CAttributes(IsVisible = false)]
-        public string ModifiedBy { get; set; }  = string.Empty;
+        public virtual string ModifiedBy { get; set; }  = string.Empty;
         [CAttributes(IsVisible = false)]
         public Guid? ModifiedById { get; set; } = null;
         [CAttributes(IsVisible = false)]
-        public string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
+        public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }
     public abstract class BaseModelItem : CPropertyValidator 
     {
@@ -42,6 +42,6 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(IsVisible = false)]
         public Guid? ParentId { get; set; }
         [CAttributes(IsEditable = true)]
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
     }
 }

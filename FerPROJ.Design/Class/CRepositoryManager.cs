@@ -92,13 +92,19 @@ namespace FerPROJ.DBHelper.DBCrud {
                         break;
 
                     case FilterOperator.Contains:
-                        if (property.Type != typeof(string))
-                            throw new InvalidOperationException("Contains can only be used on string properties.");
-
-                        comparison = Expression.Call(
-                            property,
-                            typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) }),
-                            constant);
+                        comparison = Expression.Call(property, typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) }), constant);
+                        break;
+                    case FilterOperator.StartsWith:
+                        comparison = Expression.Call(property, typeof(string).GetMethod(nameof(string.StartsWith), new[] { typeof(string) }), constant);
+                        break;
+                    case FilterOperator.EndsWith:
+                        comparison = Expression.Call(property, typeof(string).GetMethod(nameof(string.EndsWith), new[] { typeof(string) }), constant);
+                        break;
+                    case FilterOperator.IsNull:
+                        comparison = Expression.Equal(property, Expression.Constant(null));
+                        break;
+                    case FilterOperator.IsNotNull:
+                        comparison = Expression.NotEqual(property, Expression.Constant(null));
                         break;
 
                 }
@@ -190,7 +196,10 @@ namespace FerPROJ.DBHelper.DBCrud {
             GreaterThanOrEqual,
             LessThanOrEqual,
             Contains,
-            Like
+            StartsWith,
+            EndsWith,
+            IsNull,
+            IsNotNull
         }
     }
 }

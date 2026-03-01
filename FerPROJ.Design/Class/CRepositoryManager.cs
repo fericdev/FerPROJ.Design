@@ -50,6 +50,64 @@ namespace FerPROJ.DBHelper.DBCrud {
 
             return Expression.Lambda(body, parameter);
         }
+        public static LambdaExpression Equal(
+            Type entityType,
+            List<(FilterOperator Operator, string PropertyName, object Value)> conditions) {
+            var parameter = Expression.Parameter(entityType, "x");
+            Expression body = Expression.Constant(true);
+
+            foreach (var condition in conditions) {
+                var property = Expression.Property(parameter, condition.PropertyName);
+
+                // Ensure value matches property type
+                var targetType = Nullable.GetUnderlyingType(property.Type) ?? property.Type;
+                var convertedValue = Convert.ChangeType(condition.Value, targetType);
+                var constant = Expression.Constant(convertedValue, property.Type);
+
+                Expression comparison = null;
+
+                switch (condition.Operator) {
+                    case FilterOperator.Equal:
+                        comparison = Expression.Equal(property, constant);
+                        break;
+
+                    case FilterOperator.NotEqual:
+                        comparison = Expression.NotEqual(property, constant);
+                        break;
+
+                    case FilterOperator.GreaterThan:
+                        comparison = Expression.GreaterThan(property, constant);
+                        break;
+
+                    case FilterOperator.LessThan:
+                        comparison = Expression.LessThan(property, constant);
+                        break;
+
+                    case FilterOperator.GreaterThanOrEqual:
+                        comparison = Expression.GreaterThanOrEqual(property, constant);
+                        break;
+
+                    case FilterOperator.LessThanOrEqual:
+                        comparison = Expression.LessThanOrEqual(property, constant);
+                        break;
+
+                    case FilterOperator.Contains:
+                        if (property.Type != typeof(string))
+                            throw new InvalidOperationException("Contains can only be used on string properties.");
+
+                        comparison = Expression.Call(
+                            property,
+                            typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) }),
+                            constant);
+                        break;
+
+                }
+
+                body = Expression.AndAlso(body, comparison);
+            }
+
+            return Expression.Lambda(body, parameter);
+        }
         private static MethodInfo ResolveMethod(
             Type repositoryType,
             string methodName,
@@ -123,6 +181,16 @@ namespace FerPROJ.DBHelper.DBCrud {
                 return Activator.CreateInstance(type);
 
             return null;
+        }
+        public enum FilterOperator {
+            Equal,
+            NotEqual,
+            GreaterThan,
+            LessThan,
+            GreaterThanOrEqual,
+            LessThanOrEqual,
+            Contains,
+            Like
         }
     }
 }

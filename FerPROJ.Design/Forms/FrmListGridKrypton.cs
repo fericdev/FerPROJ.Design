@@ -580,7 +580,7 @@ namespace FerPROJ.Design.Forms {
             ButtonNameOther1 = _crudOptions?.Other1Name ?? "View Other 1";
             ButtonNameOther2 = _crudOptions?.Other2Name ?? "View Other 2";
             ButtonNameView = _crudOptions?.ViewName ?? "View";
-            this.Text = $"{_repositoryType.Name} List";
+            this.Text = $"{_repositoryType.Name.ToStringWithSpaces()} List";
             this.FormTitle = GetFormTitle();
             this.FormDescription = GetFormDescription();
             this.Height = GetFormSize(_crudOptions?.FormSizeType ?? FormSizeTypes.Default).Height;
@@ -605,7 +605,7 @@ namespace FerPROJ.Design.Forms {
                 name = name.Substring(0, name.Length - suffix.Length);
             }
 
-            return $"{name} Hub";
+            return $"{name.ToStringWithSpaces()} Hub";
         }
         private string GetFormDescription() {
             var name = _repositoryType.Name;
@@ -616,7 +616,7 @@ namespace FerPROJ.Design.Forms {
                 name = name.Substring(0, name.Length - suffix.Length);
             }
 
-            return $"Manage {name} in one place.";
+            return $"Manage {name.ToStringWithSpaces()} in one place.";
         }
         #endregion
     }

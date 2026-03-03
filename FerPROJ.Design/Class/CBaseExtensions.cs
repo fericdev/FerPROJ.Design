@@ -1581,10 +1581,10 @@ namespace FerPROJ.Design.Class {
                     dgv.Columns.Add(column);
                 }
 
-                column.Visible = attribute.IsVisible;
+                column.Visible = attribute.Visible;
 
-                column.HeaderText = !attribute.HeaderText.IsNullOrEmpty() ?
-                                     attribute.HeaderText : column.HeaderText;
+                column.HeaderText = !attribute.Header.IsNullOrEmpty() ?
+                                     attribute.Header : column.HeaderText;
 
             }
 
@@ -1617,7 +1617,7 @@ namespace FerPROJ.Design.Class {
                 if (attribute == null)
                     continue;
 
-                if (attribute.IsEditable) {
+                if (attribute.Editable) {
                     editableColumns.Add(column.Index);
                 }
             }
@@ -1657,7 +1657,7 @@ namespace FerPROJ.Design.Class {
                     continue;
 
                 // determine order (default 1000)
-                int order = attribute?.DisplayOrder ?? 1000;
+                int order = attribute?.Order ?? 1000;
 
                 orderedColumns.Add((column, order));
             }

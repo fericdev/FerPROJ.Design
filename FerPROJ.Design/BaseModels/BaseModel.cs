@@ -10,38 +10,38 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.BaseModels {
     public abstract class BaseModel : CPropertyValidator 
     {
-        [CAttributes(IsVisible = false, DisplayOrder = 1)]
+        [CAttributes(Visible = false, Order = 1)]
         public Guid Id { get; set; } = Guid.NewGuid();
-        [CAttributes(IsVisible = false, DisplayOrder = 2)]
+        [CAttributes(Visible = false, Order = 2)]
         public virtual string FormId { get; set; }
-        [CAttributes(IsVisible = true, DisplayOrder = 3)]
+        [CAttributes(Visible = true, Order = 3)]
         public virtual string Name { get; set; }
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        [CAttributes(HeaderText = "Date Created")]
+        [CAttributes(Header = "Date Created")]
         public virtual string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public virtual string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public DateTime? DateModified { get; set; } = null;
-        [CAttributes(HeaderText = "Created By", IsVisible = false)]
+        [CAttributes(Header = "Created By", Visible = false)]
         public virtual string CreatedBy { get; set; } = CAppConstants.USERNAME;
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public Guid CreatedById { get; set; } = CAppConstants.USER_ID;
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public virtual string ModifiedBy { get; set; }  = string.Empty;
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public Guid? ModifiedById { get; set; } = null;
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }
     public abstract class BaseModelItem : CPropertyValidator 
     {
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public Guid Id { get; set; } = Guid.NewGuid();
-        [CAttributes(IsVisible = false)]
+        [CAttributes(Visible = false)]
         public Guid? ParentId { get; set; }
-        [CAttributes(IsEditable = true)]
+        [CAttributes(Editable = true)]
         public virtual string Description { get; set; }
     }
 }

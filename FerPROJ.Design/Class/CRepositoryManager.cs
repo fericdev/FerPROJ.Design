@@ -20,7 +20,7 @@ namespace FerPROJ.DBHelper.DBCrud {
             if (method == null)
                 throw new InvalidOperationException("Method not found.");
 
-            using (var freshDbContext = (DbContext)Activator.CreateInstance(CAppConstants.DbContextType)) {
+            using (var freshDbContext = (DbContext)Activator.CreateInstance(CAppConstants.DB_CONTEXT_TYPE)) {
                 var instance = Activator.CreateInstance(repositoryType, freshDbContext);
 
                 var finalParameters = BuildParameterList(method, parameters);

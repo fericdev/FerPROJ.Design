@@ -12,9 +12,9 @@ namespace FerPROJ.Design.Class {
             if (notification == null) {
                 return;
             }
-            await DisplayNotification(notification, runTaskWhenClick);
+            await DisplayNotificationAsync(notification, runTaskWhenClick);
         }
-        private static async Task DisplayNotification(NotificationModel notification, Func<Task> action) {
+        private static async Task DisplayNotificationAsync(NotificationModel notification, Func<Task> action) {
             var notifyIcon = new NotifyIcon();
             //
             notifyIcon.Icon = new Icon(SystemIcons.Information, 50, 50);

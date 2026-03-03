@@ -34,7 +34,7 @@ namespace FerPROJ.Design.Class
         #endregion
 
         #region Type Contants
-        public static Type DbContextType { get; set; }
+        public static Type DB_CONTEXT_TYPE { get; set; }
         #endregion
     }
 

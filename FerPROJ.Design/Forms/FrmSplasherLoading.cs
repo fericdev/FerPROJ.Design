@@ -9,10 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FerPROJ.Design.Forms
-{
-    public partial class FrmSplasherLoading : Form
-    {
+namespace FerPROJ.Design.Forms {
+    public partial class FrmSplasherLoading : Form {
         private static FrmSplasherLoading splashForm;
 
         public FrmSplasherLoading() {
@@ -33,8 +31,7 @@ namespace FerPROJ.Design.Forms
             if (splashForm == null) {
                 splashForm = new FrmSplasherLoading();
                 // Show the form asynchronously to ensure it's fully loaded
-                splashForm.Shown += async (s, e) =>
-                {
+                splashForm.Shown += async (s, e) => {
                     await Task.Delay(100); // Optional: delay to simulate loading time
                 };
                 await Task.CompletedTask;
@@ -45,8 +42,7 @@ namespace FerPROJ.Design.Forms
 
         public static void CloseSplash() {
             if (splashForm != null) {
-                splashForm.Invoke((Action)(() =>
-                {
+                splashForm.Invoke((Action)(() => {
                     splashForm.Close();
                     splashForm.Dispose();
                     splashForm = null;
@@ -60,7 +56,11 @@ namespace FerPROJ.Design.Forms
                     return; // Prevent updating if the form or label is disposed
                 }
                 // Set default value for percText if additionText is null
-                var percText = string.IsNullOrEmpty(additionText) ? $"Loading... {perc}%" : additionText;
+                var percText = string.IsNullOrEmpty(additionText) ? $"Loading... {perc}%" : $"{additionText}... {perc}%";
+
+                if (percText.Length > 30) {
+                    splashForm.Width = 230;
+                }
 
                 if (customLabelTitleLoading.InvokeRequired) {
                     customLabelTitleLoading.Invoke(new Action<int, string>(UpdateLoadingLabel), perc, additionText);
@@ -69,7 +69,7 @@ namespace FerPROJ.Design.Forms
                     customLabelTitleLoading.Text = percText;
                 }
             }
-            catch (Exception) { 
+            catch (Exception) {
                 // do nothing, is disposed
             }
         }

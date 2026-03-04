@@ -1730,5 +1730,34 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
+        #region Properties
+        public static PropertyInfo GetPropertyInfo<T>(this T obj, string propertyName) {
+            if (obj == null || string.IsNullOrWhiteSpace(propertyName))
+                return null;
+
+            var type = obj.GetType();
+
+            return type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        }
+        public static PropertyInfo GetPropertyInfo<T>(this T obj, Expression<Func<T, object>> propertyExpression) {
+            if (obj == null)
+                throw new ArgumentNullException(nameof(obj));
+
+            if (propertyExpression == null)
+                throw new ArgumentNullException(nameof(propertyExpression));
+
+            var memberExpression = propertyExpression.Body as MemberExpression;
+
+            // Handle value types (boxing)
+            if (memberExpression == null && propertyExpression.Body is UnaryExpression unaryExpression)
+                memberExpression = unaryExpression.Operand as MemberExpression;
+
+            if (memberExpression.Member is PropertyInfo propertyInfo)
+                return propertyInfo;
+
+            return null;
+        }
+        #endregion
+
     }
 }

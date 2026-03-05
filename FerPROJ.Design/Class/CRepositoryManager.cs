@@ -44,7 +44,7 @@ namespace FerPROJ.DBHelper.DBCrud {
             object value) {
             var parameter = Expression.Parameter(entityType, "x");
             var property = Expression.Property(parameter, propertyName);
-            var constant = Expression.Constant(value);
+            var constant = Expression.Constant(value.ToString());
 
             var body = Expression.Equal(property, constant);
 

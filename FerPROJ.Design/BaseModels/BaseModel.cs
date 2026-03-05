@@ -19,9 +19,9 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Visible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
         [CAttributes(Header = "Date Created")]
-        public virtual string DateCreatedString => DateCreated.ToString("MMMM dd, yyyy hh:mm tt");
+        public virtual string DateCreatedString => DateCreated.ToDateAndTime();
         [CAttributes(Visible = false)]
-        public virtual string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToString("MMMM dd, yyyy hh:mm tt");
+        public virtual string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToDateAndTime();
         [CAttributes(Visible = false)]
         public DateTime? DateModified { get; set; } = null;
         [CAttributes(Header = "Created By", Visible = false)]

@@ -639,7 +639,6 @@ public class CrudOptions {
     public string Other2Name { get; set; }
 
     #region Utilities 
-    public object OnRefreshSearchParameter { get; set; }
     public FormSizeTypes FormSizeType { get; set; } = FormSizeTypes.Default;
     public (string ColumnName, object ColumnValue, Color RowColor) RowColorOnRefreshParameters { get; set; }
     public bool RowColorOnRefreshEnabled { get; set; } = false;

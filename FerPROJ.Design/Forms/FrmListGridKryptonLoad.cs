@@ -7,12 +7,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Forms {
-    public class FrmListGridKryptonLoad<TModel> : FrmListGridKrypton where TModel : BaseModel {
-        public FrmListGridKryptonLoad(Type repoType, CrudOptions crudOptions) : base(repoType, crudOptions) {
+    public class FrmListGridKryptonLoad<TModel, TEntity> : FrmListGridKrypton where TModel : BaseModel {
+        private readonly Expression<Func<TEntity, bool>> _searchParameter;
+        public FrmListGridKryptonLoad(Type repoType, CrudOptions crudOptions, Expression<Func<TEntity, bool>> searchParameter = null) : base(repoType, crudOptions) {
+            _searchParameter = searchParameter;
         }
         protected override async Task RefreshAsync() {
             if (_repositoryType == null)
@@ -20,11 +23,11 @@ namespace FerPROJ.Design.Forms {
 
             _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
-            if (_crudOptions?.OnRefreshSearchParameter != null) {
+            if (!_searchParameter.IsNullOrEmpty()) {
                 var result = CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
                     _repositoryType,
                     "GetViewModelWithSearchAsync",
-                    _crudOptions?.OnRefreshSearchParameter,
+                    _searchParameter,
                     searchValue,
                     dateFrom,
                     dateTo,

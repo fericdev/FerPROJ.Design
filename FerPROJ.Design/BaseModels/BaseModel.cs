@@ -38,6 +38,12 @@ namespace FerPROJ.Design.BaseModels {
     public abstract class BaseModel<TItem> : BaseModel where TItem : BaseModelItem
     {
         public virtual List<TItem> Items { get; set; } = new List<TItem>();
+        public override bool DataValidation() {
+            if (Items.IsNullOrEmpty()) {
+                return AddErrorMessage("Please add at least one item.");
+            }
+            return true;
+        }
     }
     public abstract class BaseModelItem : CPropertyValidator 
     {
@@ -45,7 +51,7 @@ namespace FerPROJ.Design.BaseModels {
         public Guid Id { get; set; } = Guid.NewGuid();
         [CAttributes(Visible = false)]
         public Guid? ParentId { get; set; }
-        [CAttributes(Editable = true)]
+        [CAttributes(Visible = false)]
         public virtual string Description { get; set; }
     }
 }

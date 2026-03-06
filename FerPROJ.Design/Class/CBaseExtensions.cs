@@ -1064,21 +1064,22 @@ namespace FerPROJ.Design.Class {
                 if (total <= batchSize) {
                     // Load all data at once if less than batch size
                     worker.ReportProgress(100, data);
+
                     FrmSplasherLoading.SetLoadingText(100);
                 }
                 else {
                     // Load data in batches
                     while (currentIndex < total) {
+
                         var batch = data.Skip(currentIndex).Take(batchSize).ToList();
+
                         currentIndex += batchSize;
 
                         int progress = (int)((double)currentIndex / total * 100);
-                        // Report progress to the UI thread to append the batch
-                        worker.ReportProgress(progress, batch);
-                        FrmSplasherLoading.SetLoadingText(progress);
 
-                        // Optional delay to smoothen UI load (tweak as needed)
-                        await Task.Delay(10);
+                        worker.ReportProgress(progress, batch);
+
+                        FrmSplasherLoading.SetLoadingText(progress);
                     }
                 }
             };
@@ -1105,6 +1106,7 @@ namespace FerPROJ.Design.Class {
                 }
 
                 Console.WriteLine($"{batch.Count} items added to DataSource.");
+
                 await Task.CompletedTask;
 
             };

@@ -1008,21 +1008,22 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Binding Class 
-        public static async Task LoadDataAsync<TModel>(
+        public static async Task LoadDataAsync<TModel, TEntity>(
             this BindingSource bindingSource, 
             Type repositoryType, 
-            object searchParameter = null,
+            Func<TEntity, bool> searchParameterEntity = null,
             Func<TModel, bool> searchParameterModel = null) {
 
             await FrmSplasherLoading.ShowSplashAsync();
 
             var data = new List<TModel>();
 
-            if (searchParameter.IsNullOrEmpty()) {
+            if (!searchParameterEntity.IsNullOrEmpty()) {
                 // Fetch all data asynchronously
                 var result = await CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
                     repositoryType,
                     "GetViewModelWithSearchAsync",
+                    searchParameterEntity,
                     null,
                     null,
                     null,
@@ -1037,7 +1038,6 @@ namespace FerPROJ.Design.Class {
                 var result = await CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
                     repositoryType,
                     "GetViewModelWithSearchAsync",
-                    searchParameter,
                     null,
                     null,
                     null,

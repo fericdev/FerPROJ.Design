@@ -1011,7 +1011,7 @@ namespace FerPROJ.Design.Class {
         public static async Task LoadDataAsync<TModel, TEntity>(
             this BindingSource bindingSource, 
             Type repositoryType, 
-            Func<TEntity, bool> searchParameterEntity = null,
+            Expression<Func<TEntity, bool>> searchParameterEntity = null,
             Func<TModel, bool> searchParameterModel = null) {
 
             await FrmSplasherLoading.ShowSplashAsync();

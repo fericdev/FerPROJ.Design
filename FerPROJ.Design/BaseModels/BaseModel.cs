@@ -35,6 +35,10 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Visible = false)]
         public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }
+    public abstract class BaseModel<TItem> : BaseModel where TItem : BaseModelItem
+    {
+        public virtual List<TItem> Items { get; set; } = new List<TItem>();
+    }
     public abstract class BaseModelItem : CPropertyValidator 
     {
         [CAttributes(Visible = false)]

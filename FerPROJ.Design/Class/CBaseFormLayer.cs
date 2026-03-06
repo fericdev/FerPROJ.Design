@@ -34,7 +34,7 @@ namespace FerPROJ.Design.Class {
                     frm.CurrentManageMode = false;
                     frm.ShowDialog();
                     id = frm.Form_IdTrack.ToGuid();
-                    return Task.FromResult(true);
+                    return Task.FromResult(!id.IsNullOrEmpty());
                 }
             }
         }

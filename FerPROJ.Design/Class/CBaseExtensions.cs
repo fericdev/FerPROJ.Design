@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FerPROJ.DBHelper.DBCrud;
 using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Controls;
 using FerPROJ.Design.Forms;
@@ -7,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -925,9 +927,9 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Binding Class Test
-        public static async Task LoadDataAsync<T>(
+        public static async Task LoadDataAsync<TModel>(
             this BindingSource bindingSource,
-            Task<IEnumerable<T>> dataFetchTask,
+            Task<IEnumerable<TModel>> dataFetchTask,
             CComboBoxKrypton comboBoxPage,
             CComboBoxKrypton comboBoxLimit,
             int dataPage,
@@ -971,12 +973,12 @@ namespace FerPROJ.Design.Class {
             };
 
             Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
-                var batch = (List<T>)e.UserState;
+                var batch = (List<TModel>)e.UserState;
 
                 bindingSource.SuspendBinding();
 
                 // Replace datasource (important: paging should NOT append)
-                bindingSource.DataSource = new List<T>(batch);
+                bindingSource.DataSource = new List<TModel>(batch);
 
                 bindingSource.ResumeBinding();
 
@@ -1006,14 +1008,49 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Binding Class 
-        public static async Task LoadDataAsync<T>(
-            this BindingSource bindingSource,
-            Task<IEnumerable<T>> dataFetchTask) {
+        public static async Task LoadDataAsync<TModel>(
+            this BindingSource bindingSource, 
+            Type repositoryType, 
+            object searchParameter = null,
+            Func<TModel, bool> searchParameterModel = null) {
 
             await FrmSplasherLoading.ShowSplashAsync();
 
-            // Fetch all data asynchronously
-            var data = (await dataFetchTask).ToList();
+            var data = new List<TModel>();
+
+            if (searchParameter.IsNullOrEmpty()) {
+                // Fetch all data asynchronously
+                var result = await CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
+                    repositoryType,
+                    "GetViewModelWithSearchAsync",
+                    null,
+                    null,
+                    null,
+                    int.MaxValue
+                );
+
+                // Fetch all data asynchronously
+                data = result.ToList();
+            }
+            else {
+                // Fetch all data asynchronously
+                var result = await CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
+                    repositoryType,
+                    "GetViewModelWithSearchAsync",
+                    searchParameter,
+                    null,
+                    null,
+                    null,
+                    int.MaxValue
+                );
+
+                // Fetch all data asynchronously
+                data = result.ToList();
+            }
+
+            if (!searchParameterModel.IsNullOrEmpty()) {
+                data = data.Where(searchParameterModel).ToList();
+            }
 
             // Clear
             bindingSource.Clear();
@@ -1047,17 +1084,17 @@ namespace FerPROJ.Design.Class {
             };
 
             Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
-                var batch = (List<T>)e.UserState;
+                var batch = (List<TModel>)e.UserState;
 
                 // Suspend updates for smoother performance
                 bindingSource.SuspendBinding();
 
-                if (bindingSource.DataSource is List<T> currentData) {
+                if (bindingSource.DataSource is List<TModel> currentData) {
                     currentData.AddRange(batch);  // Add new batch
                 }
                 else {
                     // First batch initialization
-                    bindingSource.DataSource = new List<T>(batch);
+                    bindingSource.DataSource = new List<TModel>(batch);
                 }
 
                 bindingSource.ResumeBinding();

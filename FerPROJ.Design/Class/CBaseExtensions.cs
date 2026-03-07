@@ -1008,15 +1008,16 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Binding Class 
-        public static async Task LoadDataAsync<TModel, TEntity>(
+        public static async Task LoadDataAsync<TModel, TEntity, TRepository>(
             this BindingSource bindingSource, 
-            Type repositoryType, 
             Expression<Func<TEntity, bool>> searchParameterEntity = null,
             Func<TModel, bool> searchParameterModel = null) {
 
             await FrmSplasherLoading.ShowSplashAsync();
 
             var data = new List<TModel>();
+
+            var repositoryType = typeof(TRepository);
 
             if (!searchParameterEntity.IsNullOrEmpty()) {
                 // Fetch all data asynchronously

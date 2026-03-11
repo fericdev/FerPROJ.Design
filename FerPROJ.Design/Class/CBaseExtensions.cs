@@ -1779,6 +1779,12 @@ namespace FerPROJ.Design.Class {
 
             return type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         }
+        public static PropertyInfo GetPropertyInfo(this Type obj, string propertyName) {
+            if (obj == null || string.IsNullOrWhiteSpace(propertyName))
+                return null;
+
+            return obj.GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        }
         public static PropertyInfo GetPropertyInfo<T>(this T obj, Expression<Func<T, object>> propertyExpression) {
             if (obj == null)
                 throw new ArgumentNullException(nameof(obj));

@@ -21,6 +21,7 @@ namespace FerPROJ.Design.Forms {
     public partial class FrmListGridKrypton : KryptonForm {
 
         #region Fields
+        private bool _firstLoad = true;
         private Timer _debounceTimer;
         private event EventHandler _manageModeChanged;
         private bool? _currentManageMode;
@@ -283,6 +284,7 @@ namespace FerPROJ.Design.Forms {
             try {
                 await RefreshAsync();
                 await InitializeFormPropertiesAsync();
+                _firstLoad = false;
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message, "Error");
@@ -310,12 +312,18 @@ namespace FerPROJ.Design.Forms {
         }
 
         private async void ComboBoxKryptonDataLimit_SelectedIndexChanged(object sender, EventArgs e) {
+            if (_firstLoad)
+                return;
+
             if (ComboBoxKryptonDataLimit.SelectedIndex != -1) {
                 dataLimit = ComboBoxKryptonDataLimit.SelectedValue.To<int>();
                 await RefreshAsync();
             }
         }
         private async void ComboBoxKryptonPage_SelectedIndexChanged(object sender, EventArgs e) {
+            if (_firstLoad)
+                return;
+
             if (ComboBoxKryptonPage.SelectedIndex != -1) {
                 dataPage = ComboBoxKryptonPage.SelectedValue.To<int>();
                 await RefreshAsync();

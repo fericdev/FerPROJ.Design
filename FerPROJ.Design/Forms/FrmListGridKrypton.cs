@@ -390,6 +390,7 @@ namespace FerPROJ.Design.Forms {
         private async void tsbMainRefresh_Click(object sender, EventArgs e) {
             try {
                 await RefreshAsync();
+                await CEventManager.RaiseMethodsOnListFormRefreshAsync();
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message, "Error");

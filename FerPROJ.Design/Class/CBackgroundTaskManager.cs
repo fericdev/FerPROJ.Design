@@ -51,14 +51,14 @@ namespace FerPROJ.Design.Class {
         }
 
         public static void RunTask(this Task task) {
-            try {
-                task.Wait();
-            }
-            catch (Exception ex) {
-                // Log the exception to avoid unobserved exceptions
-                Console.WriteLine($"Task error: {ex.Message}");
-                // You can also integrate logging frameworks here
-            }
+            _ = Task.Run(async () => {
+                try {
+                    await task.ConfigureAwait(false);
+                }
+                catch (Exception ex) {
+                    Console.WriteLine($"Task error: {ex.Message}");
+                }
+            });
         }
         public static TResult RunTask<TResult>(this Task<TResult> task) {
             try {

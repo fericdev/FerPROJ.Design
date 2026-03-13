@@ -21,8 +21,6 @@ namespace FerPROJ.Design.Forms {
             if (_repositoryType == null)
                 return;
 
-            await FrmSplasherLoading.ShowSplashAsync();
-
             _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
             if (!_searchParameter.IsNullOrEmpty()) {

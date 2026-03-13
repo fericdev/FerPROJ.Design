@@ -12,6 +12,8 @@ namespace FerPROJ.Design.Class {
         public static Func<Task> OnListFormRefreshAsync;
         public static Func<Task> OnManageFormClosedAsync;
 
+        public static Func<Task> OnSingleManageFormClosedAsync;
+
         public static async Task RaiseMethodsOnListFormClosedAsync() {
             if (OnListFormClosedAsync != null) {
                 await OnListFormClosedAsync();
@@ -32,7 +34,10 @@ namespace FerPROJ.Design.Class {
                 await OnListFormRefreshAsync();
             }
         }
-
-
+        public static async Task RaiseMethodsOnSingleManageFormClosedAsync() {
+            if (OnSingleManageFormClosedAsync != null) {
+                await OnSingleManageFormClosedAsync();
+            }
+        }
     }
 }

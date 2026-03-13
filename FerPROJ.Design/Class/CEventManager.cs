@@ -12,31 +12,24 @@ namespace FerPROJ.Design.Class {
         public static Func<Task> OnListFormRefreshAsync;
         public static Func<Task> OnManageFormClosedAsync;
 
-        public static Func<Task> OnSingleManageFormClosedAsync;
-
         public static async Task RaiseMethodsOnListFormClosedAsync() {
             if (OnListFormClosedAsync != null) {
-                await OnListFormClosedAsync();
+                OnListFormClosedAsync().RunTask();
             }
         }
         public static async Task RaiseMethodsOnListFormDeleteAsync() {
             if (OnListFormDeleteAsync != null) {
-                await OnListFormDeleteAsync();
+                OnListFormDeleteAsync().RunTask();
             }
         }
         public static async Task RaiseMethodsOnManageFormClosedAsync() {
             if (OnManageFormClosedAsync != null) {
-                await OnManageFormClosedAsync();
+                OnManageFormClosedAsync().RunTask();
             }
         }
         public static async Task RaiseMethodsOnListFormRefreshAsync() {
             if (OnListFormRefreshAsync != null) {
-                await OnListFormRefreshAsync();
-            }
-        }
-        public static async Task RaiseMethodsOnSingleManageFormClosedAsync() {
-            if (OnSingleManageFormClosedAsync != null) {
-                await OnSingleManageFormClosedAsync();
+                OnListFormRefreshAsync().RunTask();
             }
         }
     }

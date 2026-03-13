@@ -82,7 +82,7 @@ namespace FerPROJ.Design.Class {
             CancellationToken cancellationToken = default) {
             while (!cancellationToken.IsCancellationRequested) {
                 try {
-                    await taskFactory(); // run a new task each cycle
+                    taskFactory().RunTask();
                 }
                 catch (Exception ex) {
                     LogError(ex);

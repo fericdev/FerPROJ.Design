@@ -28,20 +28,17 @@ namespace FerPROJ.Design.Class {
                 WorkerSupportsCancellation = true
             };
 
-            backgroundWorker.DoWork += (sender, e) =>
-            {
+            backgroundWorker.DoWork += (sender, e) => {
                 var worker = sender as BackgroundWorker;
                 var task = doWorkAsync(worker, e);
                 task.Wait(); // Ensure the async work completes before moving on
             };
 
-            backgroundWorker.ProgressChanged += async (sender, e) =>
-            {
+            backgroundWorker.ProgressChanged += async (sender, e) => {
                 await progressChangedAsync(e);
             };
 
-            backgroundWorker.RunWorkerCompleted += async (sender, e) =>
-            {
+            backgroundWorker.RunWorkerCompleted += async (sender, e) => {
                 await runWorkerCompletedAsync(e);
             };
 
@@ -54,29 +51,22 @@ namespace FerPROJ.Design.Class {
         }
 
         public static void RunTask(this Task task) {
-
-            _ = Task.Run(async () =>
-            {
-                try {
-                    await task.ConfigureAwait(false);
-                }
-                catch (Exception ex) {
-                    // Log the exception to avoid unobserved exceptions
-                    Console.WriteLine($"Task error: {ex.Message}");
-                    // You can also integrate logging frameworks here
-                }
-            });
-        
+            try {
+                task.Wait();
+            }
+            catch (Exception ex) {
+                // Log the exception to avoid unobserved exceptions
+                Console.WriteLine($"Task error: {ex.Message}");
+                // You can also integrate logging frameworks here
+            }
         }
         public static TResult RunTask<TResult>(this Task<TResult> task) {
             try {
-                return task.ConfigureAwait(false)
-                           .GetAwaiter()
-                           .GetResult();
+                task.Wait();
+                return task.Result;
             }
             catch (Exception ex) {
-                Console.WriteLine($"Task error: {ex.Message}");
-                throw;
+                return default;
             }
         }
 

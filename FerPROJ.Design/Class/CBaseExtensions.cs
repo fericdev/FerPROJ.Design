@@ -956,19 +956,9 @@ namespace FerPROJ.Design.Class {
             bindingSource.Clear();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
-
-                // Clamp page to valid range
-                dataPage = Math.Max(1, Math.Min(dataPage, totalPages));
-
-                // 3️⃣ Compute slice for selected page
-                int skip = (dataPage - 1) * dataLimit;
-
-                var pageData = data.Skip(skip)
-                                   .Take(dataLimit)
-                                   .ToList();
-
+          
                 // 4️⃣ Report that page only
-                worker.ReportProgress(100, pageData);
+                worker.ReportProgress(100, data);
 
                 await Task.Delay(10);
             };

@@ -74,8 +74,6 @@ namespace FerPROJ.Design.Forms {
 
             List<Task> runningTasks = null;
 
-            Task backgroundTask = null;
-
             // Start the progress update loop
             while (currentPercentage <= 100) {
 
@@ -110,9 +108,10 @@ namespace FerPROJ.Design.Forms {
                     instance.SetStatus("Done . . .");
                     Application.DoEvents();
                     // After the delay, run the long-running tasks asynchronously
-                    backgroundTask = Task.Run(async () => {
+                    _ = Task.Run(async () => {
                         await tasks.RunTasksInBackgroundAsync();
                     });
+
                     await PauseAsync();
 
                     break; // Exit the loop when the splash screen is closed
@@ -128,11 +127,6 @@ namespace FerPROJ.Design.Forms {
 
             // Close the splash screen after all tasks are completed
             CloseSplash();
-
-            // Await the background task after closing the splash
-            if (backgroundTask != null) {
-                await backgroundTask;
-            }
         }
 
         public static void CloseSplash() {

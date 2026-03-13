@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FerPROJ.Design.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -71,6 +72,28 @@ namespace FerPROJ.Design.Forms {
             }
             catch (Exception) {
                 // do nothing, is disposed
+            }
+        }
+        // Override WndProc to handle messages from Win32
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == CWindows32DLL.WM_NCHITTEST) {
+                base.WndProc(ref m);
+                // Check if the mouse is over a draggable area (e.g., Panel)
+                if (this.panelLoading.ClientRectangle.Contains(this.panelLoading.PointToClient(Cursor.Position))) {
+                    m.Result = (IntPtr)CWindows32DLL.HTCAPTION;
+                    return;
+                }
+            }
+
+            base.WndProc(ref m);
+        }
+
+        // Mouse down event to start dragging the form
+        private void panel_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                // Start dragging
+                CWindows32DLL.ReleaseCapture();
+                CWindows32DLL.SendMessage(this.Handle, 0x112, 0xF012, 0);
             }
         }
     }

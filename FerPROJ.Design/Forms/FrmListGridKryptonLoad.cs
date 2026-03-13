@@ -26,36 +26,40 @@ namespace FerPROJ.Design.Forms {
             _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
             if (!_searchParameter.IsNullOrEmpty()) {
-                var result = CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
+                var result = await CRepositoryManager.ExecuteMethodAsync<(IEnumerable<TModel> data, int totalCount)>(
                     _repositoryType,
                     "GetViewModelWithSearchAsync",
                     _searchParameter,
                     searchValue,
                     dateFrom,
                     dateTo,
-                    int.MaxValue
+                    dataPage,
+                    dataLimit
                 );
                 await _baseBindingSource.LoadDataAsync(
-                    result,
+                    result.data,
                     ComboBoxKryptonPage,
                     ComboBoxKryptonDataLimit,
+                    result.totalCount,
                     dataPage,
                     dataLimit
                 );
             }
             else {
-                var result = CRepositoryManager.ExecuteMethodAsync<IEnumerable<TModel>>(
+                var result = await CRepositoryManager.ExecuteMethodAsync<(IEnumerable<TModel> data, int totalCount)>(
                     _repositoryType,
                     "GetViewModelWithSearchAsync",
                     searchValue,
                     dateFrom,
                     dateTo,
-                    int.MaxValue
+                    dataPage,
+                    dataLimit
                 );
                 await _baseBindingSource.LoadDataAsync(
-                    result,
+                    result.data,
                     ComboBoxKryptonPage,
                     ComboBoxKryptonDataLimit,
+                    result.totalCount,
                     dataPage,
                     dataLimit
                 );

@@ -926,6 +926,88 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
+        #region Binding Class Test 2
+        public static async Task LoadDataAsync<TModel>(
+            this BindingSource bindingSource,
+            IEnumerable<TModel> dataItems,
+            CComboBoxKrypton comboBoxPage,
+            CComboBoxKrypton comboBoxLimit,
+            int dataItemsCount,
+            int dataPage,
+            int dataLimit) {
+
+            await FrmSplasherLoading.ShowSplashAsync();
+
+            // Fetch all data asynchronously
+            var data = dataItems.ToList();
+
+            int total = dataItemsCount;
+
+            // 1️⃣ Compute pages
+            int totalPages = Math.Max(1, (int)Math.Ceiling(total / (double)dataLimit));
+
+            comboBoxPage.FillComboBox(totalPages, 1, "Page");
+
+            int totalLimits = ((total + 20 - 1) / 20) * 20;
+
+            comboBoxLimit.FillComboBox(totalLimits, 20, "Limit to");
+
+            // Clear
+            bindingSource.Clear();
+
+            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
+
+                // Clamp page to valid range
+                dataPage = Math.Max(1, Math.Min(dataPage, totalPages));
+
+                // 3️⃣ Compute slice for selected page
+                int skip = (dataPage - 1) * dataLimit;
+
+                var pageData = data.Skip(skip)
+                                   .Take(dataLimit)
+                                   .ToList();
+
+                // 4️⃣ Report that page only
+                worker.ReportProgress(100, pageData);
+
+                await Task.Delay(10);
+            };
+
+            Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
+                var batch = (List<TModel>)e.UserState;
+
+                bindingSource.SuspendBinding();
+
+                // Replace datasource (important: paging should NOT append)
+                bindingSource.DataSource = new List<TModel>(batch);
+
+                bindingSource.ResumeBinding();
+
+                if (e.ProgressPercentage == 100) {
+                    bindingSource.ResetBindings(false);
+                }
+
+                Console.WriteLine($"Loaded {batch.Count} items for selected page.");
+
+                await Task.CompletedTask;
+            };
+
+            Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
+
+                FrmSplasherLoading.SetLoadingText(100);
+
+                FrmSplasherLoading.CloseSplash();
+
+                Console.WriteLine("All data loaded without freezing the UI.");
+
+                await Task.CompletedTask;
+            };
+
+            await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
+
+        }
+        #endregion
+
         #region Binding Class Test
         public static async Task LoadDataAsync<TModel>(
             this BindingSource bindingSource,

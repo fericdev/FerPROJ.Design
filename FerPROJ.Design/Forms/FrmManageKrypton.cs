@@ -263,6 +263,8 @@ namespace FerPROJ.Design.Forms {
             this.ShowDialog();
             return await CurrentFormResult;
         }
+
+        #region Set parameter
         private void BuildParameter(List<(string PropertyName, object PropertyValue)> parameters = null) {
             if (parameters.IsNullOrEmpty())
                 return;
@@ -270,42 +272,55 @@ namespace FerPROJ.Design.Forms {
             var formType = this.GetType();
 
             foreach (var parameter in parameters) {
-                var property = formType.GetProperty(parameter.PropertyName,
-                    BindingFlags.Public | BindingFlags.Instance);
-
-                if (property == null)
-                    continue;
-
-                if (!property.CanWrite)
-                    continue;
-
                 var value = parameter.PropertyValue;
 
-                if (value == null) {
-                    if (!property.PropertyType.IsValueType || Nullable.GetUnderlyingType(property.PropertyType) != null) {
-                        property.SetValue(this, null);
-                    }
-
+                // Try property first
+                var property = formType.GetProperty(parameter.PropertyName, BindingFlags.Public | BindingFlags.Instance);
+                if (property != null && property.CanWrite) {
+                    SetMemberValue(property.PropertyType, v => property.SetValue(this, v), value);
                     continue;
                 }
 
-                var targetType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
-                var valueType = value.GetType();
-
-                if (targetType.IsAssignableFrom(valueType)) {
-                    property.SetValue(this, value);
-                }
-                else {
-                    try {
-                        var convertedValue = Convert.ChangeType(value, targetType);
-                        property.SetValue(this, convertedValue);
-                    }
-                    catch {
-                        // ignore invalid type assignment
-                    }
+                // Try field next
+                var field = formType.GetField(parameter.PropertyName, BindingFlags.Public | BindingFlags.Instance);
+                if (field != null) {
+                    SetMemberValue(field.FieldType, v => field.SetValue(this, v), value);
                 }
             }
         }
+        private void SetMemberValue(Type targetType, Action<object> setter, object value) {
+            if (value == null) {
+                if (!targetType.IsValueType || Nullable.GetUnderlyingType(targetType) != null) {
+                    setter(null);
+                }
+                return;
+            }
+
+            var actualTargetType = Nullable.GetUnderlyingType(targetType) ?? targetType;
+
+            try {
+                if (actualTargetType == typeof(Guid)) {
+                    if (value is Guid guidValue) {
+                        setter(guidValue);
+                    }
+                    else if (Guid.TryParse(value.ToString(), out var parsedGuid)) {
+                        setter(parsedGuid);
+                    }
+                }
+                else if (actualTargetType.IsAssignableFrom(value.GetType())) {
+                    setter(value);
+                }
+                else {
+                    var convertedValue = Convert.ChangeType(value, actualTargetType);
+                    setter(convertedValue);
+                }
+            }
+            catch {
+                // ignore invalid assignment
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Hide/Show Properties

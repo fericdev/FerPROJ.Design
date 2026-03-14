@@ -1,12 +1,13 @@
-﻿using FerPROJ.Design.Class;
+﻿using ComponentFactory.Krypton.Toolkit;
+using FerPROJ.Design.BaseModels;
+using FerPROJ.Design.Class;
 using FerPROJ.Design.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
+using System.Reflection;
 using System.Threading.Tasks;
-using FerPROJ.Design.BaseModels;
+using System.Windows.Forms;
 using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Forms {
@@ -252,6 +253,56 @@ namespace FerPROJ.Design.Forms {
                 }
                 else if (childControl.HasChildren) {
                     ClearAllTextBoxes(childControl);
+                }
+            }
+        }
+        public async Task<bool> CurrentFormResultAsync(FormMode formMode, Guid id, List<(string PropertyName, object PropertyValue)> parameters = null) {
+            BuildParameter(parameters);
+            this.Manage_IdTrack = id;
+            this.CurrentFormMode = formMode;
+            this.ShowDialog();
+            return await CurrentFormResult;
+        }
+        private void BuildParameter(List<(string PropertyName, object PropertyValue)> parameters = null) {
+            if (parameters.IsNullOrEmpty())
+                return;
+
+            var formType = this.GetType();
+
+            foreach (var parameter in parameters) {
+                var property = formType.GetProperty(parameter.PropertyName,
+                    BindingFlags.Public | BindingFlags.Instance);
+
+                if (property == null)
+                    continue;
+
+                if (!property.CanWrite)
+                    continue;
+
+                var value = parameter.PropertyValue;
+
+                if (value == null) {
+                    if (!property.PropertyType.IsValueType || Nullable.GetUnderlyingType(property.PropertyType) != null) {
+                        property.SetValue(this, null);
+                    }
+
+                    continue;
+                }
+
+                var targetType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+                var valueType = value.GetType();
+
+                if (targetType.IsAssignableFrom(valueType)) {
+                    property.SetValue(this, value);
+                }
+                else {
+                    try {
+                        var convertedValue = Convert.ChangeType(value, targetType);
+                        property.SetValue(this, convertedValue);
+                    }
+                    catch {
+                        // ignore invalid type assignment
+                    }
                 }
             }
         }

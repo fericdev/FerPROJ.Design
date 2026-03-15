@@ -44,6 +44,12 @@ namespace FerPROJ.Design.BaseModels {
             }
             return true;
         }
+        public virtual void AddItem(TItem item) {
+            if (Items.Contains(item))
+                return;
+
+            Items.Add(item);
+        }
     }
     public abstract class BaseModelItem : CPropertyValidator 
     {

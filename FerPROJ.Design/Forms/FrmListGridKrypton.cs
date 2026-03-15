@@ -45,6 +45,7 @@ namespace FerPROJ.Design.Forms {
         public int dataLimit = 20;
         public int dataPage = 1;
         public string Form_IdTrack;
+        public List<object> Form_IdTracks;
         public Dictionary<Keys, Func<Task>> keyboardShortcuts = new Dictionary<Keys, Func<Task>>();
         public Dictionary<Keys, Func<Task<bool>>> boolKeyboardShortcuts = new Dictionary<Keys, Func<Task<bool>>>();
         #endregion
@@ -521,7 +522,7 @@ namespace FerPROJ.Design.Forms {
         }
 
         protected async virtual Task<bool> GetSelectedDataAsync() {
-            return await Task.FromResult(baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack));
+            return await Task.FromResult(baseModelCDatagridview.GetSelectedValues(0, out Form_IdTracks));
         }
 
         protected async virtual Task<bool> AddNewItemAsync() {

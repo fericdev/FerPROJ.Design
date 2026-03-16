@@ -495,7 +495,7 @@ namespace FerPROJ.Design.Class {
 
             return result;
         }
-        public static T To<T>(this object value) where T : struct {
+        public static T To<T>(this object value) {
 
             if (value == null) {
                 return (T)default;
@@ -1841,6 +1841,28 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Properties
+        public static TType GetPropertyValue<TType>(this object obj, string propertyName) {
+            try {
+                if (obj == null)
+                    return default;
+
+                var propertyInfo = obj.GetPropertyInfo(propertyName);
+                if (propertyInfo == null)
+                    return default;
+
+                var value = propertyInfo.GetValue(obj);
+                if (value == null)
+                    return default;
+
+                if (value is TType variable)
+                    return variable;
+
+                return value.To<TType>();
+            }
+            catch {
+                return default;
+            }
+        }
         public static PropertyInfo GetPropertyInfo<T>(this T obj, string propertyName) {
             if (obj == null || string.IsNullOrWhiteSpace(propertyName))
                 return null;

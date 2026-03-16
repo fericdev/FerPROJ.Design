@@ -799,8 +799,6 @@ namespace FerPROJ.Design.Class {
             if (dateFrom.IsNullOrEmpty() && dateTo.IsNullOrEmpty())
                 return true;
 
-            dateFrom = dateFrom.IsCurrentDate() ? null : dateFrom;
-
             bool afterStart = dateFrom.IsNullOrEmpty() || source >= dateFrom.Value.Date;
 
             bool beforeEnd = dateTo.IsNullOrEmpty() || source <= dateTo.Value.Date.AddDays(1).AddTicks(-1);

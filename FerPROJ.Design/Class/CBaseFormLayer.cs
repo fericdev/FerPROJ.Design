@@ -11,13 +11,20 @@ using System.Threading.Tasks;
 using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Class {
-    public class CBaseFormLayer {
+    public static class CBaseFormLayer {
         public static Task<bool> ManageAddressAsync(FormMode formMode, AddressModel addressDTO, Guid id) {
             using (var frm = new FrmAddressDetail(addressDTO)) {
                 frm.CurrentFormMode = formMode;
                 frm.Manage_IdTrack = id;
                 frm.ShowDialog();
                 addressDTO = frm.Address;
+                return frm.CurrentFormResult;
+            }
+        }
+        public static Task<bool> ManageAsync<TForm>(Action<TForm> parameters = null) where TForm : FrmManageKrypton {
+            using (var frm = Activator.CreateInstance<TForm>()) {
+                frm?.Invoke(parameters);
+                frm.ShowDialog();
                 return frm.CurrentFormResult;
             }
         }

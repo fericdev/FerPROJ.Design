@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Class {
-    public static class CBaseFormLayer {
+    public class CBaseFormLayer {
         public static Task<bool> ManageAddressAsync(FormMode formMode, AddressModel addressDTO, Guid id) {
             using (var frm = new FrmAddressDetail(addressDTO)) {
                 frm.CurrentFormMode = formMode;
@@ -23,7 +23,7 @@ namespace FerPROJ.Design.Class {
         }
         public static Task<bool> ManageAsync<TForm>(Action<TForm> parameters = null) where TForm : FrmManageKrypton {
             using (var frm = Activator.CreateInstance<TForm>()) {
-                frm?.Invoke(parameters);
+                parameters?.Invoke(frm);
                 frm.ShowDialog();
                 return frm.CurrentFormResult;
             }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Class {
-    public class CBaseFormLayer {
+    public class CFormLayer {
         public static Task<bool> ManageAddressAsync(FormMode formMode, AddressModel addressDTO, Guid id) {
             using (var frm = new FrmAddressDetail(addressDTO)) {
                 frm.CurrentFormMode = formMode;

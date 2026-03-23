@@ -126,7 +126,7 @@
     <Compile Include="Class\CAttributes.cs" />
     <Compile Include="Class\CBaseEnums.cs" />
     <Compile Include="Class\CBaseExtensions.cs" />
-    <Compile Include="Class\CBaseFormLayer.cs" />
+    <Compile Include="Class\CFormLayer.cs" />
     <Compile Include="Class\CMappingExtension.cs" />
     <Compile Include="Class\CNotificationManager.cs" />
     <Compile Include="Class\CBaseReportLayer.cs" />

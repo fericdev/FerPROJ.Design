@@ -23,6 +23,9 @@ namespace FerPROJ.Design.Class {
         }
         public static Task<bool> ManageAsync<TForm>(Action<TForm> parameters = null) where TForm : FrmManageKrypton {
             using (var frm = Activator.CreateInstance<TForm>()) {
+                if (parameters.IsNullOrEmpty()) {
+                    parameters = new Action<TForm>(c => c.CurrentFormMode = FormMode.Add);
+                }
                 parameters?.Invoke(frm);
                 frm.ShowDialog();
                 return frm.CurrentFormResult;

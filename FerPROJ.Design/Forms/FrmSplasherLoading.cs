@@ -39,6 +39,15 @@ namespace FerPROJ.Design.Forms {
                 splashForm.Show();
                 splashForm.Update();
             }
+            else {
+                // Show the form asynchronously to ensure it's fully loaded
+                splashForm.Shown += async (s, e) => {
+                    await Task.Delay(100); // Optional: delay to simulate loading time
+                };
+                await Task.CompletedTask;
+                splashForm.Show();
+                splashForm.Update();
+            }
         }
 
         public static void CloseSplash() {

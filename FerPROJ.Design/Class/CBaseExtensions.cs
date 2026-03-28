@@ -306,6 +306,9 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Conversion
+        public static string ToJoinedString<T>(this IEnumerable<T> values, string separator = ", ") {
+            return string.Join(separator, values);
+        }
         public static Guid ToGuid(this string value) {
             return value.To<Guid>();
         }

@@ -47,7 +47,7 @@ namespace FerPROJ.Design.Class {
             using (var frm = new FrmListGridKryptonLoad<TModel, TEntity>(typeof(TRepository), new CrudOptions(), searchParameter)) {
                 frm.CurrentManageMode = false;
                 frm.ShowDialog();
-                id = frm.Form_IdTracks.Select(c => c.To<Guid>()).FirstOrDefault();
+                id = frm.Form_IdTracks?.Select(c => c.To<Guid>()).FirstOrDefault() ?? Guid.Empty;
                 return Task.FromResult(!id.IsNullOrEmpty());
             }
         }
@@ -56,7 +56,7 @@ namespace FerPROJ.Design.Class {
             using (var frm = new FrmListGridKryptonLoad<TModel, TEntity>(typeof(TRepository), new CrudOptions(), searchParameter)) {
                 frm.CurrentManageMode = false;
                 frm.ShowDialog();
-                ids = frm.Form_IdTracks.Select(c => c.To<Guid>()).ToList();
+                ids = frm.Form_IdTracks?.Select(c => c.To<Guid>()).ToList();
                 return Task.FromResult(!ids.IsNullOrEmpty());
             }
         }

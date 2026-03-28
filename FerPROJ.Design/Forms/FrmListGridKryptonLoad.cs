@@ -74,6 +74,10 @@ namespace FerPROJ.Design.Forms {
                 );
             }
 
+            if (!_crudOptions.RowContextMenuButtons.IsNullOrEmpty()) {
+                _baseDatagridview.OpenContextMenu(_crudOptions.RowContextMenuButtons);
+            }
+
             FrmSplasherLoading.CloseSplash();
 
         }

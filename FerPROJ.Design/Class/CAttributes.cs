@@ -12,7 +12,16 @@ namespace FerPROJ.Design.Class {
         public bool Editable { get; set; } = false;
         public int Order { get; set; } = 1000;
         public string Header { get; set; } = string.Empty;
+        public FormatTypes FormatType { get; set; } = FormatTypes.Current;
         #endregion
 
+    }
+    public enum FormatTypes {
+        Current,
+        Currency,
+        TwoDecimal,
+        Date,
+        DateTime,
+        Time
     }
 }

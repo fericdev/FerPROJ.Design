@@ -78,6 +78,8 @@ namespace FerPROJ.Design.Forms {
                 _baseDatagridview.OpenContextMenu(_crudOptions.RowContextMenuButtons);
             }
 
+            _baseDatagridview?.ApplyRowValueFormatting(typeof(TModel));
+
             FrmSplasherLoading.CloseSplash();
 
         }

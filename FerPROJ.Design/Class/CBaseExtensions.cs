@@ -354,9 +354,6 @@ namespace FerPROJ.Design.Class {
                 return Image.FromStream(ms);
             }
         }
-        public static DateTime ToDateTime(this string stringValue) {
-            return Convert.ToDateTime(stringValue);
-        }
         public static string ToTime12(this string stringValue) {
             if (DateTime.TryParse(stringValue, out DateTime dateTime)) {
                 return dateTime.ToString("hh:mm tt");
@@ -390,8 +387,16 @@ namespace FerPROJ.Design.Class {
         public static float ToFloat(this string stringValue) {
             return float.Parse(stringValue);
         }
+        public static string ToDate(this object value) {
+            var date = value.To<DateTime>();
+            return date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
+        }
         public static string ToDate(this DateTime dateTime) {
             return dateTime.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
+        }
+        public static string ToDateAndTime(this object value) {
+            var date = value.To<DateTime>();
+            return date.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
         }
         public static string ToDateAndTime(this DateTime dateTime) {
             return dateTime.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
@@ -407,8 +412,16 @@ namespace FerPROJ.Design.Class {
             }
             return dateTime.Value.ToString("MMMM dd, yyyy hh:mm tt", CultureInfo.InvariantCulture);
         }
+        public static string ToPesoCurrency(this object value) {
+            var decimalVal = value.To<decimal>();
+            return decimalVal.ToString("C", new CultureInfo("en-PH"));
+        }
         public static string ToPesoCurrency(this decimal decimalValue) {
             return decimalValue.ToString("C", new CultureInfo("en-PH"));
+        }
+        public static string ToTwoDecimals(this object value) {
+            var decimalVal = value.To<decimal>();
+            return decimalVal.ToString("F2");
         }
         public static string ToTwoDecimals(this decimal decimalValue) {
             return decimalValue.ToString("F2");
@@ -957,7 +970,7 @@ namespace FerPROJ.Design.Class {
             bindingSource.Clear();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
-          
+
                 // 4️⃣ Report that page only
                 worker.ReportProgress(100, data);
 
@@ -1082,7 +1095,7 @@ namespace FerPROJ.Design.Class {
 
         #region Binding Class 
         public static async Task LoadDataAsync<TModel, TEntity, TRepository>(
-            this BindingSource bindingSource, 
+            this BindingSource bindingSource,
             Expression<Func<TEntity, bool>> searchParameterEntity = null,
             Func<TModel, bool> searchParameterModel = null) {
 
@@ -1582,6 +1595,40 @@ namespace FerPROJ.Design.Class {
                 }
             }
         }
+        public static void SetRowValueFormatting(this DataGridView dgv, int columnIndex, FormatTypes format) {
+            if (dgv == null)
+                throw new ArgumentNullException(nameof(dgv));
+
+            if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
+                throw new ArgumentOutOfRangeException(nameof(columnIndex));
+
+            dgv.CellFormatting += (sender, e) => {
+                if (e.ColumnIndex == columnIndex && e.Value != null) {
+                    var value = e.Value.ToString();
+                    var formattingApplied = true;
+                    switch (format) {
+                        case FormatTypes.Currency:
+                            e.Value = value.ToPesoCurrency();
+                            break;
+                        case FormatTypes.TwoDecimal:
+                            e.Value = value.ToTwoDecimals();
+                            break;
+                        case FormatTypes.Date:
+                            e.Value = value.ToDate();
+                            break;
+                        case FormatTypes.DateTime:
+                            e.Value = value.ToDateAndTime();
+                            break;
+                        case FormatTypes.Current:
+                        default:
+                            formattingApplied = false;
+                            break;
+                    }
+
+                    e.FormattingApplied = formattingApplied;
+                }
+            };
+        }
         public static void SetColumnsEditable(this CDatagridview dgv, bool editable, params int[] columnIndices) {
             dgv.EditMode = DataGridViewEditMode.EditOnEnter;
             // Prevent errors if no columns are provided
@@ -1660,6 +1707,38 @@ namespace FerPROJ.Design.Class {
             dgv.ApplyDisplayOrder(modelType);
 
         }
+        public static void ApplyRowValueFormatting(this CDatagridview dgv, Type modelType = null) {
+            if (modelType == null) {
+                modelType = dgv.GetModelTypeFromDataGridView();
+            }
+
+            var properties = modelType.GetProperties(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            foreach (var property in properties) {
+                var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
+                                                 .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
+                                                 .ToList();
+
+                if (matchingColumns.Count > 1) {
+                    for (int i = 1; i < matchingColumns.Count; i++) {
+                        dgv.Columns.Remove(matchingColumns[i]);
+                    }
+                }
+
+                var attribute = property.GetCustomAttribute<CAttributes>();
+                if (attribute == null)
+                    continue;
+
+                var column = matchingColumns.FirstOrDefault();
+                if (column == null) {
+                    continue;
+                }
+
+                SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
+
+            }
+        }
 
         private static void ApplyAttributeToColumns(this CDatagridview dgv, Type modelType = null) {
 
@@ -1698,6 +1777,8 @@ namespace FerPROJ.Design.Class {
 
                 column.HeaderText = !attribute.Header.IsNullOrEmpty() ?
                                      attribute.Header : column.HeaderText;
+
+                SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
 
             }
 

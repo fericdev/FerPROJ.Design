@@ -1805,7 +1805,6 @@ namespace FerPROJ.Design.Class {
                 column.Width = column.HeaderText.Length + 180;
 
                 if (column.Visible) {
-                    SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
                     columnCount++;
                 }
             }

@@ -1750,6 +1750,11 @@ namespace FerPROJ.Design.Class {
                     continue;
                 }
 
+                if (property.Name.SearchContains("Amount") && 
+                    property.PropertyType == typeof(decimal)) {
+                    attribute.FormatType = FormatTypes.Currency;
+                }
+
                 SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
 
             }

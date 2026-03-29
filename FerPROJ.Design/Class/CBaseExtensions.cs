@@ -1747,7 +1747,7 @@ namespace FerPROJ.Design.Class {
                 }
 
                 if ((property.Name.SearchContains("Amount") || property.Name.SearchContains("Total")) && 
-                    property.PropertyType == typeof(decimal)) {
+                    property.PropertyType == typeof(decimal) && attribute.FormatType == FormatTypes.Current) {
                     attribute.FormatType = FormatTypes.Currency;
                 }
 

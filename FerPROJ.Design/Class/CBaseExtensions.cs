@@ -1737,12 +1737,6 @@ namespace FerPROJ.Design.Class {
                                                  .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
                                                  .ToList();
 
-                if (matchingColumns.Count > 1) {
-                    for (int i = 1; i < matchingColumns.Count; i++) {
-                        dgv.Columns.Remove(matchingColumns[i]);
-                    }
-                }
-
                 var attribute = property.GetCustomAttribute<CAttributes>();
                 if (attribute == null)
                     continue;
@@ -1757,7 +1751,9 @@ namespace FerPROJ.Design.Class {
                     attribute.FormatType = FormatTypes.Currency;
                 }
 
-                SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
+                if (column.Visible) {
+                    SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
+                }
 
             }
         }

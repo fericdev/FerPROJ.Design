@@ -263,12 +263,14 @@ namespace FerPROJ.Design.Forms {
             this.ShowDialog();
             return await CurrentFormResult;
         }
-        public async Task<bool> CurrentNewFormResultAsync<TForm>(FormMode formMode, Guid id, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
+        public async Task<bool> CurrentNewFormResultAsync<TForm>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
             if (!parameters.IsNullOrEmpty()) {
                 Action<object> parameterWrapper  = o => parameters((TForm)o);
                 parameterWrapper?.Invoke(this);
             }
-            this.Manage_IdTrack = id;
+            if (!id.IsNullOrEmpty()) {
+                this.Manage_IdTrack = id.Value;
+            }
             this.CurrentFormMode = formMode;
             this.ShowDialog();
             return await CurrentFormResult;

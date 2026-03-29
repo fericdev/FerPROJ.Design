@@ -23,7 +23,7 @@ namespace FerPROJ.Design.Class {
         }
         public static Task<bool> ManageAsync<TForm>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
             using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
-                return frm.CurrentNewFormResultAsync(formMode, id ?? Guid.Empty, parameters);
+                return frm.CurrentNewFormResultAsync(formMode, id, parameters);
             }
         }
         public static Task<bool> ManageAsync<TForm>(FormMode formMode, Guid id, List<(string PropertyName, object PropertyValue)> parameters = null) where TForm : FrmManageKrypton {

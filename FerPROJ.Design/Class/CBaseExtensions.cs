@@ -1711,6 +1711,8 @@ namespace FerPROJ.Design.Class {
             }
         }
         public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType = null) {
+            // Set column mode
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
             // Apply attributes to columns (visibility, header text) and remove duplicates first
             dgv.ApplyAttributeToColumns(modelType);
@@ -1750,7 +1752,7 @@ namespace FerPROJ.Design.Class {
                     continue;
                 }
 
-                if (property.Name.SearchContains("Amount") && 
+                if ((property.Name.SearchContains("Amount") || property.Name.SearchContains("Total")) && 
                     property.PropertyType == typeof(decimal)) {
                     attribute.FormatType = FormatTypes.Currency;
                 }
@@ -1768,6 +1770,8 @@ namespace FerPROJ.Design.Class {
 
             var properties = modelType.GetProperties(
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            var columnCount = 0;
 
             foreach (var property in properties) {
                 var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
@@ -1798,12 +1802,16 @@ namespace FerPROJ.Design.Class {
                 column.HeaderText = !attribute.Header.IsNullOrEmpty() ?
                                      attribute.Header : column.HeaderText;
 
-                SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
+                column.Width = column.HeaderText.Length + 180;
 
+                if (column.Visible) {
+                    SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
+                    columnCount++;
+                }
             }
 
-            if (dgv.Columns.Count >= 5) {
-                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            if (columnCount <= 5) {
+                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
 
         }

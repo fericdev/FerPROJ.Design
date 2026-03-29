@@ -263,6 +263,16 @@ namespace FerPROJ.Design.Forms {
             this.ShowDialog();
             return await CurrentFormResult;
         }
+        public async Task<bool> CurrentNewFormResultAsync<TForm>(FormMode formMode, Guid id, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
+            if (!parameters.IsNullOrEmpty()) {
+                Action<object> parameterWrapper  = o => parameters((TForm)o);
+                parameterWrapper?.Invoke(this);
+            }
+            this.Manage_IdTrack = id;
+            this.CurrentFormMode = formMode;
+            this.ShowDialog();
+            return await CurrentFormResult;
+        }
 
         #region Set parameter
         private void BuildParameter(List<(string PropertyName, object PropertyValue)> parameters = null) {

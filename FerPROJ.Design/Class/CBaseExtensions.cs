@@ -3,6 +3,7 @@ using FerPROJ.DBHelper.DBCrud;
 using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Controls;
 using FerPROJ.Design.Forms;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -2001,6 +2002,16 @@ namespace FerPROJ.Design.Class {
                 return propertyInfo;
 
             return null;
+        }
+        #endregion
+
+        #region Cloning
+        public static T CloneObject<T>(this T source) {
+            if (source == null) {
+                return default;
+            }
+            var serialized = JsonConvert.SerializeObject(source);
+            return JsonConvert.DeserializeObject<T>(serialized);
         }
         #endregion
 

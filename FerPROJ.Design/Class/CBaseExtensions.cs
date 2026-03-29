@@ -512,59 +512,73 @@ namespace FerPROJ.Design.Class {
             return result;
         }
         public static T To<T>(this object value) {
-
-            if (value == null) {
-                return (T)default;
-            }
-
-            if (value is T) {
-                return (T)value;
-            }
-
-            Type targetType = typeof(T);
-
-            // Check if the target type has a public static Parse method
-            MethodInfo parseMethod = targetType.GetMethod("Parse", new[] { typeof(string) });
-            if (parseMethod != null && parseMethod.IsStatic && parseMethod.ReturnType == targetType) {
-                return (T)parseMethod.Invoke(null, new[] { value.ToString() });
-            }
-
-            // Additional conversion logic
-            if (targetType == typeof(int)) {
-                return (T)(object)int.Parse(value.ToString(), CultureInfo.InvariantCulture);
-            }
-
-            if (targetType == typeof(long)) {
-                return (T)(object)long.Parse(value.ToString(), CultureInfo.InvariantCulture);
-            }
-
-            if (targetType == typeof(float)) {
-                return (T)(object)float.Parse(value.ToString(), CultureInfo.InvariantCulture);
-            }
-
-            if (targetType == typeof(double)) {
-                return (T)(object)double.Parse(value.ToString(), CultureInfo.InvariantCulture);
-            }
-
-            if (targetType == typeof(char)) {
-                if (value.ToString().Length == 1) {
-                    return (T)(object)value.ToString()[0];
+            try {
+                if (value == null) {
+                    return (T)default;
                 }
-            }
 
-            if (targetType == typeof(Guid)) {
-                return (T)(object)Guid.Parse(value.ToString());
-            }
+                if (value is T) {
+                    return (T)value;
+                }
 
-            if (targetType == typeof(bool)) {
-                return (T)(object)bool.Parse(value.ToString());
-            }
+                Type targetType = typeof(T);
 
-            if (targetType == typeof(string)) {
-                return (T)(object)value.ToString();
-            }
+                // Additional conversion logic
+                if (targetType == typeof(int)) {
+                    return (T)(object)int.Parse(value.ToString(), CultureInfo.InvariantCulture);
+                }
 
-            throw new InvalidCastException($"Cannot convert {value.GetType().Name} to {typeof(T).Name}");
+                if (targetType == typeof(long)) {
+                    return (T)(object)long.Parse(value.ToString(), CultureInfo.InvariantCulture);
+                }
+
+                if (targetType == typeof(float)) {
+                    return (T)(object)float.Parse(value.ToString(), CultureInfo.InvariantCulture);
+                }
+
+                if (targetType == typeof(double)) {
+                    return (T)(object)double.Parse(value.ToString(), CultureInfo.InvariantCulture);
+                }
+
+                if (targetType == typeof(decimal)) {
+                    return (T)(object)decimal.Parse(value.ToString(), CultureInfo.InvariantCulture);
+                }
+
+                if (targetType == typeof(char)) {
+                    if (value.ToString().Length == 1) {
+                        return (T)(object)value.ToString()[0];
+                    }
+                }
+
+                if (targetType == typeof(Guid)) {
+                    return (T)(object)Guid.Parse(value.ToString());
+                }
+
+                if (targetType == typeof(bool)) {
+                    return (T)(object)bool.Parse(value.ToString());
+                }
+
+                if (targetType == typeof(string)) {
+                    return (T)(object)value.ToString();
+                }
+
+                if (targetType == typeof(DateTime)) {
+                    return (T)(object)DateTime.Parse(value.ToString());
+                }
+
+                // Check if the target type has a public static Parse method
+                var parseMethod = targetType.GetMethod("Parse", new[] { typeof(string) });
+                if (parseMethod != null && parseMethod.IsStatic && parseMethod.ReturnType == targetType) {
+                    return (T)parseMethod.Invoke(null, new[] { value.ToString() });
+                }
+
+                // Fallback to Convert.ChangeType for other types
+                return (T)Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture);
+            }
+            catch {
+                return default;
+            }
+            throw new Exception("Error converting value!");
         }
 
         #endregion
@@ -1596,38 +1610,35 @@ namespace FerPROJ.Design.Class {
             }
         }
         public static void SetRowValueFormatting(this DataGridView dgv, int columnIndex, FormatTypes format) {
+            if (format == FormatTypes.Current)
+                return;
+
             if (dgv == null)
                 throw new ArgumentNullException(nameof(dgv));
 
             if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
                 throw new ArgumentOutOfRangeException(nameof(columnIndex));
 
-            dgv.CellFormatting += (sender, e) => {
-                if (e.ColumnIndex == columnIndex && e.Value != null) {
-                    var value = e.Value.ToString();
-                    var formattingApplied = true;
-                    switch (format) {
-                        case FormatTypes.Currency:
-                            e.Value = value.ToPesoCurrency();
-                            break;
-                        case FormatTypes.TwoDecimal:
-                            e.Value = value.ToTwoDecimals();
-                            break;
-                        case FormatTypes.Date:
-                            e.Value = value.ToDate();
-                            break;
-                        case FormatTypes.DateTime:
-                            e.Value = value.ToDateAndTime();
-                            break;
-                        case FormatTypes.Current:
-                        default:
-                            formattingApplied = false;
-                            break;
-                    }
+            var column = dgv.Columns[columnIndex];
 
-                    e.FormattingApplied = formattingApplied;
-                }
-            };
+            switch (format) {
+                case FormatTypes.Currency:
+                    column.DefaultCellStyle.Format = "C2"; // Currency with 2 decimals
+                    column.DefaultCellStyle.FormatProvider = new CultureInfo("en-PH");
+                    break;
+
+                case FormatTypes.TwoDecimal:
+                    column.DefaultCellStyle.Format = "N2"; // 1,234.56
+                    break;
+
+                case FormatTypes.Date:
+                    column.DefaultCellStyle.Format = "d"; // Short date
+                    break;
+
+                case FormatTypes.DateTime:
+                    column.DefaultCellStyle.Format = "g"; // General date + time
+                    break;
+            }
         }
         public static void SetColumnsEditable(this CDatagridview dgv, bool editable, params int[] columnIndices) {
             dgv.EditMode = DataGridViewEditMode.EditOnEnter;

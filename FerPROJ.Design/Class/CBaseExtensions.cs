@@ -1632,11 +1632,15 @@ namespace FerPROJ.Design.Class {
                     break;
 
                 case FormatTypes.Date:
-                    column.DefaultCellStyle.Format = "d"; // Short date
+                    column.DefaultCellStyle.Format = "MMM, dd yyyy"; // Short date
                     break;
 
                 case FormatTypes.DateTime:
-                    column.DefaultCellStyle.Format = "g"; // General date + time
+                    column.DefaultCellStyle.Format = "MMM, dd yyyy hh:mm tt"; // Short date + time
+                    break;
+
+                case FormatTypes.Time:
+                    column.DefaultCellStyle.Format = "hh:mm tt"; // Short time
                     break;
             }
         }

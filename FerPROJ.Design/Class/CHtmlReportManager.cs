@@ -12,8 +12,6 @@ namespace FerPROJ.Design.Class {
 
         public static async Task ExportToHtmlAsync(HtmlReportModel model) {
 
-            await FrmSplasherLoading.ShowSplashAsync();
-
             #region css
             if (model.ReportCss.IsNullOrEmpty()) {
                 model.ReportCss = @"
@@ -257,8 +255,6 @@ namespace FerPROJ.Design.Class {
                     </html>";
             }
             #endregion
-
-            FrmSplasherLoading.CloseSplash();
 
             #region Write to File and Open
             var filePath = CAccessManager.GetOrCreateEnvironmentPath($"{model.ReportTitle}_{DateTime.Now.ToShortTimeString()}_report.html", "Reports");

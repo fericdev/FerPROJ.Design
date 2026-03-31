@@ -26,6 +26,7 @@ namespace FerPROJ.Design.Forms {
             // Check if splashForm is initialized and not disposed
             if (splashForm != null && !splashForm.IsDisposed) {
                 splashForm.UpdateLoadingLabel(perc, overrideText);
+                Application.DoEvents();
             }
         }
         public static async Task ShowSplashAsync() {

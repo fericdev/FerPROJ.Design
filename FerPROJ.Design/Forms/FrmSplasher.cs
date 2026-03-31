@@ -65,11 +65,15 @@ namespace FerPROJ.Design.Forms {
         }
         public static async Task ShowSplashAsync(List<Func<Task>> tasks) {
             int currentPercentage = 5;
+
             instance = new FrmSplasher();
+
             instance.Show();
+
             instance.Update();
 
             instance.SetStatus("Loading . . .");
+
             Application.DoEvents();
 
             List<Task> runningTasks = null;
@@ -78,6 +82,7 @@ namespace FerPROJ.Design.Forms {
             while (currentPercentage <= 100) {
 
                 instance.SetLoadingPerc(currentPercentage);
+
                 Application.DoEvents();
 
                 if (currentPercentage == 5) {
@@ -93,8 +98,11 @@ namespace FerPROJ.Design.Forms {
                     Application.DoEvents();
                 }
                 else if (currentPercentage == 80) {
+
                     instance.SetStatus("Loading cached for better experience . . .");
+
                     Application.DoEvents();
+
                     await PauseAsync();
 
                     // Await all running tasks to complete before continuing
@@ -105,12 +113,10 @@ namespace FerPROJ.Design.Forms {
                 }
                 else if (currentPercentage == 100) {
                     instance.SetLoadingPerc(currentPercentage);
+
                     instance.SetStatus("Done . . .");
+
                     Application.DoEvents();
-                    // After the delay, run the long-running tasks asynchronously
-                    _ = Task.Run(async () => {
-                        await tasks.RunTasksInBackgroundAsync();
-                    });
 
                     await PauseAsync();
 

@@ -99,7 +99,7 @@ namespace FerPROJ.Design.Forms {
                 }
                 else if (currentPercentage == 80) {
 
-                    instance.SetStatus("Loading cached for better experience . . .");
+                    instance.SetStatus("Loading cache for better experience . . .");
 
                     Application.DoEvents();
 

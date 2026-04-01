@@ -250,9 +250,7 @@ namespace FerPROJ.Design.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Navy;
             this.ClientSize = new System.Drawing.Size(648, 441);
-            this.ControlBox = false;
             this.Controls.Add(this.basePanelMain);
             this.Controls.Add(this.basePnl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -262,6 +260,13 @@ namespace FerPROJ.Design.Forms
             this.Padding = new System.Windows.Forms.Padding(7);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StateCommon.Back.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color2 = System.Drawing.Color.RoyalBlue;
             this.Text = "FrmManageMain";
             this.Load += new System.EventHandler(this.FrmManageKrypton_Load);
             this.basePnl1.ResumeLayout(false);

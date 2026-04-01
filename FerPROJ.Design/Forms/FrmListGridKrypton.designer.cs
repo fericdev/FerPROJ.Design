@@ -35,10 +35,10 @@ namespace FerPROJ.Design.Forms
 
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListGridKrypton));
             this.baseLbl1 = new System.Windows.Forms.Label();
             this.basePnl1 = new System.Windows.Forms.Panel();
@@ -56,30 +56,30 @@ namespace FerPROJ.Design.Forms
             this.PanelMain1 = new System.Windows.Forms.Panel();
             this.PanelMain4 = new System.Windows.Forms.Panel();
             this.baseModelCDatagridview = new FerPROJ.Design.Controls.CDatagridview();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.baseModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainAddItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainEditItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMainViewItem = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbOther1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbOther2 = new System.Windows.Forms.ToolStripButton();
+            this.tsbMainRefresh = new System.Windows.Forms.ToolStripButton();
             this.panelMain11 = new System.Windows.Forms.Panel();
             this.PnlFormList = new System.Windows.Forms.Panel();
             this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDescMain3 = new FerPROJ.Design.Controls.CLabelDesc();
             this.baselabelmain12 = new System.Windows.Forms.Label();
             this.customLabelDescMain11 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.customLabelDescMain10 = new FerPROJ.Design.Controls.CLabelDesc();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baseModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tsbMainAddItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainEditItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainDeleteItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainViewItem = new System.Windows.Forms.ToolStripButton();
-            this.tsbOther1 = new System.Windows.Forms.ToolStripButton();
-            this.tsbOther2 = new System.Windows.Forms.ToolStripButton();
-            this.tsbMainRefresh = new System.Windows.Forms.ToolStripButton();
             this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
+            this.customLabelDescMain10 = new FerPROJ.Design.Controls.CLabelDesc();
             this.basePnl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ComboBoxKryptonPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComboBoxKryptonDataLimit)).BeginInit();
@@ -87,10 +87,10 @@ namespace FerPROJ.Design.Forms
             this.PanelMain1.SuspendLayout();
             this.PanelMain4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.baseModelCDatagridview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.baseModelBindingSource)).BeginInit();
             this.mainToolStrip.SuspendLayout();
             this.panelMain11.SuspendLayout();
             this.PnlFormList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.baseModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,13 +139,13 @@ namespace FerPROJ.Design.Forms
             this.ComboBoxKryptonPage.DropDownWidth = 45;
             this.ComboBoxKryptonPage.Location = new System.Drawing.Point(504, 29);
             this.ComboBoxKryptonPage.Name = "ComboBoxKryptonPage";
-            this.ComboBoxKryptonPage.Size = new System.Drawing.Size(95, 27);
+            this.ComboBoxKryptonPage.Size = new System.Drawing.Size(95, 28);
             this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
             this.ComboBoxKryptonPage.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | Krypton.Toolkit.PaletteDrawBorders.Left) 
             | Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Rounding = 10;
+            this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Rounding = 10F;
             this.ComboBoxKryptonPage.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.ComboBoxKryptonPage.TabIndex = 7;
             this.ComboBoxKryptonPage.SelectedIndexChanged += new System.EventHandler(this.ComboBoxKryptonPage_SelectedIndexChanged);
@@ -168,13 +168,13 @@ namespace FerPROJ.Design.Forms
             this.ComboBoxKryptonDataLimit.DropDownWidth = 45;
             this.ComboBoxKryptonDataLimit.Location = new System.Drawing.Point(390, 29);
             this.ComboBoxKryptonDataLimit.Name = "ComboBoxKryptonDataLimit";
-            this.ComboBoxKryptonDataLimit.Size = new System.Drawing.Size(93, 27);
+            this.ComboBoxKryptonDataLimit.Size = new System.Drawing.Size(93, 28);
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | Krypton.Toolkit.PaletteDrawBorders.Left) 
             | Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Rounding = 10;
+            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Rounding = 10F;
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.ComboBoxKryptonDataLimit.TabIndex = 4;
             this.ComboBoxKryptonDataLimit.SelectedIndexChanged += new System.EventHandler(this.ComboBoxKryptonDataLimit_SelectedIndexChanged);
@@ -318,22 +318,22 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.AllowUserToOrderColumns = true;
             this.baseModelCDatagridview.AllowUserToResizeRows = false;
             this.baseModelCDatagridview.AlternatingRowColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightGray;
+            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.baseModelCDatagridview.AutoGenerateColumns = false;
             this.baseModelCDatagridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.baseModelCDatagridview.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.baseModelCDatagridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.baseModelCDatagridview.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.baseModelCDatagridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Custom;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.baseModelCDatagridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.baseModelCDatagridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.baseModelCDatagridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.baseModelCDatagridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id});
@@ -341,14 +341,14 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.CustomHeaderForeColor = System.Drawing.Color.Black;
             this.baseModelCDatagridview.CustomRowFontStyle = new System.Drawing.Font("Tahoma", 8F);
             this.baseModelCDatagridview.DataSource = this.baseModelBindingSource;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 8F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.baseModelCDatagridview.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.baseModelCDatagridview.DefaultCellStyle = dataGridViewCellStyle7;
             this.baseModelCDatagridview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.baseModelCDatagridview.EnableHeadersVisualStyles = false;
             this.baseModelCDatagridview.HeaderColor = System.Drawing.Color.WhiteSmoke;
@@ -356,17 +356,29 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.Name = "baseModelCDatagridview";
             this.baseModelCDatagridview.ReadOnly = true;
             this.baseModelCDatagridview.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 8F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.baseModelCDatagridview.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.baseModelCDatagridview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.baseModelCDatagridview.Size = new System.Drawing.Size(1056, 423);
             this.baseModelCDatagridview.TabIndex = 5;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // baseModelBindingSource
+            // 
+            this.baseModelBindingSource.DataSource = typeof(FerPROJ.Design.BaseModels.BaseModel);
             // 
             // mainToolStrip
             // 
@@ -400,20 +412,56 @@ namespace FerPROJ.Design.Forms
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 41);
             // 
+            // tsbMainAddItem
+            // 
+            this.tsbMainAddItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainAddItem.Image")));
+            this.tsbMainAddItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainAddItem.Name = "tsbMainAddItem";
+            this.tsbMainAddItem.Size = new System.Drawing.Size(76, 38);
+            this.tsbMainAddItem.Text = "Add Item";
+            this.tsbMainAddItem.Click += new System.EventHandler(this.tsbMainAddItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 41);
+            // 
+            // tsbMainEditItem
+            // 
+            this.tsbMainEditItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainEditItem.Image")));
+            this.tsbMainEditItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainEditItem.Name = "tsbMainEditItem";
+            this.tsbMainEditItem.Size = new System.Drawing.Size(74, 38);
+            this.tsbMainEditItem.Text = "Edit Item";
+            this.tsbMainEditItem.Click += new System.EventHandler(this.tsbMainEditItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 41);
             // 
+            // tsbMainDeleteItem
+            // 
+            this.tsbMainDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainDeleteItem.Image")));
+            this.tsbMainDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainDeleteItem.Name = "tsbMainDeleteItem";
+            this.tsbMainDeleteItem.Size = new System.Drawing.Size(87, 38);
+            this.tsbMainDeleteItem.Text = "Delete Item";
+            this.tsbMainDeleteItem.Click += new System.EventHandler(this.tsbMainDeleteItem_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 41);
+            // 
+            // tsbMainViewItem
+            // 
+            this.tsbMainViewItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainViewItem.Image")));
+            this.tsbMainViewItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainViewItem.Name = "tsbMainViewItem";
+            this.tsbMainViewItem.Size = new System.Drawing.Size(79, 38);
+            this.tsbMainViewItem.Text = "View Item";
+            this.tsbMainViewItem.Click += new System.EventHandler(this.tsbMainViewItem_Click);
             // 
             // toolStripSeparator5
             // 
@@ -421,11 +469,41 @@ namespace FerPROJ.Design.Forms
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 41);
             this.toolStripSeparator5.Visible = false;
             // 
+            // tsbOther1
+            // 
+            this.tsbOther1.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon;
+            this.tsbOther1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOther1.Name = "tsbOther1";
+            this.tsbOther1.Size = new System.Drawing.Size(95, 38);
+            this.tsbOther1.Text = "Other1Async";
+            this.tsbOther1.Visible = false;
+            this.tsbOther1.Click += new System.EventHandler(this.tsbOther1_Click);
+            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 41);
             this.toolStripSeparator6.Visible = false;
+            // 
+            // tsbOther2
+            // 
+            this.tsbOther2.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon2;
+            this.tsbOther2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOther2.Name = "tsbOther2";
+            this.tsbOther2.Size = new System.Drawing.Size(95, 38);
+            this.tsbOther2.Text = "Other2Async";
+            this.tsbOther2.Visible = false;
+            this.tsbOther2.Click += new System.EventHandler(this.tsbOther2_Click);
+            // 
+            // tsbMainRefresh
+            // 
+            this.tsbMainRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbMainRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainRefresh.Image")));
+            this.tsbMainRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMainRefresh.Name = "tsbMainRefresh";
+            this.tsbMainRefresh.Size = new System.Drawing.Size(71, 38);
+            this.tsbMainRefresh.Text = "Resfresh";
+            this.tsbMainRefresh.Click += new System.EventHandler(this.tsbMainRefresh_Click);
             // 
             // panelMain11
             // 
@@ -496,6 +574,16 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain11.TabIndex = 2;
             this.customLabelDescMain11.Text = "Centralized control and insights for efficient operations.";
             // 
+            // pictureBoxMain1
+            // 
+            this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
+            this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxMain1.Location = new System.Drawing.Point(20, 11);
+            this.pictureBoxMain1.Name = "pictureBoxMain1";
+            this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
+            this.pictureBoxMain1.TabIndex = 0;
+            this.pictureBoxMain1.TabStop = false;
+            // 
             // customLabelDescMain10
             // 
             this.customLabelDescMain10.AutoSize = true;
@@ -507,99 +595,10 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain10.TabIndex = 1;
             this.customLabelDescMain10.Text = "Management Hub";
             // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            // 
-            // baseModelBindingSource
-            // 
-            this.baseModelBindingSource.DataSource = typeof(FerPROJ.Design.BaseModels.BaseModel);
-            // 
-            // tsbMainAddItem
-            // 
-            this.tsbMainAddItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainAddItem.Image")));
-            this.tsbMainAddItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainAddItem.Name = "tsbMainAddItem";
-            this.tsbMainAddItem.Size = new System.Drawing.Size(76, 38);
-            this.tsbMainAddItem.Text = "Add Item";
-            this.tsbMainAddItem.Click += new System.EventHandler(this.tsbMainAddItem_Click);
-            // 
-            // tsbMainEditItem
-            // 
-            this.tsbMainEditItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainEditItem.Image")));
-            this.tsbMainEditItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainEditItem.Name = "tsbMainEditItem";
-            this.tsbMainEditItem.Size = new System.Drawing.Size(74, 38);
-            this.tsbMainEditItem.Text = "Edit Item";
-            this.tsbMainEditItem.Click += new System.EventHandler(this.tsbMainEditItem_Click);
-            // 
-            // tsbMainDeleteItem
-            // 
-            this.tsbMainDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainDeleteItem.Image")));
-            this.tsbMainDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainDeleteItem.Name = "tsbMainDeleteItem";
-            this.tsbMainDeleteItem.Size = new System.Drawing.Size(87, 38);
-            this.tsbMainDeleteItem.Text = "Delete Item";
-            this.tsbMainDeleteItem.Click += new System.EventHandler(this.tsbMainDeleteItem_Click);
-            // 
-            // tsbMainViewItem
-            // 
-            this.tsbMainViewItem.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainViewItem.Image")));
-            this.tsbMainViewItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainViewItem.Name = "tsbMainViewItem";
-            this.tsbMainViewItem.Size = new System.Drawing.Size(79, 38);
-            this.tsbMainViewItem.Text = "View Item";
-            this.tsbMainViewItem.Click += new System.EventHandler(this.tsbMainViewItem_Click);
-            // 
-            // tsbOther1
-            // 
-            this.tsbOther1.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon;
-            this.tsbOther1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbOther1.Name = "tsbOther1";
-            this.tsbOther1.Size = new System.Drawing.Size(95, 38);
-            this.tsbOther1.Text = "Other1Async";
-            this.tsbOther1.Visible = false;
-            this.tsbOther1.Click += new System.EventHandler(this.tsbOther1_Click);
-            // 
-            // tsbOther2
-            // 
-            this.tsbOther2.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon2;
-            this.tsbOther2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbOther2.Name = "tsbOther2";
-            this.tsbOther2.Size = new System.Drawing.Size(95, 38);
-            this.tsbOther2.Text = "Other2Async";
-            this.tsbOther2.Visible = false;
-            this.tsbOther2.Click += new System.EventHandler(this.tsbOther2_Click);
-            // 
-            // tsbMainRefresh
-            // 
-            this.tsbMainRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbMainRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainRefresh.Image")));
-            this.tsbMainRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMainRefresh.Name = "tsbMainRefresh";
-            this.tsbMainRefresh.Size = new System.Drawing.Size(71, 38);
-            this.tsbMainRefresh.Text = "Resfresh";
-            this.tsbMainRefresh.Click += new System.EventHandler(this.tsbMainRefresh_Click);
-            // 
-            // pictureBoxMain1
-            // 
-            this.pictureBoxMain1.BackgroundImage = global::FerPROJ.Design.Properties.Resources.Hopstarter_Button_Button_Info_64;
-            this.pictureBoxMain1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxMain1.Location = new System.Drawing.Point(20, 11);
-            this.pictureBoxMain1.Name = "pictureBoxMain1";
-            this.pictureBoxMain1.Size = new System.Drawing.Size(60, 50);
-            this.pictureBoxMain1.TabIndex = 0;
-            this.pictureBoxMain1.TabStop = false;
-            // 
             // FrmListGridKrypton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Navy;
             this.ClientSize = new System.Drawing.Size(1070, 622);
             this.Controls.Add(this.PanelMain1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -609,6 +608,12 @@ namespace FerPROJ.Design.Forms
             this.Padding = new System.Windows.Forms.Padding(7);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StateCommon.Back.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color2 = System.Drawing.Color.RoyalBlue;
             this.Text = "Grid List";
             this.Load += new System.EventHandler(this.FrmListMain_Load);
             this.basePnl1.ResumeLayout(false);
@@ -619,13 +624,13 @@ namespace FerPROJ.Design.Forms
             this.PanelMain1.ResumeLayout(false);
             this.PanelMain4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.baseModelCDatagridview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.baseModelBindingSource)).EndInit();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
             this.panelMain11.ResumeLayout(false);
             this.panelMain11.PerformLayout();
             this.PnlFormList.ResumeLayout(false);
             this.PnlFormList.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.baseModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain1)).EndInit();
             this.ResumeLayout(false);
 

@@ -37,8 +37,10 @@
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.tsMainSettings = new System.Windows.Forms.ToolStrip();
             this.tsMainDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+            this.baseDashboardKryptonPanel = new Krypton.Toolkit.KryptonPanel();
             this.pnlMainBot.SuspendLayout();
             this.tsMainSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.baseDashboardKryptonPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMainBot
@@ -190,11 +192,20 @@
             this.tsMainDropDown.Size = new System.Drawing.Size(119, 22);
             this.tsMainDropDown.Text = "System Settings";
             // 
+            // baseDashboardKryptonPanel
+            // 
+            this.baseDashboardKryptonPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.baseDashboardKryptonPanel.Location = new System.Drawing.Point(0, 121);
+            this.baseDashboardKryptonPanel.Name = "baseDashboardKryptonPanel";
+            this.baseDashboardKryptonPanel.Size = new System.Drawing.Size(1253, 601);
+            this.baseDashboardKryptonPanel.TabIndex = 6;
+            // 
             // FrmDashboard3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1253, 752);
+            this.Controls.Add(this.baseDashboardKryptonPanel);
             this.Controls.Add(this.tsMainSettings);
             this.Controls.Add(this.pnlMainTop);
             this.Controls.Add(this.pnlMainBot);
@@ -206,6 +217,7 @@
             this.pnlMainBot.PerformLayout();
             this.tsMainSettings.ResumeLayout(false);
             this.tsMainSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.baseDashboardKryptonPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,5 +237,6 @@
         private System.Windows.Forms.Timer timerMain;
         public System.Windows.Forms.ToolStrip tsMainSettings;
         private System.Windows.Forms.ToolStripDropDownButton tsMainDropDown;
+        public Krypton.Toolkit.KryptonPanel baseDashboardKryptonPanel;
     }
 }

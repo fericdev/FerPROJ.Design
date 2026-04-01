@@ -1,5 +1,6 @@
 ﻿
 using FerPROJ.Design.Class;
+using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
-    public partial class FrmConf : Form {
+    public partial class FrmConf : KryptonForm {
         public FrmConf() {
             InitializeComponent();
         }

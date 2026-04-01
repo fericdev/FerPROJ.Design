@@ -210,12 +210,6 @@
     <Compile Include="Forms\FrmContextMenu.Designer.cs">
       <DependentUpon>FrmContextMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmDashboard2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmDashboard2.Designer.cs">
-      <DependentUpon>FrmDashboard2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmDashboard3.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,23 +237,11 @@
     <Compile Include="Forms\FrmListKrypton.designer.cs">
       <DependentUpon>FrmListKrypton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmList2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmList2.designer.cs">
-      <DependentUpon>FrmList2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmManageKrypton.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmManageKrypton.designer.cs">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmManage2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmManage2.designer.cs">
-      <DependentUpon>FrmManage2.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmPicture.cs">
       <SubType>Form</SubType>
@@ -284,24 +266,6 @@
     </Compile>
     <Compile Include="Forms\FrmSplasherReport.designer.cs">
       <DependentUpon>FrmSplasherReport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmDashboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmDashboard.Designer.cs">
-      <DependentUpon>FrmDashboard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmList.designer.cs">
-      <DependentUpon>FrmList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmManage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmManage.designer.cs">
-      <DependentUpon>FrmManage.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmSplasher.cs">
       <SubType>Form</SubType>
@@ -362,9 +326,6 @@
     <EmbeddedResource Include="Forms\FrmContextMenu.resx">
       <DependentUpon>FrmContextMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmDashboard2.resx">
-      <DependentUpon>FrmDashboard2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDashboard3.resx">
       <DependentUpon>FrmDashboard3.cs</DependentUpon>
     </EmbeddedResource>
@@ -374,14 +335,8 @@
     <EmbeddedResource Include="Forms\FrmListKrypton.resx">
       <DependentUpon>FrmListKrypton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmList2.resx">
-      <DependentUpon>FrmList2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmManageKrypton.resx">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmManage2.resx">
-      <DependentUpon>FrmManage2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmPicture.resx">
       <DependentUpon>FrmPicture.cs</DependentUpon>
@@ -394,15 +349,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmSplasherReport.resx">
       <DependentUpon>FrmSplasherReport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmDashboard.resx">
-      <DependentUpon>FrmDashboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmList.resx">
-      <DependentUpon>FrmList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmManage.resx">
-      <DependentUpon>FrmManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmSplasher.resx">
       <DependentUpon>FrmSplasher.cs</DependentUpon>

@@ -1,6 +1,6 @@
-﻿using ComponentFactory.Krypton.Toolkit;
-using FerPROJ.Design.Class;
+﻿using FerPROJ.Design.Class;
 using FerPROJ.Design.Controls;
+using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

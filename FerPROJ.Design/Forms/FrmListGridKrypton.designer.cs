@@ -142,9 +142,9 @@ namespace FerPROJ.Design.Forms
             this.ComboBoxKryptonPage.Size = new System.Drawing.Size(95, 27);
             this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.ComboBoxKryptonPage.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ComboBoxKryptonPage.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Rounding = 10;
             this.ComboBoxKryptonPage.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.ComboBoxKryptonPage.TabIndex = 7;
@@ -171,9 +171,9 @@ namespace FerPROJ.Design.Forms
             this.ComboBoxKryptonDataLimit.Size = new System.Drawing.Size(93, 27);
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Rounding = 10;
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.ComboBoxKryptonDataLimit.TabIndex = 4;

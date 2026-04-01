@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ComponentFactory.Krypton.Toolkit;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.ViewerObjectModel;
+using Krypton.Toolkit;
 
 namespace FerPROJ.Design.Controls {
     public class CComboBoxKrypton : KryptonComboBox {

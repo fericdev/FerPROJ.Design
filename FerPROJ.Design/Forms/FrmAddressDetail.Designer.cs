@@ -211,9 +211,9 @@
             this.purokCComboBoxKrypton.Size = new System.Drawing.Size(263, 27);
             this.purokCComboBoxKrypton.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.purokCComboBoxKrypton.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.purokCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.purokCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.purokCComboBoxKrypton.StateActive.ComboBox.Border.Rounding = 10;
             this.purokCComboBoxKrypton.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.purokCComboBoxKrypton.TabIndex = 32;
@@ -230,9 +230,9 @@
             this.provinceCComboBoxKrypton.Size = new System.Drawing.Size(263, 27);
             this.provinceCComboBoxKrypton.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.provinceCComboBoxKrypton.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.provinceCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.provinceCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.provinceCComboBoxKrypton.StateActive.ComboBox.Border.Rounding = 10;
             this.provinceCComboBoxKrypton.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.provinceCComboBoxKrypton.TabIndex = 31;
@@ -247,9 +247,9 @@
             this.typeCComboBoxKrypton.Size = new System.Drawing.Size(280, 27);
             this.typeCComboBoxKrypton.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.typeCComboBoxKrypton.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.typeCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.typeCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.typeCComboBoxKrypton.StateActive.ComboBox.Border.Rounding = 10;
             this.typeCComboBoxKrypton.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.typeCComboBoxKrypton.TabIndex = 28;
@@ -263,25 +263,25 @@
             this.zipCodeCTextBoxKrypton.StateActive.Back.Color1 = System.Drawing.Color.WhiteSmoke;
             this.zipCodeCTextBoxKrypton.StateActive.Border.Color1 = System.Drawing.Color.DarkGray;
             this.zipCodeCTextBoxKrypton.StateActive.Border.Color2 = System.Drawing.Color.White;
-            this.zipCodeCTextBoxKrypton.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.zipCodeCTextBoxKrypton.StateActive.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.zipCodeCTextBoxKrypton.StateActive.Border.Rounding = 10;
             this.zipCodeCTextBoxKrypton.StateActive.Content.Color1 = System.Drawing.Color.Black;
             this.zipCodeCTextBoxKrypton.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
             this.zipCodeCTextBoxKrypton.StateCommon.Border.Color1 = System.Drawing.Color.White;
             this.zipCodeCTextBoxKrypton.StateCommon.Border.Color2 = System.Drawing.Color.White;
-            this.zipCodeCTextBoxKrypton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.zipCodeCTextBoxKrypton.StateCommon.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.zipCodeCTextBoxKrypton.StateCommon.Border.Rounding = 10;
             this.zipCodeCTextBoxKrypton.StateCommon.Content.Color1 = System.Drawing.Color.Black;
             this.zipCodeCTextBoxKrypton.StateNormal.Back.Color1 = System.Drawing.Color.WhiteSmoke;
             this.zipCodeCTextBoxKrypton.StateNormal.Border.Color1 = System.Drawing.Color.White;
             this.zipCodeCTextBoxKrypton.StateNormal.Border.Color2 = System.Drawing.Color.White;
-            this.zipCodeCTextBoxKrypton.StateNormal.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.zipCodeCTextBoxKrypton.StateNormal.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.zipCodeCTextBoxKrypton.StateNormal.Border.Rounding = 10;
             this.zipCodeCTextBoxKrypton.StateNormal.Content.Color1 = System.Drawing.Color.Black;
             this.zipCodeCTextBoxKrypton.TabIndex = 26;
@@ -294,9 +294,9 @@
             this.barangayCComboBoxKrypton.Size = new System.Drawing.Size(263, 27);
             this.barangayCComboBoxKrypton.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.barangayCComboBoxKrypton.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.barangayCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.barangayCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.barangayCComboBoxKrypton.StateActive.ComboBox.Border.Rounding = 10;
             this.barangayCComboBoxKrypton.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.barangayCComboBoxKrypton.TabIndex = 24;
@@ -310,9 +310,9 @@
             this.cityCComboBoxKrypton.Size = new System.Drawing.Size(278, 27);
             this.cityCComboBoxKrypton.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.cityCComboBoxKrypton.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.cityCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.cityCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.cityCComboBoxKrypton.StateActive.ComboBox.Border.Rounding = 10;
             this.cityCComboBoxKrypton.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.cityCComboBoxKrypton.TabIndex = 22;
@@ -326,9 +326,9 @@
             this.regionCComboBoxKrypton.Size = new System.Drawing.Size(280, 27);
             this.regionCComboBoxKrypton.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.regionCComboBoxKrypton.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.regionCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.regionCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.regionCComboBoxKrypton.StateActive.ComboBox.Border.Rounding = 10;
             this.regionCComboBoxKrypton.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.regionCComboBoxKrypton.TabIndex = 20;
@@ -343,9 +343,9 @@
             this.countryCComboBoxKrypton.Size = new System.Drawing.Size(263, 27);
             this.countryCComboBoxKrypton.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
             this.countryCComboBoxKrypton.StateActive.ComboBox.Border.Color2 = System.Drawing.Color.White;
-            this.countryCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.countryCComboBoxKrypton.StateActive.ComboBox.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.countryCComboBoxKrypton.StateActive.ComboBox.Border.Rounding = 10;
             this.countryCComboBoxKrypton.StateActive.ComboBox.Content.Color1 = System.Drawing.Color.Black;
             this.countryCComboBoxKrypton.TabIndex = 18;
@@ -359,25 +359,25 @@
             this.remarksCTextBoxKrypton.StateActive.Back.Color1 = System.Drawing.Color.WhiteSmoke;
             this.remarksCTextBoxKrypton.StateActive.Border.Color1 = System.Drawing.Color.DarkGray;
             this.remarksCTextBoxKrypton.StateActive.Border.Color2 = System.Drawing.Color.White;
-            this.remarksCTextBoxKrypton.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.remarksCTextBoxKrypton.StateActive.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.remarksCTextBoxKrypton.StateActive.Border.Rounding = 10;
             this.remarksCTextBoxKrypton.StateActive.Content.Color1 = System.Drawing.Color.Black;
             this.remarksCTextBoxKrypton.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
             this.remarksCTextBoxKrypton.StateCommon.Border.Color1 = System.Drawing.Color.White;
             this.remarksCTextBoxKrypton.StateCommon.Border.Color2 = System.Drawing.Color.White;
-            this.remarksCTextBoxKrypton.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.remarksCTextBoxKrypton.StateCommon.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.remarksCTextBoxKrypton.StateCommon.Border.Rounding = 10;
             this.remarksCTextBoxKrypton.StateCommon.Content.Color1 = System.Drawing.Color.Black;
             this.remarksCTextBoxKrypton.StateNormal.Back.Color1 = System.Drawing.Color.WhiteSmoke;
             this.remarksCTextBoxKrypton.StateNormal.Border.Color1 = System.Drawing.Color.White;
             this.remarksCTextBoxKrypton.StateNormal.Border.Color2 = System.Drawing.Color.White;
-            this.remarksCTextBoxKrypton.StateNormal.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.remarksCTextBoxKrypton.StateNormal.Border.DrawBorders = ((Krypton.Toolkit.PaletteDrawBorders)((((Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.remarksCTextBoxKrypton.StateNormal.Border.Rounding = 10;
             this.remarksCTextBoxKrypton.StateNormal.Content.Color1 = System.Drawing.Color.Black;
             this.remarksCTextBoxKrypton.TabIndex = 33;

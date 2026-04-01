@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
-    public partial class FrmHtmReport : Form {
+    public partial class FrmHtmReport : FrmKrypton {
         private readonly WebView2 _webView;
         public FrmHtmReport(string reportFilePath) {
             InitializeComponent();

@@ -31,6 +31,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(929, 590);
             this.Name = "FrmKrypton";
+            this.StateCommon.Back.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color2 = System.Drawing.Color.RoyalBlue;
             this.Text = "FrmKrypton";
             this.ResumeLayout(false);
 

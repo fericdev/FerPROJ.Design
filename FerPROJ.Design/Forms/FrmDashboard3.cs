@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
-    public partial class FrmDashboard3 : KryptonForm {
+    public partial class FrmDashboard3 : FrmKrypton {
         public ToolStrip ParentToolStrip {  get; set; }
         public ToolStripDropDownButton ParentToolStripDropDown {  get; set; }
         public FrmDashboard3() {

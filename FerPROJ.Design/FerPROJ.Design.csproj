@@ -222,6 +222,12 @@
     <Compile Include="Forms\FrmHtmReport.Designer.cs">
       <DependentUpon>FrmHtmReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmKrypton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmKrypton.Designer.cs">
+      <DependentUpon>FrmKrypton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmListGridKrypton.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -328,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDashboard3.resx">
       <DependentUpon>FrmDashboard3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmKrypton.resx">
+      <DependentUpon>FrmKrypton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmListGridKrypton.resx">
       <DependentUpon>FrmListGridKrypton.cs</DependentUpon>

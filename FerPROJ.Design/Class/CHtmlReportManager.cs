@@ -261,7 +261,7 @@ namespace FerPROJ.Design.Class {
 
             File.WriteAllText(filePath, model.ReportHtml);
 
-            using (var frm = new FrmHtmReport(filePath)) {
+            using (var frm = new FrmHtmlViewer(filePath)) {
                 frm.ShowDialog();
             }
 

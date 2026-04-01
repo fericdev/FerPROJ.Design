@@ -1,5 +1,5 @@
 ﻿namespace FerPROJ.Design.Forms {
-    partial class FrmHtmReport {
+    partial class FrmHtmlViewer {
         /// <summary>
         /// Required designer variable.
         /// </summary>

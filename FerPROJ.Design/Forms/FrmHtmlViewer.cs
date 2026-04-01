@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
-    public partial class FrmHtmReport : FrmKrypton {
+    public partial class FrmHtmlViewer : FrmKrypton {
         private readonly WebView2 _webView;
-        public FrmHtmReport(string reportFilePath) {
+        public FrmHtmlViewer(string reportFilePath) {
             InitializeComponent();
 
             // Set basic form properties

@@ -23,13 +23,24 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.baseKryptonPanel = new Krypton.Toolkit.KryptonPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.baseKryptonPanel)).BeginInit();
             this.SuspendLayout();
+            // 
+            // baseKryptonPanel
+            // 
+            this.baseKryptonPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.baseKryptonPanel.Location = new System.Drawing.Point(0, 0);
+            this.baseKryptonPanel.Name = "baseKryptonPanel";
+            this.baseKryptonPanel.Size = new System.Drawing.Size(929, 590);
+            this.baseKryptonPanel.TabIndex = 1;
             // 
             // FrmKrypton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(929, 590);
+            this.Controls.Add(this.baseKryptonPanel);
             this.Name = "FrmKrypton";
             this.StateCommon.Back.Color1 = System.Drawing.Color.RoyalBlue;
             this.StateCommon.Back.Color2 = System.Drawing.Color.RoyalBlue;
@@ -39,10 +50,13 @@
             this.StateCommon.Header.Border.Color1 = System.Drawing.Color.RoyalBlue;
             this.StateCommon.Header.Border.Color2 = System.Drawing.Color.RoyalBlue;
             this.Text = "FrmKrypton";
+            ((System.ComponentModel.ISupportInitialize)(this.baseKryptonPanel)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        public Krypton.Toolkit.KryptonPanel baseKryptonPanel;
     }
 }

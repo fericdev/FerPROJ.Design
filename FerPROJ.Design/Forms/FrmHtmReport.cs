@@ -26,7 +26,7 @@ namespace FerPROJ.Design.Forms {
             };
 
             // Add WebView2 to the form
-            this.Controls.Add(_webView);
+            this.baseKryptonPanel.Controls.Add(_webView);
 
             // Initialize and load HTML
             InitializeAsync(reportFilePath);

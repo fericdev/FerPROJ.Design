@@ -65,7 +65,7 @@ namespace FerPROJ.Design.Class {
                 task.Wait();
                 return task.Result;
             }
-            catch (Exception ex) {
+            catch (Exception) {
                 return default;
             }
         }

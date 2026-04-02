@@ -56,5 +56,11 @@ namespace FerPROJ.Design.Class {
             }
         }
 
+        public static Task<(DateTime DateFrom, DateTime DateTo)> SelectDateRangeAsync() {
+            using (var frm = new FrmReportFilter()) {
+                frm.ShowDialog();
+                return Task.FromResult((frm.DateFrom, frm.DateTo));
+            }
+        }
     }
 }

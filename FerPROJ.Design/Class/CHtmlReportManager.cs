@@ -9,12 +9,6 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
     public static class CHtmlReportManager {
-        public static async Task<(DateTime DateFrom, DateTime DateTo)> GetDateRangeReportFilterAsync() {
-            using (var frm = new FrmReportFilter()) {
-                frm.ShowDialog();
-                return (frm.DateFrom, frm.DateTo);
-            }
-        }
 
         public static async Task ExportToHtmlAsync(HtmlReportModel model) {
 

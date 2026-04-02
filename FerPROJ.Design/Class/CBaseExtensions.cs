@@ -986,8 +986,6 @@ namespace FerPROJ.Design.Class {
                 return;
             }
 
-            await FrmSplasherLoading.ShowSplashAsync();
-
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
 
                 // 4️⃣ Report that page only
@@ -1024,8 +1022,6 @@ namespace FerPROJ.Design.Class {
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
 
-            FrmSplasherLoading.CloseSplash();
-
         }
         #endregion
 
@@ -1058,8 +1054,6 @@ namespace FerPROJ.Design.Class {
             if (data.IsNullOrEmpty()) {
                 return;
             }
-
-            await FrmSplasherLoading.ShowSplashAsync();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
 
@@ -1106,8 +1100,6 @@ namespace FerPROJ.Design.Class {
             };
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
-
-            FrmSplasherLoading.CloseSplash();
 
         }
         #endregion
@@ -1162,8 +1154,6 @@ namespace FerPROJ.Design.Class {
             if (data.IsNullOrEmpty()) {
                 return;
             }
-
-            await FrmSplasherLoading.ShowSplashAsync();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
                 int batchSize = 100;
@@ -1227,8 +1217,6 @@ namespace FerPROJ.Design.Class {
             };
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
-
-            FrmSplasherLoading.CloseSplash();
 
         }
 

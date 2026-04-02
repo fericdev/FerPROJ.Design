@@ -965,8 +965,6 @@ namespace FerPROJ.Design.Class {
             int dataPage,
             int dataLimit) {
 
-            await FrmSplasherLoading.ShowSplashAsync();
-
             // Fetch all data asynchronously
             var data = dataItems.ToList();
 
@@ -1013,10 +1011,6 @@ namespace FerPROJ.Design.Class {
 
             Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
 
-                FrmSplasherLoading.SetLoadingText(100);
-
-                FrmSplasherLoading.CloseSplash();
-
                 Console.WriteLine("All data loaded without freezing the UI.");
 
                 await Task.CompletedTask;
@@ -1035,8 +1029,6 @@ namespace FerPROJ.Design.Class {
             CComboBoxKrypton comboBoxLimit,
             int dataPage,
             int dataLimit) {
-
-            await FrmSplasherLoading.ShowSplashAsync();
 
             // Fetch all data asynchronously
             var data = (await dataFetchTask).ToList();
@@ -1094,10 +1086,6 @@ namespace FerPROJ.Design.Class {
 
             Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
 
-                FrmSplasherLoading.SetLoadingText(100);
-
-                FrmSplasherLoading.CloseSplash();
-
                 Console.WriteLine("All data loaded without freezing the UI.");
 
                 await Task.CompletedTask;
@@ -1113,8 +1101,6 @@ namespace FerPROJ.Design.Class {
             this BindingSource bindingSource,
             Expression<Func<TEntity, bool>> searchParameterEntity = null,
             Func<TModel, bool> searchParameterModel = null) {
-
-            await FrmSplasherLoading.ShowSplashAsync();
 
             var data = new List<TModel>();
 
@@ -1167,7 +1153,6 @@ namespace FerPROJ.Design.Class {
                     // Load all data at once if less than batch size
                     worker.ReportProgress(100, data);
 
-                    FrmSplasherLoading.SetLoadingText(100);
                 }
                 else {
                     // Load data in batches
@@ -1181,7 +1166,6 @@ namespace FerPROJ.Design.Class {
 
                         worker.ReportProgress(progress, batch);
 
-                        FrmSplasherLoading.SetLoadingText(progress);
                     }
                 }
             };
@@ -1214,9 +1198,9 @@ namespace FerPROJ.Design.Class {
             };
 
             Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
-                FrmSplasherLoading.SetLoadingText(100);
-                FrmSplasherLoading.CloseSplash();
+
                 Console.WriteLine("All data loaded without freezing the UI.");
+
                 await Task.CompletedTask;
             };
 

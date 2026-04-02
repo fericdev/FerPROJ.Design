@@ -625,7 +625,7 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
-        public static bool IsNullOrEmpty<T>(this T value) where T : class {
+        public static bool IsNullOrEmpty(this object value) {
             try {
                 return value == null;
             }
@@ -633,7 +633,7 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
-        public static bool IsNullOrEmpty<T>(this List<T> value) where T : class {
+        public static bool IsNullOrEmpty<T>(this List<T> value)  {
             try {
                 return value == null || value.Count == 0;
             }
@@ -982,6 +982,12 @@ namespace FerPROJ.Design.Class {
             // Clear
             bindingSource.Clear();
 
+            if (data.IsNullOrEmpty()) {
+                return;
+            }
+
+            await FrmSplasherLoading.ShowSplashAsync();
+
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
 
                 // 4️⃣ Report that page only
@@ -1018,6 +1024,8 @@ namespace FerPROJ.Design.Class {
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
 
+            FrmSplasherLoading.CloseSplash();
+
         }
         #endregion
 
@@ -1046,6 +1054,12 @@ namespace FerPROJ.Design.Class {
 
             // Clear
             bindingSource.Clear();
+
+            if (data.IsNullOrEmpty()) {
+                return;
+            }
+
+            await FrmSplasherLoading.ShowSplashAsync();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
 
@@ -1092,6 +1106,8 @@ namespace FerPROJ.Design.Class {
             };
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
+
+            FrmSplasherLoading.CloseSplash();
 
         }
         #endregion
@@ -1142,6 +1158,12 @@ namespace FerPROJ.Design.Class {
 
             // Clear
             bindingSource.Clear();
+
+            if (data.IsNullOrEmpty()) {
+                return;
+            }
+
+            await FrmSplasherLoading.ShowSplashAsync();
 
             Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
                 int batchSize = 100;
@@ -1205,6 +1227,8 @@ namespace FerPROJ.Design.Class {
             };
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
+
+            FrmSplasherLoading.CloseSplash();
 
         }
 
@@ -1731,7 +1755,7 @@ namespace FerPROJ.Design.Class {
                     continue;
                 }
 
-                if ((property.Name.SearchContains("Amount") || property.Name.SearchContains("Total")) && 
+                if ((property.Name.SearchContains("Amount") || property.Name.SearchContains("Total")) &&
                     property.PropertyType == typeof(decimal) && attribute.FormatType == FormatTypes.Current) {
                     attribute.FormatType = FormatTypes.Currency;
                 }

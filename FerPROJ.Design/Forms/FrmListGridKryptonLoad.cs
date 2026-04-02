@@ -18,10 +18,10 @@ namespace FerPROJ.Design.Forms {
             _searchParameter = searchParameter;
         }
         protected override async Task RefreshAsync() {
-            if (_repositoryType == null)
-                return;
 
-            await FrmSplasherLoading.ShowSplashAsync();
+            if (_repositoryType.IsNullOrEmpty()) {
+                return;
+            }
 
             _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
@@ -79,8 +79,6 @@ namespace FerPROJ.Design.Forms {
             }
 
             _baseDatagridview?.ApplyRowValueFormatting(typeof(TModel));
-
-            FrmSplasherLoading.CloseSplash();
 
         }
     }

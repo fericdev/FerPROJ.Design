@@ -44,6 +44,7 @@ namespace FerPROJ.Design.Forms {
 
         public static void CloseSplash() {
             if (splashForm != null) {
+                Thread.Sleep(100); 
                 splashForm.Invoke((Action)(() => {
                     splashForm.Close();
                     splashForm.Dispose();

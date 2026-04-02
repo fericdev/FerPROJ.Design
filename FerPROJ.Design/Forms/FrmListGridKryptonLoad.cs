@@ -23,6 +23,8 @@ namespace FerPROJ.Design.Forms {
                 return;
             }
 
+            await FrmSplasherLoading.ShowSplashAsync();
+
             _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
             if (!_searchParameter.IsNullOrEmpty()) {
@@ -79,6 +81,8 @@ namespace FerPROJ.Design.Forms {
             }
 
             _baseDatagridview?.ApplyRowValueFormatting(typeof(TModel));
+
+            FrmSplasherLoading.CloseSplash();
 
         }
     }

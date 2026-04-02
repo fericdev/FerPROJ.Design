@@ -1034,6 +1034,8 @@ namespace FerPROJ.Design.Class {
             int dataPage,
             int dataLimit) {
 
+            await FrmSplasherLoading.ShowSplashAsync();
+
             // Fetch all data asynchronously
             var data = (await dataFetchTask).ToList();
 
@@ -1052,6 +1054,7 @@ namespace FerPROJ.Design.Class {
             bindingSource.Clear();
 
             if (data.IsNullOrEmpty()) {
+                FrmSplasherLoading.CloseSplash();
                 return;
             }
 
@@ -1101,6 +1104,7 @@ namespace FerPROJ.Design.Class {
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
 
+            FrmSplasherLoading.CloseSplash();
         }
         #endregion
 
@@ -1109,6 +1113,8 @@ namespace FerPROJ.Design.Class {
             this BindingSource bindingSource,
             Expression<Func<TEntity, bool>> searchParameterEntity = null,
             Func<TModel, bool> searchParameterModel = null) {
+
+            await FrmSplasherLoading.ShowSplashAsync();
 
             var data = new List<TModel>();
 
@@ -1152,6 +1158,7 @@ namespace FerPROJ.Design.Class {
             bindingSource.Clear();
 
             if (data.IsNullOrEmpty()) {
+                FrmSplasherLoading.CloseSplash();
                 return;
             }
 
@@ -1218,6 +1225,7 @@ namespace FerPROJ.Design.Class {
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
 
+            FrmSplasherLoading.CloseSplash();
         }
 
         #region Control 

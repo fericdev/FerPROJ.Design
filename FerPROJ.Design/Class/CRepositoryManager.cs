@@ -23,15 +23,11 @@ namespace FerPROJ.DBHelper.DBCrud {
 
             using (var freshDbContext = (DbContext)Activator.CreateInstance(CAppConstants.DB_CONTEXT_TYPE)) {
 
-                await FrmSplasherLoading.ShowSplashAsync();
-
                 var instance = Activator.CreateInstance(repositoryType, freshDbContext);
 
                 var finalParameters = BuildParameterList(method, parameters);
 
                 var taskObject = method.Invoke(instance, finalParameters);
-
-                FrmSplasherLoading.CloseSplash();
 
                 if (taskObject is Task<TResult> typedTask)
                     return await typedTask;

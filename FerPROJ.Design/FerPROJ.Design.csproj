@@ -120,6 +120,12 @@
   <ItemGroup>
     <Compile Include="Class\CRepositoryManager.cs" />
     <Compile Include="Class\CEventManager.cs" />
+    <Compile Include="Controls\CUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CUserControl.Designer.cs">
+      <DependentUpon>CUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormModels\AddressModel.cs" />
     <Compile Include="BaseModels\BaseMenuButtonModel.cs" />
     <Compile Include="Class\CAccessManager.cs" />
@@ -326,6 +332,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controls\CTextBox.resx">
       <DependentUpon>CTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CUserControl.resx">
+      <DependentUpon>CUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CUserControlMenu.resx">
       <DependentUpon>CUserControlMenu.cs</DependentUpon>

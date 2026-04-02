@@ -1113,6 +1113,10 @@ namespace FerPROJ.Design.Class {
             Expression<Func<TEntity, bool>> searchParameterEntity = null,
             Func<TModel, bool> searchParameterModel = null) {
 
+            var dgv = GetBoundDataGridView(FindControlByBindingSource(bindingSource), bindingSource);
+
+            dgv?.ApplyCustomAttribute(typeof(TModel));
+
             await FrmSplasherLoading.ShowSplashAsync();
 
             var data = new List<TModel>();
@@ -1224,6 +1228,8 @@ namespace FerPROJ.Design.Class {
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
 
+            dgv?.ApplyRowValueFormatting(typeof(TModel));
+
             FrmSplasherLoading.CloseSplash();
         }
 
@@ -1241,8 +1247,7 @@ namespace FerPROJ.Design.Class {
         private static Control FindControlRecursive(Control parent, BindingSource bindingSource) {
             foreach (Control control in parent.Controls) {
                 // Check if this control is bound to the BindingSource
-                if ((control is DataGridView dgv && dgv.DataSource == bindingSource) ||
-                    (control is CDatagridview cdgv && cdgv.DataSource == bindingSource)) {
+                if (control is DataGridView dgv && dgv.DataSource == bindingSource) {
                     return control;
                 }
 
@@ -1254,11 +1259,10 @@ namespace FerPROJ.Design.Class {
             }
             return null;
         }
-        private static DataGridView GetBoundDataGridView(Control control, BindingSource bindingSource) {
+        private static CDatagridview GetBoundDataGridView(Control control, BindingSource bindingSource) {
             // Check if the current control is the target DataGridView and its DataSource matches
-            if ((control is CDatagridview cdgv && cdgv.DataSource == bindingSource) ||
-                (control is DataGridView dgv && dgv.DataSource == bindingSource)) {
-                return control as DataGridView;
+            if (control is CDatagridview dgv && dgv.DataSource == bindingSource) {
+                return control as CDatagridview;
             }
 
             return null; // No bound DataGridView found

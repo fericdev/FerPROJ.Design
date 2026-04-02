@@ -126,7 +126,7 @@ namespace FerPROJ.Design.Forms
             this.cLabelDesc2.AutoSize = true;
             this.cLabelDesc2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cLabelDesc2.ForeColor = System.Drawing.Color.White;
-            this.cLabelDesc2.Location = new System.Drawing.Point(537, 8);
+            this.cLabelDesc2.Location = new System.Drawing.Point(435, 8);
             this.cLabelDesc2.Name = "cLabelDesc2";
             this.cLabelDesc2.Size = new System.Drawing.Size(45, 17);
             this.cLabelDesc2.TabIndex = 8;
@@ -137,7 +137,7 @@ namespace FerPROJ.Design.Forms
             this.ComboBoxKryptonPage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.ComboBoxKryptonPage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.ComboBoxKryptonPage.DropDownWidth = 45;
-            this.ComboBoxKryptonPage.Location = new System.Drawing.Point(540, 29);
+            this.ComboBoxKryptonPage.Location = new System.Drawing.Point(438, 29);
             this.ComboBoxKryptonPage.Name = "ComboBoxKryptonPage";
             this.ComboBoxKryptonPage.Size = new System.Drawing.Size(117, 28);
             this.ComboBoxKryptonPage.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
@@ -155,7 +155,7 @@ namespace FerPROJ.Design.Forms
             this.cLabelDesc1.AutoSize = true;
             this.cLabelDesc1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cLabelDesc1.ForeColor = System.Drawing.Color.White;
-            this.cLabelDesc1.Location = new System.Drawing.Point(387, 8);
+            this.cLabelDesc1.Location = new System.Drawing.Point(285, 8);
             this.cLabelDesc1.Name = "cLabelDesc1";
             this.cLabelDesc1.Size = new System.Drawing.Size(75, 17);
             this.cLabelDesc1.TabIndex = 5;
@@ -166,7 +166,7 @@ namespace FerPROJ.Design.Forms
             this.ComboBoxKryptonDataLimit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.ComboBoxKryptonDataLimit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.ComboBoxKryptonDataLimit.DropDownWidth = 45;
-            this.ComboBoxKryptonDataLimit.Location = new System.Drawing.Point(390, 29);
+            this.ComboBoxKryptonDataLimit.Location = new System.Drawing.Point(288, 29);
             this.ComboBoxKryptonDataLimit.Name = "ComboBoxKryptonDataLimit";
             this.ComboBoxKryptonDataLimit.Size = new System.Drawing.Size(131, 28);
             this.ComboBoxKryptonDataLimit.StateActive.ComboBox.Border.Color1 = System.Drawing.Color.DarkGray;
@@ -208,7 +208,7 @@ namespace FerPROJ.Design.Forms
             this.SearchTextBox.PasswordChar = false;
             this.SearchTextBox.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.SearchTextBox.PlaceholderText = "";
-            this.SearchTextBox.Size = new System.Drawing.Size(345, 31);
+            this.SearchTextBox.Size = new System.Drawing.Size(260, 31);
             this.SearchTextBox.TabIndex = 1;
             this.SearchTextBox.TextProperty = null;
             this.SearchTextBox.Texts = "";

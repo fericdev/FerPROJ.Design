@@ -38,6 +38,6 @@ namespace FerPROJ.Design.Class {
     public class VersionModel {
         public string SystemName { get; set; }
         public string SystemVersion { get; set; }
-        public DateTime DateUpdated { get; set; }
+        public string DateUpdated { get; set; }
     }
 }

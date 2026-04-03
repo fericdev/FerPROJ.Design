@@ -13,29 +13,28 @@ namespace FerPROJ.Design.Class {
         public static string SystemVersion { get; private set; }
 
         // Static constructor to initialize the properties
-        public static void SetAssembly(Assembly assembly, string versionUrl) {
-            if (assembly == null) {
-                throw new ArgumentNullException(nameof(assembly));
-            }
-
-            SystemName = assembly.GetName().Name;
+        public static bool SetAssemblyAndCheckVersion(Assembly assembly, string versionUrl) {
+            //
+            SystemName = assembly.GetName().Name.Replace(".", "");
             SystemVersion = assembly.GetName().Version.ToString();
-            CheckVersionAsync(versionUrl).RunTask();
+            //
+            return CheckVersionAsync(versionUrl).RunTask();
         }
-        private static async Task CheckVersionAsync(string versionUrl) {
+        private static async Task<bool> CheckVersionAsync(string versionUrl) {
             var data = await CApiManager.GetDataAsync<VersionModel>($"https://fericdev.github.io/version-control/{versionUrl}.json");
             if (data.IsNullOrEmpty()) {
                 CDialogManager.Warning(
                     $"There is a problem with the system version. Please contact the system administrator.", "Version Error");
-                Application.Exit();
+                return false;
             }          
             if (!data.SystemVersion.Equals(SystemVersion) && data.SystemName.Equals(SystemName)) {
                 CDialogManager.Warning(
                     $"A new version of {SystemName} is available: {data.SystemVersion}. " +
                     $"\nYou are currently using version {SystemVersion}. " +
                     $"\nPlease update to the latest version for the best experience.", "Update Available");
-                Application.Exit();
+                return false;
             }
+            return true;
         }
     }
     public class VersionModel {

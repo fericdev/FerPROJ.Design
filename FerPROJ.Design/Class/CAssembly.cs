@@ -13,24 +13,22 @@ namespace FerPROJ.Design.Class {
         public static string SystemVersion { get; private set; }
 
         // Static constructor to initialize the properties
-        public static void SetAssembly(Assembly assembly) {
+        public static void SetAssembly(Assembly assembly, string versionUrl) {
             if (assembly == null) {
                 throw new ArgumentNullException(nameof(assembly));
             }
 
             SystemName = assembly.GetName().Name;
             SystemVersion = assembly.GetName().Version.ToString();
-            CheckVersionAsync().RunTask();
+            CheckVersionAsync(versionUrl).RunTask();
         }
-        private static async Task CheckVersionAsync() {
-            var data = await CApiManager.GetDataAsync<VersionModel>("https://fericdev.github.io/version-control/lms_version.json");
+        private static async Task CheckVersionAsync(string versionUrl) {
+            var data = await CApiManager.GetDataAsync<VersionModel>($"https://fericdev.github.io/version-control/{versionUrl}.json");
             if (data.IsNullOrEmpty()) {
                 CDialogManager.Warning(
                     $"There is a problem with the system version. Please contact the system administrator.", "Version Error");
                 Application.Exit();
-            }
-                
-
+            }          
             if (!data.SystemVersion.Equals(SystemVersion) && data.SystemName.Equals(SystemName)) {
                 CDialogManager.Warning(
                     $"A new version of {SystemName} is available: {data.SystemVersion}. " +

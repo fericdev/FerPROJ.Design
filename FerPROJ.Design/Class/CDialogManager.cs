@@ -44,7 +44,7 @@ namespace FerPROJ.Design.Class {
             }
 
             // Remove compiler async parts first
-            var cleaned = Regex.Replace(type?.Name, @"\<.*\>d__\d+", "");
+            var cleaned = Regex.Replace(type?.Name, @"\<(.+?)\>d__\d+", "$1");
 
             // Remove any non-alphanumeric character (keep _ if desired)
             cleaned = Regex.Replace(cleaned, @"[^a-zA-Z0-9_]", "");

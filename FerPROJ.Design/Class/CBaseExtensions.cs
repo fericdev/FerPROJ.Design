@@ -45,9 +45,10 @@ namespace FerPROJ.Design.Class {
             if (excluded != null) {
                 enumValues = enumValues.Where(value => !excluded.Contains(value)).ToList();
             }
-            cmb.DataSource = new BindingList<TEnum>(enumValues);
 
             cmb.TrackIndexChangesAndBindModel();
+
+            cmb.DataSource = new BindingList<TEnum>(enumValues);
         }
         public static void FillComboBox(this CComboBoxKrypton cmb, Dictionary<int, string> dataSource) {
             if (dataSource == null || dataSource.Count == 0) {
@@ -259,6 +260,9 @@ namespace FerPROJ.Design.Class {
 
                 var bindingText = cmb.DataBindings[nameof(cmb.SelectedText)];
                 bindingText?.WriteValue();   // push value to model NOW
+
+                var bindingName = cmb.DataBindings[nameof(cmb.Text)];
+                bindingName?.WriteValue();   // push value to model NOW
             };
         }
         public static void ValidateTextAndBindModel<TModel>(this CComboBoxKrypton cmb, TModel model,

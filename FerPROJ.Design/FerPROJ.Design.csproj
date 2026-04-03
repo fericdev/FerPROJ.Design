@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\CApiManager.cs" />
     <Compile Include="Class\CRepositoryManager.cs" />
     <Compile Include="Class\CEventManager.cs" />
     <Compile Include="Controls\CUserControl.cs">

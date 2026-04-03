@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
     public static class CAssembly {
@@ -19,6 +20,24 @@ namespace FerPROJ.Design.Class {
 
             SystemName = assembly.GetName().Name;
             SystemVersion = assembly.GetName().Version.ToString();
+            CheckVersionAsync().RunTask();
         }
+        private static async Task CheckVersionAsync() {
+            var data = await CApiManager.GetDataAsync<VersionModel>("https://fericdev.github.io/version-control/lms_version.json");
+            if (data.IsNullOrEmpty())
+                return;
+
+            if (!data.SystemVersion.Equals(SystemVersion) && data.SystemName.Equals(SystemName)) {
+                CDialogManager.Warning(
+                    $"A new version of {SystemName} is available: {data.SystemVersion}. " +
+                    $"You are currently using version {SystemVersion}. Please update to the latest version for the best experience.", "Update Available");
+                Application.Exit();
+            }
+        }
+    }
+    public class VersionModel {
+        public string SystemName { get; set; }
+        public string SystemVersion { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }

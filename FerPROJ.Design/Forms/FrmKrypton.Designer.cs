@@ -50,6 +50,7 @@
             this.StateCommon.Header.Border.Color1 = System.Drawing.Color.RoyalBlue;
             this.StateCommon.Header.Border.Color2 = System.Drawing.Color.RoyalBlue;
             this.Text = "FrmKrypton";
+            this.Load += new System.EventHandler(this.FrmKrypton_Load);
             ((System.ComponentModel.ISupportInitialize)(this.baseKryptonPanel)).EndInit();
             this.ResumeLayout(false);
 

@@ -24,13 +24,18 @@ namespace FerPROJ.Design.Class {
         }
         private static async Task CheckVersionAsync() {
             var data = await CApiManager.GetDataAsync<VersionModel>("https://fericdev.github.io/version-control/lms_version.json");
-            if (data.IsNullOrEmpty())
-                return;
+            if (data.IsNullOrEmpty()) {
+                CDialogManager.Warning(
+                    $"There is a problem with the system version. Please contact the system administrator.", "Version Error");
+                Application.Exit();
+            }
+                
 
             if (!data.SystemVersion.Equals(SystemVersion) && data.SystemName.Equals(SystemName)) {
                 CDialogManager.Warning(
                     $"A new version of {SystemName} is available: {data.SystemVersion}. " +
-                    $"You are currently using version {SystemVersion}. Please update to the latest version for the best experience.", "Update Available");
+                    $"\nYou are currently using version {SystemVersion}. " +
+                    $"\nPlease update to the latest version for the best experience.", "Update Available");
                 Application.Exit();
             }
         }

@@ -262,6 +262,9 @@ namespace FerPROJ.Design.Forms {
             this.Manage_IdTrack = id;
             this.CurrentFormMode = formMode;
             this.ShowDialog();
+            if (CurrentFormResult.IsNullOrEmpty()) {
+                CurrentFormResult = Task.FromResult(false);
+            }
             return await CurrentFormResult;
         }
         public async Task<bool> CurrentNewFormResultAsync<TForm>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
@@ -274,6 +277,9 @@ namespace FerPROJ.Design.Forms {
             }
             this.CurrentFormMode = formMode;
             this.ShowDialog();
+            if (CurrentFormResult.IsNullOrEmpty()) {
+                CurrentFormResult = Task.FromResult(false);
+            }
             return await CurrentFormResult;
         }
 

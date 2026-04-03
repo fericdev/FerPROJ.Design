@@ -46,9 +46,9 @@ namespace FerPROJ.Design.Class {
                 enumValues = enumValues.Where(value => !excluded.Contains(value)).ToList();
             }
 
-            cmb.TrackIndexChangesAndBindModel();
-
             cmb.DataSource = new BindingList<TEnum>(enumValues);
+
+            cmb.BindModel();
         }
         public static void FillComboBox(this CComboBoxKrypton cmb, Dictionary<int, string> dataSource) {
             if (dataSource == null || dataSource.Count == 0) {
@@ -126,7 +126,7 @@ namespace FerPROJ.Design.Class {
             cmb.ValueMember = cmbValue;
             cmb.DataSource = uniqueData;
         }
-        public static void FillComboBox(this CComboBoxKrypton cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource, bool assignSelectedValue = false) {
+        public static void FillComboBox(this CComboBoxKrypton cmb, string cmbText, string cmbValue, IEnumerable<object> dataSource) {
             var uniqueData = dataSource
                 .GroupBy(item => item.GetType().GetProperty(cmbText).GetValue(item))
                 .Select(group => group.First())
@@ -136,26 +136,11 @@ namespace FerPROJ.Design.Class {
             cmb.ValueMember = cmbValue;
             cmb.DataSource = uniqueData;
 
-            if (uniqueData.Count > 0 && assignSelectedValue) {
-                var firstItem = uniqueData[0];
-                var firstValue = firstItem.GetType().GetProperty(cmbValue)?.GetValue(firstItem);
-
-                cmb.BeginInvoke(new Action(() => {
-                    var binding = cmb.DataBindings["SelectedValue"];
-
-                    if (binding?.DataSource is BindingSource bs && bs.Current != null) {
-                        var model = bs.Current; var modelProp = model.GetType().GetProperty(binding.BindingMemberInfo.BindingField);
-                        modelProp?.SetValue(model, firstValue); bs.ResetCurrentItem();
-                    }
-                    else {
-                        cmb.SelectedValue = firstValue;
-                    }
-                }));
-            }
-
             cmb.TrackValueChangesAndBindModel();
+
+            cmb.BindModel();
         }
-        public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> cmbText, string cmbValue, IEnumerable<T> dataSource, bool assignSelectedValue = false) {
+        public static void FillComboBox<T>(this CComboBoxKrypton cmb, Func<T, string> cmbText, string cmbValue, IEnumerable<T> dataSource) {
             var uniqueData = dataSource
                 .GroupBy(cmbText)
                 .Select(group => group.First())
@@ -170,23 +155,9 @@ namespace FerPROJ.Design.Class {
             cmb.ValueMember = "Value";
             cmb.DataSource = uniqueData;
 
-            if (uniqueData.Count > 0 && assignSelectedValue) {
-                var firstItem = uniqueData[0];
-                var firstValue = firstItem.GetType().GetProperty(cmbValue)?.GetValue(firstItem);
-
-                cmb.BeginInvoke(new Action(() => {
-                    var binding = cmb.DataBindings["SelectedValue"];
-
-                    if (binding?.DataSource is BindingSource bs && bs.Current != null) {
-                        var model = bs.Current; var modelProp = model.GetType().GetProperty(binding.BindingMemberInfo.BindingField);
-                        modelProp?.SetValue(model, firstValue); bs.ResetCurrentItem();
-                    }
-                    else {
-                        cmb.SelectedValue = firstValue;
-                    }
-                }));
-            }
             cmb.TrackValueChangesAndBindModel();
+
+            cmb.BindModel();
         }
         public static void TrackValueChangesAndCallMethod(this CComboBoxKrypton cmb, Func<Task> onValueChanged) {
             if (cmb == null) {
@@ -247,6 +218,61 @@ namespace FerPROJ.Design.Class {
                 var binding = cmb.DataBindings[nameof(cmb.SelectedValue)];
                 binding?.WriteValue();   // push value to model NOW
             };
+        }
+        public static void BindModel(this CComboBoxKrypton cmb) {
+
+            if (cmb == null) {
+                throw new ArgumentNullException(nameof(cmb));
+            }
+
+            foreach (Binding binding in cmb.DataBindings) {
+
+                var bs = binding?.DataSource as BindingSource;
+                if (bs == null)
+                    continue;
+
+                var current = bs.Current;
+                if (current == null)
+                    continue;
+
+                // Model property
+                var modelProp = current.GetType().GetProperty(binding.BindingMemberInfo.BindingMember);
+                if (modelProp == null)
+                    continue;
+
+                var modelValue = modelProp.GetValue(current)?.ToString();
+
+                if (!modelValue.IsNullOrEmpty()) {
+                    if (!string.IsNullOrEmpty(cmb.ValueMember)) {
+                        var id = modelValue.ToGuid();
+                        if (!id.IsNullOrEmpty()) {
+                            cmb.SelectedValue = id;
+                            continue;
+                        }
+                    }
+
+                    else if (!string.IsNullOrEmpty(cmb.DisplayMember)) {
+                        cmb.Text = modelValue;
+                        continue;
+                    }
+                    else {
+                        cmb.Text = modelValue;
+                        continue;
+                    }
+                }
+
+                var bindingValue = cmb.DataBindings[nameof(cmb.SelectedValue)];
+                bindingValue?.WriteValue();   // push value to model NOW
+
+                var bindingText = cmb.DataBindings[nameof(cmb.SelectedText)];
+                bindingText?.WriteValue();   // push value to model NOW
+
+                var bindingName = cmb.DataBindings[nameof(cmb.Text)];
+                bindingName?.WriteValue();   // push value to model NOW
+
+
+            }
+
         }
         public static void TrackIndexChangesAndBindModel(this CComboBoxKrypton cmb) {
 
@@ -636,7 +662,7 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
-        public static bool IsNullOrEmpty<T>(this List<T> value)  {
+        public static bool IsNullOrEmpty<T>(this List<T> value) {
             try {
                 return value == null || value.Count == 0;
             }

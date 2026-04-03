@@ -1966,8 +1966,16 @@ namespace FerPROJ.Design.Class {
         }
 
         public static void OpenContextMenu(this CDatagridview dgv, List<BaseMenuButtonModel> baseMenus) {
+
+            // Prevent multiple subscriptions
+            if (dgv.Tag != null && dgv.Tag.ToString() == "CTX_BOUND")
+                return;
+
+            // Use to identify that context menu is bound 
+            dgv.Tag = "CTX_BOUND";
+
             // Ensure right-click is detected on cell
-            dgv.MouseDown += async (sender, e) => {
+            dgv.MouseUp += async (sender, e) => {
                 if (e.Button == MouseButtons.Right) {
                     var hitTest = dgv.HitTest(e.X, e.Y);
 

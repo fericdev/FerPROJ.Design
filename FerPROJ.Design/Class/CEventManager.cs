@@ -35,11 +35,31 @@ namespace FerPROJ.Design.Class {
     }
     public static class CEventManager<T> {
         private static event Func<Task> OnListFormRefreshAsync;
-        public static void RegisterRefresh(Func<Task> handler) {
-            OnListFormRefreshAsync += handler;
+        public static void Register(Func<Task> handler, EventTypes type) {
+            switch(type) {
+                case EventTypes.ListFormRefresh:
+                    OnListFormRefreshAsync += handler;
+                    break;
+                case EventTypes.ListFormClosed:
+                    break;
+                case EventTypes.ListFormDelete:
+                    break;
+                case EventTypes.ManageFormClosed:
+                    break;
+            }
         }
-        public static void UnregisterRefresh(Func<Task> handler) {
-            OnListFormRefreshAsync -= handler;
+        public static void Unregister(Func<Task> handler, EventTypes type) {
+            switch (type) {
+                case EventTypes.ListFormRefresh:
+                    OnListFormRefreshAsync -= handler;
+                    break;
+                case EventTypes.ListFormClosed:
+                    break;
+                case EventTypes.ListFormDelete:
+                    break;
+                case EventTypes.ManageFormClosed:
+                    break;
+            }
         }
         public static async Task RaiseOnListFormRefreshAsync() {
 
@@ -51,5 +71,11 @@ namespace FerPROJ.Design.Class {
                 await handler();
             }
         }
+    }
+    public enum EventTypes {
+        ListFormClosed,
+        ListFormDelete,
+        ListFormRefresh,
+        ManageFormClosed
     }
 }

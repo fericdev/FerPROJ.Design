@@ -1228,7 +1228,11 @@ namespace FerPROJ.Design.Class {
                 // Suspend updates for smoother performance
                 bindingSource.SuspendBinding();
 
-                if (bindingSource.DataSource is List<TModel> currentData) {
+                // Append new batch to existing data
+                var currentData = bindingSource.DataSource as List<TModel>;
+
+                // If not null add new batch to existing
+                if (currentData?.Count > 0) {
                     currentData.AddRange(batch);  // Add new batch
                 }
                 else {

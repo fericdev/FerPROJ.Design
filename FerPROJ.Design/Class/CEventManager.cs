@@ -38,6 +38,7 @@ namespace FerPROJ.Design.Class {
         public static void Register(Func<Task> handler, EventTypes type) {
             switch(type) {
                 case EventTypes.ListFormRefresh:
+                    OnListFormRefreshAsync -= handler;
                     OnListFormRefreshAsync += handler;
                     break;
                 case EventTypes.ListFormClosed:

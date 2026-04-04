@@ -33,4 +33,23 @@ namespace FerPROJ.Design.Class {
             }
         }
     }
+    public static class CEventManager<T> {
+        private static event Func<Task> OnListFormRefreshAsync;
+        public static void RegisterRefresh(Func<Task> handler) {
+            OnListFormRefreshAsync += handler;
+        }
+        public static void UnregisterRefresh(Func<Task> handler) {
+            OnListFormRefreshAsync -= handler;
+        }
+        public static async Task RaiseOnListFormRefreshAsync() {
+
+            if (OnListFormRefreshAsync == null) {
+                return;
+            }
+
+            foreach (var handler in OnListFormRefreshAsync.GetInvocationList().Cast<Func<Task>>()) {
+                await handler();
+            }
+        }
+    }
 }

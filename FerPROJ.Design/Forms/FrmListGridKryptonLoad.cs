@@ -17,6 +17,10 @@ namespace FerPROJ.Design.Forms {
         public FrmListGridKryptonLoad(Type repoType, CrudOptions crudOptions, Expression<Func<TEntity, bool>> searchParameter = null) : base(repoType, crudOptions) {
             _searchParameter = searchParameter;
         }
+        protected override async void tsbMainRefresh_Click(object sender, EventArgs e) {
+            await CEventManager<TEntity>.RaiseOnListFormRefreshAsync();
+            base.tsbMainRefresh_Click(sender, e);
+        }
         protected override async Task RefreshAsync() {
 
             if (_repositoryType.IsNullOrEmpty()) {

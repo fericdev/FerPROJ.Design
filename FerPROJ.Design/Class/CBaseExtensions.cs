@@ -1162,7 +1162,7 @@ namespace FerPROJ.Design.Class {
                     null,
                     null,
                     null,
-                    20
+                    int.MaxValue
                 );
 
                 // Fetch all data asynchronously
@@ -1176,7 +1176,7 @@ namespace FerPROJ.Design.Class {
                     null,
                     null,
                     null,
-                    20
+                    int.MaxValue
                 );
 
                 // Fetch all data asynchronously

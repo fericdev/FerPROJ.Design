@@ -281,12 +281,6 @@
     <Compile Include="Forms\FrmSplasherLoading.designer.cs">
       <DependentUpon>FrmSplasherLoading.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmSplasherReport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmSplasherReport.designer.cs">
-      <DependentUpon>FrmSplasherReport.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmSplasher.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -375,9 +369,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmSplasherLoading.resx">
       <DependentUpon>FrmSplasherLoading.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmSplasherReport.resx">
-      <DependentUpon>FrmSplasherReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmSplasher.resx">
       <DependentUpon>FrmSplasher.cs</DependentUpon>

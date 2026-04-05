@@ -36,6 +36,10 @@ namespace FerPROJ.Design.Class
         #region Type Contants
         public static Type DB_CONTEXT_TYPE { get; set; }
         #endregion
+
+        #region Splash tracker
+        public static DateTime SPLASHER_LAST_SHOWN { get; set; }
+        #endregion
     }
 
 }

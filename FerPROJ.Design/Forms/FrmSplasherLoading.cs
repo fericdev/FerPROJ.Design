@@ -30,21 +30,34 @@ namespace FerPROJ.Design.Forms {
             }
         }
         public static async Task ShowSplashAsync() {
+
+            // Skip showing the splash if it was shown recently
+            if ((DateTime.Now - CAppConstants.SPLASHER_LAST_SHOWN).TotalSeconds < 2) {
+                return; 
+            }
+
+            // Initialize the splash form if it hasn't been created yet
             if (splashForm == null) {
                 splashForm = new FrmSplasherLoading();
             }
+
             // Show the form asynchronously to ensure it's fully loaded
             splashForm.Shown += async (s, e) => {
                 await Task.Delay(100); // Optional: delay to simulate loading time
             };
+
+            //
             await Task.CompletedTask;
+            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
+
+            // Show the splash form
             splashForm.Show();
             splashForm.Update();
         }
 
         public static void CloseSplash() {
             if (splashForm != null) {
-                Thread.Sleep(100); 
+                Thread.Sleep(100);
                 splashForm.Invoke((Action)(() => {
                     splashForm.Close();
                     splashForm.Dispose();

@@ -64,6 +64,8 @@ namespace FerPROJ.Design.Forms {
             }
         }
         public static async Task ShowSplashAsync(List<Func<Task>> tasks) {
+            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
+
             int currentPercentage = 5;
 
             instance = new FrmSplasher();

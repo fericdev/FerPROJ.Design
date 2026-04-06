@@ -38,6 +38,7 @@ namespace FerPROJ.Design.BaseModels {
     }
     public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
     {
+        [CAttributes]
         public string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();
         public virtual List<TItem> Items { get; set; } = new List<TItem>();
         public override bool DataValidation() {

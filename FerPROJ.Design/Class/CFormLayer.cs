@@ -43,8 +43,8 @@ namespace FerPROJ.Design.Class {
             }
 
             parameters = parameters == null
-                ? new Action<TForm>(c => { c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Finalize"; })
-                : new Action<TForm>(c => { parameters(c); c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Finalize"; });
+                ? new Action<TForm>(c => { c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalize"; })
+                : new Action<TForm>(c => { parameters(c); c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalize"; });
 
             using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
                 return await frm.CurrentNewFormResultAsync(formMode, id, parameters);

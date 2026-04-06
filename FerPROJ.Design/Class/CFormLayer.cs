@@ -1,4 +1,5 @@
-﻿using FerPROJ.Design.BaseModels;
+﻿using FerPROJ.DBHelper.DBCrud;
+using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Forms;
 using System;
 using System.CodeDom;
@@ -11,29 +12,52 @@ using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Class {
     public class CFormLayer {
-        public static Task<bool> ManageAddressAsync(FormMode formMode, AddressModel addressDTO, Guid id) {
+        public static async Task<bool> ManageAddressAsync(FormMode formMode, AddressModel addressDTO, Guid id) {
             using (var frm = new FrmAddressDetail(addressDTO)) {
                 frm.CurrentFormMode = formMode;
                 frm.Manage_IdTrack = id;
                 frm.ShowDialog();
                 addressDTO = frm.Address;
-                return frm.CurrentFormResult;
+                return await frm.CurrentFormResult;
             }
         }
-        public static Task<bool> ManageAsync<TForm>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
+        public static async Task<bool> ManageAsync<TForm>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
             using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
-                return frm.CurrentNewFormResultAsync(formMode, id, parameters);
+                return await frm.CurrentNewFormResultAsync(formMode, id, parameters);
             }
         }
-        public static Task<bool> ManageAsync<TForm>(FormMode formMode, Guid id, List<(string PropertyName, object PropertyValue)> parameters = null) where TForm : FrmManageKrypton {
+        public static async Task<bool> ManageAsync<TForm>(FormMode formMode, Guid id, List<(string PropertyName, object PropertyValue)> parameters = null) where TForm : FrmManageKrypton {
             using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
-                return frm.CurrentFormResultAsync(formMode, id, parameters);
+                return await frm.CurrentFormResultAsync(formMode, id, parameters);
             }
         }
-        public static Task<bool> ListAsync<TModel, TEntity, TRepository>(CrudOptions crudoptions, Expression<Func<TEntity, bool>> searchParameter = null) where TModel : BaseModel {
-            using (var frm = new FrmListGridKryptonLoad<TModel, TEntity>(typeof(TRepository), crudoptions, searchParameter)) {
+        public static async Task<bool> ManageFormAsync<TForm, TEntity, TRepository>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
+            if (formMode == FormMode.Update) {
+                var entity = await CRepositoryManager.ExecuteMethodAsync<TEntity>(typeof(TRepository), "GetByIdAsync", id);
+                if (!entity.IsNullOrEmpty()) {
+                    var finalizeStatus = entity.GetPropertyValue<string>("FinalizeStatus");
+                    if (finalizeStatus.ToEnum<FinalizeStatusTypes>() == FinalizeStatusTypes.Completed) {
+                        formMode = FormMode.ReadOnly;
+                    }
+                }
+                parameters = parameters == null
+                    ? new Action<TForm>(c => { c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Finalize"; })
+                    : new Action<TForm>(c => { parameters(c); c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Finalize"; });
+            }
+            else {
+                parameters = parameters == null
+                    ? new Action<TForm>(c => c.HideSaveNew = true)
+                    : new Action<TForm>(c => { parameters(c); c.HideSaveNew = true; });
+            }
+
+            using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
+                return await frm.CurrentNewFormResultAsync(formMode, id, parameters);
+            }
+        }
+        public static async Task<bool> ListAsync<TModel, TEntity, TRepository>(CrudOptions crudOption, Expression<Func<TEntity, bool>> searchParameter = null) where TModel : BaseModel {
+            using (var frm = new FrmListGridKryptonLoad<TModel, TEntity>(typeof(TRepository), crudOption, searchParameter)) {
                 frm.ShowDialog();
-                return Task.FromResult(true);
+                return true;
             }
         }
 

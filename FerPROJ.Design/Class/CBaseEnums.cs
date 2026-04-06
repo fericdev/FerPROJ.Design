@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class
 {
-    public static class CBaseEnums
+    public class CBaseEnums
     {
+        #region Global enums
         public enum FormMode {
             Add,
             Update,
@@ -57,10 +58,18 @@ namespace FerPROJ.Design.Class
             Unsi,
             Dosi
         }
-        public enum Gender {
+        public enum GenderTypes {
             Male, 
             Female,
             Others
         }
+        #endregion
+
+        #region Form enums
+        public enum FinalizeStatusTypes {
+            Processing,
+            Completed
+        }
+        #endregion
     }
 }

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.BaseModels {
     public abstract class BaseModel : CPropertyValidator 
@@ -35,8 +36,9 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Visible = false)]
         public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
     }
-    public abstract class BaseModel<TItem> : BaseModel where TItem : BaseModelItem
+    public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
     {
+        public string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();
         public virtual List<TItem> Items { get; set; } = new List<TItem>();
         public override bool DataValidation() {
             if (Items.IsNullOrEmpty()) {

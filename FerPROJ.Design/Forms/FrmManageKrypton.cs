@@ -227,8 +227,8 @@ namespace FerPROJ.Design.Forms {
         protected async virtual Task<bool> OnUpdateDataAsync() {
             return await CurrentFormResult;
         }
-        protected async virtual Task<bool> OnSaveNewDataAsync() {
-            return await OnSaveDataAsync();
+        protected async virtual Task<(bool Result, bool CloseForm)> OnSaveNewDataAsync() {
+            return (await OnSaveDataAsync(), false);
         }
         protected async virtual Task LoadComponentsAsync() {
             await Task.CompletedTask;
@@ -237,9 +237,13 @@ namespace FerPROJ.Design.Forms {
         private async void baseButtonAddNew_Click(object sender, EventArgs e) {
             try {
                 var result = await OnSaveNewDataAsync();
-                if (result) {
+                if (result.Result) {
                     CurrentFormResult = Task.FromResult(true);
                     ClearAllTextBoxes(this);
+                    if (result.CloseForm) {
+                        this.Close();
+                        await CEventManager.RaiseMethodsOnManageFormClosedAsync();
+                    }
                 }
             }
             catch (Exception ex) {
@@ -249,8 +253,9 @@ namespace FerPROJ.Design.Forms {
         }
         private void ClearAllTextBoxes(Control control) {
             foreach (Control childControl in control.Controls) {
-                if (childControl is CTextBox textBox) {
-                    textBox.TextProperty = null;
+                if (childControl is CTextBoxKrypton textBox) {
+                    textBox.Name = null;
+                    textBox.SelectedText = null;
                 }
                 else if (childControl.HasChildren) {
                     ClearAllTextBoxes(childControl);
@@ -354,7 +359,6 @@ namespace FerPROJ.Design.Forms {
             get { return hideFunctionOnUpdate; }
             set {
                 hideFunctionOnUpdate = value;
-                HideSaveNewFunctionOnUpdate();
             }
         }
         public bool HideHeader {
@@ -452,9 +456,6 @@ namespace FerPROJ.Design.Forms {
         #endregion
 
         #region Hide/Show Methods
-        private void HideSaveNewFunctionOnUpdate() {
-            baseButtonAddNew.Visible = !hideFunctionOnUpdate;
-        }
         private void HideSaveNewFunction() {
             baseButtonAddNew.Visible = !hideFunction;
         }

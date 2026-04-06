@@ -32,7 +32,7 @@ namespace FerPROJ.Design.Forms {
             }
             return Task.CompletedTask;
         }
-        protected override async Task<bool> OnSaveNewDataAsync() {
+        protected override async Task<(bool Result, bool CloseForm)> OnSaveNewDataAsync() {
             using (OpenFileDialog ofd = new OpenFileDialog()) {
                 if (ofd.ShowDialog() == DialogResult.OK) {
                     string imagePath = ofd.FileName;
@@ -40,7 +40,7 @@ namespace FerPROJ.Design.Forms {
                     pictureBoxImage.BackgroundImage = _tempPicture.ToImage();
                 }
             }
-            return await Task.FromResult(false);
+            return (await Task.FromResult(false), false);
         }
         protected override async Task<bool> OnSaveDataAsync() {
             return await Task.FromResult(true);

@@ -1686,6 +1686,34 @@ namespace FerPROJ.Design.Class {
                     break;
             }
         }
+        public static void HideColumns(this CDatagridview dgv, List<string> columns, Type modelType = null) {
+            if (modelType == null) {
+                modelType = dgv.GetModelTypeFromDataGridView();
+            }
+
+            var properties = modelType.GetProperties(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            foreach (var property in properties) {
+                var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
+                                                 .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
+                                                 .ToList();
+
+                var attribute = property.GetCustomAttribute<CAttributes>();
+                if (attribute == null)
+                    continue;
+
+                var column = matchingColumns.FirstOrDefault();
+                if (column == null) {
+                    continue;
+                }
+
+                if (columns.Contains(column.DataPropertyName)) {
+                    column.Visible = false;
+                }
+
+            }
+        }
         public static void SetColumnsEditable(this CDatagridview dgv, bool editable, params int[] columnIndices) {
             dgv.EditMode = DataGridViewEditMode.EditOnEnter;
             // Prevent errors if no columns are provided

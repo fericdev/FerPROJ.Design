@@ -31,6 +31,10 @@ namespace FerPROJ.Design.Forms {
 
             _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
 
+            if (!_crudOptions.HideColumnOnRefreshParameters.IsNullOrEmpty()) {
+                _baseDatagridview.HideColumns(_crudOptions.HideColumnOnRefreshParameters, typeof(TModel));
+            }
+
             if (!_searchParameter.IsNullOrEmpty()) {
                 var result = await CRepositoryManager.ExecuteMethodAsync<(IEnumerable<TModel> ModelItems, int TotalCount)>(
                     _repositoryType,
@@ -71,7 +75,7 @@ namespace FerPROJ.Design.Forms {
                 );
             }
 
-            if (_crudOptions.RowColorOnRefreshEnabled) {
+            if (!_crudOptions.RowColorOnRefreshParameters.IsNullOrEmpty()) {
                 _baseDatagridview.SetRowColorOfColumnValue(
                     _crudOptions.RowColorOnRefreshParameters.ColumnName,
                     _crudOptions.RowColorOnRefreshParameters.ColumnValue,

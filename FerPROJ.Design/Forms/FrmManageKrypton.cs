@@ -221,6 +221,22 @@ namespace FerPROJ.Design.Forms {
 
             }
         }
+        private async void baseButtonAddNew_Click(object sender, EventArgs e) {
+            try {
+                var result = await OnSaveNewDataAsync();
+                if (result.Result) {
+                    CurrentFormResult = Task.FromResult(true);
+                    if (result.CloseForm) {
+                        this.Close();
+                        await CEventManager.RaiseMethodsOnManageFormClosedAsync();
+                    }
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message);
+
+            }
+        }
         protected async virtual Task<bool> OnSaveDataAsync() {
             return await CurrentFormResult;
         }
@@ -234,34 +250,7 @@ namespace FerPROJ.Design.Forms {
             await Task.CompletedTask;
         }
 
-        private async void baseButtonAddNew_Click(object sender, EventArgs e) {
-            try {
-                var result = await OnSaveNewDataAsync();
-                if (result.Result) {
-                    CurrentFormResult = Task.FromResult(true);
-                    ClearAllTextBoxes(this);
-                    if (result.CloseForm) {
-                        this.Close();
-                        await CEventManager.RaiseMethodsOnManageFormClosedAsync();
-                    }
-                }
-            }
-            catch (Exception ex) {
-                CDialogManager.Warning(ex.Message);
 
-            }
-        }
-        private void ClearAllTextBoxes(Control control) {
-            foreach (Control childControl in control.Controls) {
-                if (childControl is CTextBoxKrypton textBox) {
-                    textBox.Name = null;
-                    textBox.SelectedText = null;
-                }
-                else if (childControl.HasChildren) {
-                    ClearAllTextBoxes(childControl);
-                }
-            }
-        }
         public async Task<bool> CurrentFormResultAsync(FormMode formMode, Guid id, List<(string PropertyName, object PropertyValue)> parameters = null) {
             BuildParameter(parameters);
             this.Manage_IdTrack = id;

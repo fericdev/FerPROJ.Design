@@ -75,7 +75,7 @@ namespace FerPROJ.Design.Forms {
                 );
             }
 
-            if (!_crudOptions.RowColorOnRefreshParameters.IsNullOrEmpty()) {
+            if (!_crudOptions.RowColorOnRefreshParameters.ColumnName.IsNullOrEmpty()) {
                 _baseDatagridview.SetRowColorOfColumnValue(
                     _crudOptions.RowColorOnRefreshParameters.ColumnName,
                     _crudOptions.RowColorOnRefreshParameters.ColumnValue,

@@ -21,14 +21,18 @@ namespace FerPROJ.Design.Class {
             notifyIcon.Visible = true;
             notifyIcon.BalloonTipTitle = notification.Title;
             notifyIcon.BalloonTipText = notification.Description;
-            notifyIcon.BalloonTipClicked += async (sender, e) => {
-                await action();
-            };
+            //
+            if (!action.IsNullOrEmpty()) {
+                notifyIcon.BalloonTipClicked += async (sender, e) => {
+                    await action();
+                };
+            }
             //
             if (notification.DelayTimeSeconds > 0) {
                 await Task.Delay(notification.DelayTimeSeconds * 1000);
                 await ShowBalloonTip();
             }
+            //
             if (notification.IntervalTimeSeconds > 0) {
                 var timer = new Timer { Interval = notification.IntervalTimeSeconds * 1000 };
                 timer.Tick += async (sender, e) => {

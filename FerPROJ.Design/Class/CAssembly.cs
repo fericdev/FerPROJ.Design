@@ -13,36 +13,35 @@ namespace FerPROJ.Design.Class {
         public static string SystemVersion { get; private set; }
 
         // Static constructor to initialize the properties
-        public static bool SetAssemblyAndCheckVersion(Assembly assembly) {
+        public static void SetAssembly(Assembly assembly) {
             //
             SystemName = assembly.GetName().Name.Replace(".", "");
             SystemVersion = assembly.GetName().Version.ToString();
             //
-            return CheckVersionAsync().RunTask();
         }
-        private static async Task<bool> CheckVersionAsync() {
+        public static async Task CheckVersionAsync() {
             // "LMSMain/LMSMain_version"
             var versionUrl = $"{SystemName}/{SystemName}_version";
 
             // Fetch version data from the specified URL
             var data = await CApiManager.GetDataAsync<VersionModel>($"https://fericdev.github.io/version-control/{versionUrl}.json");
 
-            // Check if the data is null or empty
             if (data.IsNullOrEmpty()) {
-                CDialogManager.Warning(
-                    $"There is a problem with the system version. Please contact the system administrator.", "Version Error");
-                return false;
+                return;
             }
 
-            // Compare the fetched version with the current system version
-            if (!data.SystemVersion.Equals(SystemVersion) && data.SystemName.Equals(SystemName)) {
-                CDialogManager.Warning(
-                    $"A new version of {SystemName} is available: {data.SystemVersion}. " +
-                    $"\nYou are currently using version {SystemVersion}. " +
-                    $"\nPlease update to the latest version for the best experience.", "Update Available");
-                return false;
+            if (data.SystemVersion.Equals(SystemVersion)) {
+                return;
             }
-            return true;
+
+            await CNotificationManager.CreateNotificationAndDisplayAsync(
+                new NotificationModel {
+                    Title = $"New update available. {data.SystemVersion}",
+                    Description = "Please contact the administrator to update your system " +
+                                  "to the latest version.",
+                    DisplayTimeSeconds = 5,
+                    DelayTimeSeconds = 5,
+                }, null);
         }
     }
     public class VersionModel {

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,15 @@ namespace FerPROJ.Design.Class {
         private static readonly HttpClient client = new HttpClient();
         public static async Task<T> GetDataAsync<T>(string url) {
             try {
+                // 🔹 Check if any network is available
+                if (!NetworkInterface.GetIsNetworkAvailable()) {
+                    Console.WriteLine("No network connection available.");
+                    return default;
+                }
+
+                // 🔹 Optional: Add timeout protection
+                client.Timeout = TimeSpan.FromSeconds(10);
+
                 var response = await client.GetAsync(url);
 
                 response.EnsureSuccessStatusCode();
@@ -18,13 +28,21 @@ namespace FerPROJ.Design.Class {
                 var responseBody = await response.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<T>(responseBody);
-
-            } catch (HttpRequestException e) {
-
-                Console.WriteLine($"Request error: {e.Message}");
-
+            }
+            catch (TaskCanceledException) {
+                // 🔹 Usually timeout or no internet response
+                Console.WriteLine("Request timed out. Possible no internet or slow connection.");
                 return default;
-
+            }
+            catch (HttpRequestException e) {
+                // 🔹 Covers DNS failure, refused connection, no internet, etc.
+                Console.WriteLine($"HTTP Request error: {e.Message}");
+                return default;
+            }
+            catch (Exception e) {
+                // 🔹 Fallback for unexpected errors
+                Console.WriteLine($"Unexpected error: {e.Message}");
+                return default;
             }
         }
     }

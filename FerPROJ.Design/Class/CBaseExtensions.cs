@@ -474,6 +474,36 @@ namespace FerPROJ.Design.Class {
             }
             return result.ToString();
         }
+        public static string ToStringNormalize(this string stringValue) {
+            if (stringValue.IsNullOrEmpty()) {
+                return stringValue;
+            }
+
+            var result = new StringBuilder();
+
+            foreach (char c in stringValue) {
+                if (!char.IsLetter(c)) {
+                    continue;
+                }
+                result.Append(c);
+            }
+            return result.ToString();
+        }
+        public static string ToStringRemoveEndWith(this string stringValue, string endWith) {
+            if (string.IsNullOrEmpty(stringValue) || string.IsNullOrEmpty(endWith)) {
+                return stringValue;
+            }
+
+            // Find the last occurrence of the keyword
+            int index = stringValue.LastIndexOf(endWith, StringComparison.OrdinalIgnoreCase);
+
+            // Ensure it's near the end (i.e., it's part of the suffix)
+            if (index >= 0) {
+                return stringValue.Substring(0, index).TrimEnd();
+            }
+
+            return stringValue;
+        }
 
         public static List<T> ToListOf<T>(this List<object> values) where T : struct {
             List<T> result = new List<T>();

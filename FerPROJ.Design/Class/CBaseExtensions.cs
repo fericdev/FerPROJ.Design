@@ -459,6 +459,18 @@ namespace FerPROJ.Design.Class {
         public static string ToStringWithoutSpaces(this string stringValue) {
             return stringValue.Replace(" ", "");
         }
+        public static string ToStringUpperLettersOnly(this string stringValue) {
+            if (stringValue.IsNullOrEmpty()) {
+                return stringValue;
+            }
+            var result = new StringBuilder();
+            foreach (char c in stringValue) {
+                if (char.IsUpper(c)) {
+                    result.Append(c);
+                }
+            }
+            return result.ToString();
+        }
         public static string ToStringWithSpaces(this string stringValue) {
             if (stringValue.IsNullOrEmpty()) {
                 return stringValue;
@@ -482,10 +494,9 @@ namespace FerPROJ.Design.Class {
             var result = new StringBuilder();
 
             foreach (char c in stringValue) {
-                if (!char.IsLetter(c)) {
-                    continue;
+                if (char.IsLetter(c)) {
+                    result.Append(c);
                 }
-                result.Append(c);
             }
             return result.ToString();
         }

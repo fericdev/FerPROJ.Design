@@ -43,7 +43,7 @@ namespace FerPROJ.Design.Class {
                     DelayTimeSeconds = 5,
                 }, null);
         }
-        public static async Task RunVersionCheckingAsync() {
+        public static async Task RunVersionCheckerAsync() {
             await CBackgroundTaskManager.RunTaskInBackgroundAsync(CheckVersionAsync, 60);
         }
     }

@@ -18,9 +18,6 @@ namespace FerPROJ.Design.Class {
                     return default;
                 }
 
-                // 🔹 Optional: Add timeout protection
-                client.Timeout = TimeSpan.FromSeconds(10);
-
                 var response = await client.GetAsync(url);
 
                 response.EnsureSuccessStatusCode();

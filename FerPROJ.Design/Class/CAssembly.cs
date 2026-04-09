@@ -19,7 +19,7 @@ namespace FerPROJ.Design.Class {
             SystemVersion = assembly.GetName().Version.ToString();
             //
         }
-        public static async Task CheckVersionAsync() {
+        private static async Task CheckVersionAsync() {
             // "LMSMain/LMSMain_version"
             var versionUrl = $"{SystemName}/{SystemName}_version";
 
@@ -42,6 +42,9 @@ namespace FerPROJ.Design.Class {
                     DisplayTimeSeconds = 5,
                     DelayTimeSeconds = 5,
                 }, null);
+        }
+        public static async Task RunVersionCheckingAsync() {
+            await CBackgroundTaskManager.RunTaskInBackgroundAsync(CheckVersionAsync, 60);
         }
     }
     public class VersionModel {

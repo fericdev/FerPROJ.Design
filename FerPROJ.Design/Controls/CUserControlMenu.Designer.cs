@@ -28,6 +28,7 @@
             // 
             // baseFlowLayoutPanel
             // 
+            this.baseFlowLayoutPanel.AutoScroll = true;
             this.baseFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.baseFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.baseFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -40,6 +41,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.baseFlowLayoutPanel);
             this.Name = "CUserControlMenu";
             this.Size = new System.Drawing.Size(275, 846);

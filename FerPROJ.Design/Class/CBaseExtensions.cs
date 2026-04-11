@@ -339,6 +339,50 @@ namespace FerPROJ.Design.Class {
         public static void ToCustomDateFormat(this CDateTimePickerKrypton dateTimePicker, string customFormat = "MM/dd/yyyy hh:mm tt") {          
             dateTimePicker.Format = DateTimePickerFormat.Custom;
             dateTimePicker.CustomFormat = customFormat;
+
+            dateTimePicker.TrackValueChangesAndBindModel();
+        }
+        public static void TrackValueChangesAndBindModel(this CDateTimePickerKrypton dateTimePicker) {
+            dateTimePicker.ValueChanged += async (s, e) => {
+                var bindingValue = dateTimePicker.DataBindings[nameof(dateTimePicker.Value)];
+                bindingValue?.WriteValue();   // push value to model NOW
+            };
+        }
+        private static void BindModel(this CDateTimePickerKrypton cmb) {
+
+            if (cmb == null) {
+                throw new ArgumentNullException(nameof(cmb));
+            }
+
+            foreach (Binding binding in cmb.DataBindings) {
+
+                var bs = binding?.DataSource as BindingSource;
+                if (bs == null)
+                    continue;
+
+                var current = bs.Current;
+                if (current == null)
+                    continue;
+
+                // Model property
+                var modelProp = current.GetType().GetProperty(binding.BindingMemberInfo.BindingMember);
+                if (modelProp == null)
+                    continue;
+
+                var modelValue = modelProp.GetValue(current)?.ToString();
+
+                if (!modelValue.IsNullOrEmpty()) {
+                    cmb.Value = modelValue.To<DateTime>();
+                }
+
+                var value = cmb.DataBindings[nameof(cmb.Value)];
+                value?.WriteValue();   // push value to model NOW
+
+                var valueNull = cmb.DataBindings[nameof(cmb.ValueNullable)];
+                valueNull?.WriteValue();   // push value to model NOW
+
+            }
+
         }
         #endregion
 

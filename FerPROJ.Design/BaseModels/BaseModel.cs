@@ -40,7 +40,7 @@ namespace FerPROJ.Design.BaseModels {
     {
         [CAttributes(Visible = false)]
         public DateTime? DateMarked { get; set; } = DateTime.Now;
-        [CAttributes(Header = "Date Marked")]
+        [CAttributes(Header = "Date Marked", Order = 2000)]
         public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
         [CAttributes]
         public string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();

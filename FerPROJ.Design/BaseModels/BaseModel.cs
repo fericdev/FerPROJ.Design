@@ -24,6 +24,10 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Visible = false)]
         public virtual string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToDateAndTime();
         [CAttributes(Visible = false)]
+        public DateTime? DateMarked { get; set; } = DateTime.Now;
+        [CAttributes(Header = "Date Marked")]
+        public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
+        [CAttributes(Visible = false)]
         public DateTime? DateModified { get; set; } = null;
         [CAttributes(Header = "Created By", Visible = false)]
         public virtual string CreatedBy { get; set; } = CAppConstants.USERNAME;

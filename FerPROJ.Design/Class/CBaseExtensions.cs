@@ -335,6 +335,13 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
+        #region Date Time Control
+        public static void ToCustomDateFormat(this CDateTimePickerKrypton dateTimePicker, string customFormat = "MM/dd/yyyy hh:mm tt") {          
+            dateTimePicker.Format = DateTimePickerFormat.Custom;
+            dateTimePicker.CustomFormat = customFormat;
+        }
+        #endregion
+
         #region Conversion
         public static string ToJoinedString<T>(this IEnumerable<T> values, string separator = ", ") {
             return string.Join(separator, values);

@@ -24,10 +24,6 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Visible = false)]
         public virtual string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToDateAndTime();
         [CAttributes(Visible = false)]
-        public DateTime? DateMarked { get; set; } = DateTime.Now;
-        [CAttributes(Header = "Date Marked")]
-        public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
-        [CAttributes(Visible = false)]
         public DateTime? DateModified { get; set; } = null;
         [CAttributes(Header = "Created By", Visible = false)]
         public virtual string CreatedBy { get; set; } = CAppConstants.USERNAME;
@@ -42,6 +38,10 @@ namespace FerPROJ.Design.BaseModels {
     }
     public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
     {
+        [CAttributes(Visible = false)]
+        public DateTime? DateMarked { get; set; } = DateTime.Now;
+        [CAttributes(Header = "Date Marked")]
+        public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
         [CAttributes]
         public string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();
         public virtual List<TItem> Items { get; set; } = new List<TItem>();

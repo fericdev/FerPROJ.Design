@@ -34,7 +34,7 @@ namespace FerPROJ.Design.Class {
                 return;
             }
 
-            CDialogManager.Custom("Please contact the administrator to update your system\n to the latest version.", 
+            CDialogManager.Custom("Please contact the administrator to update your system\nto the latest version.", 
                                   $"New update available. {data.SystemVersion}", 
                                   MessageBoxIcon.Exclamation);
 

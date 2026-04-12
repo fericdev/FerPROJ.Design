@@ -762,6 +762,14 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
+        public static bool IsNotNullAndEquals(this string value, string compareTo) {
+            try {
+                return !value.IsNullOrEmpty() && value.Equals(compareTo, StringComparison.OrdinalIgnoreCase);
+            }
+            catch {
+                return false;
+            }
+        }
         #endregion
 
         #region Properties Function

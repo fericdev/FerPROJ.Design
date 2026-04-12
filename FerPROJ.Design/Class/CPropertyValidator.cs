@@ -46,5 +46,15 @@ namespace FerPROJ.Design.Class {
             ErrorMessage = message;
             return false;
         }
+        public bool DataValidationResult() {
+            var sb = new StringBuilder();
+            if (!string.IsNullOrEmpty(Error))
+                sb.AppendLine("Error 1: " + Error);
+            if (!string.IsNullOrEmpty(ErrorMessage))
+                sb.AppendLine("Error 2: " + ErrorMessage);
+            if (ErrorMessages.Length > 0)
+                sb.AppendLine("Error 3: " + ErrorMessages.ToString());
+            throw new ArgumentException(sb.ToString());
+        }
     }
 }

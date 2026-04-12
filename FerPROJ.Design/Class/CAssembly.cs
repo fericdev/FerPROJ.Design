@@ -34,10 +34,6 @@ namespace FerPROJ.Design.Class {
                 return;
             }
 
-            CDialogManager.Custom("Please contact the administrator to update your system\nto the latest version.", 
-                                  $"New update available. {data.SystemVersion}", 
-                                  MessageBoxIcon.Exclamation);
-
             await CNotificationManager.CreateNotificationAndDisplayAsync(
                 new NotificationModel {
                     Title = $"New update available. {data.SystemVersion}",
@@ -45,6 +41,7 @@ namespace FerPROJ.Design.Class {
                                   "to the latest version.",
                     DisplayTimeSeconds = 5,
                     DelayTimeSeconds = 5,
+                    ShowInAlert = true,
                 }, null);
         }
         public static async Task RunVersionCheckerAsync() {

@@ -43,7 +43,12 @@ namespace FerPROJ.Design.Class {
             //
             async Task ShowBalloonTip() {
                 await Task.Run(() => {
+                    //
                     notifyIcon.ShowBalloonTip(notification.DisplayTimeSeconds * 1000, notification.Title, notification.Description, ToolTipIcon.Info);
+                    //
+                    if (notification.ShowInAlert) {
+                        CDialogManager.Custom(notification.Description, notification.Title, MessageBoxIcon.Exclamation);
+                    }
                 });
             }
         }
@@ -55,5 +60,6 @@ namespace FerPROJ.Design.Class {
         public int DisplayTimeSeconds { get; set; }
         public int DelayTimeSeconds { get; set; }
         public int IntervalTimeSeconds { get; set; }
+        public bool ShowInAlert { get; set; }
     }
 }

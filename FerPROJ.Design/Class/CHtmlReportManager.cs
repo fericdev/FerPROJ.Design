@@ -191,7 +191,11 @@ namespace FerPROJ.Design.Class {
                 );
             }
             if (model.ReportBodyRowsSummary.Count > 0) {
-                rowCells += "<tr class='table-row-summary'>" + string.Join("", model.ReportBodyRowsSummary.Select(col => $"<td>{col}</td>")) + "</tr>";
+                rowCells = string.Join("",
+                    model.ReportBodyRowsSummary.Select(row =>
+                        "<tr class='table-row-summary'>" + string.Join("", row.Select(col => $"<td>{col}</td>")) + "</tr>"
+                        )
+                    );
             }
             #endregion
 
@@ -282,7 +286,7 @@ namespace FerPROJ.Design.Class {
         public string ReportHtml { get; set; }
         public List<string> ReportBodyColumns { get; set; } = new List<string>();
         public List<List<object>> ReportBodyRows { get; set; } = new List<List<object>>();
-        public List<object> ReportBodyRowsSummary { get; set; } = new List<object>();
+        public List<List<object>> ReportBodyRowsSummary { get; set; } = new List<List<object>>();
         public List<(string Label, object Value)> ReportHeaderLeft { get; set; } = new List<(string Label, object Value)>();
         public List<(string Label, object Value)> ReportHeaderRight { get; set; } = new List<(string Label, object Value)>();
         public string GeneratedOn => $"<strong>Print Date:</strong> {DateTime.Now.ToDateAndTime()} <br />";

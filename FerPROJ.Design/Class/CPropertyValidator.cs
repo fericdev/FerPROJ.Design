@@ -54,7 +54,14 @@ namespace FerPROJ.Design.Class {
                 sb.AppendLine("Error 2: " + ErrorMessage);
             if (ErrorMessages.Length > 0)
                 sb.AppendLine("Error 3: " + ErrorMessages.ToString());
-            throw new ArgumentException(sb.ToString());
+
+            var result = sb.ToString();
+
+            if (!result.IsNullOrEmpty()) {
+                throw new ArgumentException(sb.ToString());
+            }
+
+            return true;
         }
     }
 }

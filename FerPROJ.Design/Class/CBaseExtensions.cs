@@ -472,6 +472,10 @@ namespace FerPROJ.Design.Class {
             var date = value.To<DateTime>();
             return date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
         }
+        public static string ToTime(this object value) {
+            var date = value.To<DateTime>();
+            return date.ToString("hh:mm tt", CultureInfo.InvariantCulture);
+        }
         public static string ToDate(this DateTime dateTime) {
             return dateTime.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
         }

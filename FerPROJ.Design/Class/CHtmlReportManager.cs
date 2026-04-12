@@ -191,7 +191,7 @@ namespace FerPROJ.Design.Class {
                 );
             }
             if (model.ReportBodyRowsSummary.Count > 0) {
-                rowCells = string.Join("",
+                rowCells += string.Join("",
                     model.ReportBodyRowsSummary.Select(row =>
                         "<tr class='table-row-summary'>" + string.Join("", row.Select(col => $"<td>{col}</td>")) + "</tr>"
                         )

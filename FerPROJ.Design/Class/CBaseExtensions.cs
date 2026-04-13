@@ -774,6 +774,14 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
+        public static bool IsNotNullAndEquals<TEnum>(this string value, TEnum compareTo) where TEnum : struct, Enum {
+            try {
+                return value.ToEnum<TEnum>().Equals(compareTo);
+            }
+            catch {
+                return false;
+            }
+        }
         #endregion
 
         #region Properties Function

@@ -766,7 +766,7 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
-        public static bool IsNotNullAndEquals(this string value, string compareTo) {
+        public static bool IsEquals(this string value, string compareTo) {
             try {
                 return !value.IsNullOrEmpty() && value.Equals(compareTo, StringComparison.OrdinalIgnoreCase);
             }
@@ -774,9 +774,9 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
-        public static bool IsNotNullAndEquals<TEnum>(this string value, TEnum compareTo) where TEnum : struct, Enum {
+        public static bool IsEquals<TEnum>(this string value, TEnum compareTo) where TEnum : struct, Enum {
             try {
-                return value.ToEnum<TEnum>().Equals(compareTo);
+                return !string.IsNullOrEmpty(value) && value.ToEnum<TEnum>().Equals(compareTo);
             }
             catch {
                 return false;

@@ -39,6 +39,8 @@ namespace FerPROJ.Design.BaseModels {
     public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
     {
         [CAttributes(Visible = false)]
+        public override string Name { get => base.Name; set => base.Name = value; }
+        [CAttributes(Visible = false)]
         public DateTime? DateMarked { get; set; } = DateTime.Now;
         [CAttributes(Header = "Date Marked", Order = 2000)]
         public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();

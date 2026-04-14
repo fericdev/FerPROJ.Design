@@ -758,6 +758,14 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
+        public static bool IsNullOrEmptyId(this object value) {
+            try {
+                return value == null || value.GetPropertyValue<Guid>("Id").IsNullOrEmpty();
+            }
+            catch {
+                return false;
+            }
+        }
         public static bool IsNullOrEmpty<T>(this List<T> value) {
             try {
                 return value == null || value.Count == 0;

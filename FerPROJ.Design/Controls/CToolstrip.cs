@@ -9,9 +9,13 @@ using System.Windows.Forms;
 namespace FerPROJ.Design.Controls {
     public class CToolstrip : ToolStrip{
         public ToolStripButton AddButton { get; set; }
+        public string AddButtonText { get; set; } = "Add";
         public ToolStripButton EditButton { get; set; }
+        public string EditButtonText { get; set; } = "Edit";
         public ToolStripButton DeleteButton { get; set; }
+        public string DeleteButtonText { get; set; } = "Delete";
         public ToolStripButton RefreshButton { get; set; }
+        public string RefreshButtonText { get; set; } = "Refresh";
         // Separator
         public ToolStripSeparator sAdd { get; set; } = new ToolStripSeparator();
         public ToolStripSeparator sEdit { get; set; } = new ToolStripSeparator();
@@ -37,25 +41,25 @@ namespace FerPROJ.Design.Controls {
         private void InitializeButtons() {
             // Add Button
             AddButton = new ToolStripButton("Add", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
-            AddButton.ToolTipText = "Add";
+            AddButton.ToolTipText = AddButtonText;
             AddButton.Name = "tsbAdd";
             AddButton.Click += (sender, e) => OnAddButtonClick();
 
             // Edit Button
             EditButton = new ToolStripButton("Edit", Properties.Resources.EditIcon); // Replace Properties.Resources.EditIcon with your own image
-            EditButton.ToolTipText = "Edit";
+            EditButton.ToolTipText = EditButtonText;
             EditButton.Name = "tsbEdit";
             EditButton.Click += (sender, e) => OnEditButtonClick();
 
             // Delete Button
             DeleteButton = new ToolStripButton("Delete", Properties.Resources.CloseIcon); // Replace Properties.Resources.DeleteIcon with your own image
-            DeleteButton.ToolTipText = "Delete";
+            DeleteButton.ToolTipText = DeleteButtonText;
             DeleteButton.Name = "tsbDelete";
             DeleteButton.Click += (sender, e) => OnDeleteButtonClick();
 
             // refresh Button
             RefreshButton = new ToolStripButton("Refresh", Properties.Resources.RefreshIcon); // Replace Properties.Resources.DeleteIcon with your own image
-            RefreshButton.ToolTipText = "Refresh";
+            RefreshButton.ToolTipText = RefreshButtonText;
             RefreshButton.Name = "tsbRefresh";
             RefreshButton.Click += (sender, e) => OnRefreshButtonClick();
 

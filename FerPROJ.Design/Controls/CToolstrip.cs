@@ -28,7 +28,6 @@ namespace FerPROJ.Design.Controls {
         public event EventHandler RefreshButtonClick;
 
         public CToolstrip() {
-            InitializeButtons();
             GripStyle = ToolStripGripStyle.Hidden;
             BackColor = Color.WhiteSmoke;
             Height = 25;
@@ -38,7 +37,7 @@ namespace FerPROJ.Design.Controls {
             Renderer = new CustomToolStripRenderer();
         }
 
-        private void InitializeButtons() {
+        public void InitializeButtons() {
             // Add Button
             AddButton = new ToolStripButton("Add", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
             AddButton.ToolTipText = AddButtonText;

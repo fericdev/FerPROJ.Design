@@ -274,21 +274,17 @@ namespace FerPROJ.Design.Class {
 
             File.WriteAllText(filePath, model.ReportHtml);
 
-            using (var frm = new FrmHtmlViewer(filePath)) {
+            using (var frm = new FrmHtmlViewer(filePath, model)) {
                 frm.ShowDialog();
             }
 
             File.Delete(filePath);
 
-            if (model.ExportToExcel) {
-                ExportReportToExcel(model.ReportBodyColumns, model.ReportBodyRows, model.ReportBodyRowsSummary, $"{model.ReportTitle}_{DateTime.Now.ToShortTimeString()}");
-            }
-
             await Task.CompletedTask;
             #endregion
 
         }
-        private static void ExportReportToExcel(
+        public static void ExportReportToExcel(
             List<string> columns,
             List<List<object>> rows,
             List<List<object>> summary,
@@ -387,7 +383,6 @@ namespace FerPROJ.Design.Class {
     #region model
     public class HtmlReportModel {
         public bool IsLandscape { get; set; }
-        public bool ExportToExcel { get; set; }
         public string ReportTitle { get; set; }
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }

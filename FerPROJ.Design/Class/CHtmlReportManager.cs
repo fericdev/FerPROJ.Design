@@ -65,7 +65,8 @@ namespace FerPROJ.Design.Class {
                     }
 
                     .report-paper.landscape {
-                        width: 297mm;
+                        min-width: 297mm;
+                        width: max-content;
                         min-height: 210mm;
                     }
 
@@ -161,7 +162,13 @@ namespace FerPROJ.Design.Class {
                 model.ReportCss += @"
                     @page {
                         size: A4 landscape;
-                        margin: 15mm;
+                    }
+                    @media print {
+                        .report-paper.landscape {
+                            width: 100%;
+                            min-width: 0;
+                            max-width: 100%;
+                        }
                     }";
             }
             else {

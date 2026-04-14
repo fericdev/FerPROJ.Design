@@ -19,6 +19,7 @@ namespace FerPROJ.Design.Forms {
             this.Text = "Report Viewer";
             this.Width = 800;
             this.Height = 600;
+            this.ShowInTaskbar = true;
 
             // Create WebView2 instance
             _webView = new WebView2 {

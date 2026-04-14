@@ -36,7 +36,7 @@ namespace FerPROJ.Design.Class {
                 var entity = await CRepositoryManager.ExecuteMethodAsync<TEntity>(typeof(TRepository), "GetByIdAsync", id);
                 if (!entity.IsNullOrEmpty()) {
                     var finalizeStatus = entity.GetPropertyValue<string>("FinalizeStatus");
-                    if (finalizeStatus.ToEnum<FinalizeStatusTypes>() == FinalizeStatusTypes.Completed) {
+                    if (finalizeStatus.IsEquals(FinalizeStatusTypes.Completed)) {
                         formMode = FormMode.ReadOnly;
                     }
                 }

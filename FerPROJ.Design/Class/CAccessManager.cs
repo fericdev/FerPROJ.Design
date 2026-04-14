@@ -80,7 +80,7 @@ namespace FerPROJ.Design.Class {
             return formattedDate;
         }
         public static void ExportToExcel<T>(List<T> dto, string fileName, string[] excludeName = null) {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.License.SetNonCommercialPersonal("FericDev");
             if (excludeName == null)
                 excludeName = new string[0];
             using (var pack = new ExcelPackage()) {

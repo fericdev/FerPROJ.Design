@@ -1,4 +1,5 @@
 ﻿using FerPROJ.Design.Forms;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
     public static class CHtmlReportManager {
@@ -278,9 +280,106 @@ namespace FerPROJ.Design.Class {
 
             File.Delete(filePath);
 
+            if (model.ExportToExcel) {
+                ExportReportToExcel(model.ReportBodyColumns, model.ReportBodyRows, model.ReportBodyRowsSummary, $"{model.ReportTitle}_{DateTime.Now.ToShortTimeString()}");
+            }
+
             await Task.CompletedTask;
             #endregion
 
+        }
+        private static void ExportReportToExcel(
+            List<string> columns,
+            List<List<object>> rows,
+            List<List<object>> summary,
+            string fileName) {
+
+            ExcelPackage.License.SetNonCommercialPersonal("FericDev");
+            using (var pack = new ExcelPackage()) {
+                var worksheet = pack.Workbook.Worksheets.Add("Report");
+
+                int rowIndex = 1;
+                int colCount = columns.Count;
+
+                // =========================
+                // HEADER
+                // =========================
+                for (int col = 0; col < colCount; col++) {
+                    worksheet.Cells[rowIndex, col + 1].Value = columns[col];
+                }
+
+                using (var range = worksheet.Cells[rowIndex, 1, rowIndex, colCount]) {
+                    range.Style.Font.Bold = true;
+                }
+
+                rowIndex++;
+
+                // =========================
+                // BODY
+                // =========================
+                foreach (var row in rows) {
+                    for (int col = 0; col < row.Count; col++) {
+                        var value = row[col];
+
+                        worksheet.Cells[rowIndex, col + 1].Value = value;
+
+                        // Optional: detect currency columns (based on your headers)
+                        if (columns[col].Contains("Total") || columns[col].Contains("Balance") || columns[col].Contains("Sub")) {
+                            worksheet.Cells[rowIndex, col + 1].Style.Numberformat.Format = "#,##0.00";
+                        }
+                    }
+
+                    rowIndex++;
+                }
+
+                // =========================
+                // SUMMARY
+                // =========================
+                if (summary != null && summary.Any()) {
+                    rowIndex++; // space before summary
+
+                    foreach (var sumRow in summary) {
+                        for (int col = 0; col < sumRow.Count; col++) {
+                            worksheet.Cells[rowIndex, col + 1].Value = sumRow[col];
+
+                            if (columns[col].Contains("Total") || columns[col].Contains("Balance") || columns[col].Contains("Sub")) {
+                                worksheet.Cells[rowIndex, col + 1].Style.Numberformat.Format = "#,##0.00";
+                            }
+                        }
+
+                        using (var range = worksheet.Cells[rowIndex, 1, rowIndex, colCount]) {
+                            range.Style.Font.Bold = true;
+                        }
+
+                        rowIndex++;
+                    }
+                }
+
+                // =========================
+                // FINAL FORMATTING
+                // =========================
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+                worksheet.View.FreezePanes(2, 1);
+
+                // =========================
+                // SAVE FILE
+                // =========================
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog()) {
+                    saveFileDialog.Filter = "Excel Files|*.xlsx";
+                    saveFileDialog.Title = "Save Excel File";
+                    saveFileDialog.FileName = fileName;
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                        using (var fs = new FileStream(saveFileDialog.FileName, FileMode.Create)) {
+                            pack.SaveAs(fs);
+                        }
+
+                        if (CDialogManager.Ask("Data Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
+                            Process.Start(saveFileDialog.FileName);
+                        }
+                    }
+                }
+            }
         }
 
     }
@@ -288,6 +387,7 @@ namespace FerPROJ.Design.Class {
     #region model
     public class HtmlReportModel {
         public bool IsLandscape { get; set; }
+        public bool ExportToExcel { get; set; }
         public string ReportTitle { get; set; }
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }

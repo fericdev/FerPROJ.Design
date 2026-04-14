@@ -41,24 +41,28 @@ namespace FerPROJ.Design.Controls {
             // Add Button
             AddButton = new ToolStripButton("Add", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
             AddButton.ToolTipText = AddButtonText;
+            AddButton.Text = AddButtonText;
             AddButton.Name = "tsbAdd";
             AddButton.Click += (sender, e) => OnAddButtonClick();
 
             // Edit Button
             EditButton = new ToolStripButton("Edit", Properties.Resources.EditIcon); // Replace Properties.Resources.EditIcon with your own image
             EditButton.ToolTipText = EditButtonText;
+            EditButton.Text = EditButtonText;
             EditButton.Name = "tsbEdit";
             EditButton.Click += (sender, e) => OnEditButtonClick();
 
             // Delete Button
             DeleteButton = new ToolStripButton("Delete", Properties.Resources.CloseIcon); // Replace Properties.Resources.DeleteIcon with your own image
             DeleteButton.ToolTipText = DeleteButtonText;
+            DeleteButton.Text = DeleteButtonText;
             DeleteButton.Name = "tsbDelete";
             DeleteButton.Click += (sender, e) => OnDeleteButtonClick();
 
             // refresh Button
             RefreshButton = new ToolStripButton("Refresh", Properties.Resources.RefreshIcon); // Replace Properties.Resources.DeleteIcon with your own image
             RefreshButton.ToolTipText = RefreshButtonText;
+            RefreshButton.Text = RefreshButtonText;
             RefreshButton.Name = "tsbRefresh";
             RefreshButton.Click += (sender, e) => OnRefreshButtonClick();
 

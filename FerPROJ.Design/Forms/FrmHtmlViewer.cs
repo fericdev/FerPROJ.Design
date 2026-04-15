@@ -60,14 +60,17 @@ namespace FerPROJ.Design.Forms {
             // Create menu items
             var excelItem = new ToolStripMenuItem("Excel", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
             var pdfItem = new ToolStripMenuItem("PDF", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
+            var printItem = new ToolStripMenuItem("PRINT TO PRINTER", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
 
             // Reuse your existing logic
             excelItem.Click += ExportExcel_Click;
             pdfItem.Click += ExportPDF_Click;
+            printItem.Click += ExportPrintToPrinter_Click;
 
             // Add items to dropdown
             exportDropDown.DropDownItems.Add(excelItem);
             exportDropDown.DropDownItems.Add(pdfItem);
+            exportDropDown.DropDownItems.Add(printItem);
 
             // Add dropdown to toolstrip
             toolStrip.Items.Add(exportDropDown);
@@ -87,6 +90,9 @@ namespace FerPROJ.Design.Forms {
         }
         private void ExportPDF_Click(object sender, EventArgs e) {
             CDialogManager.Info("Please right-click and select 'Print' to generate a PDF.");
+        }
+        private void ExportPrintToPrinter_Click(object sender, EventArgs e) {
+            CDialogManager.Info("Please right-click and select 'Print'.");
         }
     }
 }

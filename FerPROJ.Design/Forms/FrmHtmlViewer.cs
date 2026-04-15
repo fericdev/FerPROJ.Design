@@ -58,8 +58,8 @@ namespace FerPROJ.Design.Forms {
             var exportDropDown = new ToolStripDropDownButton("Export Options");
 
             // Create menu items
-            var excelItem = new ToolStripMenuItem("Excel");
-            var pdfItem = new ToolStripMenuItem("PDF");
+            var excelItem = new ToolStripMenuItem("Excel", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
+            var pdfItem = new ToolStripMenuItem("PDF", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
 
             // Reuse your existing logic
             excelItem.Click += ExportExcel_Click;

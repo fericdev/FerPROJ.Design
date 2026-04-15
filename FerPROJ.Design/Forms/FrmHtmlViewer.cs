@@ -49,7 +49,9 @@ namespace FerPROJ.Design.Forms {
 
         private void Initialize() {
             var toolStrip = new ToolStrip {
-                Dock = DockStyle.Top
+                Dock = DockStyle.Top,
+                GripStyle = ToolStripGripStyle.Hidden,
+                GripMargin = new Padding(2, 2, 2, 2),
             };
 
             // Create dropdown button

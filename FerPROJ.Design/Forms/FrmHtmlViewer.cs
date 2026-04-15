@@ -18,30 +18,22 @@ namespace FerPROJ.Design.Forms {
         public FrmHtmlViewer(string reportFilePath, HtmlReportModel model) {
             InitializeComponent();
 
+            // Create WebView2 instance
+            _webView = new WebView2 {
+                Dock = DockStyle.Fill // Fill the entire form
+            };
+
+            // Model
+            _model = model;
+
             // Set basic form properties
             this.Text = "Report Viewer";
             this.Width = 800;
             this.Height = 600;
             this.ShowInTaskbar = true;
 
-            // Create WebView2 instance
-            _webView = new WebView2 {
-                Dock = DockStyle.Fill // Fill the entire form
-            };
-            _model = model;
-
-            var btnExportExcel = new Button {
-                Text = "Export to Excel",
-                Height = 35,
-                Dock = DockStyle.Top
-            };
-
-            btnExportExcel.Click += BtnExportExcel_Click;
-
-            // Add WebView2 to the form
-            this.baseKryptonPanel.Controls.Add(_webView);
-            this.baseKryptonPanel.Controls.Add(btnExportExcel);
-            this.baseKryptonPanel.Controls.SetChildIndex(btnExportExcel, 0);
+            // Initialize components
+            Initialize();
 
             // Initialize and load HTML
             InitializeAsync(reportFilePath);
@@ -54,8 +46,45 @@ namespace FerPROJ.Design.Forms {
             // Load the HTML file
             _webView.CoreWebView2.Navigate(htmlFilePath);
         }
-        private void BtnExportExcel_Click(object sender, EventArgs e) {
+
+        private void Initialize() {
+            var toolStrip = new ToolStrip {
+                Dock = DockStyle.Top
+            };
+
+            // Create dropdown button
+            var exportDropDown = new ToolStripDropDownButton("Export Options");
+
+            // Create menu items
+            var excelItem = new ToolStripMenuItem("Excel");
+            var pdfItem = new ToolStripMenuItem("PDF");
+
+            // Reuse your existing logic
+            excelItem.Click += ExportExcel_Click;
+            pdfItem.Click += ExportPDF_Click;
+
+            // Add items to dropdown
+            exportDropDown.DropDownItems.Add(excelItem);
+            exportDropDown.DropDownItems.Add(pdfItem);
+
+            // Add dropdown to toolstrip
+            toolStrip.Items.Add(exportDropDown);
+
+            // Add controls to form
+            this.baseKryptonPanel.Controls.Add(_webView);
+            this.baseKryptonPanel.Controls.Add(toolStrip);
+
+            // Ensure ToolStrip is on top
+            this.baseKryptonPanel.Controls.SetChildIndex(toolStrip, 0);
+
+            // Add WebView2 to the form
+            this.baseKryptonPanel.Controls.Add(_webView);
+        }
+        private void ExportExcel_Click(object sender, EventArgs e) {
             CHtmlReportManager.ExportReportToExcel(_model.ReportBodyColumns, _model.ReportBodyRows, _model.ReportBodyRowsSummary, $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("dd_hh_mm_ss")}");
+        }
+        private void ExportPDF_Click(object sender, EventArgs e) {
+            CDialogManager.Info("Please right-click and select 'Print' to generate a PDF.");
         }
     }
 }

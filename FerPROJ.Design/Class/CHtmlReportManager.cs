@@ -284,12 +284,13 @@ namespace FerPROJ.Design.Class {
             #endregion
 
         }
-        public static void ExportReportToExcel(
-            List<string> columns,
-            List<List<object>> rows,
-            List<List<object>> summary,
-            string fileName) {
-
+        public static void ExportReportToExcel(HtmlReportModel model) {
+            //
+            var columns = model.ReportBodyColumns;
+            var rows = model.ReportBodyRows;
+            var summary = model.ReportBodyRowsSummary;
+            var fileName = $"{model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+            //
             ExcelPackage.License.SetNonCommercialPersonal("FericDev");
             using (var pack = new ExcelPackage()) {
                 var worksheet = pack.Workbook.Worksheets.Add("Report");

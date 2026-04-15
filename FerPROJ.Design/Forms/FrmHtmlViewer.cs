@@ -83,7 +83,7 @@ namespace FerPROJ.Design.Forms {
             this.baseKryptonPanel.Controls.Add(_webView);
         }
         private void ExportExcel_Click(object sender, EventArgs e) {
-            CHtmlReportManager.ExportReportToExcel(_model.ReportBodyColumns, _model.ReportBodyRows, _model.ReportBodyRowsSummary, $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}");
+            CHtmlReportManager.ExportReportToExcel(_model);
         }
         private void ExportPDF_Click(object sender, EventArgs e) {
             CDialogManager.Info("Please right-click and select 'Print' to generate a PDF.");

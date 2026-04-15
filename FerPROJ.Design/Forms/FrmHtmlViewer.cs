@@ -55,7 +55,7 @@ namespace FerPROJ.Design.Forms {
             };
 
             // Create dropdown button
-            var exportDropDown = new ToolStripDropDownButton("Export Options");
+            var exportDropDown = new ToolStripDropDownButton("Export Options", Properties.Resources.icon_settings);
 
             // Create menu items
             var excelItem = new ToolStripMenuItem("Excel", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);

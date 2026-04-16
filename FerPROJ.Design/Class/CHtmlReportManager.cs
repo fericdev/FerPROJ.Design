@@ -19,7 +19,7 @@ namespace FerPROJ.Design.Class {
                 model.ReportCss = @"
                     body {
                         font-family: Arial, sans-serif;
-                        margin: 20px;
+                        margin: 0.5in;
                         color: #222;
                     }
 
@@ -55,10 +55,10 @@ namespace FerPROJ.Design.Class {
                     }
 
                     .report-paper {
-                        width: 210mm;
-                        min-height: 297mm;
-                        margin: 20px auto;        
-                        padding: 20mm;
+                        width: 8.5in;
+                        min-height: 11.5in;
+                        margin: 0.2in auto;        
+                        padding: 0.2in;
                         box-shadow: 0 0 30px rgba(0,0,0,0.6);
                         border: 1px solid #ccc;
                         border-radius: 4px;
@@ -67,14 +67,13 @@ namespace FerPROJ.Design.Class {
                     }
 
                     .report-paper.landscape {
-                        min-width: 297mm;
-                        width: max-content;
-                        min-height: 210mm;
+                        width: 16in;                  
+                        min-height: 8.5in;
                     }
 
                     .report-paper.portrait {
-                        width: 210mm;
-                        min-height: 297mm;
+                        width: 8.5in;
+                        min-height: 11in;
                     }
 
                     hr {
@@ -128,10 +127,6 @@ namespace FerPROJ.Design.Class {
 
                     /* Improve look when printed */
                     @media print {
-                        body {
-                            margin: 20mm 15mm 20mm 15mm; /* simulate bond paper margin */
-                        }
-
                         table {
                             page-break-inside: avoid;
                         }
@@ -164,20 +159,14 @@ namespace FerPROJ.Design.Class {
                 model.ReportCss += @"
                     @page {
                         size: A4 landscape;
-                    }
-                    @media print {
-                        .report-paper.landscape {
-                            width: 100%;
-                            min-width: 0;
-                            max-width: 100%;
-                        }
+                        margin: 0.2in;
                     }";
             }
             else {
                 model.ReportCss += @"
                     @page {
                         size: A4 portrait;
-                        margin: 20mm;
+                        margin: 0.2in;
                     }";
             }
             #endregion

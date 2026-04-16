@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -113,7 +114,9 @@ namespace FerPROJ.Design.Forms {
                 var result = await _webView.CoreWebView2.PrintToPdfAsync(dlg.FileName, printSettings);
 
                 if (result) {
-                    CDialogManager.Info("PDF exported successfully.");
+                    if (CDialogManager.Ask("Data Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
+                        Process.Start(dlg.FileName);
+                    }
                 }
                 else {
                     CDialogManager.Info("PDF export failed.");

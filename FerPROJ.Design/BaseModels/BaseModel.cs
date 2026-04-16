@@ -35,6 +35,8 @@ namespace FerPROJ.Design.BaseModels {
         public Guid? ModifiedById { get; set; } = null;
         [CAttributes(Visible = false)]
         public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
+        [CAttributes(Visible = true)]
+        public virtual string Remarks { get; set; }
     }
     public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
     {

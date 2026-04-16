@@ -19,7 +19,7 @@ namespace FerPROJ.Design.BaseModels {
         public virtual string Name { get; set; }
         [CAttributes(Visible = false)]
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        [CAttributes(Header = "Date Created")]
+        [CAttributes(Header = "Date Created", Order = 2003)]
         public virtual string DateCreatedString => DateCreated.ToDateAndTime();
         [CAttributes(Visible = false)]
         public virtual string DateModifiedString => !DateModified.HasValue  ? string.Empty : DateModified.Value.ToDateAndTime();
@@ -35,7 +35,7 @@ namespace FerPROJ.Design.BaseModels {
         public Guid? ModifiedById { get; set; } = null;
         [CAttributes(Visible = false)]
         public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
-        [CAttributes(Visible = true)]
+        [CAttributes(Visible = true, Order = 2001)]
         public virtual string Remarks { get; set; }
     }
     public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
@@ -44,9 +44,9 @@ namespace FerPROJ.Design.BaseModels {
         public override string Name { get => base.Name; set => base.Name = value; }
         [CAttributes(Visible = false)]
         public DateTime? DateMarked { get; set; } = DateTime.Now;
-        [CAttributes(Header = "Date Marked", Order = 2000)]
+        [CAttributes(Header = "Date Marked", Order = 2002)]
         public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
-        [CAttributes]
+        [CAttributes(Header = "Transaction Status", Order = 2000)]
         public string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();
         public virtual List<TItem> Items { get; set; } = new List<TItem>();
         public override bool DataValidation() {

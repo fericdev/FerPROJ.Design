@@ -1,5 +1,6 @@
 ﻿using FerPROJ.Design.Class;
 using FerPROJ.Design.Controls;
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
 using System;
 using System.Collections.Generic;
@@ -88,11 +89,44 @@ namespace FerPROJ.Design.Forms {
         private void ExportExcel_Click(object sender, EventArgs e) {
             CHtmlReportManager.ExportReportToExcel(_model);
         }
-        private void ExportPDF_Click(object sender, EventArgs e) {
-            CDialogManager.Info("Please right-click and select 'Print' to generate a PDF.");
+        private async void ExportPDF_Click(object sender, EventArgs e) {
+            if (_webView.CoreWebView2 == null) {
+                CDialogManager.Info("Browser not ready.");
+                return;
+            }
+
+            var fileName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+
+            using (SaveFileDialog dlg = new SaveFileDialog()) {
+                dlg.Filter = "PDF Files (*.pdf)|*.pdf";
+                dlg.FileName = $"{fileName}.pdf";
+
+                if (dlg.ShowDialog() != DialogResult.OK) {
+                    return;
+                }
+
+                var printSettings = _webView.CoreWebView2.Environment.CreatePrintSettings();
+
+                printSettings.Orientation = _model.IsLandscape ? CoreWebView2PrintOrientation.Landscape :
+                                                                 CoreWebView2PrintOrientation.Portrait;
+
+                var result = await _webView.CoreWebView2.PrintToPdfAsync(dlg.FileName, printSettings);
+
+                if (result) {
+                    CDialogManager.Info("PDF exported successfully.");
+                }
+                else {
+                    CDialogManager.Info("PDF export failed.");
+                }
+            }
         }
         private void ExportPrintToPrinter_Click(object sender, EventArgs e) {
-            CDialogManager.Info("Please right-click and select 'Print'.");
+            if (_webView.CoreWebView2 == null) {
+                CDialogManager.Info("Browser is not ready yet.");
+                return;
+            }
+
+            _webView.CoreWebView2.ShowPrintUI(CoreWebView2PrintDialogKind.Browser);
         }
     }
 }

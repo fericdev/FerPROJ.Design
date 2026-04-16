@@ -278,6 +278,8 @@ namespace FerPROJ.Design.Class {
 
         }
         public static void ExportReportToExcel(HtmlReportModel model) {
+
+            #region Content 
             //
             var columns = model.ReportBodyColumns;
             var rows = model.ReportBodyRows;
@@ -370,6 +372,8 @@ namespace FerPROJ.Design.Class {
                     }
                 }
             }
+            #endregion
+
         }
 
     }

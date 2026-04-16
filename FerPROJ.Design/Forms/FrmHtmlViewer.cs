@@ -2,12 +2,14 @@
 using FerPROJ.Design.Controls;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
+using PdfiumViewer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -63,6 +65,7 @@ namespace FerPROJ.Design.Forms {
             // Create menu items
             var excelItem = new ToolStripMenuItem("Excel", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
             var pdfItem = new ToolStripMenuItem("PDF", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
+            var imgItem = new ToolStripMenuItem("IMG", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
             var imageItem = new ToolStripMenuItem("SCREENSHOT", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
             var printItem = new ToolStripMenuItem("PRINT TO PRINTER", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
 
@@ -71,10 +74,12 @@ namespace FerPROJ.Design.Forms {
             pdfItem.Click += ExportPDF_Click;
             printItem.Click += ExportPrintToPrinter_Click;
             imageItem.Click += ExportImage_Click;
+            imgItem.Click += ExportImg_Click;
 
             // Add items to dropdown
             exportDropDown.DropDownItems.Add(excelItem);
             exportDropDown.DropDownItems.Add(pdfItem);
+            exportDropDown.DropDownItems.Add(imgItem);
             exportDropDown.DropDownItems.Add(imageItem);
             exportDropDown.DropDownItems.Add(printItem);
 
@@ -136,40 +141,105 @@ namespace FerPROJ.Design.Forms {
             _webView.CoreWebView2.ShowPrintUI(CoreWebView2PrintDialogKind.Browser);
         }
         private async void ExportImage_Click(object sender, EventArgs e) {
-            try {
-                if (_webView.CoreWebView2 == null) {
-                    CDialogManager.Info("Browser not ready.");
+            if (_webView.CoreWebView2 == null) {
+                CDialogManager.Info("Browser not ready.");
+                return;
+            }
+
+            var fileName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+
+            using (SaveFileDialog dlg = new SaveFileDialog()) {
+                dlg.Filter = "PNG Image (*.png)|*.png";
+                dlg.FileName = $"{fileName}.png";
+
+                if (dlg.ShowDialog() != DialogResult.OK) {
                     return;
                 }
 
-                var fileName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
-
-                using (SaveFileDialog dlg = new SaveFileDialog()) {
-                    dlg.Filter = "PNG Image (*.png)|*.png";
-                    dlg.FileName = $"{fileName}.png";
-
-                    if (dlg.ShowDialog() != DialogResult.OK) {
-                        return;
-                    }
-
-                    // small delay ensures rendering is applied
-                    await Task.Delay(200);
+                // small delay ensures rendering is applied
+                await Task.Delay(200);
 
 
-                    using (var stream = new FileStream(dlg.FileName, FileMode.Create)) {
-                        await _webView.CoreWebView2.CapturePreviewAsync(
-                            CoreWebView2CapturePreviewImageFormat.Png,
-                            stream);
-                    }
+                using (var stream = new FileStream(dlg.FileName, FileMode.Create)) {
+                    await _webView.CoreWebView2.CapturePreviewAsync(
+                        CoreWebView2CapturePreviewImageFormat.Png,
+                        stream);
+                }
 
-                    if (CDialogManager.Ask("Image Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
-                        Process.Start(dlg.FileName);
+                if (CDialogManager.Ask("Image Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
+                    Process.Start(dlg.FileName);
+                }
+            }
+
+        }
+        private async void ExportImg_Click(object sender, EventArgs e) {
+            if (_webView.CoreWebView2 == null) {
+                CDialogManager.Info("Browser not ready.");
+                return;
+            }
+
+            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog()) {
+                if (folderDialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+                string basePath = folderDialog.SelectedPath;
+
+                // folder name you want
+                var folderName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+
+                // combine path
+                string outputFolder = Path.Combine(basePath, folderName);
+
+                string tempPdfPath = Path.Combine(Path.GetTempPath(), "report_temp.pdf");
+
+                // STEP 1: Export PDF first
+                bool success = await _webView.CoreWebView2.PrintToPdfAsync(tempPdfPath);
+
+                if (!success) {
+                    CDialogManager.Info("Failed to generate PDF.");
+                    return;
+                }
+
+                // STEP 2: Convert PDF → Images
+                var images = ConvertPdfToImages(tempPdfPath, outputFolder);
+
+                // OPTIONAL: cleanup temp pdf
+                if (File.Exists(tempPdfPath)) {
+                    File.Delete(tempPdfPath);
+                }
+
+                CDialogManager.Info($"Done! {images.Count} images created.");
+            }
+
+        }
+        public List<string> ConvertPdfToImages(string pdfPath, string outputFolder) {
+            if (!Directory.Exists(outputFolder)) {
+                Directory.CreateDirectory(outputFolder);
+            }
+
+            var outputFiles = new List<string>();
+
+            using (var document = PdfDocument.Load(pdfPath)) {
+                const float dpi = 600f; // change to 600f if needed
+                float scale = dpi / 72f;
+
+                for (int i = 0; i < document.PageCount; i++) {
+                    var pageSize = document.PageSizes[i];
+
+                    int width = (int)(pageSize.Width * scale);
+                    int height = (int)(pageSize.Height * scale);
+
+                    using (var image = document.Render(i, width, height, true)) {
+                        string filePath = Path.Combine(outputFolder, $"page_{i + 1}.png");
+
+                        image.Save(filePath, ImageFormat.Png);
+
+                        outputFiles.Add(filePath);
                     }
                 }
             }
-            catch (Exception ex) {
-                CDialogManager.Info(ex.Message);
-            }
+
+            return outputFiles;
         }
     }
 }

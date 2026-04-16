@@ -1910,6 +1910,9 @@ namespace FerPROJ.Design.Class {
             // Apply editable setting once for all collected indices
             dgv.SetColumnsEditable(true, GetIndexOfEditableColumns(dgv, modelType).ToArray());
 
+            // Apply header
+            dgv.ApplyAttributeHeaderToColumns(modelType);
+
             // Lastly, apply display order based on attributes (after all columns are set up)
             dgv.ApplyDisplayOrder(modelType);
 
@@ -1947,7 +1950,45 @@ namespace FerPROJ.Design.Class {
 
             }
         }
+        private static void ApplyAttributeHeaderToColumns(this CDatagridview dgv, Type modelType = null) {
 
+            if (modelType == null) {
+                modelType = dgv.GetModelTypeFromDataGridView();
+            }
+
+            var properties = modelType.GetProperties(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            foreach (var property in properties) {
+                var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
+                                                 .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
+                                                 .ToList();
+
+                if (matchingColumns.Count > 1) {
+                    for (int i = 1; i < matchingColumns.Count; i++) {
+                        dgv.Columns.Remove(matchingColumns[i]);
+                    }
+                }
+
+                var attribute = property.GetCustomAttribute<CAttributes>();
+                if (attribute == null)
+                    continue;
+
+                var column = matchingColumns.FirstOrDefault();
+                if (column == null)
+                    continue;
+
+                if (attribute.Header.IsNullOrEmpty() && !attribute.Editable) {
+                    column.HeaderText = column.HeaderText.ToStringWithSpaces();
+                }
+
+                if (!attribute.Header.IsNullOrEmpty() && !attribute.Editable) {
+                    column.HeaderText = attribute.Header;
+                }
+            }
+
+
+        }
         private static void ApplyAttributeToColumns(this CDatagridview dgv, Type modelType = null) {
 
             if (modelType == null) {
@@ -1985,9 +2026,6 @@ namespace FerPROJ.Design.Class {
 
                 column.Visible = attribute.Visible;
 
-                column.HeaderText = !attribute.Header.IsNullOrEmpty() ?
-                                     attribute.Header : column.HeaderText;
-
                 column.Width = column.HeaderText.Length + 180;
 
                 if (column.Visible) {
@@ -1995,7 +2033,7 @@ namespace FerPROJ.Design.Class {
                 }
             }
 
-            if (columnCount <= 5) {
+            if (columnCount < 5) {
                 dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
 

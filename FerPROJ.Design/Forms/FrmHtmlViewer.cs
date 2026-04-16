@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,16 +63,19 @@ namespace FerPROJ.Design.Forms {
             // Create menu items
             var excelItem = new ToolStripMenuItem("Excel", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
             var pdfItem = new ToolStripMenuItem("PDF", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
+            var imageItem = new ToolStripMenuItem("SCREENSHOT", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
             var printItem = new ToolStripMenuItem("PRINT TO PRINTER", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512);
 
             // Reuse your existing logic
             excelItem.Click += ExportExcel_Click;
             pdfItem.Click += ExportPDF_Click;
             printItem.Click += ExportPrintToPrinter_Click;
+            imageItem.Click += ExportImage_Click;
 
             // Add items to dropdown
             exportDropDown.DropDownItems.Add(excelItem);
             exportDropDown.DropDownItems.Add(pdfItem);
+            exportDropDown.DropDownItems.Add(imageItem);
             exportDropDown.DropDownItems.Add(printItem);
 
             // Add dropdown to toolstrip
@@ -130,6 +134,42 @@ namespace FerPROJ.Design.Forms {
             }
 
             _webView.CoreWebView2.ShowPrintUI(CoreWebView2PrintDialogKind.Browser);
+        }
+        private async void ExportImage_Click(object sender, EventArgs e) {
+            try {
+                if (_webView.CoreWebView2 == null) {
+                    CDialogManager.Info("Browser not ready.");
+                    return;
+                }
+
+                var fileName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+
+                using (SaveFileDialog dlg = new SaveFileDialog()) {
+                    dlg.Filter = "PNG Image (*.png)|*.png";
+                    dlg.FileName = $"{fileName}.png";
+
+                    if (dlg.ShowDialog() != DialogResult.OK) {
+                        return;
+                    }
+
+                    // small delay ensures rendering is applied
+                    await Task.Delay(200);
+
+
+                    using (var stream = new FileStream(dlg.FileName, FileMode.Create)) {
+                        await _webView.CoreWebView2.CapturePreviewAsync(
+                            CoreWebView2CapturePreviewImageFormat.Png,
+                            stream);
+                    }
+
+                    if (CDialogManager.Ask("Image Exported Successfully.\nDo you want to open the file?", "Confirmation")) {
+                        Process.Start(dlg.FileName);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Info(ex.Message);
+            }
         }
     }
 }

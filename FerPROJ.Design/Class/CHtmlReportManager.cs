@@ -148,6 +148,10 @@ namespace FerPROJ.Design.Class {
                             width: auto;
                             min-height: auto;
                         }
+                        * {
+                            -webkit-print-color-adjust: exact !important;
+                            print-color-adjust: exact !important;
+                        }
 
                     }
                 ";

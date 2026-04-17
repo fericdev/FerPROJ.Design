@@ -47,7 +47,7 @@ namespace FerPROJ.Design.Class {
                     notifyIcon.ShowBalloonTip(notification.DisplayTimeSeconds * 1000, notification.Title, notification.Description, ToolTipIcon.Info);
                     //
                     if (notification.ShowInAlert) {
-                        CDialogManager.Custom(notification.Description, notification.Title, MessageBoxIcon.Exclamation);
+                        CDialogManager.Custom(notification.Description, notification.Title, MessageBoxIcon.Exclamation, true);
                     }
                 });
             }

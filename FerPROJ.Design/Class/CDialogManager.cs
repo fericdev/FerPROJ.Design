@@ -33,8 +33,36 @@ namespace FerPROJ.Design.Class {
             var callerType = new StackTrace().GetFrame(1).GetMethod().DeclaringType;
             Info(message, GetCallerTypeName(callerType));
         }
-        public static void Custom(string message, string caption, MessageBoxIcon msgIcon) {
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, msgIcon);
+        public static void Custom(string message, string caption, MessageBoxIcon msgIcon, bool topMost = false) {
+            Form mainForm = Application.OpenForms.Cast<Form>().FirstOrDefault(f => f.IsHandleCreated);
+
+            if (mainForm != null && mainForm.InvokeRequired) {
+                mainForm.BeginInvoke(new Action(() =>
+                    Custom(message, caption, msgIcon, topMost)
+                ));
+                return;
+            }
+
+            if (topMost) {
+                Form top = new Form() {
+                    TopMost = true,
+                    ShowInTaskbar = false,
+                    WindowState = FormWindowState.Minimized,
+                    FormBorderStyle = FormBorderStyle.None,
+                    Opacity = 0
+                };
+
+                top.Load += (s, e) =>
+                {
+                    MessageBox.Show(top, message, caption, MessageBoxButtons.OK, msgIcon);
+                    top.Close();
+                };
+
+                top.Show();
+            }
+            else {
+                MessageBox.Show(message, caption, MessageBoxButtons.OK, msgIcon);
+            }
         }
 
 

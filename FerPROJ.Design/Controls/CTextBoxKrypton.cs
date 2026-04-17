@@ -1,10 +1,12 @@
-﻿using Krypton.Toolkit;
+﻿using FerPROJ.Design.Class;
+using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FerPROJ.Design.Controls {
     public class CTextBoxKrypton : KryptonTextBox {
@@ -13,16 +15,19 @@ namespace FerPROJ.Design.Controls {
         private Color borderColor = Color.White;
         private Color foreColor = Color.Black;
         private Font font = new Font("Tahoma", 10, FontStyle.Regular);
-
+        private Timer debounceTimer;
+        private Binding textBinding;
 
         public CTextBoxKrypton() {
             StateIsActive();
             StateIsCommon();
             StateIsNormal();
             StateIsDisabled();
+            InitializeTimer();
             Text = "";
-        
+            TextChanged += CTextBoxKrypton_TextChanged;
         }
+
         private void StateIsActive() {
 
             StateActive.Back.Color1 = enterColor;
@@ -59,6 +64,16 @@ namespace FerPROJ.Design.Controls {
             StateDisabled.Border.Rounding = 10;
             StateDisabled.Content.Color1 = foreColor;
         }
-
+        private void CTextBoxKrypton_TextChanged(object sender, EventArgs e) {
+            debounceTimer.Stop();
+            debounceTimer.Start();
+        }
+        private void InitializeTimer() {
+            debounceTimer = new Timer { Interval = 100 };
+            debounceTimer.Tick += (s, e) => {
+                debounceTimer.Stop();
+                DataBindings[nameof(Text)]?.WriteValue();
+            };
+        }
     }
 }

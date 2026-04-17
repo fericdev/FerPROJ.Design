@@ -42,10 +42,13 @@ namespace FerPROJ.Design.Class {
                     DisplayTimeSeconds = 5,
                     DelayTimeSeconds = 5,
                     ShowInAlert = true,
-                }, null);
+                }, OpenFacebookAsync);
         }
         public static async Task RunVersionCheckerAsync() {
             await CBackgroundTaskManager.RunTaskInBackgroundAsync(CheckVersionAsync, 60);
+        }
+        private static async Task OpenFacebookAsync() {
+            ("https://www.facebook.com/feric.decenan.3").OpenURL();
         }
     }
     public class VersionModel {

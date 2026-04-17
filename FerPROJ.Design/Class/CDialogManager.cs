@@ -9,6 +9,52 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
     public static class CDialogManager {
+        public static bool Ask(string message, string caption, bool topMost) {
+            Form mainForm = Application.OpenForms.Cast<Form>().FirstOrDefault(f => f.IsHandleCreated);
+
+            if (mainForm != null && mainForm.InvokeRequired) {
+                return (bool)mainForm.Invoke(new Func<bool>(() =>
+                    Ask(message, caption, topMost)
+                ));
+            }
+
+            if (topMost) {
+                using (Form top = new Form() {
+                    TopMost = true,
+                    ShowInTaskbar = false,
+                    WindowState = FormWindowState.Minimized,
+                    FormBorderStyle = FormBorderStyle.None,
+                    Opacity = 0
+                }) {
+                    DialogResult result = DialogResult.None;
+
+                    top.Load += (s, e) =>
+                    {
+                        result = MessageBox.Show(
+                            top,
+                            message,
+                            caption,
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question
+                        );
+
+                        top.Close();
+                    };
+
+                    top.ShowDialog();
+
+                    return result == DialogResult.Yes;
+                }
+            }
+            else {
+                return MessageBox.Show(
+                    message,
+                    caption,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                ) == DialogResult.Yes;
+            }
+        }
         public static bool Ask(string message, string caption) {
             if (MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
                 return true;

@@ -2258,5 +2258,14 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
+        #region Redirect
+        public static void OpenURL(this string url) {
+            Process.Start(new ProcessStartInfo {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        #endregion
+
     }
 }

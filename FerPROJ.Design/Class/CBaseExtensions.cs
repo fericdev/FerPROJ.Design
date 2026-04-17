@@ -792,7 +792,7 @@ namespace FerPROJ.Design.Class {
         }
         #endregion
 
-        #region Properties Function
+        #region Dates Extension
         public static bool IsCurrentDate(this DateTime? value) {
             try {
                 return !value.IsNullOrEmpty() && value.Value.Date == DateTime.Today;
@@ -804,6 +804,14 @@ namespace FerPROJ.Design.Class {
         public static bool IsCurrentDate(this DateTime value) {
             try {
                 return !value.IsNullOrEmpty() && value.Date == DateTime.Today;
+            }
+            catch {
+                return false;
+            }
+        }
+        public static bool IsEquals(this DateTime value, DateTime compareTo) {
+            try {
+                return !value.IsNullOrEmpty() && value.Date.Equals(compareTo.Date);
             }
             catch {
                 return false;

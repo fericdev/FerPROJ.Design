@@ -146,7 +146,7 @@ namespace FerPROJ.Design.Class {
             }
         }
         public static bool ImportFromExcel<T>(out List<T> listValue, string[] excludeName = null) where T : new() {
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            ExcelPackage.License.SetNonCommercialPersonal("FericDev");
             if (excludeName == null)
                 excludeName = new string[0];
             listValue = new List<T>(); // Initialize listValue

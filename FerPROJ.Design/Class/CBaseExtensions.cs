@@ -774,6 +774,14 @@ namespace FerPROJ.Design.Class {
                 return false;
             }
         }
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> value) {
+            try {
+                return value == null || value.Count() == 0;
+            }
+            catch {
+                return false;
+            }
+        }
         public static bool IsEquals(this string value, string compareTo) {
             try {
                 return !value.IsNullOrEmpty() && value.Equals(compareTo, StringComparison.OrdinalIgnoreCase);

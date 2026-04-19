@@ -9,8 +9,15 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Class {
     public static class CDialogManager {
+        public static bool IsDialogOpened = false;
         public static bool Ask(string message, string caption, bool topMost) {
-            Form mainForm = Application.OpenForms.Cast<Form>().FirstOrDefault(f => f.IsHandleCreated);
+            if (IsDialogOpened) {
+                return false;
+            }
+
+            Form mainForm = Application.OpenForms
+                .Cast<Form>()
+                .FirstOrDefault(f => f.IsHandleCreated);
 
             if (mainForm != null && mainForm.InvokeRequired) {
                 return (bool)mainForm.Invoke(new Func<bool>(() =>
@@ -18,41 +25,42 @@ namespace FerPROJ.Design.Class {
                 ));
             }
 
-            if (topMost) {
-                using (Form top = new Form() {
-                    TopMost = true,
-                    ShowInTaskbar = false,
-                    WindowState = FormWindowState.Minimized,
-                    FormBorderStyle = FormBorderStyle.None,
-                    Opacity = 0
-                }) {
-                    DialogResult result = DialogResult.None;
+            try {
+                IsDialogOpened = true; // ✅ SET when dialog starts
 
-                    top.Load += (s, e) =>
-                    {
-                        result = MessageBox.Show(
-                            top,
-                            message,
-                            caption,
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question
-                        );
+                if (topMost) {
+                    using (Form top = new Form() {
+                        TopMost = true,
+                        ShowInTaskbar = false,
+                        WindowState = FormWindowState.Minimized,
+                        FormBorderStyle = FormBorderStyle.None,
+                        Opacity = 0
+                    }) {
+                        DialogResult result = DialogResult.None;
 
-                        top.Close();
-                    };
+                        top.Load += (s, e) => {
+                            result = MessageBox.Show(
+                                top,
+                                message,
+                                caption,
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question
+                            );
 
-                    top.ShowDialog();
+                            top.Close();
+                        };
 
-                    return result == DialogResult.Yes;
+                        top.ShowDialog();
+
+                        return result == DialogResult.Yes;
+                    }
+                }
+                else {
+                    return Ask(message, caption);
                 }
             }
-            else {
-                return MessageBox.Show(
-                    message,
-                    caption,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                ) == DialogResult.Yes;
+            finally {
+                IsDialogOpened = false; // ✅ ALWAYS reset even if exception occurs
             }
         }
         public static bool Ask(string message, string caption) {
@@ -98,8 +106,7 @@ namespace FerPROJ.Design.Class {
                     Opacity = 0
                 };
 
-                top.Load += (s, e) =>
-                {
+                top.Load += (s, e) => {
                     MessageBox.Show(top, message, caption, MessageBoxButtons.OK, msgIcon);
                     top.Close();
                 };

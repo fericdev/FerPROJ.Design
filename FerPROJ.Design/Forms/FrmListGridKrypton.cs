@@ -257,6 +257,14 @@ namespace FerPROJ.Design.Forms {
                 tsbOther2.Text = value;
             }
         }
+        public string ButtonNameOther3 {
+            get {
+                return tsbOther3.Text;
+            }
+            set {
+                tsbOther3.Text = value;
+            }
+        }
 
         #endregion
 
@@ -612,8 +620,10 @@ namespace FerPROJ.Design.Forms {
             HideFunctionView = _crudOptions?.HideView ?? false;
             HideFunctionOther1 = _crudOptions?.HideOther1 ?? false;
             HideFunctionOther2 = _crudOptions?.HideOther2 ?? false;
+            HideFunctionOther3 = _crudOptions?.HideOther3 ?? false;
             ButtonNameOther1 = _crudOptions?.Other1Name ?? "View Other 1";
             ButtonNameOther2 = _crudOptions?.Other2Name ?? "View Other 2";
+            ButtonNameOther3 = _crudOptions?.Other3Name ?? "View Other 3";
             ButtonNameView = _crudOptions?.ViewName ?? "View";
             this.Text = $"{_repositoryType.Name.ToStringWithSpaces()} List";
             this.FormTitle = GetFormTitle();

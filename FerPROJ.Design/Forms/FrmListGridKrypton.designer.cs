@@ -72,6 +72,7 @@ namespace FerPROJ.Design.Forms
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbOther2 = new System.Windows.Forms.ToolStripButton();
             this.tsbMainRefresh = new System.Windows.Forms.ToolStripButton();
+            this.tsbOther3 = new System.Windows.Forms.ToolStripButton();
             this.panelMain11 = new System.Windows.Forms.Panel();
             this.PnlFormList = new System.Windows.Forms.Panel();
             this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
@@ -399,7 +400,8 @@ namespace FerPROJ.Design.Forms
             this.tsbOther1,
             this.toolStripSeparator6,
             this.tsbOther2,
-            this.tsbMainRefresh});
+            this.tsbMainRefresh,
+            this.tsbOther3});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Padding = new System.Windows.Forms.Padding(0);
@@ -487,7 +489,7 @@ namespace FerPROJ.Design.Forms
             // 
             // tsbOther2
             // 
-            this.tsbOther2.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon2;
+            this.tsbOther2.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon;
             this.tsbOther2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOther2.Name = "tsbOther2";
             this.tsbOther2.Size = new System.Drawing.Size(95, 38);
@@ -504,6 +506,16 @@ namespace FerPROJ.Design.Forms
             this.tsbMainRefresh.Size = new System.Drawing.Size(71, 38);
             this.tsbMainRefresh.Text = "Resfresh";
             this.tsbMainRefresh.Click += new System.EventHandler(this.tsbMainRefresh_Click);
+            // 
+            // tsbOther3
+            // 
+            this.tsbOther3.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon;
+            this.tsbOther3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOther3.Name = "tsbOther3";
+            this.tsbOther3.Size = new System.Drawing.Size(95, 38);
+            this.tsbOther3.Text = "Other3Async";
+            this.tsbOther3.Visible = false;
+            this.tsbOther3.Click += new System.EventHandler(this.tsbOther3_Click);
             // 
             // panelMain11
             // 
@@ -679,5 +691,6 @@ namespace FerPROJ.Design.Forms
         private CDatagridview baseModelCDatagridview;
         private System.Windows.Forms.BindingSource baseModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.ToolStripButton tsbOther3;
     }
 }

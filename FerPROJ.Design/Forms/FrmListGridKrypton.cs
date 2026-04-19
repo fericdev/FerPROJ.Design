@@ -33,6 +33,7 @@ namespace FerPROJ.Design.Forms {
         private bool hideButtonSelect;
         private bool hideFunctionOther1 = true;
         private bool hideFunctionOther2 = true;
+        private bool hideFunctionOther3 = true;
         private bool hideDateSearch;
         private bool hideHeader;
         private string titleText = "Management Hub";
@@ -158,6 +159,13 @@ namespace FerPROJ.Design.Forms {
             set {
                 hideFunctionOther2 = value;
                 tsbOther2.Visible = !hideFunctionOther2;
+            }
+        }
+        public bool HideFunctionOther3 {
+            get { return hideFunctionOther3; }
+            set {
+                hideFunctionOther3 = value;
+                tsbOther3.Visible = !hideFunctionOther3;
             }
         }
 
@@ -421,6 +429,18 @@ namespace FerPROJ.Design.Forms {
             }
         }
 
+        private async void tsbOther3_Click(object sender, EventArgs e) {
+            try {
+                var result = await Other3Async();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
+
         private async void OnKeyDown(object sender, KeyEventArgs e) {
             // Build combined key (Ctrl/Shift/Alt + main key)
             var key = BuildShortcutKey(e);
@@ -576,6 +596,12 @@ namespace FerPROJ.Design.Forms {
             return false;
         }
 
+        protected async virtual Task<bool> Other3Async() {
+            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
+                return await _crudOptions?.OnOther3Async(Form_IdTrack.ToGuid());
+            }
+            return false;
+        }
         #endregion
 
         #region Buttons
@@ -637,6 +663,7 @@ public class CrudOptions {
     public bool HideView { get; set; } = true;
     public bool HideOther1 { get; set; } = true;
     public bool HideOther2 { get; set; } = true;
+    public bool HideOther3 { get; set; } = true;
     public Func<Task<bool>> OnAddAsync { get; set; }
     public Func<Guid, Task<bool>> OnAddIdAsync { get; set; }
     public Func<Guid, Task<bool>> OnUpdateAsync { get; set; }
@@ -646,6 +673,8 @@ public class CrudOptions {
     public string Other1Name { get; set; }
     public Func<Guid, Task<bool>> OnOther2Async { get; set; }
     public string Other2Name { get; set; }
+    public Func<Guid, Task<bool>> OnOther3Async { get; set; }
+    public string Other3Name { get; set; }
 
     #region Utilities 
     public FormSizeTypes FormSizeType { get; set; } = FormSizeTypes.Default;

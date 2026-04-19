@@ -314,22 +314,30 @@ namespace FerPROJ.Design.Class {
                             .Equals(text, StringComparison.OrdinalIgnoreCase));
 
                 var binding = cmb.DataBindings["SelectedValue"];
+                var textBinding = cmb.DataBindings["Text"];
+
+                // Assign to model property
+                var member = propertyExpression.Body as MemberExpression;
+                if (member?.Member is PropertyInfo prop) {
+                    prop.SetValue(model, text);
+                }
 
                 if (!exists) {
-
-                    // Assign to model property
-                    var member = propertyExpression.Body as MemberExpression;
-                    if (member?.Member is PropertyInfo prop)
-                        prop.SetValue(model, text);
 
                     // Disable binding updates
                     if (binding != null)
                         binding.DataSourceUpdateMode = DataSourceUpdateMode.Never;
+
+                    if (textBinding != null)
+                        textBinding.DataSourceUpdateMode = DataSourceUpdateMode.Never;
                 }
                 else {
                     // Re-enable binding if user selected valid value
                     if (binding != null)
                         binding.DataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+
+                    if (textBinding != null)
+                        textBinding.DataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
                 }
             };
         }

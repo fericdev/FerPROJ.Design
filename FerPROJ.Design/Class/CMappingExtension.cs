@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,7 +54,7 @@ namespace FerPROJ.Design.Class {
             CreateMap<TSource, TDestination>().ReverseMap();
         }
         public static MapperConfiguration GetMapperConfiguration() {
-            return new MapperConfiguration(c => c.AddProfile(new CMappingExtension<TSource, TDestination>()));
+            return new MapperConfiguration(c => c.AddProfile(new CMappingExtension<TSource, TDestination>()), NullLoggerFactory.Instance);
         }
         // Overload to map onto an existing destination object
         public TDestination GetMappingResult(TSource source, TDestination prevDestination = default) {

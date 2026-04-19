@@ -23,7 +23,6 @@ namespace FerPROJ.Design.BaseModels {
         public string Type { get; set; }
         public string Purok { get; set; }
         public string Province { get; set; }
-        public string Remarks { get; set; }
         public string AddressString => $"{Purok}, {Barangay}, {City}, {Province}, {Region}, {Country} {ZipCode}".Trim();       
         public override bool DataValidation() {
             if (Error != null) {

@@ -659,7 +659,7 @@ namespace FerPROJ.Design.Forms {
             ButtonNameOther2 = _crudOptions?.Other2Name ?? "View Other 2";
             ButtonNameOther3 = _crudOptions?.Other3Name ?? "View Other 3";
             ButtonNameView = _crudOptions?.ViewName ?? "View";
-            ButtonNameRemarks = _crudOptions?.RemarksName ?? "Remarks";
+            ButtonNameRemarks = _crudOptions?.RemarksName ?? "View Remarks";
             this.Text = $"{_repositoryType.Name.ToStringWithSpaces()} List";
             this.FormTitle = GetFormTitle();
             this.FormDescription = GetFormDescription();

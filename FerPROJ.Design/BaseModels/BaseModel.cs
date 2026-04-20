@@ -71,4 +71,17 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Visible = false)]
         public virtual string Description { get; set; }
     }
+    public class RemarksModel : BaseModel {
+        public Type RepositoryType { get; set; }
+
+        public override bool DataValidation() {
+            if (RepositoryType.IsNullOrEmpty()) {
+                return AddErrorMessage("Repository Type is required.");
+            }
+            if (Remarks.IsNullOrEmpty()) {
+                return AddErrorMessage("Remarks is required.");
+            }
+            return true;
+        }
+    }
 }

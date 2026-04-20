@@ -35,10 +35,10 @@ namespace FerPROJ.Design.Forms
 
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListGridKrypton));
             this.baseLbl1 = new System.Windows.Forms.Label();
             this.basePnl1 = new System.Windows.Forms.Panel();
@@ -81,6 +81,7 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain11 = new FerPROJ.Design.Controls.CLabelDesc();
             this.pictureBoxMain1 = new System.Windows.Forms.PictureBox();
             this.customLabelDescMain10 = new FerPROJ.Design.Controls.CLabelDesc();
+            this.tsbRemarks = new System.Windows.Forms.ToolStripButton();
             this.basePnl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ComboBoxKryptonPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComboBoxKryptonDataLimit)).BeginInit();
@@ -319,22 +320,22 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.AllowUserToOrderColumns = true;
             this.baseModelCDatagridview.AllowUserToResizeRows = false;
             this.baseModelCDatagridview.AlternatingRowColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.LightGray;
+            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.baseModelCDatagridview.AutoGenerateColumns = false;
             this.baseModelCDatagridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.baseModelCDatagridview.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.baseModelCDatagridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.baseModelCDatagridview.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.baseModelCDatagridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Custom;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.baseModelCDatagridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.baseModelCDatagridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.baseModelCDatagridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.baseModelCDatagridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id});
@@ -342,14 +343,14 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.CustomHeaderForeColor = System.Drawing.Color.Black;
             this.baseModelCDatagridview.CustomRowFontStyle = new System.Drawing.Font("Tahoma", 8F);
             this.baseModelCDatagridview.DataSource = this.baseModelBindingSource;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 8F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.baseModelCDatagridview.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.baseModelCDatagridview.DefaultCellStyle = dataGridViewCellStyle11;
             this.baseModelCDatagridview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.baseModelCDatagridview.EnableHeadersVisualStyles = false;
             this.baseModelCDatagridview.HeaderColor = System.Drawing.Color.WhiteSmoke;
@@ -357,13 +358,13 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.Name = "baseModelCDatagridview";
             this.baseModelCDatagridview.ReadOnly = true;
             this.baseModelCDatagridview.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 8F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.baseModelCDatagridview.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.baseModelCDatagridview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.baseModelCDatagridview.Size = new System.Drawing.Size(1056, 423);
@@ -401,7 +402,8 @@ namespace FerPROJ.Design.Forms
             this.toolStripSeparator6,
             this.tsbOther2,
             this.tsbMainRefresh,
-            this.tsbOther3});
+            this.tsbOther3,
+            this.tsbRemarks});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Padding = new System.Windows.Forms.Padding(0);
@@ -607,6 +609,16 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain10.TabIndex = 1;
             this.customLabelDescMain10.Text = "Management Hub";
             // 
+            // tsbRemarks
+            // 
+            this.tsbRemarks.Image = global::FerPROJ.Design.Properties.Resources.FolderIcon;
+            this.tsbRemarks.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbRemarks.Name = "tsbRemarks";
+            this.tsbRemarks.Size = new System.Drawing.Size(72, 38);
+            this.tsbRemarks.Text = "Remarks";
+            this.tsbRemarks.Visible = false;
+            this.tsbRemarks.Click += new System.EventHandler(this.tsbRemarks_Click);
+            // 
             // FrmListGridKrypton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -692,5 +704,6 @@ namespace FerPROJ.Design.Forms
         private System.Windows.Forms.BindingSource baseModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.ToolStripButton tsbOther3;
+        private System.Windows.Forms.ToolStripButton tsbRemarks;
     }
 }

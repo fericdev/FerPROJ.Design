@@ -34,6 +34,7 @@ namespace FerPROJ.Design.Forms {
         private bool hideFunctionOther1 = true;
         private bool hideFunctionOther2 = true;
         private bool hideFunctionOther3 = true;
+        private bool hideFunctionRemarks = true;
         private bool hideDateSearch;
         private bool hideHeader;
         private string titleText = "Management Hub";
@@ -168,6 +169,13 @@ namespace FerPROJ.Design.Forms {
                 tsbOther3.Visible = !hideFunctionOther3;
             }
         }
+        public bool HideFunctionRemarks {
+            get { return hideFunctionRemarks; }
+            set {
+                hideFunctionRemarks = value;
+                tsbRemarks.Visible = !hideFunctionRemarks;
+            }
+        }
 
         public string FormTitle {
             get { return titleText; }
@@ -237,6 +245,14 @@ namespace FerPROJ.Design.Forms {
             }
             set {
                 tsbMainViewItem.Text = value;
+            }
+        }
+        public string ButtonNameRemarks {
+            get {
+                return tsbRemarks.Text;
+            }
+            set {
+                tsbRemarks.Text = value;
             }
         }
 
@@ -448,6 +464,17 @@ namespace FerPROJ.Design.Forms {
                 CDialogManager.Warning(ex.Message, "Error");
             }
         }
+        private async void tsbRemarks_Click(object sender, EventArgs e) {
+            try {
+                var result = await RemarksAsync();
+                if (result) {
+                    await RefreshAsync();
+                }
+            }
+            catch (Exception ex) {
+                CDialogManager.Warning(ex.Message, "Error");
+            }
+        }
 
         private async void OnKeyDown(object sender, KeyEventArgs e) {
             // Build combined key (Ctrl/Shift/Alt + main key)
@@ -610,6 +637,12 @@ namespace FerPROJ.Design.Forms {
             }
             return false;
         }
+        protected async virtual Task<bool> RemarksAsync() {
+            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
+                return await _crudOptions?.OnRemarksAsync(Form_IdTrack.ToGuid());
+            }
+            return false;
+        }
         #endregion
 
         #region Buttons
@@ -621,10 +654,12 @@ namespace FerPROJ.Design.Forms {
             HideFunctionOther1 = _crudOptions?.HideOther1 ?? false;
             HideFunctionOther2 = _crudOptions?.HideOther2 ?? false;
             HideFunctionOther3 = _crudOptions?.HideOther3 ?? false;
+            HideFunctionRemarks = _crudOptions?.HideRemarks ?? false;
             ButtonNameOther1 = _crudOptions?.Other1Name ?? "View Other 1";
             ButtonNameOther2 = _crudOptions?.Other2Name ?? "View Other 2";
             ButtonNameOther3 = _crudOptions?.Other3Name ?? "View Other 3";
             ButtonNameView = _crudOptions?.ViewName ?? "View";
+            ButtonNameRemarks = _crudOptions?.RemarksName ?? "Remarks";
             this.Text = $"{_repositoryType.Name.ToStringWithSpaces()} List";
             this.FormTitle = GetFormTitle();
             this.FormDescription = GetFormDescription();
@@ -674,6 +709,7 @@ public class CrudOptions {
     public bool HideOther1 { get; set; } = true;
     public bool HideOther2 { get; set; } = true;
     public bool HideOther3 { get; set; } = true;
+    public bool HideRemarks { get; set; } = true;
     public Func<Task<bool>> OnAddAsync { get; set; }
     public Func<Guid, Task<bool>> OnAddIdAsync { get; set; }
     public Func<Guid, Task<bool>> OnUpdateAsync { get; set; }
@@ -685,6 +721,8 @@ public class CrudOptions {
     public string Other2Name { get; set; }
     public Func<Guid, Task<bool>> OnOther3Async { get; set; }
     public string Other3Name { get; set; }
+    public Func<Guid, Task<bool>> OnRemarksAsync { get; set; }
+    public string RemarksName { get; set; }
 
     #region Utilities 
     public FormSizeTypes FormSizeType { get; set; } = FormSizeTypes.Default;

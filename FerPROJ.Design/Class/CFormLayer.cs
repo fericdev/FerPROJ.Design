@@ -21,6 +21,21 @@ namespace FerPROJ.Design.Class {
                 return await frm.CurrentFormResult;
             }
         }
+        public static async Task<bool> ManageRemarks<TEntity, TRepository>(Guid id) {
+            //
+            var entity = await CRepositoryManager.ExecuteMethodAsync<TEntity>(typeof(TRepository), "GetByIdAsync", id);
+            if (entity.IsNullOrEmptyId()) {
+                return false;
+            }
+            //
+            var model = new RemarksModel();
+            model.Id = id;
+            model.FormId = entity.GetPropertyValue<string>("FormId");
+            model.Remarks = entity.GetPropertyValue<string>("Remarks");
+            model.RepositoryType = typeof(TRepository);
+            //
+            return await ManageAsync<FrmRemarks>(formMode: FormMode.Add, parameters: c => { c.model = model; c.HideSaveNew = true; c.HideSaveNewOnUpdate = true; });
+        }
         public static async Task<bool> ManageAsync<TForm>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
             using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
                 return await frm.CurrentNewFormResultAsync(formMode, id, parameters);

@@ -542,11 +542,13 @@ namespace FerPROJ.Design.Class {
             var result = new StringBuilder();
 
             foreach (char c in stringValue) {
-                if (char.IsUpper(c) && result.Length > 0) {
+                if (char.IsUpper(c) && result.Length > 0 && result[result.Length - 1] != ' ') {
                     result.Append(' ');
                 }
+
                 result.Append(c);
             }
+
             return result.ToString();
         }
         public static string ToStringNormalize(this string stringValue) {

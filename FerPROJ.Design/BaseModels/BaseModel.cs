@@ -13,7 +13,7 @@ namespace FerPROJ.Design.BaseModels {
     {
         [CAttributes(Visible = false, Order = 1)]
         public Guid Id { get; set; } = Guid.NewGuid();
-        [CAttributes(Visible = false, Order = 2)]
+        [CAttributes(Visible = false, Order = 2, Header = "Form #")]
         public virtual string FormId { get; set; }
         [CAttributes(Visible = true, Order = 3)]
         public virtual string Name { get; set; }
@@ -40,6 +40,8 @@ namespace FerPROJ.Design.BaseModels {
     }
     public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
     {
+        [CAttributes(Order = 2)]
+        public override string FormId { get => base.Name; set => base.Name = value; }
         [CAttributes(Visible = false)]
         public override string Name { get => base.Name; set => base.Name = value; }
         [CAttributes(Visible = false)]

@@ -48,7 +48,9 @@ namespace FerPROJ.Design.Class {
         }
         public bool DataValidationResult() {
             DataValidation();
+
             var sb = new StringBuilder();
+
             if (!string.IsNullOrEmpty(Error))
                 sb.AppendLine("Error 1: " + Error);
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -60,6 +62,14 @@ namespace FerPROJ.Design.Class {
 
             if (!result.IsNullOrEmpty()) {
                 throw new ArgumentException(sb.ToString());
+            }
+
+            if (!Success) {
+                throw new ArgumentException(Error);
+            }
+
+            if (this == null) {
+                throw new ArgumentNullException($"{this} is null!");
             }
 
             return true;

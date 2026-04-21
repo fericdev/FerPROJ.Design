@@ -13,7 +13,7 @@ namespace FerPROJ.Design.BaseModels {
     {
         [CAttributes(Visible = false, Order = 1)]
         public Guid Id { get; set; } = Guid.NewGuid();
-        [CAttributes(Visible = false, Order = 2, Header = "Form #")]
+        [CAttributes(Visible = false, Order = 2)]
         public virtual string FormId { get; set; }
         [CAttributes(Visible = true, Order = 3)]
         public virtual string Name { get; set; }

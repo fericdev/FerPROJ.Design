@@ -40,9 +40,9 @@ namespace FerPROJ.Design.Class {
 
             await CNotificationManager.CreateNotificationAndDisplayAsync(
                 new NotificationModel {
-                    Title = $"New update available. {data.SystemVersion}",
-                    Description = "Please contact the administrator to update your system " +
-                                  "to the latest version.",
+                    Title = $"System Update Required v{data.SystemVersion}",
+                    Description = "A newer version of the system is available." +
+                                "\nDo you want to proceed with the update now?",
                     DisplayTimeSeconds = 5,
                     DelayTimeSeconds = 5,
                     ShowInAlert = true,

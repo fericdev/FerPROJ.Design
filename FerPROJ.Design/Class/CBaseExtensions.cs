@@ -344,7 +344,7 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Date Time Control
-        public static void ToCustomDateFormat(this CDateTimePickerKrypton dateTimePicker, string customFormat = "MM/dd/yyyy hh:mm tt") {          
+        public static void ToCustomDateFormat(this CDateTimePickerKrypton dateTimePicker, string customFormat = "MM/dd/yyyy hh:mm tt") {
             dateTimePicker.Format = DateTimePickerFormat.Custom;
             dateTimePicker.CustomFormat = customFormat;
 
@@ -2010,6 +2010,10 @@ namespace FerPROJ.Design.Class {
 
                 if (!attribute.Header.IsNullOrEmpty() && !attribute.Editable) {
                     column.HeaderText = attribute.Header;
+                }
+
+                if (attribute.Width > 0) {
+                    column.Width = attribute.Width;
                 }
             }
 

@@ -1975,6 +1975,9 @@ namespace FerPROJ.Design.Class {
                 }
 
             }
+
+            dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgv.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
         private static void ApplyAttributeHeaderToColumns(this CDatagridview dgv, Type modelType = null) {
 

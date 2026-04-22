@@ -68,13 +68,25 @@ namespace FerPROJ.Design.Class {
                 return;
             }
 
+            var args = $"{Quote(appPath)} {Quote(downloadUrl)} {Quote(SystemNameFull + ".exe")}";
+
             Process.Start(new ProcessStartInfo {
                 FileName = updaterPath,
-                Arguments = $"\"{appPath}\" \"{downloadUrl}\" \"{SystemNameFull}.exe\"",
-                UseShellExecute = true
+                Arguments = args,
+                UseShellExecute = true,
+                
             });
 
             Application.Exit(); // important: close main app
+        }
+        private static string Quote(string value) {
+            if (string.IsNullOrEmpty(value)) return "\"\"";
+            // If the path ends in a backslash, the " at the end gets escaped. 
+            // We add an extra backslash to prevent that.
+            if (value.EndsWith("\\")) {
+                return $"\"{value}\\\"";
+            }
+            return $"\"{value}\"";
         }
     }
     public class VersionModel {

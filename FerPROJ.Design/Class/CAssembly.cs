@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,11 +13,13 @@ namespace FerPROJ.Design.Class {
         // Static properties to get the assembly name and version
         public static string SystemName { get; private set; }
         public static string SystemVersion { get; private set; }
+        public static string SystemNameFull { get; private set; }
 
         // Static constructor to initialize the properties
         public static void SetAssembly(Assembly assembly) {
             //
             SystemName = assembly.GetName().Name.Replace(".", "");
+            SystemNameFull = assembly.GetName().Name;
             SystemVersion = assembly.GetName().Version.ToString();
             //
         }
@@ -42,13 +46,35 @@ namespace FerPROJ.Design.Class {
                     DisplayTimeSeconds = 5,
                     DelayTimeSeconds = 5,
                     ShowInAlert = true,
-                }, OpenFacebookAsync);
+                }, RunUpdaterAsync);
         }
         public static async Task RunVersionCheckerAsync() {
             await CBackgroundTaskManager.RunTaskInBackgroundAsync(CheckVersionAsync, 60);
         }
-        private static async Task OpenFacebookAsync() {
-            ("https://www.facebook.com/feric.decenan.3").OpenURL();
+        private static async Task RunUpdaterAsync() {
+            // "LMSMain/LMSMain_version"
+            var zip = $"{SystemName}/output.zip";
+
+            var zipFileUrl = $"https://fericdev.github.io/version-control/{zip}";
+
+            LaunchUpdater(AppDomain.CurrentDomain.BaseDirectory, zipFileUrl);
+        }
+        private static void LaunchUpdater(string appPath, string downloadUrl) {
+
+            string updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater", "UpdaterManagementSystem.exe");
+
+            if (!File.Exists(updaterPath)) {
+                MessageBox.Show("Updater not found.");
+                return;
+            }
+
+            Process.Start(new ProcessStartInfo {
+                FileName = updaterPath,
+                Arguments = $"\"{appPath}\" \"{downloadUrl}\" \"{SystemNameFull}.exe\"",
+                UseShellExecute = true
+            });
+
+            Application.Exit(); // important: close main app
         }
     }
     public class VersionModel {

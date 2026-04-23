@@ -180,7 +180,7 @@ namespace FerPROJ.Design.Class {
             };
 
             if (!isSelectedValueChanged) {
-                onValueChanged().RunTask();
+                onValueChanged().RunTaskAndForget();
             }
         }
         public static void TrackIndexChangesAndCallMethod(this CComboBoxKrypton cmb, Func<Task> onValueChanged) {
@@ -205,7 +205,7 @@ namespace FerPROJ.Design.Class {
             };
 
             if (!isSelectedValueChanged) {
-                onValueChanged().RunTask();
+                onValueChanged().RunTaskAndForget();
             }
         }
         public static void TrackValueChangesAndBindModel(this CComboBoxKrypton cmb) {
@@ -1552,7 +1552,7 @@ namespace FerPROJ.Design.Class {
             return null;
         }
         public static async Task SearchDGVWithBackgroundWorkerAsync<TEntity>(this CDatagridview dgv, string searchValue) where TEntity : class {
-            FrmSplasherLoading.ShowSplashAsync().RunTask();
+            FrmSplasherLoading.ShowSplashAsync().RunTaskAndForget();
 
             // Ensure BindingSource is set before processing
             var dgvBindingSource = dgv.DataSource as BindingSource;

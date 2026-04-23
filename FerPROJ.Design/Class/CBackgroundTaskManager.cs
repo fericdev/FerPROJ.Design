@@ -49,8 +49,14 @@ namespace FerPROJ.Design.Class {
                 await Task.Delay(1);
             }
         }
-
         public static void RunTask(this Task task) {
+            task.Wait();
+        }
+        public static TResult RunTask<TResult>(this Task<TResult> task) {
+            return task.GetAwaiter().GetResult();
+        }
+
+        public static void RunTaskAndForget(this Task task) {
             _ = Task.Run(async () => {
                 try {
                     await task.ConfigureAwait(false);
@@ -60,7 +66,7 @@ namespace FerPROJ.Design.Class {
                 }
             });
         }
-        public static TResult RunTask<TResult>(this Task<TResult> task) {
+        public static TResult RunTaskAndWait<TResult>(this Task<TResult> task) {
             try {
                 task.Wait();
                 return task.Result;
@@ -82,7 +88,7 @@ namespace FerPROJ.Design.Class {
             CancellationToken cancellationToken = default) {
             while (!cancellationToken.IsCancellationRequested) {
                 try {
-                    taskFactory().RunTask();
+                    taskFactory().RunTaskAndForget();
                 }
                 catch (Exception ex) {
                     LogError(ex);

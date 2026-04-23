@@ -14,22 +14,22 @@ namespace FerPROJ.Design.Class {
 
         public static async Task RaiseMethodsOnListFormClosedAsync() {
             if (OnListFormClosedAsync != null) {
-                OnListFormClosedAsync().RunTask();
+                OnListFormClosedAsync().RunTaskAndForget();
             }
         }
         public static async Task RaiseMethodsOnListFormDeleteAsync() {
             if (OnListFormDeleteAsync != null) {
-                OnListFormDeleteAsync().RunTask();
+                OnListFormDeleteAsync().RunTaskAndForget();
             }
         }
         public static async Task RaiseMethodsOnManageFormClosedAsync() {
             if (OnManageFormClosedAsync != null) {
-                OnManageFormClosedAsync().RunTask();
+                OnManageFormClosedAsync().RunTaskAndForget();
             }
         }
         public static async Task RaiseMethodsOnListFormRefreshAsync() {
             if (OnListFormRefreshAsync != null) {
-                OnListFormRefreshAsync().RunTask();
+                OnListFormRefreshAsync().RunTaskAndForget();
             }
         }
     }

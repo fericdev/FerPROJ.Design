@@ -1086,6 +1086,14 @@ namespace FerPROJ.Design.Class {
             }
             return text[text.Length - 1].ToString();
         }
+        public static TType GetIndexValue<TType>(this string[] args, int index = 0) {
+            try {
+                var value = args[index];
+                return value.To<TType>();
+            } catch {
+                return default;
+            }
+        }
         #endregion
 
         #region Search Date

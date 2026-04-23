@@ -16,12 +16,13 @@ namespace FerPROJ.Design.Class {
         public static string SystemNameFull { get; private set; }
 
         // Static constructor to initialize the properties
-        public static void SetAssembly(Assembly assembly) {
+        public static void SetAssembly<DbContext>(Assembly assembly) {
             //
             SystemName = assembly.GetName().Name.Replace(".", "");
             SystemNameFull = assembly.GetName().Name;
             SystemVersion = assembly.GetName().Version.ToString();
             //
+            CAppConstants.DB_CONTEXT_TYPE = typeof(DbContext);
         }
         private static async Task CheckVersionAsync() {
             // "LMSMain/LMSMain_version"

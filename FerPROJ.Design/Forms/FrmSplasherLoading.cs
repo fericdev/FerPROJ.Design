@@ -53,6 +53,7 @@ namespace FerPROJ.Design.Forms {
             // Show the splash form
             splashForm.Show();
             splashForm.Update();
+            splashForm.TopMost = true;
         }
 
         public static void CloseSplash() {

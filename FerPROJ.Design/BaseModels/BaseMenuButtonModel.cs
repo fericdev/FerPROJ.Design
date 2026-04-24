@@ -11,6 +11,8 @@ namespace FerPROJ.Design.BaseModels {
         public string Title { get; set; }
         public List<BaseMenuButtonModel> SubMenus { get; set; } = new List<BaseMenuButtonModel>();
         public Func<Task> ClickActionAsync { get; set; }
+        public Func<Guid, Task<bool>> ClickActionIdAsync { get; set; }
+        public Guid ClickActionId { get; set; }
         public Color ButtonColor { get; set; } = Color.WhiteSmoke;
         public Color ForeColor { get; set; } = Color.Black;
         public int FontSize { get; set; } 

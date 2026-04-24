@@ -70,6 +70,13 @@ namespace FerPROJ.Design.Forms {
                     await menu.ClickActionAsync();
                 };
             }
+
+            if (menu.ClickActionIdAsync != null) {
+                mainButton.Click += async (sender, e) => {
+                    CloseInstance();
+                    await menu.ClickActionIdAsync(menu.ClickActionId);
+                };
+            }
         }
         public static async Task ShowContextMenuAsync(List<BaseMenuButtonModel> baseMenus) {
             if (frmInstance == null) {

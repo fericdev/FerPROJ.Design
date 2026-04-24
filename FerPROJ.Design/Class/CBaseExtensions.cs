@@ -1462,6 +1462,33 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region DataGridView 
+        public static bool GetSelectedValue<TType>(this CDataGridView dgv, string propertyName, out TType value) {
+
+            value = default(TType);
+
+            if (dgv.SelectedRows.Count == 0)
+                return false;
+
+            int rowIndex = dgv.SelectedRows[0].Index;
+
+            // Find column by DataPropertyName (important for bound grids)
+            var column = dgv.Columns
+                .Cast<DataGridViewColumn>()
+                .FirstOrDefault(c => string.Equals(c.DataPropertyName, propertyName, StringComparison.OrdinalIgnoreCase));
+
+            if (column == null) {
+                return false;
+            }
+
+            var cell = dgv.Rows[rowIndex].Cells[column.Index];
+            if (cell.Value.IsNullOrEmpty()) {
+                return false;
+            }
+
+            value = cell.Value.To<TType>();
+
+            return !value.IsNullOrEmpty();
+        }
         public static bool GetSelectedValue(this CDataGridView dgv, int columnIndex, out string value) {
             value = null;
 
@@ -2258,9 +2285,17 @@ namespace FerPROJ.Design.Class {
                     var hitTest = dgv.HitTest(e.X, e.Y);
 
                     if (hitTest.RowIndex >= 0 && hitTest.ColumnIndex >= 0) {
+
                         // Optional: select the clicked row
                         dgv.ClearSelection();
                         dgv.Rows[hitTest.RowIndex].Selected = true;
+
+                        // Get value
+                        if (GetSelectedValue(dgv, "Id", out Guid value)) {
+                            foreach (var menu in baseMenus) {
+                                menu.ClickActionId = value;
+                            }
+                        }
 
                         // Call your async context menu function
                         await FrmContextMenu.ShowContextMenuAsync(baseMenus);

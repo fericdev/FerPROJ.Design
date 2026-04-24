@@ -36,6 +36,8 @@ namespace FerPROJ.Design.Class {
     public static class CEventManager<T> {
         private static event Func<Task> OnListFormRefreshAsync;
         private static event Func<Task> OnListFormClosedAsync;
+        public static bool OnListFormRefreshNotNull => !OnListFormRefreshAsync.IsNullOrEmpty();
+        public static bool OnListFormClosedNotNull => !OnListFormClosedAsync.IsNullOrEmpty();
         public static void Register(Func<Task> handler, EventTypes type) {
             switch(type) {
                 case EventTypes.ListFormRefresh:

@@ -18,13 +18,21 @@ namespace FerPROJ.Design.Forms {
             _searchParameter = searchParameter;
         }
         protected override async void tsbMainRefresh_Click(object sender, EventArgs e) {
-            await CEventManager<TEntity>.RaiseOnListFormRefreshAsync();
+            if (CEventManager<TEntity>.OnListFormRefreshNotNull) {
+                await FrmSplasherLoading.ShowSplashAsync(true);
+                await CEventManager<TEntity>.RaiseOnListFormRefreshAsync();
+                FrmSplasherLoading.CloseSplash();
+            }
+
             base.tsbMainRefresh_Click(sender, e);
         }
         protected override async void baseButtonCancel_Click(object sender, EventArgs e) {
-            await FrmSplasherLoading.ShowSplashAsync(true);
-            await CEventManager<TEntity>.RaiseOnListFormClosedAsync();
-            FrmSplasherLoading.CloseSplash();
+            if (CEventManager<TEntity>.OnListFormClosedNotNull) {
+                await FrmSplasherLoading.ShowSplashAsync(true);
+                await CEventManager<TEntity>.RaiseOnListFormClosedAsync();
+                FrmSplasherLoading.CloseSplash();
+            }
+
             base.baseButtonCancel_Click(sender, e);
         }
         protected override async Task RefreshAsync() {

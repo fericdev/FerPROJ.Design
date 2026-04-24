@@ -8,7 +8,7 @@ namespace FerPROJ.Design.Class {
     public class CAttributes : Attribute {
 
         #region DGV Grid Properties
-        public int Width { get; set; } = 100;
+        public int Width { get; set; } = 200;
         public bool Visible { get; set; } = true;
         public bool Editable { get; set; } = false;
         public int Order { get; set; } = 1000;

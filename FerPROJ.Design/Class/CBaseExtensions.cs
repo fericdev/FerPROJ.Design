@@ -2074,7 +2074,7 @@ namespace FerPROJ.Design.Class {
                 }
             }
 
-            if (columnCount < 5) {
+            if (columnCount <= 5) {
                 dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
 

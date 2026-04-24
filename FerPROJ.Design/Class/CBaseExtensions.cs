@@ -2186,8 +2186,9 @@ namespace FerPROJ.Design.Class {
 
                 // remove duplicates
                 if (matchingColumns.Count > 1) {
-                    for (int i = 1; i < matchingColumns.Count; i++)
+                    for (int i = 1; i < matchingColumns.Count; i++) {
                         dgv.Columns.Remove(matchingColumns[i]);
+                    }
                 }
 
                 var attribute = property.GetCustomAttribute<CAttributes>();
@@ -2195,8 +2196,9 @@ namespace FerPROJ.Design.Class {
                 var column = matchingColumns.FirstOrDefault();
 
                 // only consider columns that actually exist
-                if (column == null)
+                if (column == null) {
                     continue;
+                }
 
                 // determine order (default 1000)
                 int order = attribute?.Order ?? 1000;

@@ -1091,7 +1091,8 @@ namespace FerPROJ.Design.Class {
             try {
                 var value = args[index];
                 return value.To<TType>();
-            } catch {
+            }
+            catch {
                 return default;
             }
         }
@@ -2002,12 +2003,6 @@ namespace FerPROJ.Design.Class {
                                                  .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
                                                  .ToList();
 
-                if (matchingColumns.Count > 1) {
-                    for (int i = 1; i < matchingColumns.Count; i++) {
-                        dgv.Columns.Remove(matchingColumns[i]);
-                    }
-                }
-
                 var attribute = property.GetCustomAttribute<CAttributes>();
                 if (attribute == null)
                     continue;
@@ -2184,21 +2179,15 @@ namespace FerPROJ.Design.Class {
                     .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
                     .ToList();
 
-                // remove duplicates
-                if (matchingColumns.Count > 1) {
-                    for (int i = 1; i < matchingColumns.Count; i++) {
-                        dgv.Columns.Remove(matchingColumns[i]);
-                    }
-                }
-
-                var attribute = property.GetCustomAttribute<CAttributes>();
-
                 var column = matchingColumns.FirstOrDefault();
 
                 // only consider columns that actually exist
                 if (column == null) {
                     continue;
                 }
+
+                // Get attribute
+                var attribute = property.GetCustomAttribute<CAttributes>();
 
                 // determine order (default 1000)
                 int order = attribute?.Order ?? 1000;

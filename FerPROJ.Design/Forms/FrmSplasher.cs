@@ -74,6 +74,8 @@ namespace FerPROJ.Design.Forms {
 
             instance.Update();
 
+            instance.TopMost = true;
+
             instance.SetStatus("Loading . . .");
 
             Application.DoEvents();

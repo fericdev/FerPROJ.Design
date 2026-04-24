@@ -64,8 +64,8 @@ namespace FerPROJ.Design.Forms {
         #region Binding Sources and DataGridViews
         protected BindingSource MainModelBindingSource { get; set; }
         protected BindingSource ItemModelBindingSource { get; set; }
-        protected CDatagridview MainModelDataGridView { get; set; }
-        protected CDatagridview ItemModelDataGridView { get; set; }
+        protected CDataGridView MainModelDataGridView { get; set; }
+        protected CDataGridView ItemModelDataGridView { get; set; }
         #endregion
 
         #region Constructor and OnLoad

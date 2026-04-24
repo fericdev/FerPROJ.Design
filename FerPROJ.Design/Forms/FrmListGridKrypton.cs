@@ -55,7 +55,7 @@ namespace FerPROJ.Design.Forms {
         #region Readonly Properties
         protected readonly Type _repositoryType;
         protected readonly CrudOptions _crudOptions;
-        protected readonly CDatagridview _baseDatagridview;
+        protected readonly CDataGridView _baseDatagridview;
         protected readonly BindingSource _baseBindingSource;
         #endregion
 

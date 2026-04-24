@@ -9,18 +9,16 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Controls
 {
-    public class CDatagridview : DataGridView
+    public class CDataGridView : DataGridView
     {
-        private static Color headerColor = Color.WhiteSmoke; // Store the header color
-
-
-
-        public CDatagridview()
+        private static Color headerColor = Color.Gainsboro; // Store the header color
+        public CDataGridView()
         {
             InitializeDGV();
             CellPainting += CustomDataGridView_CellPainting;
             DataError += CustomDataGridView_DataError;
         }
+
         public Color HeaderColor
         {
             get { return headerColor; }
@@ -100,6 +98,9 @@ namespace FerPROJ.Design.Controls
         }
         private void InitializeDGV()
         {
+            // Enabled for rendering
+            EnableHeadersVisualStyles = false;
+
             // Set the background color and border style
             BackgroundColor = Color.FromArgb(240, 240, 240);
             BorderStyle = BorderStyle.None;
@@ -109,43 +110,27 @@ namespace FerPROJ.Design.Controls
 
             // Set the column header style
             DataGridViewCellStyle headerStyle = ColumnHeadersDefaultCellStyle;
-            headerStyle.BackColor = headerColor;
+            headerStyle.BackColor = Color.LightSteelBlue;
             headerStyle.ForeColor = Color.Black;
-            headerStyle.Font = new Font("Tahoma", 10, FontStyle.Bold);
-            headerStyle.Padding = new Padding(0, 0, 0, 0);
+            headerStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            headerStyle.Padding = new Padding(6, 4, 6, 4);
 
             AdvancedColumnHeadersBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.Single;
    
-
-            foreach (DataGridViewColumn column in Columns)
-            {
-                int maxWidth = TextRenderer.MeasureText(column.HeaderText, Font).Width;
-
-                foreach (DataGridViewRow row in Rows)
-                {
-                    if (row.Cells[column.Index].Value != null)
-                    {
-                        int cellWidth = TextRenderer.MeasureText(row.Cells[column.Index].Value.ToString(), Font).Width;
-                        maxWidth = Math.Max(maxWidth, cellWidth);
-                    }
-                }
-
-                column.Width = maxWidth + 100; // Adding some padding to avoid truncation
-            }
-
             // Set the row style
             DataGridViewCellStyle rowStyle = RowsDefaultCellStyle;
             rowStyle.BackColor = Color.WhiteSmoke;
             rowStyle.ForeColor = Color.Black;
-            rowStyle.Font = new Font("Tahoma", 8, FontStyle.Regular);
+            rowStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
             rowStyle.WrapMode = DataGridViewTriState.False;
 
             // Set the alternating row style
             AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+            DefaultCellStyle.Padding = new Padding(4, 2, 4, 2);
+            RowTemplate.Height = 28;
             ReadOnly = true;
 
             // Enable visual styles for better rendering
-            EnableHeadersVisualStyles = false;
             AllowUserToResizeColumns = true;
             AllowUserToResizeRows = false;
             RowHeadersVisible = false;

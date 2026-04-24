@@ -1447,10 +1447,10 @@ namespace FerPROJ.Design.Class {
             }
             return null;
         }
-        private static CDatagridview GetBoundDataGridView(Control control, BindingSource bindingSource) {
+        private static CDataGridView GetBoundDataGridView(Control control, BindingSource bindingSource) {
             // Check if the current control is the target DataGridView and its DataSource matches
-            if (control is CDatagridview dgv && dgv.DataSource == bindingSource) {
-                return control as CDatagridview;
+            if (control is CDataGridView dgv && dgv.DataSource == bindingSource) {
+                return control as CDataGridView;
             }
 
             return null; // No bound DataGridView found
@@ -1460,7 +1460,7 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region DataGridView 
-        public static bool GetSelectedValue(this CDatagridview dgv, int columnIndex, out string value) {
+        public static bool GetSelectedValue(this CDataGridView dgv, int columnIndex, out string value) {
             value = null;
 
             if (dgv.SelectedRows.Count > 0) {
@@ -1475,7 +1475,7 @@ namespace FerPROJ.Design.Class {
 
             return false;
         }
-        public static bool GetSelectedValues(this CDatagridview dgv, int columnIndex, out List<object> values) {
+        public static bool GetSelectedValues(this CDataGridView dgv, int columnIndex, out List<object> values) {
 
             values = new List<object>();
 
@@ -1499,18 +1499,18 @@ namespace FerPROJ.Design.Class {
             return false;
         }
 
-        public static bool IsMultipleSelected(this CDatagridview dgv) {
+        public static bool IsMultipleSelected(this CDataGridView dgv) {
             // Return true if more than one row is selected
             return dgv.SelectedRows.Count > 1;
         }
-        public static void SetWrapMode(this CDatagridview dgv, DataGridViewTriState state) {
+        public static void SetWrapMode(this CDataGridView dgv, DataGridViewTriState state) {
             var row = dgv.RowsDefaultCellStyle;
             row.WrapMode = state;
         }
-        public static void SetMultiSelect(this CDatagridview dgv, bool state) {
+        public static void SetMultiSelect(this CDataGridView dgv, bool state) {
             dgv.MultiSelect = state;
         }
-        public static void SetColumnSizing(this CDatagridview dgv) {
+        public static void SetColumnSizing(this CDataGridView dgv) {
             foreach (DataGridViewColumn column in dgv.Columns) {
                 int maxWidth = TextRenderer.MeasureText(column.HeaderText, dgv.Font).Width;
 
@@ -1524,7 +1524,7 @@ namespace FerPROJ.Design.Class {
                 column.Width = maxWidth + 100; // Adding some padding to avoid truncation
             }
         }
-        public static double GetColumnTotal(this CDatagridview dgv, int columnIndex) {
+        public static double GetColumnTotal(this CDataGridView dgv, int columnIndex) {
             double sum = 0.0;
             // Check if the column index is valid
             if (columnIndex >= 0 && columnIndex < dgv.Columns.Count) {
@@ -1544,14 +1544,14 @@ namespace FerPROJ.Design.Class {
 
             return sum;
         }
-        public static T GetItemDTO<T>(this CDatagridview dgv) where T : class {
+        public static T GetItemDTO<T>(this CDataGridView dgv) where T : class {
             if (dgv.CurrentRow != null) {
                 return dgv.CurrentRow.DataBoundItem as T;
             }
 
             return null;
         }
-        public static async Task SearchDGVWithBackgroundWorkerAsync<TEntity>(this CDatagridview dgv, string searchValue) where TEntity : class {
+        public static async Task SearchDGVWithBackgroundWorkerAsync<TEntity>(this CDataGridView dgv, string searchValue) where TEntity : class {
             FrmSplasherLoading.ShowSplashAsync().RunTaskAndForget();
 
             // Ensure BindingSource is set before processing
@@ -1621,7 +1621,7 @@ namespace FerPROJ.Design.Class {
 
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompleted);
         }
-        public static async Task SearchDGVAsync(this CDatagridview dgv, string searchValue) {
+        public static async Task SearchDGVAsync(this CDataGridView dgv, string searchValue) {
             try {
                 string trimValue = searchValue.Trim(); // Trim the search value
                 var visibleRows = new List<DataGridViewRow>();
@@ -1655,7 +1655,7 @@ namespace FerPROJ.Design.Class {
             }
         }
 
-        public static void SearchDGV(this CDatagridview dgv, CTextBox searchValue) {
+        public static void SearchDGV(this CDataGridView dgv, CTextBox searchValue) {
             try {
                 string trimValue = searchValue.Text.Trim(); // Trim the search value
 
@@ -1683,7 +1683,7 @@ namespace FerPROJ.Design.Class {
                 CDialogManager.Warning(ex.Message, "Error");
             }
         }
-        public static void FormatBooleanColumn(this CDatagridview dgv, int columnIndex, string trueText = "Yes", string falseText = "No") {
+        public static void FormatBooleanColumn(this CDataGridView dgv, int columnIndex, string trueText = "Yes", string falseText = "No") {
             // Subscribe to the CellFormatting event
             dgv.CellFormatting += (sender, e) => {
                 // Check if the current column is the one specified by the index
@@ -1840,7 +1840,7 @@ namespace FerPROJ.Design.Class {
                     break;
             }
         }
-        public static void HideColumns(this CDatagridview dgv, List<string> columns, Type modelType = null) {
+        public static void HideColumns(this CDataGridView dgv, List<string> columns, Type modelType = null) {
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
             }
@@ -1868,7 +1868,7 @@ namespace FerPROJ.Design.Class {
 
             }
         }
-        public static void SetColumnsEditable(this CDatagridview dgv, bool editable, params int[] columnIndices) {
+        public static void SetColumnsEditable(this CDataGridView dgv, bool editable, params int[] columnIndices) {
             dgv.EditMode = DataGridViewEditMode.EditOnEnter;
             // Prevent errors if no columns are provided
             if (columnIndices == null || columnIndices.Length == 0) {
@@ -1912,7 +1912,7 @@ namespace FerPROJ.Design.Class {
             dgv.Invalidate();
         }
 
-        public static void TrackChangesAndCallMethod(this CDatagridview dgv, Func<Task> onColumnValueChanged) {
+        public static void TrackChangesAndCallMethod(this CDataGridView dgv, Func<Task> onColumnValueChanged) {
             if (dgv == null) {
                 throw new ArgumentNullException(nameof(dgv));
             }
@@ -1934,7 +1934,7 @@ namespace FerPROJ.Design.Class {
                 };
             }
         }
-        public static void ApplyCustomAttribute(this CDatagridview dgv, Type modelType = null) {
+        public static void ApplyCustomAttribute(this CDataGridView dgv, Type modelType = null) {
             // Set column mode
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
@@ -1951,7 +1951,7 @@ namespace FerPROJ.Design.Class {
             dgv.ApplyDisplayOrder(modelType);
 
         }
-        public static void ApplyRowValueFormatting(this CDatagridview dgv, Type modelType = null) {
+        public static void ApplyRowValueFormatting(this CDataGridView dgv, Type modelType = null) {
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
             }
@@ -1987,7 +1987,7 @@ namespace FerPROJ.Design.Class {
             dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgv.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
-        private static void ApplyAttributeHeaderToColumns(this CDatagridview dgv, Type modelType = null) {
+        private static void ApplyAttributeHeaderToColumns(this CDataGridView dgv, Type modelType = null) {
 
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
@@ -2027,10 +2027,20 @@ namespace FerPROJ.Design.Class {
                     column.Width = attribute.Width;
                 }
             }
+            //
+            dgv.EnableHeadersVisualStyles = false;
 
+            // HEADER (match your top blue bar)
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(65, 105, 225); 
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White; 
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(65, 105, 225);
+
+            // Rows
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
         }
-        private static void ApplyAttributeToColumns(this CDatagridview dgv, Type modelType = null) {
+        private static void ApplyAttributeToColumns(this CDataGridView dgv, Type modelType = null) {
 
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
@@ -2079,7 +2089,7 @@ namespace FerPROJ.Design.Class {
             }
 
         }
-        private static List<int> GetIndexOfEditableColumns(CDatagridview dgv, Type modelType = null) {
+        private static List<int> GetIndexOfEditableColumns(CDataGridView dgv, Type modelType = null) {
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
             }
@@ -2111,7 +2121,7 @@ namespace FerPROJ.Design.Class {
 
             return editableColumns;
         }
-        private static void ApplyDisplayOrder(this CDatagridview dgv, Type modelType = null) {
+        private static void ApplyDisplayOrder(this CDataGridView dgv, Type modelType = null) {
 
             if (modelType == null) {
                 modelType = dgv.GetModelTypeFromDataGridView();
@@ -2168,7 +2178,7 @@ namespace FerPROJ.Design.Class {
             }
         }
 
-        public static Type GetModelTypeFromDataGridView(this CDatagridview dgv) {
+        public static Type GetModelTypeFromDataGridView(this CDataGridView dgv) {
             if (dgv.DataSource is BindingSource bs) {
                 // If the BindingSource is bound to a generic list (e.g., BindingList<T> or List<T>)
                 if (bs.DataSource != null) {
@@ -2196,7 +2206,7 @@ namespace FerPROJ.Design.Class {
             return null;
         }
 
-        public static void OpenContextMenu(this CDatagridview dgv, List<BaseMenuButtonModel> baseMenus) {
+        public static void OpenContextMenu(this CDataGridView dgv, List<BaseMenuButtonModel> baseMenus) {
 
             // Prevent multiple subscriptions
             if (dgv.Tag != null && dgv.Tag.ToString() == "CTX_BOUND")

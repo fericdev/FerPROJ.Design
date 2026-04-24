@@ -149,7 +149,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CComboBoxKrypton.cs" />
-    <Compile Include="Controls\CDatagridview.cs">
+    <Compile Include="Controls\CDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CLabelDesc.cs">

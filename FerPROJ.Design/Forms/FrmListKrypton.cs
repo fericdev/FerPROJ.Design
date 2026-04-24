@@ -257,7 +257,7 @@ namespace FerPROJ.Design.Forms {
         #endregion
 
         #region Binding Sources and DataGridViews
-        protected CDatagridview MainModelDataGridView { get; set; }
+        protected CDataGridView MainModelDataGridView { get; set; }
         #endregion
 
         #region Event Handlers

@@ -55,7 +55,7 @@ namespace FerPROJ.Design.Forms
             this.baseDateFromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.PanelMain1 = new System.Windows.Forms.Panel();
             this.PanelMain4 = new System.Windows.Forms.Panel();
-            this.baseModelCDatagridview = new FerPROJ.Design.Controls.CDatagridview();
+            this.baseModelCDatagridview = new FerPROJ.Design.Controls.CDataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.baseModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
@@ -699,7 +699,7 @@ namespace FerPROJ.Design.Forms
         private System.Windows.Forms.ToolStripButton tsbOther2;
         private CLabelDesc cLabelDesc2;
         protected CComboBoxKrypton ComboBoxKryptonPage;
-        private CDatagridview baseModelCDatagridview;
+        private CDataGridView baseModelCDatagridview;
         private System.Windows.Forms.BindingSource baseModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.ToolStripButton tsbOther3;

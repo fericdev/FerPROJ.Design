@@ -2114,7 +2114,7 @@ namespace FerPROJ.Design.Class {
 
                 var column = matchingColumns.FirstOrDefault();
                 if (column == null) {
-                    column = new DataGridViewTextBoxColumn {
+                    column = new KryptonDataGridViewTextBoxColumn {
                         Name = property.Name,
                         DataPropertyName = property.Name,
                     };

@@ -1984,6 +1984,8 @@ namespace FerPROJ.Design.Class {
 
             }
 
+            // Rows
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
             dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgv.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
@@ -2027,18 +2029,12 @@ namespace FerPROJ.Design.Class {
                     column.Width = attribute.Width;
                 }
             }
-            //
-            dgv.EnableHeadersVisualStyles = false;
 
             // HEADER (match your top blue bar)
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(65, 105, 225); 
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White; 
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(65, 105, 225);
-
-            // Rows
-            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
-
         }
         private static void ApplyAttributeToColumns(this CDataGridView dgv, Type modelType = null) {
 

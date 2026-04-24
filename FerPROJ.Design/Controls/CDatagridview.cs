@@ -1,4 +1,5 @@
 ﻿using FerPROJ.Design.Class;
+using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +10,7 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Controls
 {
-    public class CDataGridView : DataGridView
+    public class CDataGridView : KryptonDataGridView
     {
         private static Color headerColor = Color.Gainsboro; // Store the header color
         public CDataGridView()

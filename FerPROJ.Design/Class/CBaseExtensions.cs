@@ -3,6 +3,7 @@ using FerPROJ.DBHelper.DBCrud;
 using FerPROJ.Design.BaseModels;
 using FerPROJ.Design.Controls;
 using FerPROJ.Design.Forms;
+using Krypton.Toolkit;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -1935,8 +1936,8 @@ namespace FerPROJ.Design.Class {
             }
         }
         public static void ApplyCustomAttribute(this CDataGridView dgv, Type modelType = null) {
-            // Set column mode
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            // DGV
+            dgv.ApplyCustomDataGridView();
 
             // Apply attributes to columns (visibility, header text) and remove duplicates first
             dgv.ApplyAttributeToColumns(modelType);
@@ -1983,9 +1984,7 @@ namespace FerPROJ.Design.Class {
                 }
 
             }
-
-            // Rows
-            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            //
             dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgv.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
@@ -2029,12 +2028,63 @@ namespace FerPROJ.Design.Class {
                     column.Width = attribute.Width;
                 }
             }
+        }
+        private static void ApplyCustomDataGridView(this CDataGridView dgv) {
 
-            // HEADER (match your top blue bar)
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(65, 105, 225); 
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White; 
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(65, 105, 225);
+            // =====================
+            // BASE SURFACE & CELLS
+            // =====================
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dgv.StateCommon.Background.Color1 = Color.White;
+            dgv.StateCommon.DataCell.Back.Color1 = Color.White;
+            dgv.StateCommon.DataCell.Border.DrawBorders = PaletteDrawBorders.Bottom; // Only bottom border for web look
+            dgv.StateCommon.DataCell.Border.Color1 = Color.Black; // Very light gray
+
+            // Font: Using 'Segoe UI Variable' or 'Inter' if available, otherwise Segoe UI
+            dgv.StateCommon.DataCell.Content.Color1 = Color.FromArgb(64, 72, 82); // Dark charcoal, not pure black
+            dgv.StateCommon.DataCell.Content.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            dgv.StateCommon.DataCell.Content.TextH = PaletteRelativeAlign.Near;   // Horizontal: Left
+            dgv.StateCommon.DataCell.Content.TextV = PaletteRelativeAlign.Center;
+            dgv.StateCommon.DataCell.Content.Padding = new Padding(12, 10, 12, 10); // Left, Top, Right, Bottom
+
+            // =====================
+            // MODERN HEADER (WHITE WEB-STYLE)
+            // =====================
+            // Modern web apps often use light headers with bold text rather than dark blue blocks
+            dgv.StateCommon.HeaderColumn.Back.Color1 = Color.FromArgb(248, 250, 252);
+            dgv.StateCommon.HeaderColumn.Back.Color2 = Color.FromArgb(248, 250, 252);
+            dgv.StateCommon.HeaderColumn.Back.GraphicsHint = PaletteGraphicsHint.AntiAlias;
+
+            dgv.StateCommon.HeaderColumn.Border.DrawBorders = PaletteDrawBorders.Bottom;
+            dgv.StateCommon.HeaderColumn.Border.Color1 = Color.FromArgb(220, 225, 230);
+            dgv.StateCommon.HeaderColumn.Border.Width = 1;
+
+            dgv.StateCommon.HeaderColumn.Content.Color1 = Color.FromArgb(30, 41, 59); // Deep Navy/Slate
+            dgv.StateCommon.HeaderColumn.Content.Font = new Font("Segoe UI Semibold", 12, FontStyle.Bold);
+            dgv.StateCommon.HeaderColumn.Content.Hint = PaletteTextHint.ClearTypeGridFit;
+
+            // =====================
+            // SELECTION (SOFT GHOST BLUE)
+            // =====================
+            // Remove the harsh blue; use a very soft highlight
+            dgv.StateSelected.DataCell.Back.Color1 = Color.FromArgb(242, 247, 255);
+            dgv.StateSelected.DataCell.Back.Color2 = Color.FromArgb(242, 247, 255);
+            dgv.StateSelected.DataCell.Content.Color1 = Color.FromArgb(37, 99, 235); // Blue text for selected row
+
+            // =====================
+            // ALTERNATING ROWS (SUBTLE)
+            // =====================
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(252, 253, 254);
+
+            // =====================
+            // LAYOUT & SPACING
+            // =====================
+            dgv.ColumnHeadersHeight = 50; // Taller headers
+            dgv.RowTemplate.MinimumHeight = 50;  // Taller rows for "breathability"
+
+            // Refresh to apply layout
+            dgv.Refresh();
         }
         private static void ApplyAttributeToColumns(this CDataGridView dgv, Type modelType = null) {
 

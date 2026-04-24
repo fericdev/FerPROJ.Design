@@ -50,7 +50,7 @@ namespace FerPROJ.Design.Class {
             }
         }
         public static void RunTask(this Task task) {
-            task.Wait();
+            task.GetAwaiter().GetResult();
         }
         public static TResult RunTask<TResult>(this Task<TResult> task) {
             return task.GetAwaiter().GetResult();

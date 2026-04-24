@@ -29,10 +29,10 @@ namespace FerPROJ.Design.Forms {
                 Application.DoEvents();
             }
         }
-        public static async Task ShowSplashAsync() {
+        public static async Task ShowSplashAsync(bool forceShow = false) {
 
             // Skip showing the splash if it was shown recently
-            if ((DateTime.Now - CAppConstants.SPLASHER_LAST_SHOWN).TotalSeconds < 2) {
+            if ((DateTime.Now - CAppConstants.SPLASHER_LAST_SHOWN).TotalSeconds < 2 && !forceShow) {
                 return; 
             }
 

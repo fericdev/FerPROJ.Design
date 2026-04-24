@@ -21,6 +21,12 @@ namespace FerPROJ.Design.Forms {
             await CEventManager<TEntity>.RaiseOnListFormRefreshAsync();
             base.tsbMainRefresh_Click(sender, e);
         }
+        protected override async void baseButtonCancel_Click(object sender, EventArgs e) {
+            await FrmSplasherLoading.ShowSplashAsync(true);
+            await CEventManager<TEntity>.RaiseOnListFormClosedAsync();
+            FrmSplasherLoading.CloseSplash();
+            base.baseButtonCancel_Click(sender, e);
+        }
         protected override async Task RefreshAsync() {
 
             if (_repositoryType.IsNullOrEmpty()) {

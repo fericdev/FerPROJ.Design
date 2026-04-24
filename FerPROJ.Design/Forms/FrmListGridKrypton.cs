@@ -363,7 +363,7 @@ namespace FerPROJ.Design.Forms {
             }
         }
 
-        private void baseButtonCancel_Click(object sender, EventArgs e) {
+        protected virtual async void baseButtonCancel_Click(object sender, EventArgs e) {
             CloseForm();
         }
 

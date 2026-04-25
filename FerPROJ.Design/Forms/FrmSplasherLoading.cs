@@ -33,7 +33,7 @@ namespace FerPROJ.Design.Forms {
 
             // Skip showing the splash if it was shown recently
             if ((DateTime.Now - CAppConstants.SPLASHER_LAST_SHOWN).TotalSeconds < 2 && !forceShow) {
-                return; 
+                return;
             }
 
             // Initialize the splash form if it hasn't been created yet
@@ -57,12 +57,18 @@ namespace FerPROJ.Design.Forms {
 
         public static void CloseSplash() {
             if (splashForm != null) {
-                Thread.Sleep(100);
-                splashForm.Invoke((Action)(() => {
+                if (splashForm.InvokeRequired) {
+                    splashForm.Invoke((Action)(() => {
+                        splashForm.Close();
+                        splashForm.Dispose();
+                        splashForm = null;
+                    }));
+                }
+                else {
                     splashForm.Close();
                     splashForm.Dispose();
                     splashForm = null;
-                }));
+                }
             }
         }
         private void UpdateLoadingLabel(int perc, string additionText = null) {

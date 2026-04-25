@@ -4,12 +4,9 @@ using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FerPROJ.Design.Controls
-{
-    public class CTabControl : TabControl
-    {
-        public CTabControl()
-        {
+namespace FerPROJ.Design.Controls {
+    public class CTabControl : TabControl {
+        public CTabControl() {
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.UserPaint |
                 ControlStyles.DoubleBuffer, true);
@@ -19,120 +16,113 @@ namespace FerPROJ.Design.Controls
             SelectedIndex = 0;
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            Bitmap b = new Bitmap(Width, Height);
-            Graphics g = Graphics.FromImage(b);
-            g.Clear(SystemColors.Control);
-            g.FillRectangle(new SolidBrush(Color.FromArgb(246, 248, 252)),
-                new Rectangle(0, 0, ItemSize.Height + 4, Height));
-            g.DrawLine(new Pen(Color.FromArgb(170, 187, 204)), new Point(ItemSize.Height + 3, 0),
-                new Point(ItemSize.Height + 3, 999));
-            g.DrawLine(new Pen(Color.FromArgb(170, 187, 204)), new Point(0, Size.Height - 1),
-                new Point(Width + 3, Size.Height - 1));
-            for (int i = 0; i <= TabCount - 1; i++)
-            {
-                if (i == SelectedIndex)
-                {
-                    Rectangle x2 = new Rectangle(new Point(GetTabRect(i).Location.X - 2, GetTabRect(i).Location.Y - 2),
-                        new Size(GetTabRect(i).Width + 3, GetTabRect(i).Height - 1));
-                    ColorBlend myBlend = new ColorBlend();
-                    myBlend.Colors = new Color[] { Color.FromArgb(232, 232, 240), Color.FromArgb(232, 232, 240), Color.FromArgb(232, 232, 240) };
-                    myBlend.Positions = new float[] { 0f, 0.5f, 1f };
-                    LinearGradientBrush lgBrush = new LinearGradientBrush(x2, Color.Black, Color.Black, 90f);
-                    lgBrush.InterpolationColors = myBlend;
-                    g.FillRectangle(lgBrush, x2);
-                    g.DrawRectangle(new Pen(Color.FromArgb(170, 187, 204)), x2);
+        public void Initialize(TabAlignment tabAlignment) {        
+            switch (tabAlignment) {
+                case TabAlignment.Top:
+                    ItemSize = new Size(136, 44);
+                    Alignment = TabAlignment.Top;
+                    break;
 
-                    g.SmoothingMode = SmoothingMode.HighQuality;
-                    Point[] p =
-                    {
-                        new Point(ItemSize.Height - 3, GetTabRect(i).Location.Y + 20),
-                        new Point(ItemSize.Height + 4, GetTabRect(i).Location.Y + 14),
-                        new Point(ItemSize.Height + 4, GetTabRect(i).Location.Y + 27)
-                    };
-                    g.FillPolygon(SystemBrushes.Control, p);
-                    g.DrawPolygon(new Pen(Color.FromArgb(170, 187, 204)), p);
-
-                    if (ImageList != null)
-                    {
-                        try
-                        {
-                            g.DrawImage(ImageList.Images[TabPages[i].ImageIndex],
-                                new Point(x2.Location.X + 8, x2.Location.Y + 6));
-                            g.DrawString("  " + TabPages[i].Text, Font, Brushes.Black, x2, new StringFormat
-                            {
-                                LineAlignment = StringAlignment.Center,
-                                Alignment = StringAlignment.Center
-                            });
-                        }
-                        catch (Exception)
-                        {
-                            g.DrawString(TabPages[i].Text, new Font(Font.FontFamily, Font.Size, FontStyle.Bold),
-                                Brushes.Black, x2, new StringFormat
-                                {
-                                    LineAlignment = StringAlignment.Center,
-                                    Alignment = StringAlignment.Center
-                                });
-                        }
-                    }
-                    else
-                    {
-                        g.DrawString(TabPages[i].Text, new Font(Font.FontFamily, Font.Size, FontStyle.Bold),
-                            Brushes.Black, x2, new StringFormat
-                            {
-                                LineAlignment = StringAlignment.Center,
-                                Alignment = StringAlignment.Center
-                            });
-                    }
-
-                    g.DrawLine(new Pen(Color.FromArgb(200, 200, 250)), new Point(x2.Location.X - 1, x2.Location.Y - 1),
-                        new Point(x2.Location.X, x2.Location.Y));
-                    g.DrawLine(new Pen(Color.FromArgb(200, 200, 250)), new Point(x2.Location.X - 1, x2.Bottom - 1),
-                        new Point(x2.Location.X, x2.Bottom));
-                }
-                else
-                {
-                    Rectangle x2 = new Rectangle(new Point(GetTabRect(i).Location.X - 2, GetTabRect(i).Location.Y - 2),
-                        new Size(GetTabRect(i).Width + 3, GetTabRect(i).Height - 1));
-                    g.FillRectangle(new SolidBrush(Color.FromArgb(246, 248, 252)), x2);
-                    g.DrawLine(new Pen(Color.FromArgb(170, 187, 204)), new Point(x2.Right, x2.Top),
-                        new Point(x2.Right, x2.Bottom));
-                    if (ImageList != null)
-                    {
-                        try
-                        {
-                            g.DrawImage(ImageList.Images[TabPages[i].ImageIndex],
-                                new Point(x2.Location.X + 8, x2.Location.Y + 6));
-                            g.DrawString("  " + TabPages[i].Text, Font, Brushes.DimGray, x2, new StringFormat
-                            {
-                                LineAlignment = StringAlignment.Center,
-                                Alignment = StringAlignment.Center
-                            });
-                        }
-                        catch (Exception)
-                        {
-                            g.DrawString(TabPages[i].Text, Font, Brushes.DimGray, x2, new StringFormat
-                            {
-                                LineAlignment = StringAlignment.Center,
-                                Alignment = StringAlignment.Center
-                            });
-                        }
-                    }
-                    else
-                    {
-                        g.DrawString(TabPages[i].Text, Font, Brushes.DimGray, x2, new StringFormat
-                        {
-                            LineAlignment = StringAlignment.Center,
-                            Alignment = StringAlignment.Center
-                        });
-                    }
-                }
+                default:
+                case TabAlignment.Left:
+                    ItemSize = new Size(44, 136);
+                    Alignment = TabAlignment.Left;
+                    break;
             }
+            Refresh();
+        }
 
-            e.Graphics.DrawImage(b, new Point(0, 0));
-            g.Dispose();
-            b.Dispose();
+        #region Paint
+
+        protected override void OnPaint(PaintEventArgs e) {
+            using (Bitmap b = new Bitmap(Width, Height))
+            using (Graphics g = Graphics.FromImage(b)) {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.Clear(Color.White); // Modern dashboards usually use a clean white background
+
+                bool isLeft = Alignment == TabAlignment.Left;
+                Color accentColor = Color.FromArgb(0, 120, 215); // A nice professional blue
+                Color borderColor = Color.FromArgb(220, 220, 220); // Softer border
+
+                // ===== Header Background & Border =====
+                if (isLeft) {
+                    g.DrawLine(new Pen(borderColor), ItemSize.Height + 1, 0, ItemSize.Height + 1, Height);
+                }
+                else {
+                    g.DrawLine(new Pen(borderColor), 0, ItemSize.Height + 1, Width, ItemSize.Height + 1);
+                }
+
+                // ===== Draw Tabs =====
+                for (int i = 0; i < TabCount; i++) {
+                    Rectangle tabRect = GetTabRect(i);
+                    bool isSelected = (i == SelectedIndex);
+
+                    // Draw Tab Content
+                    DrawTabTextAndImage(g, tabRect, i, isSelected);
+
+                    if (isSelected) {
+                        // Draw the "Elegant" Indicator Bar
+                        using (SolidBrush accentBrush = new SolidBrush(accentColor)) {
+                            if (isLeft) {
+                                // Vertical bar on the left
+                                g.FillRectangle(accentBrush, new Rectangle(0, tabRect.Y + 4, 3, tabRect.Height - 8));
+                            }
+                            else {
+                                // Horizontal bar at the bottom
+                                g.FillRectangle(accentBrush, new Rectangle(tabRect.X + 10, tabRect.Bottom - 2, tabRect.Width - 20, 3));
+                            }
+                        }
+                    }
+                }
+
+                e.Graphics.DrawImage(b, 0, 0);
+            }
+        }
+
+        private void DrawTabTextAndImage(Graphics g, Rectangle rect, int index, bool selected) {
+            // 1. Force High Quality Text Rendering
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+            // 2. Use Tahoma to match your header
+            // We use 9pt or 9.5pt Tahoma for that professional "clean" look
+            float fontSize = 12f;
+            Color textColor = selected ? Color.FromArgb(33, 33, 33) : Color.FromArgb(120, 120, 120);
+
+            using (Font textFont = new Font("Tahoma", fontSize, selected ? FontStyle.Bold : FontStyle.Regular))
+            using (SolidBrush textBrush = new SolidBrush(textColor)) {
+                StringFormat sf = new StringFormat {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
+
+                // Shift the text rect slightly to ensure it's not cutting off
+                Rectangle textRect = rect;
+                if (Alignment == TabAlignment.Top) textRect.Y -= 1;
+
+                g.DrawString(TabPages[index].Text, textFont, textBrush, textRect, sf);
+            }
+        }
+
+        #endregion
+    }
+    public static class CTabControlExtensions {
+        public static void TrackIndexChangedAndCallMethod(this TabPage tabPage, Func<Task> action) {
+            if (tabPage == null)
+                throw new ArgumentNullException(nameof(tabPage));
+
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+
+            var tabControl = tabPage.Parent as CTabControl;
+
+            if (tabControl == null)
+                throw new InvalidOperationException("TabPage must be added to a TabControl before calling this.");
+
+            tabControl.SelectedIndexChanged += async (s, e) => {
+                if (tabControl.SelectedTab == tabPage) {
+                    await action();
+                }
+            };
         }
     }
 }

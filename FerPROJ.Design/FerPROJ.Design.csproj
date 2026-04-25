@@ -160,7 +160,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CNumericUpDownKrypton.cs" />
-    <Compile Include="Controls\cTabControl.cs">
+    <Compile Include="Controls\CTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CTextBox.cs">

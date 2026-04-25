@@ -1462,7 +1462,7 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region DataGridView 
-        public static bool GetSelectedValue<TType>(this CDataGridView dgv, string propertyName, out TType value) {
+        public static bool GetSelectedValue<TType>(this CDataGridView dgv, out TType value) {
 
             value = default(TType);
 
@@ -1474,7 +1474,7 @@ namespace FerPROJ.Design.Class {
             // Find column by DataPropertyName (important for bound grids)
             var column = dgv.Columns
                 .Cast<DataGridViewColumn>()
-                .FirstOrDefault(c => string.Equals(c.DataPropertyName, propertyName, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(c => string.Equals(c.DataPropertyName, "Id", StringComparison.OrdinalIgnoreCase));
 
             if (column == null) {
                 return false;
@@ -1526,6 +1526,46 @@ namespace FerPROJ.Design.Class {
             }
 
             return false;
+        }
+        public static bool GetSelectedValues<TType>(this CDataGridView dgv, out List<TType> values) {
+            values = new List<TType>();
+
+            if (dgv.SelectedRows.Count == 0) {
+                return false;
+            }
+
+            // Find column once (not inside loop)
+            var column = dgv.Columns
+                .Cast<DataGridViewColumn>()
+                .FirstOrDefault(c => string.Equals(
+                    c.DataPropertyName,
+                    "Id",
+                    StringComparison.OrdinalIgnoreCase));
+
+            if (column == null) {
+                return false;
+            }
+
+            int columnIndex = column.Index;
+
+            foreach (DataGridViewRow selectedRow in dgv.SelectedRows) {
+                var cell = selectedRow.Cells[columnIndex];
+                var rawValue = cell.Value;
+
+                if (rawValue == null || rawValue == DBNull.Value)
+                    continue;
+
+                try {
+                    var val = rawValue.To<TType>();
+
+                    values.Add(val);
+                }
+                catch {
+                    continue;
+                }
+            }
+
+            return !values.IsNullOrEmpty();
         }
 
         public static bool IsMultipleSelected(this CDataGridView dgv) {
@@ -2119,16 +2159,12 @@ namespace FerPROJ.Design.Class {
 
             var columnCount = 0;
 
+            dgv.Columns.Clear();
+
             foreach (var property in properties) {
                 var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
                                                  .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
                                                  .ToList();
-
-                if (matchingColumns.Count > 1) {
-                    for (int i = 1; i < matchingColumns.Count; i++) {
-                        dgv.Columns.Remove(matchingColumns[i]);
-                    }
-                }
 
                 var attribute = property.GetCustomAttribute<CAttributes>();
                 if (attribute == null)
@@ -2291,7 +2327,7 @@ namespace FerPROJ.Design.Class {
                         dgv.Rows[hitTest.RowIndex].Selected = true;
 
                         // Get value
-                        if (GetSelectedValue(dgv, "Id", out Guid value)) {
+                        if (dgv.GetSelectedValue(out Guid value)) {
                             foreach (var menu in baseMenus) {
                                 menu.ClickActionId = value;
                             }

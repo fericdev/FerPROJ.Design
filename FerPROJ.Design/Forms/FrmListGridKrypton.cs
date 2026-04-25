@@ -46,8 +46,8 @@ namespace FerPROJ.Design.Forms {
         public string searchValue;
         public int dataLimit = 20;
         public int dataPage = 1;
-        public string Form_IdTrack;
-        public List<object> Form_IdTracks;
+        public Guid Form_IdTrack;
+        public List<Guid> Form_IdTracks;
         public Dictionary<Keys, Func<Task>> keyboardShortcuts = new Dictionary<Keys, Func<Task>>();
         public Dictionary<Keys, Func<Task<bool>>> boolKeyboardShortcuts = new Dictionary<Keys, Func<Task<bool>>>();
         #endregion
@@ -576,7 +576,7 @@ namespace FerPROJ.Design.Forms {
         }
 
         protected async virtual Task<bool> GetSelectedDataAsync() {
-            return await Task.FromResult(baseModelCDatagridview.GetSelectedValues(0, out Form_IdTracks));
+            return await Task.FromResult(baseModelCDatagridview.GetSelectedValues(out Form_IdTracks));
         }
 
         protected async virtual Task<bool> AddNewItemAsync() {
@@ -584,62 +584,62 @@ namespace FerPROJ.Design.Forms {
                 return await _crudOptions?.OnAddAsync();
             }
             else {
-                if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-                    return await _crudOptions?.OnAddIdAsync(Form_IdTrack.ToGuid());
+                if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                    return await _crudOptions?.OnAddIdAsync(Form_IdTrack);
                 }
             }
             return false;
         }
 
         protected async virtual Task<bool> UpdateItemAsync() {
-            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-                return await _crudOptions?.OnUpdateAsync(Form_IdTrack.ToGuid());
+            if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                return await _crudOptions?.OnUpdateAsync(Form_IdTrack);
             }
             return false;
         }
 
         protected async virtual Task<bool> DeleteItemAsync() {
 
-            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
+            if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
                 return await CRepositoryManager.ExecuteMethodAsync<bool>(
                     _repositoryType,
                     "DeleteByIdAsync",
-                    Form_IdTrack.ToGuid()
+                    Form_IdTrack
                 );
             }
             return false;
         }
 
         protected async virtual Task<bool> ViewItemAsync() {
-            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-                return await _crudOptions?.OnViewAsync(Form_IdTrack.ToGuid());
+            if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                return await _crudOptions?.OnViewAsync(Form_IdTrack);
             }
             return false;
         }
 
         protected async virtual Task<bool> Other1Async() {
-            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-                return await _crudOptions?.OnOther1Async(Form_IdTrack.ToGuid());
+            if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                return await _crudOptions?.OnOther1Async(Form_IdTrack);
             }
             return false;
         }
 
         protected async virtual Task<bool> Other2Async() {
-            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-                return await _crudOptions?.OnOther2Async(Form_IdTrack.ToGuid());
+            if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                return await _crudOptions?.OnOther2Async(Form_IdTrack);
             }
             return false;
         }
 
         protected async virtual Task<bool> Other3Async() {
-            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-                return await _crudOptions?.OnOther3Async(Form_IdTrack.ToGuid());
+            if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                return await _crudOptions?.OnOther3Async(Form_IdTrack);
             }
             return false;
         }
         protected async virtual Task<bool> RemarksAsync() {
-            if (baseModelCDatagridview.GetSelectedValue(0, out Form_IdTrack)) {
-                return await _crudOptions?.OnRemarksAsync(Form_IdTrack.ToGuid());
+            if (baseModelCDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                return await _crudOptions?.OnRemarksAsync(Form_IdTrack);
             }
             return false;
         }

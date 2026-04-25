@@ -38,13 +38,13 @@ namespace FerPROJ.Design.Controls {
             using (Bitmap b = new Bitmap(Width, Height))
             using (Graphics g = Graphics.FromImage(b)) {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g.Clear(Color.White); // Modern dashboards usually use a clean white background
+                g.Clear(Color.White);
 
                 bool isLeft = Alignment == TabAlignment.Left;
-                Color accentColor = Color.FromArgb(0, 120, 215); // A nice professional blue
-                Color borderColor = Color.FromArgb(220, 220, 220); // Softer border
+                Color accentColor = Color.FromArgb(0, 120, 215); // Your blue accent
+                Color borderColor = Color.FromArgb(220, 220, 220);
 
-                // ===== Header Background & Border =====
+                // ===== Main Separator Border =====
                 if (isLeft) {
                     g.DrawLine(new Pen(borderColor), ItemSize.Height + 1, 0, ItemSize.Height + 1, Height);
                 }
@@ -57,20 +57,17 @@ namespace FerPROJ.Design.Controls {
                     Rectangle tabRect = GetTabRect(i);
                     bool isSelected = (i == SelectedIndex);
 
-                    // Draw Tab Content
                     DrawTabTextAndImage(g, tabRect, i, isSelected);
 
                     if (isSelected) {
-                        // Draw the "Elegant" Indicator Bar
                         using (SolidBrush accentBrush = new SolidBrush(accentColor)) {
-                            if (isLeft) {
-                                // Vertical bar on the left
-                                g.FillRectangle(accentBrush, new Rectangle(0, tabRect.Y + 4, 3, tabRect.Height - 8));
-                            }
-                            else {
-                                // Horizontal bar at the bottom
-                                g.FillRectangle(accentBrush, new Rectangle(tabRect.X + 10, tabRect.Bottom - 2, tabRect.Width - 20, 3));
-                            }
+                            // Left Border (Vertical)
+                            // We draw a 3px wide bar on the left side of the tab
+                            g.FillRectangle(accentBrush, new Rectangle(tabRect.X, tabRect.Y, 3, tabRect.Height));
+
+                            // Bottom Border (Horizontal) 
+                            // We draw a 3px high bar at the bottom of the tab
+                            g.FillRectangle(accentBrush, new Rectangle(tabRect.X, tabRect.Bottom - 3, tabRect.Width, 3));
                         }
                     }
                 }

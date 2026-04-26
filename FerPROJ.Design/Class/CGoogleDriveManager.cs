@@ -1,4 +1,5 @@
-﻿using Google.Apis.Auth.OAuth2;
+﻿using FerPROJ.Design.FormModels;
+using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
@@ -20,8 +21,10 @@ namespace FerPROJ.Design.Class {
         private static void Initialize() {
             if (_service != null) return;
 
+            var credentialPath = CConfigurationManager.GetOrCreateJsonFromModel(new OAuthCredentialModel(), "gdrivecredentials.json");
+
             if (_isServiceAccount) {
-                var credential = CredentialFactory.FromFile<ServiceAccountCredential>("json/gdrivecredentials-no-auth.json")
+                var credential = CredentialFactory.FromFile<ServiceAccountCredential>(credentialPath)
                                                   .ToGoogleCredential()
                                                   .CreateScoped(DriveService.Scope.Drive);
 
@@ -33,7 +36,7 @@ namespace FerPROJ.Design.Class {
             else {
                 UserCredential credential;
 
-                using (var stream = new FileStream("json/gdrivecredentials.json", FileMode.Open, FileAccess.Read)) {
+                using (var stream = new FileStream(credentialPath, FileMode.Open, FileAccess.Read)) {
                     credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.FromStream(stream).Secrets,
                         new[] { DriveService.Scope.Drive },

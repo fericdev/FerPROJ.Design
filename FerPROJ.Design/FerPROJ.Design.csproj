@@ -9,6 +9,9 @@
     <PackageReference Include="AutoMapper" Version="16.1.1" />
     <PackageReference Include="EPPlus" Version="8.5.1" />
     <PackageReference Include="EPPlus.Interfaces" Version="8.4.0" />
+    <PackageReference Include="Google.Apis.Drive.v3">
+      <Version>1.73.0.4112</Version>
+    </PackageReference>
     <PackageReference Include="Krypton.Toolkit" Version="100.26.1.19" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
     <PackageReference Include="Microsoft.Bcl.Cryptography" Version="10.0.6" />
@@ -30,7 +33,6 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.6" />
     <PackageReference Include="System.Text.Encodings.Web" Version="10.0.5" />
-    <PackageReference Include="System.Text.Json" Version="10.0.5" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
     <PackageReference Include="System.ValueTuple" Version="4.6.2" />
     <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
@@ -110,7 +112,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormModels\OAuthCredentialModel.cs" />
     <Compile Include="Class\CApiManager.cs" />
+    <Compile Include="Class\CGoogleDriveManager.cs" />
     <Compile Include="Class\CRepositoryManager.cs" />
     <Compile Include="Class\CEventManager.cs" />
     <Compile Include="Controls\CUserControl.cs">

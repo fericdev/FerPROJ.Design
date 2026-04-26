@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -64,6 +65,29 @@ namespace FerPROJ.Design.Class {
 
             // Save changes to the XML file
             doc.Save(path);
+        }
+        #endregion
+
+        #region Write Json from model
+        public static string GetOrCreateJsonFromModel<T>(T model, string fileName) {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
+
+            // Ensure .json extension
+            if (!fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase)) {
+                fileName += ".json";
+            }
+
+            fileName = CAccessManager.GetOrCreateEnvironmentPath(fileName, "json");
+
+            var json = JsonSerializer.Serialize(model, new JsonSerializerOptions {
+                WriteIndented = true
+            });
+
+            File.WriteAllText(fileName, json);
+
+            return fileName;
         }
         #endregion
 

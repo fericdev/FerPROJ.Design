@@ -347,6 +347,9 @@
     <EmbeddedResource Include="Forms\FrmDashboard3.resx">
       <DependentUpon>FrmDashboard3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmHtmlViewer.resx">
+      <DependentUpon>FrmHtmlViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmKrypton.resx">
       <DependentUpon>FrmKrypton.cs</DependentUpon>
     </EmbeddedResource>

@@ -267,11 +267,7 @@ namespace FerPROJ.Design.Class {
 
             File.WriteAllText(filePath, model.ReportHtml);
 
-            using (var frm = new FrmHtmlViewer(filePath, model)) {
-                frm.ShowDialog();
-            }
-
-            File.Delete(filePath);
+            FrmHtmlViewer.ShowReport(filePath, model);
 
             await Task.CompletedTask;
             #endregion

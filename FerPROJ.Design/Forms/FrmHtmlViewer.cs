@@ -18,8 +18,10 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmHtmlViewer : FrmKrypton {
+        private static FrmHtmlViewer _instance;
         private readonly WebView2 _webView;
         private readonly HtmlReportModel _model;
+        private readonly string _reportFilePath;
         public FrmHtmlViewer(string reportFilePath, HtmlReportModel model) {
             InitializeComponent();
 
@@ -30,6 +32,7 @@ namespace FerPROJ.Design.Forms {
 
             // Model
             _model = model;
+            _reportFilePath = reportFilePath;
 
             // Set basic form properties
             this.Text = "Report Viewer";
@@ -43,7 +46,22 @@ namespace FerPROJ.Design.Forms {
             // Initialize and load HTML
             InitializeAsync(reportFilePath);
         }
+        public static void ShowReport(string reportFilePath, HtmlReportModel model) {
+            //
+            if (_instance == null) {
+                _instance = new FrmHtmlViewer(reportFilePath, model);
+            }
 
+            // Show the form asynchronously to ensure it's fully loaded
+            _instance.Shown += async (s, e) => {
+                await Task.Delay(100); // Optional: delay to simulate loading time
+            };
+
+            //
+            _instance.Show();
+            _instance.BringToFront();
+            _instance.Update();
+        }
         private async void InitializeAsync(string htmlFilePath) {
             // Initialize WebView2 environment
             await _webView.EnsureCoreWebView2Async(null);
@@ -240,6 +258,14 @@ namespace FerPROJ.Design.Forms {
             }
 
             return outputFiles;
+        }
+
+        private void FrmHtmlViewer_FormClosing(object sender, FormClosingEventArgs e) {
+            _instance = null;
+
+            if (File.Exists(_reportFilePath)) {
+                File.Delete(_reportFilePath);
+            }
         }
     }
 }

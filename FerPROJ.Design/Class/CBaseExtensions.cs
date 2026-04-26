@@ -988,7 +988,7 @@ namespace FerPROJ.Design.Class {
             if (source == null || searchText == null)
                 return false;
 
-            return source.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0;
+            return SearchForText(source, searchText);
         }
         public static bool SearchFor(this string[] source, string searchText) {
             // Check for null or empty source array and null search text
@@ -1033,30 +1033,39 @@ namespace FerPROJ.Design.Class {
             if (source == null)
                 return false;
 
-            if (string.IsNullOrEmpty(searchText)) {
+            if (string.IsNullOrWhiteSpace(searchText))
                 return true;
-            }
 
-            // Get all public instance properties of the object
-            var properties = source.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            // Split search terms by ';' and clean them
+            var searchTerms = searchText
+                .Split(';')
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToList();
+
+            var properties = source.GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var property in properties) {
-                // Skip properties with index parameters
-                if (property.GetIndexParameters().Length > 0)
+                if (property.GetIndexParameters().Length > 0) {
                     continue;
+                }
 
-                // Get the property value
                 var value = property.GetValue(source);
 
-                // If the value is null, skip this property
-                if (value == null)
+                if (value == null) {
                     continue;
+                }
 
-                if (value.ToString().SearchContains(searchText))
+                var valueString = value.ToString();
+
+                // OR logic: if ANY search term matches → return true
+                if (searchTerms.Any(term => valueString.SearchContains(term))) {
                     return true;
+                }
             }
 
-            return false; // No match found
+            return false;
         }
         #endregion
 

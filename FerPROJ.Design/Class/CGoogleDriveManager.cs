@@ -21,7 +21,7 @@ namespace FerPROJ.Design.Class {
         private static void Initialize() {
             if (_service != null) return;
 
-            var credentialPath = CConfigurationManager.GetOrCreateJsonFromModel(new OAuthCredentialModel(), "gdrivecredentials.json");
+            var credentialPath = CConfigurationManager.GetOrCreateJsonFromModel(new OAuthCredentialModel(), "gdrivecredentials.json", false);
 
             if (_isServiceAccount) {
                 var credential = CredentialFactory.FromFile<ServiceAccountCredential>(credentialPath)

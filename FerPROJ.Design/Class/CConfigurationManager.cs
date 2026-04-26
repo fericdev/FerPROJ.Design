@@ -1,9 +1,11 @@
 ﻿using FerPROJ.Design.Controls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -69,7 +71,7 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Write Json from model
-        public static string GetOrCreateJsonFromModel<T>(T model, string fileName) {
+        public static string GetOrCreateJsonFromModel<T>(T model, string fileName, bool encrypt = true) {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
@@ -81,6 +83,13 @@ namespace FerPROJ.Design.Class {
 
             fileName = CAccessManager.GetOrCreateEnvironmentPath(fileName, "json");
 
+            if (encrypt) {
+                EncryptProperties(model, new HashSet<object>());
+            }
+            else {
+                DecryptProperties(model, new HashSet<object>());
+            }
+
             var json = JsonSerializer.Serialize(model, new JsonSerializerOptions {
                 WriteIndented = true
             });
@@ -88,6 +97,82 @@ namespace FerPROJ.Design.Class {
             File.WriteAllText(fileName, json);
 
             return fileName;
+        }
+        private static void EncryptProperties(object obj, HashSet<object> visited) {
+            if (obj == null) return;
+
+            // Prevent circular references
+            if (visited.Contains(obj))
+                return;
+
+            visited.Add(obj);
+
+            var type = obj.GetType();
+
+            foreach (var prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance)) {
+                if (!prop.CanRead || !prop.CanWrite)
+                    continue;
+
+                var value = prop.GetValue(obj);
+
+                if (value == null)
+                    continue;
+
+                // 1. STRING → encrypt directly
+                if (prop.PropertyType == typeof(string)) {
+                    var encrypted = CEncryptionManager.EncryptText(value.ToString());
+                    prop.SetValue(obj, encrypted);
+                }
+                // 2. COLLECTION (List, array, etc.)
+                else if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType)
+                         && prop.PropertyType != typeof(string)) {
+                    foreach (var item in (IEnumerable)value) {
+                        EncryptProperties(item, visited);
+                    }
+                }
+                // 3. COMPLEX OBJECT → recurse
+                else if (prop.PropertyType.IsClass) {
+                    EncryptProperties(value, visited);
+                }
+            }
+        }
+        private static void DecryptProperties(object obj, HashSet<object> visited) {
+            if (obj == null) return;
+
+            // Prevent circular references
+            if (visited.Contains(obj))
+                return;
+
+            visited.Add(obj);
+
+            var type = obj.GetType();
+
+            foreach (var prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance)) {
+                if (!prop.CanRead || !prop.CanWrite)
+                    continue;
+
+                var value = prop.GetValue(obj);
+
+                if (value == null)
+                    continue;
+
+                // 1. STRING → decrypt directly
+                if (prop.PropertyType == typeof(string)) {
+                    var decrypted = CEncryptionManager.DecryptText(value.ToString());
+                    prop.SetValue(obj, decrypted);
+                }
+                // 2. COLLECTION (List, array, etc.)
+                else if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType)
+                         && prop.PropertyType != typeof(string)) {
+                    foreach (var item in (IEnumerable)value) {
+                        DecryptProperties(item, visited);
+                    }
+                }
+                // 3. COMPLEX OBJECT → recurse
+                else if (prop.PropertyType.IsClass) {
+                    DecryptProperties(value, visited);
+                }
+            }
         }
         #endregion
 

@@ -42,5 +42,39 @@ namespace FerPROJ.Design.Class {
                 return default;
             }
         }
+        public static async Task<bool> PostDataAsync<T>(string url, T data) {
+            try {
+                // 🔹 Check if any network is available
+                if (!NetworkInterface.GetIsNetworkAvailable()) {
+                    Console.WriteLine("No network connection available.");
+                    return false;
+                }
+
+                var json = JsonConvert.SerializeObject(data);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (TaskCanceledException) {
+                // 🔹 Usually timeout or no internet response
+                Console.WriteLine("Request timed out. Possible no internet or slow connection.");
+                return false;
+            }
+            catch (HttpRequestException e) {
+                // 🔹 Covers DNS failure, refused connection, no internet, etc.
+                Console.WriteLine($"HTTP Request error: {e.Message}");
+                return false;
+            }
+            catch (Exception e) {
+                // 🔹 Fallback for unexpected errors
+                Console.WriteLine($"Unexpected error: {e.Message}");
+                return false;
+            }
+        }
     }
 }

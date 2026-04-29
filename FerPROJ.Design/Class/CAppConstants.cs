@@ -19,6 +19,7 @@ namespace FerPROJ.Design.Class
         public static string ENTITY_CONNECTION_STRING { get; set; } = DefaultString;
         public static string BASE_CONNECTION_STRING_NAME { get; set; }
         public static bool DATABASE_CONNECTION_SUCCESS { get; set; }
+        public static string API_BASE_URL { get; set; }
         #endregion
 
         #region User Constants

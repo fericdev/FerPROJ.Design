@@ -19,7 +19,6 @@ namespace FerPROJ.Design.Class {
                 }
                 var response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
-                CDialogManager.Info("Execute successful.");
             }
             catch (TaskCanceledException) {
                 // 🔹 Usually timeout or no internet response

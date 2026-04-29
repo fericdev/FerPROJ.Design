@@ -132,7 +132,7 @@ namespace FerPROJ.Design.Forms {
                 MainModelDataGridView?.ApplyCustomAttribute();
             }
             if (ItemModelDataGridView != null) {
-                ItemModelDataGridView?.ApplyCustomAttribute();
+                ItemModelDataGridView?.ApplyCustomAttribute(autoSizeColumn: true);
                 ItemModelDataGridView?.TrackChangesAndCallMethod(RefreshDataSourceAsync);
                 ItemModelDataGridView?.ApplyRowValueFormatting();
             }

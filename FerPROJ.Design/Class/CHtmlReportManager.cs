@@ -30,6 +30,13 @@ namespace FerPROJ.Design.Class {
                         width: 100%;
                         margin-bottom: 15px;              
                     }
+                    .report-footer {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        width: 100%;
+                        margin-top: 15px;              
+                    }
 
                     .header-left,
                     .header-right {
@@ -221,6 +228,24 @@ namespace FerPROJ.Design.Class {
                     $"</div>"
                 );
             }
+            var reportFooterLeft = new StringBuilder();
+            foreach (var item in model.ReportFooterLeft) {
+                reportFooterLeft.AppendLine(
+                    $"<div class='info-row'>" +
+                    $"   <span class='label'>{item.Label}:</span>" +
+                    $"   <span class='value'>{item.Value}</span>" +
+                    $"</div>"
+                );
+            }
+            var reportFooterRight = new StringBuilder();
+            foreach (var item in model.ReportFooterRight) {
+                reportFooterRight.AppendLine(
+                    $"<div class='info-row'>" +
+                    $"   <span class='label'>{item.Label}:</span>" +
+                    $"   <span class='value'>{item.Value}</span>" +
+                    $"</div>"
+                );
+            }
             #endregion
 
             #region Html Template
@@ -255,6 +280,18 @@ namespace FerPROJ.Design.Class {
                                             {rowCells}
                                         </tbody>       
                                     </table>
+                                </div>
+                                <div class='report-footer'>
+                                    <div class='header-left'>
+                                        <div class='info-container'>
+                                            {reportFooterLeft}
+                                        </div>
+                                    </div>
+                                    <div class='header-right'>
+                                        <div class='info-container'>
+                                            {reportFooterRight}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </body>
@@ -385,6 +422,8 @@ namespace FerPROJ.Design.Class {
         public List<List<object>> ReportBodyRowsSummary { get; set; } = new List<List<object>>();
         public List<(string Label, object Value)> ReportHeaderLeft { get; set; } = new List<(string Label, object Value)>();
         public List<(string Label, object Value)> ReportHeaderRight { get; set; } = new List<(string Label, object Value)>();
+        public List<(string Label, object Value)> ReportFooterRight { get; set; } = new List<(string Label, object Value)>();
+        public List<(string Label, object Value)> ReportFooterLeft { get; set; } = new List<(string Label, object Value)>();
         public string GeneratedOn => $"<strong>Print Date:</strong> {DateTime.Now.ToDateAndTime()} <br />";
 
     }

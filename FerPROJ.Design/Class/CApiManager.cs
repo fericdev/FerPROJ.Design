@@ -10,6 +10,30 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.Class {
     public class CApiManager {
         private static readonly HttpClient client = new HttpClient();
+        public static async Task ExecuteAsync(string url) {
+            try {
+                // 🔹 Check if any network is available
+                if (!NetworkInterface.GetIsNetworkAvailable()) {
+                    Console.WriteLine("No network connection available.");
+                    return;
+                }
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                CDialogManager.Info("Execute successful.");
+            }
+            catch (TaskCanceledException) {
+                // 🔹 Usually timeout or no internet response
+                CDialogManager.Warning("Request timed out. Possible no internet or slow connection.");
+            }
+            catch (HttpRequestException e) {
+                // 🔹 Covers DNS failure, refused connection, no internet, etc.
+                CDialogManager.Warning($"HTTP Request error: {e.Message}");
+            }
+            catch (Exception e) {
+                // 🔹 Fallback for unexpected errors
+                CDialogManager.Warning($"Unexpected error: {e.Message}");
+            }
+        }
         public static async Task<T> GetDataAsync<T>(string url) {
             try {
                 // 🔹 Check if any network is available

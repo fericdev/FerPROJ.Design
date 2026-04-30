@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.Class {
     public class CApiManager {
-        private static readonly HttpClient client = new HttpClient();
+        private static readonly HttpClient client = new HttpClient();   
+        public static string BaseUrl { get; set; } = "http://localhost:8000/api/"; 
+
+        public static void Initialize(string baseUrl) {
+            BaseUrl = baseUrl;
+        }
         public static async Task ExecuteAsync(string url) {
             try {
                 // 🔹 Check if any network is available
@@ -17,7 +22,8 @@ namespace FerPROJ.Design.Class {
                     Console.WriteLine("No network connection available.");
                     return;
                 }
-                var response = await client.GetAsync(url);
+                var response = await client.GetAsync(GetUrl(url));
+                var content = await response.Content.ReadAsStringAsync();
                 response.EnsureSuccessStatusCode();
             }
             catch (TaskCanceledException) {
@@ -41,7 +47,7 @@ namespace FerPROJ.Design.Class {
                     return default;
                 }
 
-                var response = await client.GetAsync(url);
+                var response = await client.GetAsync(GetUrl(url));
 
                 response.EnsureSuccessStatusCode();
 
@@ -77,7 +83,7 @@ namespace FerPROJ.Design.Class {
 
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync(url, content);
+                var response = await client.PostAsync(GetUrl(url), content);
 
                 response.EnsureSuccessStatusCode();
 
@@ -98,6 +104,9 @@ namespace FerPROJ.Design.Class {
                 Console.WriteLine($"Unexpected error: {e.Message}");
                 return false;
             }
+        }
+        private static string GetUrl(string url) {
+            return url.StartsWith("http") ? url : $"{BaseUrl}{url}";
         }
     }
 }

@@ -29,7 +29,7 @@ namespace FerPROJ.Design.Class {
             var versionUrl = $"{SystemName}/{SystemName}_version";
 
             // Fetch version data from the specified URL
-            var data = await CApiManager.GetDataAsync<VersionModel>($"https://fericdev.github.io/version-control/{versionUrl}.json");
+            var data = await CApiManager.GetAsync<VersionModel>($"https://fericdev.github.io/version-control/{versionUrl}.json");
 
             if (data.IsNullOrEmpty()) {
                 return;

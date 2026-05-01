@@ -40,6 +40,33 @@ namespace FerPROJ.DBHelper.DBCrud {
                 throw new InvalidOperationException("Method must return Task or Task<TResult>.");
             }
         }
+        public static async Task<TResult> ExecuteApiMethodAsync<TResult>(
+            Type repositoryType,
+            string methodName,
+            params object[] parameters) {
+
+            var method = ResolveMethod(repositoryType, methodName, parameters);
+
+            if (method == null)
+                throw new InvalidOperationException("Method not found.");
+
+            var instance = Activator.CreateInstance(repositoryType);
+
+            var finalParameters = BuildParameterList(method, parameters);
+
+            var taskObject = method.Invoke(instance, finalParameters);
+
+            if (taskObject is Task<TResult> typedTask)
+                return await typedTask;
+
+            if (taskObject is Task nonGenericTask) {
+                await nonGenericTask;
+                return default;
+            }
+
+            throw new InvalidOperationException("Method must return Task or Task<TResult>.");
+
+        }
         public static LambdaExpression Equal(
             Type entityType,
             string propertyName,

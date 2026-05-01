@@ -71,6 +71,12 @@ namespace FerPROJ.Design.Class {
                 return true;
             }
         }
+        public static async Task<bool> ListApiAsync<TModel, TEntity, TRepository>(CrudOptions crudOption, Expression<Func<TEntity, bool>> searchParameter = null) where TModel : BaseModel {
+            using (var frm = new FrmListGridKryptonLoadApi<TModel, TEntity>(typeof(TRepository), crudOption, searchParameter)) {
+                frm.ShowDialog();
+                return true;
+            }
+        }
 
         public static Task<bool> SelectAsync<TModel, TEntity, TRepository>(out Guid id, Expression<Func<TEntity, bool>> searchParameter = null) where TModel : BaseModel {
             using (var frm = new FrmListGridKryptonLoad<TModel, TEntity>(typeof(TRepository), new CrudOptions(), searchParameter)) {

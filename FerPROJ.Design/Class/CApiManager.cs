@@ -104,10 +104,10 @@ namespace FerPROJ.Design.Class {
         }
 
         // 🔹 PUT
-        public static async Task<bool> PutAsync<T>(string url, T data) {
+        public static async Task<bool> PostAsync<T>(string url, T data) {
             var json = JsonConvert.SerializeObject(data);
 
-            var request = new HttpRequestMessage(HttpMethod.Put, BuildUrl(url)) {
+            var request = new HttpRequestMessage(HttpMethod.Post, BuildUrl(url)) {
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
 

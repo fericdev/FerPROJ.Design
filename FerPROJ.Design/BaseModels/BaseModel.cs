@@ -49,7 +49,7 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Header = "Date Marked", Order = 2002)]
         public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
         [CAttributes(Header = "Transaction Status", Order = 2000)]
-        public string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();
+        public virtual string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();
         public virtual List<TItem> Items { get; set; } = new List<TItem>();
         public override bool DataValidation() {
             if (Items.IsNullOrEmpty()) {

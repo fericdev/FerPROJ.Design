@@ -32,6 +32,7 @@ namespace FerPROJ.Design.Class
         #region Status Constants
         public static string ACTIVE_STATUS = "ACTIVE";
         public static string IN_ACTIVE_STATUS = "IN-ACTIVE";
+        public static string APPLLICATION_ID = CConfigurationManager.GetValue("ApplicationId", "DatabaseConfig");
         #endregion
 
         #region Type Contants

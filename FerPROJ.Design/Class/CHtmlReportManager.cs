@@ -33,16 +33,27 @@ namespace FerPROJ.Design.Class {
                     .report-footer {
                         display: flex;
                         justify-content: space-between;
-                        align-items: flex-start;
                         width: 100%;
                         margin-top: 15px;              
                     }
 
-                    .header-left,
-                    .header-right {
+                    .report-header .header-left,
+                    .report-header .header-right {
                         font-size: 14px;
                         width: 48%;
                     }
+
+                    .report-footer .footer-left, {
+                        font-size: 14px;
+                        width: 48%;
+                        align-items: flex-start;
+                    }
+                    .report-footer .footer-right {
+                        font-size: 14px;
+                        align-items: flex-end;
+                        margin-right: 40px;
+                    }
+
                     .info-container {
                         display: grid;
                         grid-template-columns: max-content 1fr;
@@ -282,12 +293,12 @@ namespace FerPROJ.Design.Class {
                                     </table>
                                 </div>
                                 <div class='report-footer'>
-                                    <div class='header-left'>
+                                    <div class='footer-left'>
                                         <div class='info-container'>
                                             {reportFooterLeft}
                                         </div>
                                     </div>
-                                    <div class='header-right'>
+                                    <div class='footer-right'>
                                         <div class='info-container'>
                                             {reportFooterRight}
                                         </div>

@@ -47,6 +47,7 @@ namespace FerPROJ.Design.Forms {
         private void LoadVar() {
             lblMainUserValue.Text = CAppConstants.USERNAME;
             lblMainVersionValue.Text = CAssembly.SystemVersion;
+            systemNameCLabelTitle.Text = CAssembly.SystemNameFull + " Management System";
         }
     }
 }

@@ -38,10 +38,17 @@
             this.tsMainSettings = new System.Windows.Forms.ToolStrip();
             this.tsMainDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.baseDashboardKryptonPanel = new Krypton.Toolkit.KryptonPanel();
+            this.systemNameCLabelTitle = new FerPROJ.Design.Controls.CLabelTitle();
+            ((System.ComponentModel.ISupportInitialize)(this.baseKryptonPanel)).BeginInit();
             this.pnlMainBot.SuspendLayout();
+            this.pnlMainTop.SuspendLayout();
             this.tsMainSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.baseDashboardKryptonPanel)).BeginInit();
             this.SuspendLayout();
+            // 
+            // baseKryptonPanel
+            // 
+            this.baseKryptonPanel.Size = new System.Drawing.Size(1253, 601);
             // 
             // pnlMainBot
             // 
@@ -161,6 +168,7 @@
             // 
             this.pnlMainTop.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.pnlMainTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlMainTop.Controls.Add(this.systemNameCLabelTitle);
             this.pnlMainTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlMainTop.Location = new System.Drawing.Point(0, 0);
             this.pnlMainTop.Name = "pnlMainTop";
@@ -200,6 +208,18 @@
             this.baseDashboardKryptonPanel.Size = new System.Drawing.Size(1253, 601);
             this.baseDashboardKryptonPanel.TabIndex = 6;
             // 
+            // systemNameCLabelTitle
+            // 
+            this.systemNameCLabelTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.systemNameCLabelTitle.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.systemNameCLabelTitle.ForeColor = System.Drawing.Color.White;
+            this.systemNameCLabelTitle.Location = new System.Drawing.Point(0, 0);
+            this.systemNameCLabelTitle.Name = "systemNameCLabelTitle";
+            this.systemNameCLabelTitle.Size = new System.Drawing.Size(1251, 94);
+            this.systemNameCLabelTitle.TabIndex = 0;
+            this.systemNameCLabelTitle.Text = "cLabelTitle1";
+            this.systemNameCLabelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FrmDashboard3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,11 +230,24 @@
             this.Controls.Add(this.pnlMainTop);
             this.Controls.Add(this.pnlMainBot);
             this.Name = "FrmDashboard3";
+            this.StateCommon.Back.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color2 = System.Drawing.Color.RoyalBlue;
             this.Text = "FrmDashboard3";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmDashboard3_Load);
+            this.Controls.SetChildIndex(this.pnlMainBot, 0);
+            this.Controls.SetChildIndex(this.pnlMainTop, 0);
+            this.Controls.SetChildIndex(this.tsMainSettings, 0);
+            this.Controls.SetChildIndex(this.baseDashboardKryptonPanel, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.baseKryptonPanel)).EndInit();
             this.pnlMainBot.ResumeLayout(false);
             this.pnlMainBot.PerformLayout();
+            this.pnlMainTop.ResumeLayout(false);
             this.tsMainSettings.ResumeLayout(false);
             this.tsMainSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.baseDashboardKryptonPanel)).EndInit();
@@ -238,5 +271,6 @@
         public System.Windows.Forms.ToolStrip tsMainSettings;
         private System.Windows.Forms.ToolStripDropDownButton tsMainDropDown;
         public Krypton.Toolkit.KryptonPanel baseDashboardKryptonPanel;
+        private Controls.CLabelTitle systemNameCLabelTitle;
     }
 }

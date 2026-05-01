@@ -107,5 +107,15 @@ namespace FerPROJ.Design.Forms {
             FrmSplasherLoading.CloseSplash();
 
         }
+        protected override async Task<bool> DeleteItemAsync() {
+            if (_baseDatagridview.GetSelectedValue(out Form_IdTrack)) {
+                return await CRepositoryManager.ExecuteApiMethodAsync<bool>(
+                    _repositoryType,
+                    "DeleteByIdAsync",
+                    Form_IdTrack
+                );
+            }
+            return false;
+        }
     }
 }

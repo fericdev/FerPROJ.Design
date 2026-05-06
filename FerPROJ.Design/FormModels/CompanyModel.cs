@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.FormModels {
     public class CompanyModel : BaseModel {
-        public override string Name { get; set; } = CConfigurationManager.GetValue("Name", "CompanyConfig");
+        public override string Name { get; set; } = CConfigurationManager.GetValue("CompanyName", "CompanyConfig");
         public string CompanyAddress { get; set; } = CConfigurationManager.GetValue("CompanyAddress", "CompanyConfig");
         public string CompanyContactNo { get; set; } = CConfigurationManager.GetValue("CompanyContactNo", "CompanyConfig");
         public string CompanyEmail { get; set; } = CConfigurationManager.GetValue("CompanyEmail", "CompanyConfig");

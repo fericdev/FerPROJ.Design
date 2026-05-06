@@ -29,7 +29,7 @@ namespace FerPROJ.Design.Forms {
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyAddress), model.CompanyAddress, "CompanyConfig");
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyContactNo), model.CompanyContactNo, "CompanyConfig");
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyEmail), model.CompanyEmail, "CompanyConfig");
-            CConfigurationManager.CreateOrSetValue(nameof(model.Name), model.Name, "CompanyConfig");
+            CConfigurationManager.CreateOrSetValue("CompanyName", model.Name, "CompanyConfig");
             CDialogManager.Info("Company Configuration Updated Successfully!", "Info");
             return true;
         }

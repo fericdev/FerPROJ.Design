@@ -307,8 +307,9 @@ namespace FerPROJ.Design.Class {
                                     <div class='company-info'>
                                         <h1><strong>{model.ReportTitle}</strong></h1>
                                         <div class='company-details'>
-                                            <div>{model.Company.CompanyAddress}</div>
-                                            <div>Contact: {model.Company.CompanyContactNo} | Email: {model.Company.CompanyEmail}</div>
+                                            <div>Contact: {model.Company.CompanyContactNo}</div>
+                                            <div>Email: {model.Company.CompanyEmail}</div>
+                                            <div>Address: {model.Company.CompanyAddress}</div>
                                         </div>
                                     </div>
                                 </div>

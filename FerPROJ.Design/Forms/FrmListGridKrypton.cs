@@ -528,6 +528,7 @@ namespace FerPROJ.Design.Forms {
             keyboardShortcuts[Keys.Control | Keys.A] = () => { tsbMainAddItem.PerformClick(); return Task.CompletedTask; };
             keyboardShortcuts[Keys.Control | Keys.E] = () => { tsbMainEditItem.PerformClick(); return Task.CompletedTask; };
             keyboardShortcuts[Keys.Control | Keys.D] = () => { tsbMainDeleteItem.PerformClick(); return Task.CompletedTask; };
+            keyboardShortcuts[Keys.Enter] = () => { baseButtonSelect.PerformClick(); return Task.CompletedTask; };
         }
 
         protected virtual void InitializeKeyboardShortcuts() {

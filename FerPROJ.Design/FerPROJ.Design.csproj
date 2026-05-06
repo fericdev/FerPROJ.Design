@@ -112,6 +112,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormModels\CompanyModel.cs" />
     <Compile Include="FormModels\OAuthCredentialModel.cs" />
     <Compile Include="Class\CApiManager.cs" />
     <Compile Include="Class\CGoogleDriveManager.cs" />
@@ -199,6 +200,12 @@
     </Compile>
     <Compile Include="Forms\FrmAddressDetail.Designer.cs">
       <DependentUpon>FrmAddressDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmCompany.Designer.cs">
+      <DependentUpon>FrmCompany.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmConf.cs">
       <SubType>Form</SubType>
@@ -341,6 +348,9 @@
     <EmbeddedResource Include="Forms\FrmAddressDetail.resx">
       <DependentUpon>FrmAddressDetail.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmCompany.resx">
+      <DependentUpon>FrmCompany.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmConf.resx">
       <DependentUpon>FrmConf.cs</DependentUpon>
     </EmbeddedResource>
@@ -440,6 +450,9 @@
     <None Include="Resources\icon-notes.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Img\report-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Config\AppSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

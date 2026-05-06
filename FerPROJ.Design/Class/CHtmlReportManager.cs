@@ -1,4 +1,5 @@
-﻿using FerPROJ.Design.Forms;
+﻿using FerPROJ.Design.FormModels;
+using FerPROJ.Design.Forms;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,38 @@ namespace FerPROJ.Design.Class {
                         font-size: 14px;
                         align-items: flex-end;
                         margin-right: 40px;
+                    }
+
+                    .report-title-container {
+                        display: flex;
+                        align-items: center; 
+                        gap: 20px;
+                        margin-bottom: 20px;
+                    }
+
+                    .company-info {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+
+                    .company-info h1 {
+                        margin: 0;
+                        font-size: 24px;
+                        line-height: 1.2;
+                    }
+
+                    .company-details {
+                        font-size: 13px;
+                        color: #555;
+                        margin-top: 5px;
+                        line-height: 1.4;
+                    }
+
+                    .report-logo {
+                        width: 120px; 
+                        height: 120px;
+                        object-fit: contain;
                     }
 
                     .info-container {
@@ -269,7 +302,16 @@ namespace FerPROJ.Design.Class {
                         </head>
                         <body>
                             <div class='report-paper {(model.IsLandscape ? "landscape" : "portrait")}'>
-                                <h1><strong>{model.ReportTitle}</strong> </h1> <hr /> <br />
+                                <div class='report-title-container'>
+                                    <img src='{model.Company.CompanyLogoUrl}' class='report-logo' />
+                                    <div class='company-info'>
+                                        <h1><strong>{model.ReportTitle}</strong></h1>
+                                        <div class='company-details'>
+                                            <div>{model.Company.CompanyAddress}</div>
+                                            <div>Contact: {model.Company.CompanyContactNo} | Email: {model.Company.CompanyEmail}</div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class='report-header'>
                                     <div class='header-left'>
                                         <div class='info-container'>
@@ -355,14 +397,7 @@ namespace FerPROJ.Design.Class {
                 // =========================
                 foreach (var row in rows) {
                     for (int col = 0; col < row.Count; col++) {
-                        var value = row[col];
-
-                        worksheet.Cells[rowIndex, col + 1].Value = value;
-
-                        // Optional: detect currency columns (based on your headers)
-                        if (columns[col].Contains("Total") || columns[col].Contains("Balance") || columns[col].Contains("Sub")) {
-                            worksheet.Cells[rowIndex, col + 1].Style.Numberformat.Format = "#,##0.00";
-                        }
+                        SetExcelCellValue(worksheet.Cells[rowIndex, col + 1], row[col]);
                     }
 
                     rowIndex++;
@@ -376,11 +411,7 @@ namespace FerPROJ.Design.Class {
 
                     foreach (var sumRow in summary) {
                         for (int col = 0; col < sumRow.Count; col++) {
-                            worksheet.Cells[rowIndex, col + 1].Value = sumRow[col];
-
-                            if (columns[col].Contains("Total") || columns[col].Contains("Balance") || columns[col].Contains("Sub")) {
-                                worksheet.Cells[rowIndex, col + 1].Style.Numberformat.Format = "#,##0.00";
-                            }
+                            SetExcelCellValue(worksheet.Cells[rowIndex, col + 1], sumRow[col]);
                         }
 
                         using (var range = worksheet.Cells[rowIndex, 1, rowIndex, colCount]) {
@@ -418,6 +449,26 @@ namespace FerPROJ.Design.Class {
             }
             #endregion
 
+            #region Utilities
+            void SetExcelCellValue(ExcelRange cell, object value) {
+                var text = value?.ToString();
+
+                if (decimal.TryParse(
+                        text?.Replace("₱", "")
+                             .Replace("PHP", "")
+                             .Replace("P", "")
+                             .Replace(",", "")
+                             .Trim(),
+                        out decimal num)) {
+                    cell.Value = num;
+                    cell.Style.Numberformat.Format = "#,##0.00";
+                }
+                else {
+                    cell.Value = value;
+                }
+            }
+            #endregion
+
         }
 
     }
@@ -428,6 +479,7 @@ namespace FerPROJ.Design.Class {
         public string ReportTitle { get; set; }
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }
+        public CompanyModel Company { get; set; } = new CompanyModel();
         public List<string> ReportBodyColumns { get; set; } = new List<string>();
         public List<List<object>> ReportBodyRows { get; set; } = new List<List<object>>();
         public List<List<object>> ReportBodyRowsSummary { get; set; } = new List<List<object>>();

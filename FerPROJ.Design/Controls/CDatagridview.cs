@@ -12,6 +12,7 @@ namespace FerPROJ.Design.Controls
 {
     public class CDataGridView : KryptonDataGridView
     {
+        public bool IsColumnAutoSized { get; set; } = false;
         private static Color headerColor = Color.Gainsboro; // Store the header color
         public CDataGridView()
         {

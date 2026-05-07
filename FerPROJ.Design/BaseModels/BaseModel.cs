@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static FerPROJ.Design.Class.CBaseEnums;
@@ -11,6 +12,9 @@ using static FerPROJ.Design.Class.CBaseEnums;
 namespace FerPROJ.Design.BaseModels {
     public abstract class BaseModel : CPropertyValidator 
     {
+        protected BaseModel() {
+            Execute();
+        }
         [CAttributes(Visible = false, Order = 1)]
         public Guid Id { get; set; } = Guid.NewGuid();
         [CAttributes(Visible = false, Order = 2)]
@@ -37,6 +41,13 @@ namespace FerPROJ.Design.BaseModels {
         public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
         [CAttributes(Visible = true, Order = 2001)]
         public virtual string Remarks { get; set; }
+        public virtual void Execute() {
+            
+        }
+        public override bool DataValidation() {
+            Execute();
+            return true;
+        }
     }
     public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
     {
@@ -55,7 +66,7 @@ namespace FerPROJ.Design.BaseModels {
             if (Items.IsNullOrEmpty()) {
                 return AddErrorMessage("Please add at least one item.");
             }
-            return true;
+            return base.DataValidation();
         }
         public virtual void AddItem(TItem item) {
             if (Items.Contains(item))
@@ -83,7 +94,7 @@ namespace FerPROJ.Design.BaseModels {
             if (Remarks.IsNullOrEmpty()) {
                 return AddErrorMessage("Remarks is required.");
             }
-            return true;
+            return base.DataValidation();
         }
     }
 }

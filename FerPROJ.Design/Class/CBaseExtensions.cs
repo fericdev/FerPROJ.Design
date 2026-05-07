@@ -2014,7 +2014,7 @@ namespace FerPROJ.Design.Class {
         }
         public static void ApplyCustomAttribute(this CDataGridView dgv, Type modelType = null, bool autoSizeColumn = false) {
             // DGV
-            dgv.ApplyCustomDataGridView(autoSizeColumn);
+            dgv.ApplyCustomDataGridView();
 
             // Apply attributes to columns (visibility, header text) and remove duplicates first
             dgv.ApplyAttributeToColumns(modelType);
@@ -2100,12 +2100,12 @@ namespace FerPROJ.Design.Class {
                 }
             }
         }
-        private static void ApplyCustomDataGridView(this CDataGridView dgv, bool autoSizeColumn = false) {
+        private static void ApplyCustomDataGridView(this CDataGridView dgv) {
 
             // =====================
             // BASE SURFACE & CELLS
             // =====================
-            dgv.AutoSizeColumnsMode = autoSizeColumn ? DataGridViewAutoSizeColumnsMode.Fill : DataGridViewAutoSizeColumnsMode.None;
+            dgv.AutoSizeColumnsMode = dgv.IsColumnAutoSized ? DataGridViewAutoSizeColumnsMode.Fill : DataGridViewAutoSizeColumnsMode.None;
             dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             dgv.StateCommon.Background.Color1 = Color.White;
             dgv.StateCommon.DataCell.Back.Color1 = Color.White;
@@ -2151,8 +2151,8 @@ namespace FerPROJ.Design.Class {
             // =====================
             // LAYOUT & SPACING
             // =====================
-            dgv.ColumnHeadersHeight = autoSizeColumn ? 25 : 50; // Taller headers
-            dgv.RowTemplate.MinimumHeight = autoSizeColumn ? 25 : 50;  // Taller rows for "breathability"
+            dgv.ColumnHeadersHeight = 30; // Taller headers
+            dgv.RowTemplate.MinimumHeight = 30;  // Taller rows for "breathability"
 
             // Refresh to apply layout
             dgv.Refresh();
@@ -2189,8 +2189,6 @@ namespace FerPROJ.Design.Class {
                 }
 
                 column.Visible = attribute.Visible;
-
-                column.Width = column.HeaderText.Length + 180;
 
                 if (column.Visible) {
                     columnCount++;

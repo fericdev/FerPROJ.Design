@@ -13,14 +13,14 @@ namespace FerPROJ.Design.BaseModels {
         [Required]
         public string Country => "Philippines";
         [Required]
-        public string Region { get; set; }
+        public string Region { get; set; } 
         [Required]
         public string City { get; set; }
         [Required]
         public string Barangay { get; set; }
         [Required]
-        public string ZipCode { get; set; }
-        public string Type { get; set; }
+        public string ZipCode { get; set; } = "7200";
+        public string Type { get; set; } = "Primary";
         public string Purok { get; set; }
         public string Province { get; set; }
         public string AddressString => $"{Purok}, {Barangay}, {City}, {Province}, {Region}, {Country} {ZipCode}".Trim();       

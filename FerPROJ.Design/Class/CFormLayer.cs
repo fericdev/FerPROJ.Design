@@ -12,13 +12,12 @@ using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Class {
     public class CFormLayer {
-        public static async Task<bool> ManageAddressAsync(FormMode formMode, AddressModel addressDTO, Guid id) {
-            using (var frm = new FrmAddressDetail(addressDTO)) {
-                frm.CurrentFormMode = formMode;
-                frm.Manage_IdTrack = id;
+        public static Task<bool> ManageAddressAsync(AddressModel addressModel, out AddressModel addressResultModel) {
+            using (var frm = new FrmAddressDetail(addressModel)) {
+                frm.CurrentFormMode = FormMode.Update;
                 frm.ShowDialog();
-                addressDTO = frm.Address;
-                return await frm.CurrentFormResult;
+                addressResultModel = frm.Address;
+                return Task.FromResult(frm.CurrentFormResult.Result);
             }
         }
         public static async Task<bool> ManageRemarks<TEntity, TRepository>(Guid id) {

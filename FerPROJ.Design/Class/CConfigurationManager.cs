@@ -177,6 +177,10 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Reader
+        public static TResult GetValue<TResult>(string key, string parent = null, bool encrypt = true, string path = null) {
+            var value = GetValue(key, parent, encrypt, path);
+            return value.To<TResult>();
+        }
         public static string GetValue(string key, string parent = null, bool encrypt = true, string path = null) {
             //
             if (path == null) {

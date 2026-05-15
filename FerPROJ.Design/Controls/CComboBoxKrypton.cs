@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CrystalDecisions.CrystalReports.ViewerObjectModel;
 using Krypton.Toolkit;
 
 namespace FerPROJ.Design.Controls {

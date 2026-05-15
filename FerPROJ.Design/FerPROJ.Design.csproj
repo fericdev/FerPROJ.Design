@@ -112,6 +112,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormModels\CacheVersionModel.cs" />
     <Compile Include="FormModels\CompanyModel.cs" />
     <Compile Include="FormModels\OAuthCredentialModel.cs" />
     <Compile Include="Class\CApiManager.cs" />

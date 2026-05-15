@@ -74,6 +74,13 @@ namespace FerPROJ.Design.BaseModels {
 
             Items.Add(item);
         }
+        public virtual void UpdateItem(TItem item) {
+            var existingItem = Items.FirstOrDefault(i => i.Id == item.Id);
+            if (!existingItem.IsNullOrEmpty()) {
+                var index = Items.IndexOf(existingItem);
+                Items[index] = item;
+            }
+        }
     }
     public abstract class BaseModelItem : CPropertyValidator 
     {

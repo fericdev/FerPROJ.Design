@@ -66,6 +66,16 @@ namespace FerPROJ.Design.Class {
                 }
             });
         }
+        public static void RunTaskAndForget(this Func<Task> task) {
+            _ = Task.Run(async () => {
+                try {
+                    await task().ConfigureAwait(false);
+                }
+                catch (Exception ex) {
+                    Console.WriteLine($"Task error: {ex.Message}");
+                }
+            });
+        }
         public static TResult RunTaskAndWait<TResult>(this Task<TResult> task) {
             try {
                 task.Wait();

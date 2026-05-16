@@ -27,6 +27,8 @@ namespace FerPROJ.Design.Class
         public static string USER_LEVEL { get; set; }
         public static Guid USER_ID { get; set; }
         public static string NAME { get; set; }
+
+        public static CBaseEnums.Role USER_ROLE { get; set; }
         #endregion
 
         #region Status Constants

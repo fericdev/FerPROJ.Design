@@ -41,7 +41,8 @@ namespace FerPROJ.Design.BaseModels {
         public virtual string Status { get; set; } = CAppConstants.ACTIVE_STATUS;
         [CAttributes(Visible = true, Order = 2001)]
         public virtual string Remarks { get; set; }
-        public string ApplicationId { get; set; } = CAppConstants.APPLICATION_ID;
+        [CAttributes(Visible = false)]
+        public virtual string ApplicationId { get; set; } = CAppConstants.APPLICATION_ID;
         public virtual void Execute() {
             
         }

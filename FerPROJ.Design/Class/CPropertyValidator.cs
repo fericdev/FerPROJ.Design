@@ -47,29 +47,25 @@ namespace FerPROJ.Design.Class {
             return false;
         }
         public bool DataValidationResult() {
-            DataValidation();
+            if (!DataValidation()) {
 
-            var sb = new StringBuilder();
+                var sb = new StringBuilder();
 
-            if (!string.IsNullOrEmpty(Error))
-                sb.AppendLine("Error 1: " + Error);
-            if (!string.IsNullOrEmpty(ErrorMessage))
-                sb.AppendLine("Error 2: " + ErrorMessage);
-            if (ErrorMessages.Length > 0)
-                sb.AppendLine("Error 3: " + ErrorMessages.ToString());
+                if (!string.IsNullOrEmpty(Error)) {
+                    sb.AppendLine("Error 1: " + Error);
+                }
+                if (!string.IsNullOrEmpty(ErrorMessage)) {
+                    sb.AppendLine("Error 2: " + ErrorMessage);
+                }
+                if (ErrorMessages.Length > 0) {
+                    sb.AppendLine("Error 3: " + ErrorMessages.ToString());
+                }
 
-            var result = sb.ToString();
+                var result = sb.ToString();
 
-            if (!result.IsNullOrEmpty()) {
-                throw new ArgumentException(sb.ToString());
-            }
-
-            if (!Success) {
-                throw new ArgumentException(Error);
-            }
-
-            if (this == null) {
-                throw new ArgumentNullException($"{this} is null!");
+                if (!result.IsNullOrEmpty()) {
+                    throw new ArgumentException(sb.ToString());
+                }
             }
 
             return true;

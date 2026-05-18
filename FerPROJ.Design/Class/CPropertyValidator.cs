@@ -47,7 +47,7 @@ namespace FerPROJ.Design.Class {
             return false;
         }
         public bool DataValidationResult() {
-            if (!DataValidation() || !Error.IsNullOrEmpty() || 
+            if (!DataValidation() || !Error.IsNullOrEmpty() || !Success ||
                 !ErrorMessage.IsNullOrEmpty() || ErrorMessages.Length > 0) {
 
                 var sb = new StringBuilder();

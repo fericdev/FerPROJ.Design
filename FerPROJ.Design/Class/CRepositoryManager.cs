@@ -41,6 +41,33 @@ namespace FerPROJ.DBHelper.DBCrud {
             }
         }
         public static async Task<TResult> ExecuteApiMethodAsync<TResult>(
+            string repositoryTypeName,
+            string methodName,
+            params object[] parameters) {
+
+            var method = ResolveMethod(repositoryTypeName, methodName, parameters);
+
+            if (method == null)
+                throw new InvalidOperationException("Method not found.");
+
+            var instance = Activator.CreateInstance(ResolveType(repositoryTypeName));
+
+            var finalParameters = BuildParameterList(method, parameters);
+
+            var taskObject = method.Invoke(instance, finalParameters);
+
+            if (taskObject is Task<TResult> typedTask)
+                return await typedTask;
+
+            if (taskObject is Task nonGenericTask) {
+                await nonGenericTask;
+                return default;
+            }
+
+            throw new InvalidOperationException("Method must return Task or Task<TResult>.");
+
+        }
+        public static async Task<TResult> ExecuteApiMethodAsync<TResult>(
             Type repositoryType,
             string methodName,
             params object[] parameters) {
@@ -144,6 +171,15 @@ namespace FerPROJ.DBHelper.DBCrud {
             return Expression.Lambda(body, parameter);
         }
         private static MethodInfo ResolveMethod(
+            string repositoryTypeName,
+            string methodName,
+            object[] parameters) {
+
+            var repoType = ResolveType(repositoryTypeName);
+
+            return ResolveMethod(repoType, methodName, parameters);
+        }
+        private static MethodInfo ResolveMethod(
             Type repositoryType,
             string methodName,
             object[] parameters) {
@@ -216,6 +252,12 @@ namespace FerPROJ.DBHelper.DBCrud {
                 return Activator.CreateInstance(type);
 
             return null;
+        }
+        private static Type ResolveType(string typeName) {
+            return AppDomain.CurrentDomain
+                .GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .FirstOrDefault(t => t.FullName == typeName);
         }
         public enum FilterOperator {
             Equal,

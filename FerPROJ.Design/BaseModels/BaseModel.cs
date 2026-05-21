@@ -14,6 +14,7 @@ namespace FerPROJ.Design.BaseModels {
     {
         protected BaseModel() {
             Execute();
+            ExecuteAsync().RunTaskAndForget();
         }
         [CAttributes(Visible = false, Order = 1)]
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -45,6 +46,9 @@ namespace FerPROJ.Design.BaseModels {
         public virtual string ApplicationId { get; set; } = CAppConstants.APPLICATION_ID;
         public virtual void Execute() {
             
+        }
+        public virtual async Task ExecuteAsync() {
+        
         }
         public override bool DataValidation() {
             Execute();
@@ -92,12 +96,18 @@ namespace FerPROJ.Design.BaseModels {
     }
     public abstract class BaseModelItem : CPropertyValidator 
     {
+        protected BaseModelItem() {
+            ExecuteAsync().RunTaskAndForget();
+        }
         [CAttributes(Visible = false)]
         public Guid Id { get; set; } = Guid.NewGuid();
         [CAttributes(Visible = false)]
         public Guid? ParentId { get; set; }
         [CAttributes(Visible = false)]
         public virtual string Description { get; set; }
+        public virtual async Task ExecuteAsync() {
+
+        }
     }
     public class RemarksModel : BaseModel {
         public Type RepositoryType { get; set; }

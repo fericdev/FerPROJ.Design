@@ -85,6 +85,14 @@ namespace FerPROJ.Design.Class {
                 return Task.FromResult(!id.IsNullOrEmpty());
             }
         }
+        public static Task<bool> SelectApiAsync<TModel, TEntity, TRepository>(out Guid id, Expression<Func<TEntity, bool>> searchParameter = null) where TModel : BaseModel {
+            using (var frm = new FrmListGridKryptonLoadApi<TModel, TEntity>(typeof(TRepository), new CrudOptions(), searchParameter)) {
+                frm.CurrentManageMode = false;
+                frm.ShowDialog();
+                id = frm.Form_IdTracks?.Select(c => c.To<Guid>()).FirstOrDefault() ?? Guid.Empty;
+                return Task.FromResult(!id.IsNullOrEmpty());
+            }
+        }
 
         public static Task<bool> SelectsAsync<TModel, TEntity, TRepository>(out List<Guid> ids, Expression<Func<TEntity, bool>> searchParameter = null) where TModel : BaseModel {
             using (var frm = new FrmListGridKryptonLoad<TModel, TEntity>(typeof(TRepository), new CrudOptions(), searchParameter)) {

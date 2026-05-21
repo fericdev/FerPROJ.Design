@@ -134,7 +134,7 @@ namespace FerPROJ.Design.Class {
                 return JsonConvert.DeserializeObject<T>(json);
             }
             catch {
-                throw new Exception("Invalid JSON response: " + json);
+                return json.To<T>();
             }
         }
     }

@@ -74,9 +74,15 @@ namespace FerPROJ.Design.BaseModels {
             if (Items.Contains(item))
                 return;
 
+            if (!item.DataValidationResult())
+                return;
+
             Items.Add(item);
         }
         public virtual void UpdateItem(TItem item) {
+            if (!item.DataValidationResult())
+                return;
+
             var existingItem = Items.FirstOrDefault(i => i.Id == item.Id);
             if (!existingItem.IsNullOrEmpty()) {
                 var index = Items.IndexOf(existingItem);

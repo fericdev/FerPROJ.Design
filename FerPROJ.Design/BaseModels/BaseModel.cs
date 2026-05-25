@@ -55,8 +55,7 @@ namespace FerPROJ.Design.BaseModels {
             return true;
         }
     }
-    public abstract class BaseFormModel<TItem> : BaseModel where TItem : BaseModelItem
-    {
+    public abstract class BaseFormModel : BaseModel {
         [CAttributes(Order = 2)]
         public override string FormId { get => base.Name; set => base.Name = value; }
         [CAttributes(Visible = false)]
@@ -67,6 +66,9 @@ namespace FerPROJ.Design.BaseModels {
         public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
         [CAttributes(Header = "Transaction Status", Order = 2000)]
         public virtual string FinalizeStatus { get; set; } = FinalizeStatusTypes.Processing.ToString();
+    }
+    public abstract class BaseFormModel<TItem> : BaseFormModel where TItem : BaseModelItem
+    {
         public virtual List<TItem> Items { get; set; } = new List<TItem>();
         public override bool DataValidation() {
             if (Items.IsNullOrEmpty()) {

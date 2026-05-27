@@ -12,8 +12,10 @@ namespace FerPROJ.Design.Controls {
         public string AddButtonText { get; set; } = "Add";
         public ToolStripButton EditButton { get; set; }
         public string EditButtonText { get; set; } = "Edit";
+        public bool EditButtonEnabled { get; set; } = true;
         public ToolStripButton DeleteButton { get; set; }
         public string DeleteButtonText { get; set; } = "Delete";
+        public bool DeleteButtonEnabled { get; set; } = true;
         public ToolStripButton RefreshButton { get; set; }
         public string RefreshButtonText { get; set; } = "Refresh";
         // Separator
@@ -78,10 +80,14 @@ namespace FerPROJ.Design.Controls {
             // Add buttons to the ToolStrip
             Items.Add(sAdd);
             Items.Add(AddButton);
-            Items.Add(sEdit);
-            Items.Add(EditButton);
-            Items.Add(sDelete);
-            Items.Add(DeleteButton);
+            if (EditButtonEnabled) {
+                Items.Add(sEdit);
+                Items.Add(EditButton);
+            }
+            if (DeleteButtonEnabled) {
+                Items.Add(sDelete);
+                Items.Add(DeleteButton);
+            }
             Items.Add(RefreshButton);
         }
 

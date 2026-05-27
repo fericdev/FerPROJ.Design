@@ -85,6 +85,17 @@ namespace FerPROJ.Design.BaseModels {
 
             Items.Add(item);
         }
+        public virtual void AddItems(List<TItem> items) {
+            if (items.IsNullOrEmpty()) {
+                return;
+            }
+
+            Items.Clear();
+
+            foreach (var item in items) {
+                AddItem(item);
+            }
+        }
         public virtual void UpdateItem(TItem item) {
             if (!item.DataValidationResult())
                 return;

@@ -127,11 +127,17 @@ namespace FerPROJ.Design.Class {
 
         // 🔹 SAFE DESERIALIZATION
         private static T Deserialize<T>(string json) {
-            if (string.IsNullOrWhiteSpace(json))
+            if (json.IsNullOrEmpty()) {
                 return default;
+            }
 
             try {
-                return JsonConvert.DeserializeObject<T>(json);
+                var settings = new JsonSerializerSettings {
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                    NullValueHandling = NullValueHandling.Ignore,
+                };
+
+                return JsonConvert.DeserializeObject<T>(json, settings);
             }
             catch {
                 return json.To<T>();

@@ -1432,6 +1432,131 @@ namespace FerPROJ.Design.Class {
             FrmSplasherLoading.CloseSplash();
         }
 
+        public static async Task LoadItemDataApiAsync<TModel, TEntity, TRepository>(
+            this BindingSource bindingSource,
+            Expression<Func<TEntity, bool>> searchParameterEntity = null,
+            Func<TModel, bool> searchParameterModel = null) {
+
+            var dgv = GetBoundDataGridView(FindControlByBindingSource(bindingSource), bindingSource);
+
+            dgv?.ApplyCustomAttribute(typeof(TModel));
+
+            await FrmSplasherLoading.ShowSplashAsync();
+
+            var data = new List<TModel>();
+
+            var repositoryType = typeof(TRepository);
+
+            if (!searchParameterEntity.IsNullOrEmpty()) {
+                // Fetch all data asynchronously
+                var result = await CRepositoryManager.ExecuteApiMethodAsync<IEnumerable<TModel>>(
+                    repositoryType,
+                    "GetViewModelItemWithSearchAsync",
+                    searchParameterEntity,
+                    null,
+                    int.MaxValue
+                );
+
+                // Fetch all data asynchronously
+                data = result.ToList();
+            }
+            else {
+                // Fetch all data asynchronously
+                var result = await CRepositoryManager.ExecuteApiMethodAsync<IEnumerable<TModel>>(
+                    repositoryType,
+                    "GetViewModelItemWithSearchAsync",
+                    null,
+                    int.MaxValue
+                );
+
+                // Fetch all data asynchronously
+                data = result.ToList();
+            }
+
+            if (!searchParameterModel.IsNullOrEmpty()) {
+                data = data.Where(searchParameterModel).ToList();
+            }
+
+            // Clear
+            bindingSource.Clear();
+
+            if (data.IsNullOrEmpty()) {
+                FrmSplasherLoading.CloseSplash();
+                return;
+            }
+
+            Func<BackgroundWorker, DoWorkEventArgs, Task> doWorkAsync = async (worker, e) => {
+                int batchSize = 100;
+                int total = data.Count;
+                int currentIndex = 0;
+
+                // Check if total data is less than batch size
+                if (total <= batchSize) {
+                    // Load all data at once if less than batch size
+                    worker.ReportProgress(100, data);
+
+                }
+                else {
+                    // Load data in batches
+                    while (currentIndex < total) {
+
+                        var batch = data.Skip(currentIndex).Take(batchSize).ToList();
+
+                        currentIndex += batchSize;
+
+                        int progress = (int)((double)currentIndex / total * 100);
+
+                        worker.ReportProgress(progress, batch);
+
+                    }
+                }
+            };
+
+            Func<ProgressChangedEventArgs, Task> progressChangedAsync = async (e) => {
+                var batch = (List<TModel>)e.UserState;
+
+                // Suspend updates for smoother performance
+                bindingSource.SuspendBinding();
+
+                // Append new batch to existing data
+                var currentData = bindingSource.DataSource as List<TModel>;
+
+                // If not null add new batch to existing
+                if (currentData?.Count > 0) {
+                    currentData.AddRange(batch);  // Add new batch
+                }
+                else {
+                    // First batch initialization
+                    bindingSource.DataSource = new List<TModel>(batch);
+                }
+
+                bindingSource.ResumeBinding();
+
+                // Offload UI updates
+                if (e.ProgressPercentage == 100) {
+                    bindingSource.ResetBindings(false);
+                }
+
+                Console.WriteLine($"{batch.Count} items added to DataSource.");
+
+                await Task.CompletedTask;
+
+            };
+
+            Func<RunWorkerCompletedEventArgs, Task> workerCompletedAsync = async (e) => {
+
+                Console.WriteLine("All data loaded without freezing the UI.");
+
+                await Task.CompletedTask;
+            };
+
+            await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
+
+            dgv?.ApplyRowValueFormatting(typeof(TModel));
+
+            FrmSplasherLoading.CloseSplash();
+        }
+
         #region Control 
         private static Control FindControlByBindingSource(BindingSource bindingSource) {
             foreach (Form form in Application.OpenForms) {

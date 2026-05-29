@@ -303,10 +303,10 @@ namespace FerPROJ.Design.Class {
                         <body>
                             <div class='report-paper {(model.IsLandscape ? "landscape" : "portrait")}'>
                                 <div class='report-title-container'>
-                                    <img src='{model.Company.CompanyLogoUrl}' class='report-logo' />
+                                    <img style='display: {(model.ShowCompanyHeader ? "block" : "none")}' src='{model.Company.CompanyLogoUrl}' class='report-logo' />
                                     <div class='company-info'>
                                         <h1><strong>{model.ReportTitle}</strong></h1>
-                                        <div class='company-details'>
+                                        <div style='display: { (model.ShowCompanyHeader ? "block" : "none") }' class='company-details'>
                                             <div>Contact: {model.Company.CompanyContactNo}</div>
                                             <div>Email: {model.Company.CompanyEmail}</div>
                                             <div>Address: {model.Company.CompanyAddress}</div>
@@ -477,6 +477,7 @@ namespace FerPROJ.Design.Class {
     #region model
     public class HtmlReportModel {
         public bool IsLandscape { get; set; }
+        public bool ShowCompanyHeader { get; set; } = true;
         public string ReportTitle { get; set; }
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }

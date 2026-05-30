@@ -17,17 +17,22 @@ namespace FerPROJ.Design.Controls {
         public ToolStripButton DeleteButton { get; set; }
         public string DeleteButtonText { get; set; } = "Delete";
         public bool DeleteButtonEnabled { get; set; } = true;
+        public ToolStripButton PrintButton { get; set; }
+        public string PrintButtonText { get; set; } = "Print";
+        public bool PrintButtonEnabled { get; set; } = true;
         public ToolStripButton RefreshButton { get; set; }
         public string RefreshButtonText { get; set; } = "Refresh";
         // Separator
         public ToolStripSeparator sAdd { get; set; } = new ToolStripSeparator();
         public ToolStripSeparator sEdit { get; set; } = new ToolStripSeparator();
         public ToolStripSeparator sDelete { get; set; } = new ToolStripSeparator();
+        public ToolStripSeparator sPrint { get; set; } = new ToolStripSeparator();
 
         // Add event for the button click
         public event EventHandler AddButtonClick;
         public event EventHandler EditButtonClick;
         public event EventHandler DeleteButtonClick;
+        public event EventHandler PrintButtonClick;
         public event EventHandler RefreshButtonClick;
 
         public CToolstrip() {
@@ -62,6 +67,13 @@ namespace FerPROJ.Design.Controls {
             DeleteButton.Name = "tsbDelete";
             DeleteButton.Click += (sender, e) => OnDeleteButtonClick();
 
+            // Print Button
+            PrintButton = new ToolStripButton("Print", Properties.Resources.Custom_Icon_Design_Flatastic_9_Login_512); // Replace Properties.Resources.PrintIcon with your own image
+            PrintButton.ToolTipText = PrintButtonText;
+            PrintButton.Text = PrintButtonText;
+            PrintButton.Name = "tsbPrint";
+            PrintButton.Click += (sender, e) => OnPrintButtonClick();
+
             // refresh Button
             RefreshButton = new ToolStripButton("Refresh", Properties.Resources.RefreshIcon); // Replace Properties.Resources.DeleteIcon with your own image
             RefreshButton.ToolTipText = RefreshButtonText;
@@ -91,6 +103,10 @@ namespace FerPROJ.Design.Controls {
                 Items.Add(sDelete);
                 Items.Add(DeleteButton);
             }
+            if (PrintButtonEnabled) {
+                Items.Add(sPrint);
+                Items.Add(PrintButton);
+            }
             Items.Add(RefreshButton);
         }
 
@@ -101,6 +117,10 @@ namespace FerPROJ.Design.Controls {
         private void OnEditButtonClick() {
             // Raise the AddButtonClick event with the identifier
             EditButtonClick?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnPrintButtonClick() {
+            // Raise the PrintButtonClick event with the identifier
+            PrintButtonClick?.Invoke(this, EventArgs.Empty);
         }
         private void OnDeleteButtonClick() {
             // Raise the AddButtonClick event with the identifier

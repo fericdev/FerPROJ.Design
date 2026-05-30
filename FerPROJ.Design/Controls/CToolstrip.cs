@@ -10,6 +10,7 @@ namespace FerPROJ.Design.Controls {
     public class CToolstrip : ToolStrip{
         public ToolStripButton AddButton { get; set; }
         public string AddButtonText { get; set; } = "Add";
+        public bool AddButtonEnabled { get; set; } = true;
         public ToolStripButton EditButton { get; set; }
         public string EditButtonText { get; set; } = "Edit";
         public bool EditButtonEnabled { get; set; } = true;
@@ -78,8 +79,10 @@ namespace FerPROJ.Design.Controls {
             RefreshButton.Alignment = ToolStripItemAlignment.Right;
 
             // Add buttons to the ToolStrip
-            Items.Add(sAdd);
-            Items.Add(AddButton);
+            if (AddButtonEnabled) {
+                Items.Add(sAdd);
+                Items.Add(AddButton);
+            }
             if (EditButtonEnabled) {
                 Items.Add(sEdit);
                 Items.Add(EditButton);

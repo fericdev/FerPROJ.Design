@@ -1312,10 +1312,6 @@ namespace FerPROJ.Design.Class {
 
             dgv?.ApplyCustomAttribute(typeof(TModel));
 
-            await FrmSplasherLoading.ShowSplashAsync();
-
-            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
-
             var data = new List<TModel>();
 
             var repositoryType = typeof(TRepository);
@@ -1430,8 +1426,6 @@ namespace FerPROJ.Design.Class {
             await CBackgroundTaskManager.RunWithProgressAsync(doWorkAsync, progressChangedAsync, workerCompletedAsync);
 
             dgv?.ApplyRowValueFormatting(typeof(TModel));
-
-            FrmSplasherLoading.CloseSplash();
         }
 
         public static async Task LoadItemDataApiAsync<TModel, TEntity, TRepository>(
@@ -1443,10 +1437,6 @@ namespace FerPROJ.Design.Class {
 
             dgv?.ApplyCustomAttribute(typeof(TModel));
 
-            await FrmSplasherLoading.ShowSplashAsync();
-
-            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
-
             var data = new List<TModel>();
 
             var repositoryType = typeof(TRepository);
@@ -1558,7 +1548,6 @@ namespace FerPROJ.Design.Class {
 
             dgv?.ApplyRowValueFormatting(typeof(TModel));
 
-            FrmSplasherLoading.CloseSplash();
         }
 
         public static async Task LoadDataApiAsync<TModel, TEntity, TRepository>(
@@ -1569,10 +1558,6 @@ namespace FerPROJ.Design.Class {
             var dgv = GetBoundDataGridView(FindControlByBindingSource(bindingSource), bindingSource);
 
             dgv?.ApplyCustomAttribute(typeof(TModel));
-
-            await FrmSplasherLoading.ShowSplashAsync();
-
-            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
 
             var data = new List<TModel>();
 
@@ -1689,7 +1674,6 @@ namespace FerPROJ.Design.Class {
 
             dgv?.ApplyRowValueFormatting(typeof(TModel));
 
-            FrmSplasherLoading.CloseSplash();
         }
 
         #region Control 

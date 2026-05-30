@@ -28,6 +28,7 @@
             System.Windows.Forms.Label companyEmailLabel;
             System.Windows.Forms.Label companyContactNoLabel;
             System.Windows.Forms.Label companyAddressLabel;
+            System.Windows.Forms.Label label1;
             this.companyModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameCTextBoxKrypton = new FerPROJ.Design.Controls.CTextBoxKrypton();
             this.companyEmailCTextBoxKrypton = new FerPROJ.Design.Controls.CTextBoxKrypton();
@@ -35,10 +36,12 @@
             this.companyAddressCTextBoxKrypton = new FerPROJ.Design.Controls.CTextBoxKrypton();
             this.companyLogoCTextBoxKrypton = new FerPROJ.Design.Controls.CTextBoxKrypton();
             this.selectLogoLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.cTextBoxKrypton1 = new FerPROJ.Design.Controls.CTextBoxKrypton();
             nameLabel = new System.Windows.Forms.Label();
             companyEmailLabel = new System.Windows.Forms.Label();
             companyContactNoLabel = new System.Windows.Forms.Label();
             companyAddressLabel = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
             this.basePnl2.SuspendLayout();
             this.PanelMain3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.companyModelBindingSource)).BeginInit();
@@ -46,7 +49,7 @@
             // 
             // basePnl2
             // 
-            this.basePnl2.Location = new System.Drawing.Point(223, 1);
+            this.basePnl2.Location = new System.Drawing.Point(218, 1);
             // 
             // baseButtonUpdate
             // 
@@ -62,6 +65,8 @@
             // 
             // PanelMain3
             // 
+            this.PanelMain3.Controls.Add(label1);
+            this.PanelMain3.Controls.Add(this.cTextBoxKrypton1);
             this.PanelMain3.Controls.Add(this.selectLogoLinkLabel);
             this.PanelMain3.Controls.Add(this.companyLogoCTextBoxKrypton);
             this.PanelMain3.Controls.Add(companyAddressLabel);
@@ -72,7 +77,7 @@
             this.PanelMain3.Controls.Add(this.companyEmailCTextBoxKrypton);
             this.PanelMain3.Controls.Add(nameLabel);
             this.PanelMain3.Controls.Add(this.nameCTextBoxKrypton);
-            this.PanelMain3.Size = new System.Drawing.Size(458, 375);
+            this.PanelMain3.Size = new System.Drawing.Size(453, 439);
             // 
             // baseButtonAddNew
             // 
@@ -80,7 +85,7 @@
             // 
             // panelMain1
             // 
-            this.panelMain1.Size = new System.Drawing.Size(458, 73);
+            this.panelMain1.Size = new System.Drawing.Size(453, 73);
             // 
             // nameLabel
             // 
@@ -96,7 +101,7 @@
             // 
             companyEmailLabel.AutoSize = true;
             companyEmailLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            companyEmailLabel.Location = new System.Drawing.Point(44, 85);
+            companyEmailLabel.Location = new System.Drawing.Point(44, 148);
             companyEmailLabel.Name = "companyEmailLabel";
             companyEmailLabel.Size = new System.Drawing.Size(140, 19);
             companyEmailLabel.TabIndex = 2;
@@ -106,7 +111,7 @@
             // 
             companyContactNoLabel.AutoSize = true;
             companyContactNoLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            companyContactNoLabel.Location = new System.Drawing.Point(44, 154);
+            companyContactNoLabel.Location = new System.Drawing.Point(44, 217);
             companyContactNoLabel.Name = "companyContactNoLabel";
             companyContactNoLabel.Size = new System.Drawing.Size(185, 19);
             companyContactNoLabel.TabIndex = 4;
@@ -116,11 +121,21 @@
             // 
             companyAddressLabel.AutoSize = true;
             companyAddressLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            companyAddressLabel.Location = new System.Drawing.Point(44, 218);
+            companyAddressLabel.Location = new System.Drawing.Point(44, 281);
             companyAddressLabel.Name = "companyAddressLabel";
             companyAddressLabel.Size = new System.Drawing.Size(160, 19);
             companyAddressLabel.TabIndex = 6;
             companyAddressLabel.Text = "Company Address:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label1.Location = new System.Drawing.Point(44, 83);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(151, 19);
+            label1.TabIndex = 11;
+            label1.Text = "Company Branch:";
             // 
             // companyModelBindingSource
             // 
@@ -158,7 +173,7 @@
             // companyEmailCTextBoxKrypton
             // 
             this.companyEmailCTextBoxKrypton.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.companyModelBindingSource, "CompanyEmail", true));
-            this.companyEmailCTextBoxKrypton.Location = new System.Drawing.Point(48, 107);
+            this.companyEmailCTextBoxKrypton.Location = new System.Drawing.Point(48, 170);
             this.companyEmailCTextBoxKrypton.Name = "companyEmailCTextBoxKrypton";
             this.companyEmailCTextBoxKrypton.Size = new System.Drawing.Size(367, 29);
             this.companyEmailCTextBoxKrypton.StateActive.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -187,7 +202,7 @@
             // companyContactNoCTextBoxKrypton
             // 
             this.companyContactNoCTextBoxKrypton.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.companyModelBindingSource, "CompanyContactNo", true));
-            this.companyContactNoCTextBoxKrypton.Location = new System.Drawing.Point(48, 176);
+            this.companyContactNoCTextBoxKrypton.Location = new System.Drawing.Point(48, 239);
             this.companyContactNoCTextBoxKrypton.Name = "companyContactNoCTextBoxKrypton";
             this.companyContactNoCTextBoxKrypton.Size = new System.Drawing.Size(367, 29);
             this.companyContactNoCTextBoxKrypton.StateActive.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -216,7 +231,7 @@
             // companyAddressCTextBoxKrypton
             // 
             this.companyAddressCTextBoxKrypton.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.companyModelBindingSource, "CompanyAddress", true));
-            this.companyAddressCTextBoxKrypton.Location = new System.Drawing.Point(48, 240);
+            this.companyAddressCTextBoxKrypton.Location = new System.Drawing.Point(48, 303);
             this.companyAddressCTextBoxKrypton.Name = "companyAddressCTextBoxKrypton";
             this.companyAddressCTextBoxKrypton.Size = new System.Drawing.Size(367, 29);
             this.companyAddressCTextBoxKrypton.StateActive.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -245,7 +260,7 @@
             // companyLogoCTextBoxKrypton
             // 
             this.companyLogoCTextBoxKrypton.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.companyModelBindingSource, "CompanyLogoUrl", true));
-            this.companyLogoCTextBoxKrypton.Location = new System.Drawing.Point(48, 308);
+            this.companyLogoCTextBoxKrypton.Location = new System.Drawing.Point(48, 369);
             this.companyLogoCTextBoxKrypton.Name = "companyLogoCTextBoxKrypton";
             this.companyLogoCTextBoxKrypton.Size = new System.Drawing.Size(367, 29);
             this.companyLogoCTextBoxKrypton.StateActive.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -275,7 +290,7 @@
             // 
             this.selectLogoLinkLabel.AutoSize = true;
             this.selectLogoLinkLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.selectLogoLinkLabel.Location = new System.Drawing.Point(44, 286);
+            this.selectLogoLinkLabel.Location = new System.Drawing.Point(44, 347);
             this.selectLogoLinkLabel.Name = "selectLogoLinkLabel";
             this.selectLogoLinkLabel.Size = new System.Drawing.Size(134, 19);
             this.selectLogoLinkLabel.TabIndex = 10;
@@ -283,11 +298,40 @@
             this.selectLogoLinkLabel.Text = "Company Logo:";
             this.selectLogoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.selectLogoLinkLabel_LinkClicked);
             // 
+            // cTextBoxKrypton1
+            // 
+            this.cTextBoxKrypton1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.companyModelBindingSource, "ApplicationId", true));
+            this.cTextBoxKrypton1.Location = new System.Drawing.Point(48, 105);
+            this.cTextBoxKrypton1.Name = "cTextBoxKrypton1";
+            this.cTextBoxKrypton1.Size = new System.Drawing.Size(367, 29);
+            this.cTextBoxKrypton1.StateActive.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.cTextBoxKrypton1.StateActive.Border.Color1 = System.Drawing.Color.DarkGray;
+            this.cTextBoxKrypton1.StateActive.Border.Color2 = System.Drawing.Color.White;
+            this.cTextBoxKrypton1.StateActive.Border.Rounding = 10F;
+            this.cTextBoxKrypton1.StateActive.Content.Color1 = System.Drawing.Color.Black;
+            this.cTextBoxKrypton1.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.cTextBoxKrypton1.StateCommon.Border.Color1 = System.Drawing.Color.White;
+            this.cTextBoxKrypton1.StateCommon.Border.Color2 = System.Drawing.Color.White;
+            this.cTextBoxKrypton1.StateCommon.Border.Rounding = 10F;
+            this.cTextBoxKrypton1.StateCommon.Content.Color1 = System.Drawing.Color.Black;
+            this.cTextBoxKrypton1.StateDisabled.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.cTextBoxKrypton1.StateDisabled.Border.Color1 = System.Drawing.Color.White;
+            this.cTextBoxKrypton1.StateDisabled.Border.Color2 = System.Drawing.Color.White;
+            this.cTextBoxKrypton1.StateDisabled.Border.Rounding = 10F;
+            this.cTextBoxKrypton1.StateDisabled.Content.Color1 = System.Drawing.Color.Black;
+            this.cTextBoxKrypton1.StateNormal.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.cTextBoxKrypton1.StateNormal.Border.Color1 = System.Drawing.Color.White;
+            this.cTextBoxKrypton1.StateNormal.Border.Color2 = System.Drawing.Color.White;
+            this.cTextBoxKrypton1.StateNormal.Border.Rounding = 10F;
+            this.cTextBoxKrypton1.StateNormal.Content.Color1 = System.Drawing.Color.Black;
+            this.cTextBoxKrypton1.TabIndex = 12;
+            this.cTextBoxKrypton1.Text = "cTextBoxKrypton1";
+            // 
             // FrmCompany
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 533);
+            this.ClientSize = new System.Drawing.Size(467, 597);
             this.CurrentFormMode = FerPROJ.Design.Class.CBaseEnums.FormMode.Add;
             this.Name = "FrmCompany";
             this.StateCommon.Back.Color1 = System.Drawing.Color.RoyalBlue;
@@ -315,5 +359,6 @@
         private Controls.CTextBoxKrypton nameCTextBoxKrypton;
         private Controls.CTextBoxKrypton companyLogoCTextBoxKrypton;
         private System.Windows.Forms.LinkLabel selectLogoLinkLabel;
+        private Controls.CTextBoxKrypton cTextBoxKrypton1;
     }
 }

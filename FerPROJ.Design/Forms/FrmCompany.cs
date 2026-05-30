@@ -31,6 +31,7 @@ namespace FerPROJ.Design.Forms {
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyEmail), model.CompanyEmail, "CompanyConfig");
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyLogoUrl), model.CompanyLogoUrl, "CompanyConfig");
             CConfigurationManager.CreateOrSetValue("CompanyName", model.Name, "CompanyConfig");
+            CConfigurationManager.CreateOrSetValue("ApplicationId", model.ApplicationId, "CompanyConfig");
             CDialogManager.Info("Company Configuration Updated Successfully!", "Info");
             return true;
         }

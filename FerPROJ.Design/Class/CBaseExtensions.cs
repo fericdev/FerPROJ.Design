@@ -1090,6 +1090,16 @@ namespace FerPROJ.Design.Class {
             }
             return text.Substring(0, length);
         }
+        public static string GetLettersBeforeSeparator(this string text, char separator) {
+            if (string.IsNullOrEmpty(text)) {
+                return string.Empty;
+            }
+            int index = text.IndexOf(separator);
+            if (index > 0) {
+                return text.Substring(0, index);
+            }
+            return text; // Return full text if separator not found
+        }
         public static string GetLastLetter(this string text) {
             if (string.IsNullOrEmpty(text)) {
                 return string.Empty;

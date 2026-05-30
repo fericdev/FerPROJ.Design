@@ -1314,6 +1314,8 @@ namespace FerPROJ.Design.Class {
 
             await FrmSplasherLoading.ShowSplashAsync();
 
+            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
+
             var data = new List<TModel>();
 
             var repositoryType = typeof(TRepository);
@@ -1443,6 +1445,8 @@ namespace FerPROJ.Design.Class {
 
             await FrmSplasherLoading.ShowSplashAsync();
 
+            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
+
             var data = new List<TModel>();
 
             var repositoryType = typeof(TRepository);
@@ -1567,6 +1571,8 @@ namespace FerPROJ.Design.Class {
             dgv?.ApplyCustomAttribute(typeof(TModel));
 
             await FrmSplasherLoading.ShowSplashAsync();
+
+            CAppConstants.SPLASHER_LAST_SHOWN = DateTime.Now;
 
             var data = new List<TModel>();
 

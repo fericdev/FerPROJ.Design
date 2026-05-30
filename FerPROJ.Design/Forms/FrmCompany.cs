@@ -29,9 +29,21 @@ namespace FerPROJ.Design.Forms {
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyAddress), model.CompanyAddress, "CompanyConfig");
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyContactNo), model.CompanyContactNo, "CompanyConfig");
             CConfigurationManager.CreateOrSetValue(nameof(model.CompanyEmail), model.CompanyEmail, "CompanyConfig");
+            CConfigurationManager.CreateOrSetValue(nameof(model.CompanyLogoUrl), model.CompanyLogoUrl, "CompanyConfig");
             CConfigurationManager.CreateOrSetValue("CompanyName", model.Name, "CompanyConfig");
             CDialogManager.Info("Company Configuration Updated Successfully!", "Info");
             return true;
+        }
+
+        private void selectLogoLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            using (OpenFileDialog ofd = new OpenFileDialog()) {
+                ofd.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tif;*.tiff;*.ico;*.webp)|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tif;*.tiff;*.ico;*.webp|All Files (*.*)|*.*";
+
+                if (ofd.ShowDialog() == DialogResult.OK) {
+                    model.CompanyLogoUrl = ofd.FileName;
+                    companyModelBindingSource.ResetBindings(false);
+                }
+            }
         }
     }
 }

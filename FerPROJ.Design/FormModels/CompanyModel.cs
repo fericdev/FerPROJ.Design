@@ -12,7 +12,8 @@ namespace FerPROJ.Design.FormModels {
         public string CompanyAddress { get; set; } = CConfigurationManager.GetValue("CompanyAddress", "CompanyConfig");
         public string CompanyContactNo { get; set; } = CConfigurationManager.GetValue("CompanyContactNo", "CompanyConfig");
         public string CompanyEmail { get; set; } = CConfigurationManager.GetValue("CompanyEmail", "CompanyConfig");
-        public string CompanyLogoUrl { get; set; } = CAccessManager.GetOrCreateEnvironmentPath("default.webp", "Assets/Img");
+        public string CompanyLogoUrl { get; set; } = CConfigurationManager.GetValue("CompanyLogoUrl", "CompanyConfig");
+        public string CompanyDefaultLogoUrl { get; set; } = CAccessManager.GetOrCreateEnvironmentPath("default.webp", "Assets/Img");
 
         public override bool DataValidation() {
             throw new NotImplementedException();

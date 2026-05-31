@@ -1,4 +1,6 @@
-﻿using FerPROJ.Design.Class;
+﻿using FerPROJ.DBHelper.DBCrud;
+using FerPROJ.Design.BaseModels;
+using FerPROJ.Design.Class;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +15,10 @@ using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmPicture : FrmManageKrypton {
-        private readonly byte[] _picture;
         private byte[] _tempPicture;
-        public byte[] NewPicture { get; set; }
-        public FrmPicture(byte[] picture) {
+        public PictureModel model { get; set; }
+        public FrmPicture() {
             InitializeComponent();
-            _picture = picture;
         }
         //
         protected override Task LoadComponentsAsync() {
@@ -26,8 +26,7 @@ namespace FerPROJ.Design.Forms {
                 case FormMode.Add:
                     break;
                 case FormMode.Update:
-                    pictureBoxImage.BackgroundImage = _picture.ToImage();
-                    NewPicture = _picture;
+                    pictureBoxImage.BackgroundImage = model.PictureImage;
                     break;
             }
             return Task.CompletedTask;
@@ -37,6 +36,7 @@ namespace FerPROJ.Design.Forms {
                 if (ofd.ShowDialog() == DialogResult.OK) {
                     string imagePath = ofd.FileName;
                     _tempPicture = File.ReadAllBytes(imagePath);
+                    model.Picture = _tempPicture;
                     pictureBoxImage.BackgroundImage = _tempPicture.ToImage();
                 }
             }
@@ -46,8 +46,7 @@ namespace FerPROJ.Design.Forms {
             return await Task.FromResult(true);
         }
         protected override async Task<bool> OnUpdateDataAsync() {
-            NewPicture = _tempPicture != null ? _tempPicture : _picture;
-            return await Task.FromResult(true);
+            return await CRepositoryManager.ExecuteApiMethodAsync<bool>(model.RepositoryType, "SavePictureAsync", model.Id, model.Picture, "Picture");
         }
     }
 }

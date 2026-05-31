@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -131,6 +132,20 @@ namespace FerPROJ.Design.BaseModels {
             }
             if (Remarks.IsNullOrEmpty()) {
                 return AddErrorMessage("Remarks is required.");
+            }
+            return base.DataValidation();
+        }
+    }
+    public class PictureModel : BaseModel {
+        public Type RepositoryType { get; set; }
+        public byte[] Picture { get; set; }
+        public Image PictureImage => Picture.ToImage();
+        public override bool DataValidation() {
+            if (RepositoryType.IsNullOrEmpty()) {
+                return AddErrorMessage("Repository Type is required.");
+            }
+            if (Picture.IsNullOrEmpty()) {
+                return AddErrorMessage("Picture is required.");
             }
             return base.DataValidation();
         }

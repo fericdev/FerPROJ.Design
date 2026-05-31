@@ -54,6 +54,7 @@
             // baseButtonAddNew
             // 
             this.baseButtonAddNew.FlatAppearance.BorderSize = 0;
+            this.baseButtonAddNew.Text = "Select Image";
             // 
             // pictureBoxImage
             // 
@@ -70,12 +71,20 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(740, 637);
+            this.CurrentFormMode = FerPROJ.Design.Class.CBaseEnums.FormMode.Add;
             this.HideHeader = true;
             this.HideSaveNewOnUpdate = false;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "FrmPicture";
             this.OnSaveNewName = "Select Image";
+            this.StateCommon.Back.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Border.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Back.Color2 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color1 = System.Drawing.Color.RoyalBlue;
+            this.StateCommon.Header.Border.Color2 = System.Drawing.Color.RoyalBlue;
             this.Text = "Picture";
             this.basePnl2.ResumeLayout(false);
             this.PanelMain3.ResumeLayout(false);

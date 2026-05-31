@@ -19,7 +19,7 @@ namespace FerPROJ.Design.Controls {
         public bool DeleteButtonEnabled { get; set; } = true;
         public ToolStripButton PrintButton { get; set; }
         public string PrintButtonText { get; set; } = "Print";
-        public bool PrintButtonEnabled { get; set; } = true;
+        public bool PrintButtonEnabled { get; set; } = false;
         public ToolStripButton RefreshButton { get; set; }
         public string RefreshButtonText { get; set; } = "Refresh";
         // Separator

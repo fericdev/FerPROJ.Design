@@ -70,8 +70,8 @@ namespace FerPROJ.Design.Class {
                 return true;
             }
         }
-        public static async Task<bool> ListApiAsync<TModel, TEntity, TRepository>(CrudOptions crudOption, Expression<Func<TEntity, bool>> searchParameter = null) where TModel : BaseModel {
-            using (var frm = new FrmListGridKryptonLoadApi<TModel, TEntity>(typeof(TRepository), crudOption, searchParameter)) {
+        public static async Task<bool> ListApiAsync<TModel, TEntity, TRepository>(CrudOptions crudOption, Expression<Func<TEntity, bool>> searchParameter = null, Func<TModel, bool> searchParameterModel = null) where TModel : BaseModel {
+            using (var frm = new FrmListGridKryptonLoadApi<TModel, TEntity>(typeof(TRepository), crudOption, searchParameter, searchParameterModel)) {
                 frm.ShowDialog();
                 return true;
             }

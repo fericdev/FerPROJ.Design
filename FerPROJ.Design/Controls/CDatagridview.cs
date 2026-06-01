@@ -145,6 +145,32 @@ namespace FerPROJ.Design.Controls
             // Handle the CellFormatting event to apply custom row color
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+            if (RowCount == 0)
+                return base.ProcessCmdKey(ref msg, keyData);
+
+            int visibleRows = DisplayedRowCount(false);
+
+            if (keyData == Keys.PageDown) {
+                int currentRow = CurrentCell?.RowIndex ?? 0;
+                int newRow = Math.Min(currentRow + visibleRows, RowCount - 1);
+
+                CurrentCell = Rows[newRow].Cells[CurrentCell?.ColumnIndex ?? 0];
+
+                return true;
+            }
+
+            if (keyData == Keys.PageUp) {
+                int currentRow = CurrentCell?.RowIndex ?? 0;
+                int newRow = Math.Max(currentRow - visibleRows, 0);
+
+                CurrentCell = Rows[newRow].Cells[CurrentCell?.ColumnIndex ?? 0];
+
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
     }
 }

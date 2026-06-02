@@ -399,6 +399,12 @@ namespace FerPROJ.Design.Class {
         public static string ToJoinedString<T>(this IEnumerable<T> values, string separator = ", ") {
             return string.Join(separator, values);
         }
+        public static List<T> ToList<T>(this string values, string separator = ", ") {
+            return values.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries)
+                         .Select(v => v.Trim())
+                         .Select(v => v.To<T>())
+                         .ToList();
+        }
         public static Guid ToGuid(this string value) {
             return value.To<Guid>();
         }

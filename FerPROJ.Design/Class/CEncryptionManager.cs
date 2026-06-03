@@ -6,31 +6,29 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FerPROJ.Design.Class
-{
-    public class CEncryptionManager
-    {
+namespace FerPROJ.Design.Class {
+    public class CEncryptionManager {
         #region Encrypt Text
-        public static string EncryptText(string plainText, string privateKey = null)
-        {
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Encoding.UTF8.GetBytes(GetKey(privateKey));
-                aesAlg.IV = new byte[aesAlg.BlockSize / 8]; // IV (Initialization Vector) can be random
+        public static string EncryptText(string plainText, string privateKey = null) {
+            try {
+                using (Aes aesAlg = Aes.Create()) {
+                    aesAlg.Key = Encoding.UTF8.GetBytes(GetKey(privateKey));
+                    aesAlg.IV = new byte[aesAlg.BlockSize / 8]; // IV (Initialization Vector) can be random
 
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+                    ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
-                using (MemoryStream msEncrypt = new MemoryStream())
-                {
-                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                    {
-                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(plainText);
+                    using (MemoryStream msEncrypt = new MemoryStream()) {
+                        using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write)) {
+                            using (StreamWriter swEncrypt = new StreamWriter(csEncrypt)) {
+                                swEncrypt.Write(plainText);
+                            }
                         }
+                        return Convert.ToBase64String(msEncrypt.ToArray());
                     }
-                    return Convert.ToBase64String(msEncrypt.ToArray());
                 }
+            }
+            catch {
+                return plainText;
             }
         }
         #endregion
@@ -54,28 +52,28 @@ namespace FerPROJ.Design.Class
         #endregion
 
         #region Decrypt Text
-        public static string DecryptText(string cipherText, string privateKey = null)
-        {
-            if (string.IsNullOrEmpty(cipherText)) {
-                return string.Empty;
-            }
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Encoding.UTF8.GetBytes(GetKey(privateKey));
-                aesAlg.IV = new byte[aesAlg.BlockSize / 8];
+        public static string DecryptText(string cipherText, string privateKey = null) {
+            try {
+                if (string.IsNullOrEmpty(cipherText)) {
+                    return string.Empty;
+                }
+                using (Aes aesAlg = Aes.Create()) {
+                    aesAlg.Key = Encoding.UTF8.GetBytes(GetKey(privateKey));
+                    aesAlg.IV = new byte[aesAlg.BlockSize / 8];
 
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                    ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-                using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-                            return srDecrypt.ReadToEnd();
+                    using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText))) {
+                        using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read)) {
+                            using (StreamReader srDecrypt = new StreamReader(csDecrypt)) {
+                                return srDecrypt.ReadToEnd();
+                            }
                         }
                     }
                 }
+            }
+            catch {
+                return string.Empty; // Return empty string if decryption fails
             }
         }
         #endregion

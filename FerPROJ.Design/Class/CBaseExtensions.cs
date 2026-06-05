@@ -396,6 +396,12 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Conversion
+        public static List<T> ToListFromJson<T>(this string json) {
+            return JsonConvert.DeserializeObject<List<T>>(json);
+        }
+        public static string ToJsonString<T>(this List<T> value) {
+            return JsonConvert.SerializeObject(value);
+        }
         public static string ToJoinedString<T>(this IEnumerable<T> values, string separator = ", ") {
             return string.Join(separator, values);
         }

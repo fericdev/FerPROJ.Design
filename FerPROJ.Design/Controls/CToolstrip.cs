@@ -11,6 +11,9 @@ namespace FerPROJ.Design.Controls {
         public ToolStripButton AddButton { get; set; }
         public string AddButtonText { get; set; } = "Add";
         public bool AddButtonEnabled { get; set; } = true;
+        public ToolStripButton Add1Button { get; set; }
+        public string Add1ButtonText { get; set; } = "Add";
+        public bool Add1ButtonEnabled { get; set; } = false;
         public ToolStripButton EditButton { get; set; }
         public string EditButtonText { get; set; } = "Edit";
         public bool EditButtonEnabled { get; set; } = true;
@@ -24,12 +27,14 @@ namespace FerPROJ.Design.Controls {
         public string RefreshButtonText { get; set; } = "Refresh";
         // Separator
         public ToolStripSeparator sAdd { get; set; } = new ToolStripSeparator();
+        public ToolStripSeparator sAdd1 { get; set; } = new ToolStripSeparator();
         public ToolStripSeparator sEdit { get; set; } = new ToolStripSeparator();
         public ToolStripSeparator sDelete { get; set; } = new ToolStripSeparator();
         public ToolStripSeparator sPrint { get; set; } = new ToolStripSeparator();
 
         // Add event for the button click
         public event EventHandler AddButtonClick;
+        public event EventHandler Add1ButtonClick;
         public event EventHandler EditButtonClick;
         public event EventHandler DeleteButtonClick;
         public event EventHandler PrintButtonClick;
@@ -52,6 +57,13 @@ namespace FerPROJ.Design.Controls {
             AddButton.Text = AddButtonText;
             AddButton.Name = "tsbAdd";
             AddButton.Click += (sender, e) => OnAddButtonClick();
+
+            // Add1 Button
+            Add1Button = new ToolStripButton("Add1", Properties.Resources.AddIcon); // Replace Properties.Resources.AddIcon with your own image
+            Add1Button.ToolTipText = Add1ButtonText;
+            Add1Button.Text = Add1ButtonText;
+            Add1Button.Name = "tsbAdd1";
+            Add1Button.Click += (sender, e) => OnAdd1ButtonClick();
 
             // Edit Button
             EditButton = new ToolStripButton("Edit", Properties.Resources.EditIcon); // Replace Properties.Resources.EditIcon with your own image
@@ -83,6 +95,7 @@ namespace FerPROJ.Design.Controls {
 
             // Set display style to show only images
             AddButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            Add1Button.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
             EditButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
             DeleteButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
             RefreshButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
@@ -94,6 +107,10 @@ namespace FerPROJ.Design.Controls {
             if (AddButtonEnabled) {
                 Items.Add(sAdd);
                 Items.Add(AddButton);
+            }
+            if (Add1ButtonEnabled) {
+                Items.Add(sAdd1);
+                Items.Add(Add1Button);
             }
             if (EditButtonEnabled) {
                 Items.Add(sEdit);
@@ -113,6 +130,10 @@ namespace FerPROJ.Design.Controls {
         private void OnAddButtonClick() {
             // Raise the AddButtonClick event with the identifier
             AddButtonClick?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnAdd1ButtonClick() {
+            // Raise the Add1ButtonClick event with the identifier
+            Add1ButtonClick?.Invoke(this, EventArgs.Empty);
         }
         private void OnEditButtonClick() {
             // Raise the AddButtonClick event with the identifier

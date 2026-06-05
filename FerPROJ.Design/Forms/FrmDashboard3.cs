@@ -16,12 +16,18 @@ namespace FerPROJ.Design.Forms {
         public ToolStripDropDownButton ParentToolStripDropDown {  get; set; }
         public FrmDashboard3() {
             InitializeComponent();
+            if (IsDesignMode) {
+                return;
+            }
             ParentToolStrip = tsMainSettings;
             ParentToolStripDropDown = tsMainDropDown;
             InitializeToolStripButtons();
         }
 
         private void FrmDashboard3_Load(object sender, EventArgs e) {
+            if (IsDesignMode) {
+                return;
+            }
             try {
                 //FrmSplasher.CloseSplash();
                 timerMain.Start();

@@ -661,9 +661,9 @@ namespace FerPROJ.Design.Forms {
             ButtonNameOther3 = _crudOptions?.Other3Name ?? "View Other 3";
             ButtonNameView = _crudOptions?.ViewName ?? "View";
             ButtonNameRemarks = _crudOptions?.RemarksName ?? "View Remarks";
-            this.Text = $"{_repositoryType.Name.ToStringWithSpaces()} List";
-            this.FormTitle = GetFormTitle();
-            this.FormDescription = GetFormDescription();
+            this.Text = _crudOptions.FormText.IsNullOrEmpty() ? $"{_repositoryType.Name.ToStringWithSpaces()} List" : _crudOptions.FormText;
+            this.FormTitle = _crudOptions.FormTitle.IsNullOrEmpty() ? GetFormTitle() : _crudOptions.FormTitle;
+            this.FormDescription = _crudOptions.FormDescription.IsNullOrEmpty() ? GetFormDescription() : _crudOptions.FormDescription;
             this.Height = GetFormSize(_crudOptions?.FormSizeType ?? FormSizeTypes.Default).Height;
             this.Width = GetFormSize(_crudOptions?.FormSizeType ?? FormSizeTypes.Default).Width;
         }
@@ -726,6 +726,9 @@ public class CrudOptions {
     public string RemarksName { get; set; }
 
     #region Utilities 
+    public string FormText { get; set; }
+    public string FormTitle { get; set; }
+    public string FormDescription { get; set; }
     public FormSizeTypes FormSizeType { get; set; } = FormSizeTypes.Default;
     public (string ColumnName, object ColumnValue, Color RowColor) RowColorOnRefreshParameters { get; set; }
     public List<string> HideColumnOnRefreshParameters { get; set; }

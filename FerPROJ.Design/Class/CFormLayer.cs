@@ -111,6 +111,15 @@ namespace FerPROJ.Design.Class {
             }
         }
 
+        public static Task<bool> SelectsAsync<TModel, TEntity, TRepository>(out List<Guid> ids, Expression<Func<TEntity, bool>> searchParameter, Func<TModel, bool> searchParameterModel) where TModel : BaseModel {
+            using (var frm = new FrmListGridKryptonLoad<TModel, TEntity>(typeof(TRepository), new CrudOptions(), searchParameter, searchParameterModel)) {
+                frm.CurrentManageMode = false;
+                frm.ShowDialog();
+                ids = frm.Form_IdTracks?.Select(c => c.To<Guid>()).ToList();
+                return Task.FromResult(!ids.IsNullOrEmpty());
+            }
+        }
+
         public static Task<(DateTime DateFrom, DateTime DateTo)> SelectDateRangeAsync() {
             using (var frm = new FrmReportFilter()) {
                 frm.ShowDialog();

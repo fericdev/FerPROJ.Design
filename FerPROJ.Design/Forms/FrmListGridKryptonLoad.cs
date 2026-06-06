@@ -14,8 +14,10 @@ using System.Threading.Tasks;
 namespace FerPROJ.Design.Forms {
     public class FrmListGridKryptonLoad<TModel, TEntity> : FrmListGridKrypton where TModel : BaseModel {
         private readonly Expression<Func<TEntity, bool>> _searchParameter;
-        public FrmListGridKryptonLoad(Type repoType, CrudOptions crudOptions, Expression<Func<TEntity, bool>> searchParameter = null) : base(repoType, crudOptions) {
+        private readonly Func<TModel, bool> _searchParameterModel;
+        public FrmListGridKryptonLoad(Type repoType, CrudOptions crudOptions, Expression<Func<TEntity, bool>> searchParameter = null, Func<TModel, bool> searchParameterModel = null) : base(repoType, crudOptions) {
             _searchParameter = searchParameter;
+            _searchParameterModel = searchParameterModel;
         }
         protected override async void tsbMainRefresh_Click(object sender, EventArgs e) {
             if (CEventManager<TEntity>.OnListFormRefreshNotNull) {
@@ -60,6 +62,11 @@ namespace FerPROJ.Design.Forms {
                     dataPage,
                     dataLimit
                 );
+
+                if (!_searchParameterModel.IsNullOrEmpty()) {
+                    result.ModelItems = result.ModelItems.Where(_searchParameterModel);
+                }
+
                 await _baseBindingSource.LoadDataAsync(
                     result.ModelItems,
                     ComboBoxKryptonPage,
@@ -79,6 +86,11 @@ namespace FerPROJ.Design.Forms {
                     dataPage,
                     dataLimit
                 );
+
+                if (!_searchParameterModel.IsNullOrEmpty()) {
+                    result.ModelItems = result.ModelItems.Where(_searchParameterModel);
+                }
+
                 await _baseBindingSource.LoadDataAsync(
                     result.ModelItems,
                     ComboBoxKryptonPage,

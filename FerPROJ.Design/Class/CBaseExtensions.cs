@@ -2256,27 +2256,45 @@ namespace FerPROJ.Design.Class {
             dgv.Invalidate();
         }
 
-        public static void TrackChangesAndCallMethod(this CDataGridView dgv, Func<Task> onColumnValueChanged) {
+        public static void TrackChangesAndCallMethod(
+            this CDataGridView dgv,
+            Func<Task> onColumnValueChanged) {
+
             if (dgv == null) {
-                throw new ArgumentNullException(nameof(dgv));
+                return;
             }
 
             if (onColumnValueChanged == null) {
-                throw new ArgumentNullException(nameof(onColumnValueChanged));
+                return;
             }
 
-            var editableColumns = GetIndexOfEditableColumns(dgv);
+            var editableColumns = new HashSet<int>(GetIndexOfEditableColumns(dgv));
 
-            foreach (var columnIndex in editableColumns) {
-                if (columnIndex < 0 || columnIndex >= dgv.Columns.Count)
-                    throw new ArgumentOutOfRangeException(nameof(columnIndex), "Invalid column index.");
+            CancellationTokenSource debounceCts = null;
 
-                dgv.CellValueChanged += async (sender, e) => {
-                    if (e.ColumnIndex == columnIndex) {
+            dgv.CellValueChanged += async (sender, e) =>
+            {
+                if (!editableColumns.Contains(e.ColumnIndex)) {
+                    return;
+                }
+
+                debounceCts?.Cancel();
+
+                debounceCts = new CancellationTokenSource();
+
+                var token = debounceCts.Token;
+
+                try {
+                    await Task.Delay(500, token);
+
+                    if (!token.IsCancellationRequested) {
                         await onColumnValueChanged();
                     }
-                };
-            }
+                }
+                catch (TaskCanceledException) {
+                    // Task was canceled, no action needed
+                }
+            };
         }
         public static void ApplyCustomAttribute(this CDataGridView dgv, Type modelType = null, bool autoSizeColumn = false) {
             // DGV

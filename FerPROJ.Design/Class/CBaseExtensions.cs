@@ -1738,6 +1738,9 @@ namespace FerPROJ.Design.Class {
 
         #region DataGridView 
         public static bool GetSelectedValue<TType>(this CDataGridView dgv, out TType value) {
+            return GetSelectedValue(dgv, "Id", out value);
+        }
+        public static bool GetSelectedValue<TType>(this CDataGridView dgv, string propertyName, out TType value) {
 
             value = default(TType);
 
@@ -1749,7 +1752,7 @@ namespace FerPROJ.Design.Class {
             // Find column by DataPropertyName (important for bound grids)
             var column = dgv.Columns
                 .Cast<DataGridViewColumn>()
-                .FirstOrDefault(c => string.Equals(c.DataPropertyName, "Id", StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(c => string.Equals(c.DataPropertyName, propertyName, StringComparison.OrdinalIgnoreCase));
 
             if (column == null) {
                 return false;

@@ -481,7 +481,7 @@ namespace FerPROJ.Design.Class {
         public string ReportTitle { get; set; }
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }
-        public CompanyModel Company { get; set; } = new CompanyModel();
+        public SystemCompanyModel Company { get; set; } = new SystemCompanyModel();
         public List<string> ReportBodyColumns { get; set; } = new List<string>();
         public List<List<object>> ReportBodyRows { get; set; } = new List<List<object>>();
         public List<List<object>> ReportBodyRowsSummary { get; set; } = new List<List<object>>();

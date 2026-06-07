@@ -13,7 +13,7 @@ using static FerPROJ.Design.Class.CBaseEnums;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmCompany : FrmManageKrypton {
-        CompanyModel model = new CompanyModel();
+        SystemCompanyModel model = new SystemCompanyModel();
         public FrmCompany() {
             InitializeComponent();
         }

@@ -139,7 +139,7 @@
             // 
             // companyModelBindingSource
             // 
-            this.companyModelBindingSource.DataSource = typeof(FerPROJ.Design.FormModels.CompanyModel);
+            this.companyModelBindingSource.DataSource = typeof(FerPROJ.Design.FormModels.SystemCompanyModel);
             // 
             // nameCTextBoxKrypton
             // 

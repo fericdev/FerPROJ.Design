@@ -115,7 +115,7 @@
       <DependentUpon>CUserControlMenuModern.cs</DependentUpon>
     </Compile>
     <Compile Include="FormModels\CacheVersionModel.cs" />
-    <Compile Include="FormModels\CompanyModel.cs" />
+    <Compile Include="FormModels\SystemCompanyModel.cs" />
     <Compile Include="FormModels\OAuthCredentialModel.cs" />
     <Compile Include="Class\CApiManager.cs" />
     <Compile Include="Class\CGoogleDriveManager.cs" />

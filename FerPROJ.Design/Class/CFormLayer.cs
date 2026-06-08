@@ -57,8 +57,27 @@ namespace FerPROJ.Design.Class {
             }
 
             parameters = parameters == null
-                ? new Action<TForm>(c => { c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalize"; })
-                : new Action<TForm>(c => { parameters(c); c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalize"; });
+                ? new Action<TForm>(c => { c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalized"; })
+                : new Action<TForm>(c => { parameters(c); c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalized"; });
+
+            using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
+                return await frm.CurrentNewFormResultAsync(formMode, id, parameters);
+            }
+        }
+        public static async Task<bool> ManageApiFormAsync<TForm, TEntity, TRepository>(FormMode formMode = FormMode.Add, Guid? id = null, Action<TForm> parameters = null) where TForm : FrmManageKrypton {
+            if (formMode == FormMode.Update) {
+                var entity = await CRepositoryManager.ExecuteApiMethodAsync<TEntity>(typeof(TRepository), "GetByIdAsync", id);
+                if (!entity.IsNullOrEmpty()) {
+                    var finalizeStatus = entity.GetPropertyValue<string>("FinalizeStatus");
+                    if (finalizeStatus.IsEquals(FinalizeStatusTypes.Completed)) {
+                        formMode = FormMode.ReadOnly;
+                    }
+                }
+            }
+
+            parameters = parameters == null
+                ? new Action<TForm>(c => { c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalized"; })
+                : new Action<TForm>(c => { parameters(c); c.HideSaveNew = false; c.HideSaveNewOnUpdate = false; c.OnSaveNewName = "Save and Finalized"; });
 
             using (var frm = (FrmManageKrypton)Activator.CreateInstance(typeof(TForm))) {
                 return await frm.CurrentNewFormResultAsync(formMode, id, parameters);

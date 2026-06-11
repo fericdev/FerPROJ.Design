@@ -40,6 +40,35 @@ namespace FerPROJ.DBHelper.DBCrud {
                 throw new InvalidOperationException("Method must return Task or Task<TResult>.");
             }
         }
+        public static async Task<TResult> ExecuteMethodAsync<TResult>(
+            string repositoryTypeName,
+            string methodName,
+            params object[] parameters) {
+
+            var method = ResolveMethod(repositoryTypeName, methodName, parameters);
+
+            if (method == null)
+                throw new InvalidOperationException("Method not found.");
+
+            using (var freshDbContext = (DbContext)Activator.CreateInstance(CAppConstants.DB_CONTEXT_TYPE)) {
+
+                var instance = Activator.CreateInstance(ResolveType(repositoryTypeName), freshDbContext);
+
+                var finalParameters = BuildParameterList(method, parameters);
+
+                var taskObject = method.Invoke(instance, finalParameters);
+
+                if (taskObject is Task<TResult> typedTask)
+                    return await typedTask;
+
+                if (taskObject is Task nonGenericTask) {
+                    await nonGenericTask;
+                    return default;
+                }
+
+                throw new InvalidOperationException("Method must return Task or Task<TResult>.");
+            }
+        }
         public static async Task<TResult> ExecuteApiMethodAsync<TResult>(
             string repositoryTypeName,
             string methodName,
@@ -254,10 +283,12 @@ namespace FerPROJ.DBHelper.DBCrud {
             return null;
         }
         private static Type ResolveType(string typeName) {
-            return AppDomain.CurrentDomain
-                .GetAssemblies()
-                .SelectMany(a => a.GetTypes())
-                .FirstOrDefault(t => t.FullName == typeName);
+            var assemblies = AppDomain.CurrentDomain
+                .GetAssemblies();
+
+            var types = assemblies.SelectMany(a => a.GetTypes());
+
+            return types.FirstOrDefault(t => t.Name == typeName);
         }
         public enum FilterOperator {
             Equal,

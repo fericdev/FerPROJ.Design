@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace FerPROJ.Design.FormModels {
     public class SystemCompanyModel : BaseModel {
-        public override string Name { get; set; } = CConfigurationManager.GetValue("CompanyName", "CompanyConfig");
-        public override string ApplicationId { get; set; } = CConfigurationManager.GetValue("ApplicationId", "CompanyConfig");
-        public string CompanyAddress { get; set; } = CConfigurationManager.GetValue("CompanyAddress", "CompanyConfig");
-        public string CompanyContactNo { get; set; } = CConfigurationManager.GetValue("CompanyContactNo", "CompanyConfig");
-        public string CompanyEmail { get; set; } = CConfigurationManager.GetValue("CompanyEmail", "CompanyConfig");
-        public string CompanyLogoUrl { get; set; } = CConfigurationManager.GetValue("CompanyLogoUrl", "CompanyConfig");
-        public string CompanyDefaultLogoUrl { get; set; } = CAccessManager.GetOrCreateEnvironmentPath("default.webp", "Assets/Img");
+        public override string Name { get; set; } 
+        public override string ApplicationId { get; set; } 
+        public string CompanyAddress { get; set; } 
+        public string CompanyContactNo { get; set; } 
+        public string CompanyEmail { get; set; } 
+        public string CompanyLogoUrl { get; set; } 
+        public string CompanyDefaultLogoUrl { get; set; }
+        public bool CompanyEnabled { get; set; }
 
         public override bool DataValidation() {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

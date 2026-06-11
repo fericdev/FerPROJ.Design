@@ -1,4 +1,5 @@
-﻿using FerPROJ.Design.FormModels;
+﻿using FerPROJ.DBHelper.DBCrud;
+using FerPROJ.Design.FormModels;
 using FerPROJ.Design.Forms;
 using OfficeOpenXml;
 using System;
@@ -14,6 +15,8 @@ namespace FerPROJ.Design.Class {
     public static class CHtmlReportManager {
 
         public static async Task ExportToHtmlAsync(HtmlReportModel model) {
+
+            model.Company = await CRepositoryManager.ExecuteMethodAsync<SystemCompanyModel>("SystemCompanyRepository", "GetActiveSystemCompanyAsync");
 
             #region css
             if (model.ReportCss.IsNullOrEmpty()) {

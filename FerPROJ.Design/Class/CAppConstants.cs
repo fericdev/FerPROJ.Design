@@ -20,6 +20,7 @@ namespace FerPROJ.Design.Class
         public static string BASE_CONNECTION_STRING_NAME { get; set; }
         public static bool DATABASE_CONNECTION_SUCCESS { get; set; }
         public static string API_BASE_URL { get; set; }
+        public static bool API_ENABLED { get; set; }
         #endregion
 
         #region User Constants
@@ -34,7 +35,7 @@ namespace FerPROJ.Design.Class
         #region Status Constants
         public static string ACTIVE_STATUS = "ACTIVE";
         public static string IN_ACTIVE_STATUS = "IN-ACTIVE";
-        public static string APPLICATION_ID = CConfigurationManager.GetValue("ApplicationId", "CompanyConfig");
+        public static string APPLICATION_ID = CConfigurationManager.GetValue("ApplicationId", "SystemCompanyConfig");
         #endregion
 
         #region Type Contants

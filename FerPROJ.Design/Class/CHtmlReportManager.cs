@@ -16,7 +16,14 @@ namespace FerPROJ.Design.Class {
 
         public static async Task ExportToHtmlAsync(HtmlReportModel model) {
 
-            model.Company = await CRepositoryManager.ExecuteMethodAsync<SystemCompanyModel>("SystemCompanyRepository", "GetActiveSystemCompanyAsync");
+            #region Company
+            if (CAppConstants.API_ENABLED) {
+                model.Company = await CRepositoryManager.ExecuteApiMethodAsync<SystemCompanyModel>("SystemCompanyApiRepository", "GetActiveSystemCompanyAsync");
+            }
+            else {
+                model.Company = await CRepositoryManager.ExecuteMethodAsync<SystemCompanyModel>("SystemCompanyRepository", "GetActiveSystemCompanyAsync");
+            }
+            #endregion
 
             #region css
             if (model.ReportCss.IsNullOrEmpty()) {

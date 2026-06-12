@@ -25,6 +25,7 @@ namespace FerPROJ.Design.Class {
 
         public static void Initialize(string baseUrl) {
             BaseUrl = baseUrl.TrimEnd('/') + "/";
+            CAppConstants.API_ENABLED = true;
         }
 
         private static string BuildUrl(string url) {

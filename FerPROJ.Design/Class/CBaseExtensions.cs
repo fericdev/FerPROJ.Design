@@ -2324,6 +2324,9 @@ namespace FerPROJ.Design.Class {
             var properties = modelType.GetProperties(
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
 
+            // Keep track of columns that need totals: Key = Column Index, Value = FormatType
+            var columnsToTotal = new Dictionary<int, FormatTypes>();
+
             foreach (var property in properties) {
                 var matchingColumns = dgv.Columns.Cast<DataGridViewColumn>()
                                                  .Where(c => c.DataPropertyName == property.Name || c.Name == property.Name)
@@ -2344,13 +2347,149 @@ namespace FerPROJ.Design.Class {
                 }
 
                 if (column.Visible) {
+                    // Set row
                     SetRowValueFormatting(dgv, column.Index, attribute.FormatType);
+
+                    // Check if this property requires a total breakdown
+                    if (attribute.DisplayTotal) {
+                        columnsToTotal[column.Index] = attribute.FormatType;
+                    }
                 }
 
             }
             //
             dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgv.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            // If there are columns to sum up, generate or update the sticky footer panel
+            if (columnsToTotal.Any()) {
+                dgv.CreateOrUpdateFooterPanel(columnsToTotal);
+            }
+        }
+        private static void CreateOrUpdateFooterPanel(this CDataGridView dgv, Dictionary<int, FormatTypes> columnsToTotal) {
+            var parent = dgv.Parent;
+            if (parent == null) return;
+
+            string footerName = $"{dgv.Name}_FooterPanel";
+            Panel footerPanel = parent.Controls.Find(footerName, false).FirstOrDefault() as Panel;
+
+            if (footerPanel == null) {
+                // 1. DOCK MANAGEMENT FIX:
+                // Instead of DockStyle.Fill on the DGV, we use DockStyle.Bottom on the footer,
+                // but we must make sure the DGV's dock state handles layout nesting cleanly.
+                dgv.Dock = DockStyle.None; // Reset momentarily to recalibrate layout engine
+
+                // Outer container: acts as the locked viewport window at the bottom
+                footerPanel = new Panel {
+                    Name = footerName,
+                    Height = 22,
+                    BackColor = Color.FromArgb(245, 245, 245),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Dock = DockStyle.Bottom
+                };
+
+                // Inner canvas: moves left/right when the grid scrolls
+                Panel scrollableCanvas = new Panel {
+                    Name = "ScrollableCanvas",
+                    Location = new Point(0, 0),
+                    Height = footerPanel.Height,
+                    BackColor = Color.Transparent
+                };
+                footerPanel.Controls.Add(scrollableCanvas);
+
+                // Add the footer panel to the parent container first
+                parent.Controls.Add(footerPanel);
+
+                // NOW set the grid to Fill so it occupies everything EXACTLY ABOVE the footer panel
+                dgv.Dock = DockStyle.Fill;
+
+                // Bring the grid and footer to layout front sequence to prevent overlapping layers
+                dgv.BringToFront();
+                footerPanel.SendToBack(); // Forces the docked bottom panel to sit under the filled DGV cleanly
+
+                // Force WinForms to show scrollbars if columns exceed view space
+                dgv.ScrollBars = ScrollBars.Both;
+
+                // SCROLL FIX: Move the inner canvas in lockstep with the grid's horizontal scroll
+                dgv.Scroll += (s, e) => {
+                    if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll) {
+                        scrollableCanvas.Left = -e.NewValue;
+                    }
+                };
+
+                // Handle layouts and data changes
+                dgv.ColumnWidthChanged += (s, e) => dgv.RefreshFooterValues(footerPanel, columnsToTotal);
+                dgv.SizeChanged += (s, e) => dgv.RefreshFooterValues(footerPanel, columnsToTotal);
+                dgv.RowsAdded += (s, e) => dgv.RefreshFooterValues(footerPanel, columnsToTotal);
+                dgv.RowsRemoved += (s, e) => dgv.RefreshFooterValues(footerPanel, columnsToTotal);
+                dgv.CellValueChanged += (s, e) => dgv.RefreshFooterValues(footerPanel, columnsToTotal);
+            }
+
+            dgv.RefreshFooterValues(footerPanel, columnsToTotal);
+        }
+
+        private static void RefreshFooterValues(this CDataGridView dgv, Panel footerPanel, Dictionary<int, FormatTypes> columnsToTotal) {
+            Panel canvas = footerPanel.Controls["ScrollableCanvas"] as Panel;
+            if (canvas == null) return;
+
+            canvas.SuspendLayout();
+            canvas.Controls.Clear();
+
+            // Dynamically match the inner canvas width to the total width of all columns combined
+            // We add an offset for the row header width if it's visible
+            int totalWidth = dgv.RowHeadersVisible ? dgv.RowHeadersWidth : 0;
+            foreach (DataGridViewColumn col in dgv.Columns) {
+                if (col.Visible) totalWidth += col.Width;
+            }
+            canvas.Width = totalWidth;
+
+            // Keep track of the current horizontal X coordinate position across all columns
+            int currentX = dgv.RowHeadersVisible ? dgv.RowHeadersWidth : 0;
+
+            // Loop chronologically through ALL columns in display order
+            var orderedColumns = dgv.Columns.Cast<DataGridViewColumn>().OrderBy(c => c.DisplayIndex).ToList();
+
+            foreach (var column in orderedColumns) {
+                if (!column.Visible) continue;
+
+                // Check if this specific column index was flagged for a total summary
+                if (columnsToTotal.TryGetValue(column.Index, out FormatTypes formatType)) {
+
+                    // Calculate absolute column values safely
+                    decimal totalSum = 0;
+                    foreach (DataGridViewRow row in dgv.Rows) {
+                        if (row.IsNewRow) continue;
+                        var val = row.Cells[column.Index].Value;
+                        if (val != null && !(val is DBNull) && decimal.TryParse(val.ToString(), out decimal parsedVal)) {
+                            totalSum += parsedVal;
+                        }
+                    }
+
+                    var formattedValue = formatType == FormatTypes.Currency
+                        ? totalSum.ToString("C2", new CultureInfo("en-PH"))
+                        : totalSum.ToString("N2");
+
+                    // Build the tracking summary label placed at the exact absolute X coordinate
+                    Label lblTotal = new Label {
+                        Text = formattedValue,
+                        Font = new Font(dgv.Font.FontFamily, 8.5f, FontStyle.Bold),
+                        AutoSize = false,
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        Location = new Point(currentX, 0),
+                        Width = column.Width,
+                        Height = canvas.Height - 2
+                    };
+
+                    canvas.Controls.Add(lblTotal);
+                }
+
+                // Shift X coordinate forward by the column's full physical width
+                currentX += column.Width;
+            }
+
+            // Keep the canvas shifted properly during standard resizes
+            canvas.Left = -dgv.HorizontalScrollingOffset;
+            canvas.ResumeLayout(true);
         }
         private static void ApplyAttributeHeaderToColumns(this CDataGridView dgv, Type modelType = null) {
 

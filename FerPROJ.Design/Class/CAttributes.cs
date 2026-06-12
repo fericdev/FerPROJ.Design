@@ -11,6 +11,7 @@ namespace FerPROJ.Design.Class {
         public int Width { get; set; } = 200;
         public bool Visible { get; set; } = true;
         public bool Editable { get; set; } = false;
+        public bool DisplayTotal { get; set; } = false;
         public int Order { get; set; } = 1000;
         public string Header { get; set; } = string.Empty;
         public FormatTypes FormatType { get; set; } = FormatTypes.Current;

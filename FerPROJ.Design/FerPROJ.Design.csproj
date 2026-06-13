@@ -260,6 +260,12 @@
     <Compile Include="Forms\FrmManageKrypton.designer.cs">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmModernDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmModernDashboard.Designer.cs">
+      <DependentUpon>FrmModernDashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmPicture.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -367,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmManageKrypton.resx">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmModernDashboard.resx">
+      <DependentUpon>FrmModernDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmPicture.resx">
       <DependentUpon>FrmPicture.cs</DependentUpon>

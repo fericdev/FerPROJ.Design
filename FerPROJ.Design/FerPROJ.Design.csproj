@@ -108,6 +108,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\CAppIcons.cs" />
+    <Compile Include="Controls\CScrollPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CUserControlMenuModern.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -215,6 +219,12 @@
     <Compile Include="Forms\FrmContextMenu.Designer.cs">
       <DependentUpon>FrmContextMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmModernDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmModernDashboard.Designer.cs">
+      <DependentUpon>FrmModernDashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmDashboard3.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,12 +269,6 @@
     </Compile>
     <Compile Include="Forms\FrmManageKrypton.designer.cs">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmModernDashboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmModernDashboard.Designer.cs">
-      <DependentUpon>FrmModernDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmPicture.cs">
       <SubType>Form</SubType>
@@ -356,6 +360,9 @@
     <EmbeddedResource Include="Forms\FrmContextMenu.resx">
       <DependentUpon>FrmContextMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmModernDashboard.resx">
+      <DependentUpon>FrmModernDashboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDashboard3.resx">
       <DependentUpon>FrmDashboard3.cs</DependentUpon>
     </EmbeddedResource>
@@ -373,9 +380,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmManageKrypton.resx">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmModernDashboard.resx">
-      <DependentUpon>FrmModernDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmPicture.resx">
       <DependentUpon>FrmPicture.cs</DependentUpon>

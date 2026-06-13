@@ -36,7 +36,7 @@ namespace FerPROJ.Design.Controls {
                 }
             }
         }
-        protected virtual void Initialize(List<MenuItemModel> menuItems, Color theme = default(Color), Color lightTheme = default(Color)) {
+        public virtual void Initialize(List<MenuItemModel> menuItems, Color theme = default(Color), Color lightTheme = default(Color)) {
             if (theme == default(Color)) {
                 theme = themeColor;
             }
@@ -72,14 +72,18 @@ namespace FerPROJ.Design.Controls {
             Dock = DockStyle.Fill;
             BackColor = themeColor;
 
-            menuPanel.Dock = DockStyle.Fill;
+            menuPanel.Dock = DockStyle.Top;
             menuPanel.FlowDirection = FlowDirection.TopDown;
             menuPanel.WrapContents = false;
-            menuPanel.AutoScroll = true;
+            menuPanel.AutoSize = true;
             menuPanel.BackColor = themeColor;
             menuPanel.Padding = new Padding(0, 8, 0, 0);
 
-            Controls.Add(menuPanel);
+            var scrollPanel = new CScrollPanel();
+            scrollPanel.Dock = DockStyle.Fill;
+            scrollPanel.SetContent(menuPanel);
+
+            Controls.Add(scrollPanel);
         }
 
         private void AddSection(string title) {

@@ -51,5 +51,15 @@ namespace FerPROJ.Design.Class {
         public const string Warning = "⚠️";
         public const string Success = "✅";
         public const string Error = "❌";
+        public const string ShippingBox = "📦";
+
+        // --- Added New General Icons Below ---
+        public const string Report = "📋";
+        public const string PriceTag = "🏷️";
+        public const string CalendarDaily = "☀️";
+        public const string CalendarMonthly = "🗓️";
+        public const string Tools = "🛠️";
+        public const string MoneyBag = "💰";
+        public const string CashFlow = "💸";
     }
 }

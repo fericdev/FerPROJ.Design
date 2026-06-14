@@ -135,7 +135,7 @@ namespace FerPROJ.Design.Controls {
 
         private void SetActiveButton(Button selectedButton) {
             foreach (var button in menuButtons) {
-                button.BackColor = Color.DarkGreen;
+                button.BackColor = themeColor;
                 button.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             }
 

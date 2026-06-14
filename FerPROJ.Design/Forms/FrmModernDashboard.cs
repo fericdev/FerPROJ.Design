@@ -61,7 +61,7 @@ namespace FerPROJ.Design.Forms {
             lblMainTimeValue.Text = CAccessManager.CurrentTime();
         }
         private void LoadVar() {
-            userNameCLabelDesc.Text = CAppConstants.USERNAME;
+            userNameCLabelDesc.Text = CAppConstants.NAME;
             lblMainVersionValue.Text = CAssembly.SystemVersion;
             systemNameCLabelTitle.Text = CAssembly.SystemNameFull + " Management System";
         }

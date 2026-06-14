@@ -64,6 +64,7 @@ namespace FerPROJ.Design.Forms {
             userNameCLabelDesc.Text = CAppConstants.NAME;
             lblMainVersionValue.Text = CAssembly.SystemVersion;
             systemNameCLabelTitle.Text = CAssembly.SystemNameFull + " Management System";
+            Text = CAssembly.SystemNameFull + " Management System";
         }
     }
 }

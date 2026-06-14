@@ -59,7 +59,10 @@ namespace FerPROJ.Design.Controls {
                 }
             }
         }
-        public void ApplyTheme() {
+        public void ApplyTheme(Color color = default) {
+            if (color != default) {
+                themeColor = color;
+            }
             BackColor = themeColor;
             menuPanel.BackColor = themeColor;
 

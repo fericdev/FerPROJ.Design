@@ -52,6 +52,11 @@ namespace FerPROJ.Design.Forms {
         protected virtual void InitializeMenuButtons() {
 
         } 
+        protected void ApplyTheme(Color themeColor) {
+            systemNameCLabelTitle.BackColor = themeColor;
+            menuCUserControlMenuModern.ApplyTheme(themeColor);
+            reportCUserControlMenuModern.ApplyTheme(themeColor);
+        }
         private void InitializeDashboardButtons() {
             menuCUserControlMenuModern.Initialize(NavigationMenuItems);
             reportCUserControlMenuModern.Initialize(ReportMenuItems);

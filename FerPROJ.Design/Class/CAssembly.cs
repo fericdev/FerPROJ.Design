@@ -16,10 +16,10 @@ namespace FerPROJ.Design.Class {
         public static string SystemNameFull { get; private set; }
 
         // Static constructor to initialize the properties
-        public static void SetAssembly<DbContext>(Assembly assembly) {
+        public static void SetAssembly<DbContext>(Assembly assembly, string systemNameFull) {
             //
             SystemName = assembly.GetName().Name.Replace(".", "");
-            SystemNameFull = assembly.GetName().Name;
+            SystemNameFull = systemNameFull;
             SystemVersion = assembly.GetName().Version.ToString();
             //
             CAppConstants.DB_CONTEXT_TYPE = typeof(DbContext);

@@ -220,7 +220,7 @@
             this.baseDashboardMainCPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.baseDashboardMainCPanel.Location = new System.Drawing.Point(265, 0);
             this.baseDashboardMainCPanel.Name = "baseDashboardMainCPanel";
-            this.baseDashboardMainCPanel.Size = new System.Drawing.Size(728, 601);
+            this.baseDashboardMainCPanel.Size = new System.Drawing.Size(723, 601);
             this.baseDashboardMainCPanel.TabIndex = 3;
             this.baseDashboardMainCPanel.UnderlinedStyle = false;
             // 
@@ -233,9 +233,9 @@
             this.baseDashboardReportCPanel.Controls.Add(this.reportCUserControlMenuModern);
             this.baseDashboardReportCPanel.Controls.Add(this.reportBaseCLabelTitle);
             this.baseDashboardReportCPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.baseDashboardReportCPanel.Location = new System.Drawing.Point(993, 0);
+            this.baseDashboardReportCPanel.Location = new System.Drawing.Point(988, 0);
             this.baseDashboardReportCPanel.Name = "baseDashboardReportCPanel";
-            this.baseDashboardReportCPanel.Size = new System.Drawing.Size(260, 601);
+            this.baseDashboardReportCPanel.Size = new System.Drawing.Size(265, 601);
             this.baseDashboardReportCPanel.TabIndex = 2;
             this.baseDashboardReportCPanel.UnderlinedStyle = false;
             // 
@@ -245,7 +245,7 @@
             this.reportCUserControlMenuModern.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reportCUserControlMenuModern.Location = new System.Drawing.Point(0, 31);
             this.reportCUserControlMenuModern.Name = "reportCUserControlMenuModern";
-            this.reportCUserControlMenuModern.Size = new System.Drawing.Size(260, 570);
+            this.reportCUserControlMenuModern.Size = new System.Drawing.Size(265, 570);
             this.reportCUserControlMenuModern.TabIndex = 0;
             // 
             // reportBaseCLabelTitle
@@ -256,7 +256,7 @@
             this.reportBaseCLabelTitle.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Bold);
             this.reportBaseCLabelTitle.Location = new System.Drawing.Point(0, 0);
             this.reportBaseCLabelTitle.Name = "reportBaseCLabelTitle";
-            this.reportBaseCLabelTitle.Size = new System.Drawing.Size(260, 31);
+            this.reportBaseCLabelTitle.Size = new System.Drawing.Size(265, 31);
             this.reportBaseCLabelTitle.TabIndex = 1;
             this.reportBaseCLabelTitle.Text = "Report Center";
             this.reportBaseCLabelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

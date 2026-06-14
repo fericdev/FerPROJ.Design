@@ -26,7 +26,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmModernDashboard));
             this.pnlMainBot = new System.Windows.Forms.Panel();
+            this.lblMainVersionValue = new FerPROJ.Design.Controls.CLabelDesc();
+            this.lblMainTimeValue = new FerPROJ.Design.Controls.CLabelDesc();
+            this.lblMainTime = new FerPROJ.Design.Controls.CLabelDesc();
+            this.lblMainVersion = new FerPROJ.Design.Controls.CLabelDesc();
+            this.lblMainDateValue = new FerPROJ.Design.Controls.CLabelDesc();
+            this.lblMainDate = new FerPROJ.Design.Controls.CLabelDesc();
             this.pnlMainTop = new System.Windows.Forms.Panel();
+            this.systemNameCLabelTitle = new FerPROJ.Design.Controls.CLabelTitle();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.tsMainSettings = new System.Windows.Forms.ToolStrip();
             this.tsMainDropDown = new System.Windows.Forms.ToolStripDropDownButton();
@@ -36,17 +43,10 @@
             this.reportCUserControlMenuModern = new FerPROJ.Design.Controls.CUserControlMenuModern();
             this.reportBaseCLabelTitle = new FerPROJ.Design.Controls.CLabelTitle();
             this.baseDashboardNavMenuCPanel = new FerPROJ.Design.Forms.CPanel();
-            this.profileCPanel = new FerPROJ.Design.Forms.CPanel();
-            this.userNameCLabelDesc = new FerPROJ.Design.Controls.CLabelDesc();
-            this.profilePictureKryptonPictureBox = new Krypton.Toolkit.KryptonPictureBox();
             this.menuCUserControlMenuModern = new FerPROJ.Design.Controls.CUserControlMenuModern();
-            this.systemNameCLabelTitle = new FerPROJ.Design.Controls.CLabelTitle();
-            this.lblMainVersionValue = new FerPROJ.Design.Controls.CLabelDesc();
-            this.lblMainTimeValue = new FerPROJ.Design.Controls.CLabelDesc();
-            this.lblMainTime = new FerPROJ.Design.Controls.CLabelDesc();
-            this.lblMainVersion = new FerPROJ.Design.Controls.CLabelDesc();
-            this.lblMainDateValue = new FerPROJ.Design.Controls.CLabelDesc();
-            this.lblMainDate = new FerPROJ.Design.Controls.CLabelDesc();
+            this.profileCPanel = new FerPROJ.Design.Forms.CPanel();
+            this.profilePictureKryptonPictureBox = new Krypton.Toolkit.KryptonPictureBox();
+            this.userNameCLabelDesc = new FerPROJ.Design.Controls.CLabelDesc();
             ((System.ComponentModel.ISupportInitialize)(this.baseKryptonPanel)).BeginInit();
             this.pnlMainBot.SuspendLayout();
             this.pnlMainTop.SuspendLayout();
@@ -79,6 +79,78 @@
             this.pnlMainBot.Size = new System.Drawing.Size(1253, 30);
             this.pnlMainBot.TabIndex = 2;
             // 
+            // lblMainVersionValue
+            // 
+            this.lblMainVersionValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblMainVersionValue.AutoSize = true;
+            this.lblMainVersionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblMainVersionValue.ForeColor = System.Drawing.Color.White;
+            this.lblMainVersionValue.Location = new System.Drawing.Point(436, 4);
+            this.lblMainVersionValue.Name = "lblMainVersionValue";
+            this.lblMainVersionValue.Size = new System.Drawing.Size(18, 17);
+            this.lblMainVersionValue.TabIndex = 7;
+            this.lblMainVersionValue.Text = "--";
+            // 
+            // lblMainTimeValue
+            // 
+            this.lblMainTimeValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMainTimeValue.AutoSize = true;
+            this.lblMainTimeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblMainTimeValue.ForeColor = System.Drawing.Color.White;
+            this.lblMainTimeValue.Location = new System.Drawing.Point(1145, 3);
+            this.lblMainTimeValue.Name = "lblMainTimeValue";
+            this.lblMainTimeValue.Size = new System.Drawing.Size(18, 17);
+            this.lblMainTimeValue.TabIndex = 5;
+            this.lblMainTimeValue.Text = "--";
+            // 
+            // lblMainTime
+            // 
+            this.lblMainTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMainTime.AutoSize = true;
+            this.lblMainTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblMainTime.ForeColor = System.Drawing.Color.White;
+            this.lblMainTime.Location = new System.Drawing.Point(1097, 3);
+            this.lblMainTime.Name = "lblMainTime";
+            this.lblMainTime.Size = new System.Drawing.Size(43, 17);
+            this.lblMainTime.TabIndex = 4;
+            this.lblMainTime.Text = "Time:";
+            // 
+            // lblMainVersion
+            // 
+            this.lblMainVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblMainVersion.AutoSize = true;
+            this.lblMainVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblMainVersion.ForeColor = System.Drawing.Color.White;
+            this.lblMainVersion.Location = new System.Drawing.Point(309, 3);
+            this.lblMainVersion.Name = "lblMainVersion";
+            this.lblMainVersion.Size = new System.Drawing.Size(110, 17);
+            this.lblMainVersion.TabIndex = 6;
+            this.lblMainVersion.Text = "System Version:";
+            // 
+            // lblMainDateValue
+            // 
+            this.lblMainDateValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMainDateValue.AutoSize = true;
+            this.lblMainDateValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblMainDateValue.ForeColor = System.Drawing.Color.White;
+            this.lblMainDateValue.Location = new System.Drawing.Point(903, 3);
+            this.lblMainDateValue.Name = "lblMainDateValue";
+            this.lblMainDateValue.Size = new System.Drawing.Size(18, 17);
+            this.lblMainDateValue.TabIndex = 3;
+            this.lblMainDateValue.Text = "--";
+            // 
+            // lblMainDate
+            // 
+            this.lblMainDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMainDate.AutoSize = true;
+            this.lblMainDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblMainDate.ForeColor = System.Drawing.Color.White;
+            this.lblMainDate.Location = new System.Drawing.Point(855, 3);
+            this.lblMainDate.Name = "lblMainDate";
+            this.lblMainDate.Size = new System.Drawing.Size(42, 17);
+            this.lblMainDate.TabIndex = 2;
+            this.lblMainDate.Text = "Date:";
+            // 
             // pnlMainTop
             // 
             this.pnlMainTop.BackColor = System.Drawing.Color.DarkSlateBlue;
@@ -89,6 +161,18 @@
             this.pnlMainTop.Name = "pnlMainTop";
             this.pnlMainTop.Size = new System.Drawing.Size(1253, 96);
             this.pnlMainTop.TabIndex = 3;
+            // 
+            // systemNameCLabelTitle
+            // 
+            this.systemNameCLabelTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.systemNameCLabelTitle.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.systemNameCLabelTitle.ForeColor = System.Drawing.Color.White;
+            this.systemNameCLabelTitle.Location = new System.Drawing.Point(0, 0);
+            this.systemNameCLabelTitle.Name = "systemNameCLabelTitle";
+            this.systemNameCLabelTitle.Size = new System.Drawing.Size(1251, 94);
+            this.systemNameCLabelTitle.TabIndex = 0;
+            this.systemNameCLabelTitle.Text = "cLabelTitle1";
+            this.systemNameCLabelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timerMain
             // 
@@ -192,6 +276,15 @@
             this.baseDashboardNavMenuCPanel.TabIndex = 1;
             this.baseDashboardNavMenuCPanel.UnderlinedStyle = false;
             // 
+            // menuCUserControlMenuModern
+            // 
+            this.menuCUserControlMenuModern.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.menuCUserControlMenuModern.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.menuCUserControlMenuModern.Location = new System.Drawing.Point(0, 179);
+            this.menuCUserControlMenuModern.Name = "menuCUserControlMenuModern";
+            this.menuCUserControlMenuModern.Size = new System.Drawing.Size(265, 422);
+            this.menuCUserControlMenuModern.TabIndex = 0;
+            // 
             // profileCPanel
             // 
             this.profileCPanel.BackColor = System.Drawing.Color.Transparent;
@@ -209,18 +302,6 @@
             this.profileCPanel.TabIndex = 1;
             this.profileCPanel.UnderlinedStyle = false;
             // 
-            // userNameCLabelDesc
-            // 
-            this.userNameCLabelDesc.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.userNameCLabelDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.userNameCLabelDesc.ForeColor = System.Drawing.Color.Black;
-            this.userNameCLabelDesc.Location = new System.Drawing.Point(0, 147);
-            this.userNameCLabelDesc.Name = "userNameCLabelDesc";
-            this.userNameCLabelDesc.Size = new System.Drawing.Size(263, 30);
-            this.userNameCLabelDesc.TabIndex = 2;
-            this.userNameCLabelDesc.Text = "--";
-            this.userNameCLabelDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // profilePictureKryptonPictureBox
             // 
             this.profilePictureKryptonPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("profilePictureKryptonPictureBox.BackgroundImage")));
@@ -232,98 +313,17 @@
             this.profilePictureKryptonPictureBox.TabIndex = 0;
             this.profilePictureKryptonPictureBox.TabStop = false;
             // 
-            // menuCUserControlMenuModern
+            // userNameCLabelDesc
             // 
-            this.menuCUserControlMenuModern.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.menuCUserControlMenuModern.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.menuCUserControlMenuModern.Location = new System.Drawing.Point(0, 179);
-            this.menuCUserControlMenuModern.Name = "menuCUserControlMenuModern";
-            this.menuCUserControlMenuModern.Size = new System.Drawing.Size(265, 422);
-            this.menuCUserControlMenuModern.TabIndex = 0;
-            // 
-            // systemNameCLabelTitle
-            // 
-            this.systemNameCLabelTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.systemNameCLabelTitle.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.systemNameCLabelTitle.ForeColor = System.Drawing.Color.White;
-            this.systemNameCLabelTitle.Location = new System.Drawing.Point(0, 0);
-            this.systemNameCLabelTitle.Name = "systemNameCLabelTitle";
-            this.systemNameCLabelTitle.Size = new System.Drawing.Size(1251, 94);
-            this.systemNameCLabelTitle.TabIndex = 0;
-            this.systemNameCLabelTitle.Text = "cLabelTitle1";
-            this.systemNameCLabelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblMainVersionValue
-            // 
-            this.lblMainVersionValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblMainVersionValue.AutoSize = true;
-            this.lblMainVersionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblMainVersionValue.ForeColor = System.Drawing.Color.White;
-            this.lblMainVersionValue.Location = new System.Drawing.Point(436, 4);
-            this.lblMainVersionValue.Name = "lblMainVersionValue";
-            this.lblMainVersionValue.Size = new System.Drawing.Size(18, 17);
-            this.lblMainVersionValue.TabIndex = 7;
-            this.lblMainVersionValue.Text = "--";
-            // 
-            // lblMainTimeValue
-            // 
-            this.lblMainTimeValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMainTimeValue.AutoSize = true;
-            this.lblMainTimeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblMainTimeValue.ForeColor = System.Drawing.Color.White;
-            this.lblMainTimeValue.Location = new System.Drawing.Point(1145, 3);
-            this.lblMainTimeValue.Name = "lblMainTimeValue";
-            this.lblMainTimeValue.Size = new System.Drawing.Size(18, 17);
-            this.lblMainTimeValue.TabIndex = 5;
-            this.lblMainTimeValue.Text = "--";
-            // 
-            // lblMainTime
-            // 
-            this.lblMainTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMainTime.AutoSize = true;
-            this.lblMainTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblMainTime.ForeColor = System.Drawing.Color.White;
-            this.lblMainTime.Location = new System.Drawing.Point(1097, 3);
-            this.lblMainTime.Name = "lblMainTime";
-            this.lblMainTime.Size = new System.Drawing.Size(43, 17);
-            this.lblMainTime.TabIndex = 4;
-            this.lblMainTime.Text = "Time:";
-            // 
-            // lblMainVersion
-            // 
-            this.lblMainVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblMainVersion.AutoSize = true;
-            this.lblMainVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblMainVersion.ForeColor = System.Drawing.Color.White;
-            this.lblMainVersion.Location = new System.Drawing.Point(309, 3);
-            this.lblMainVersion.Name = "lblMainVersion";
-            this.lblMainVersion.Size = new System.Drawing.Size(110, 17);
-            this.lblMainVersion.TabIndex = 6;
-            this.lblMainVersion.Text = "System Version:";
-            // 
-            // lblMainDateValue
-            // 
-            this.lblMainDateValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMainDateValue.AutoSize = true;
-            this.lblMainDateValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblMainDateValue.ForeColor = System.Drawing.Color.White;
-            this.lblMainDateValue.Location = new System.Drawing.Point(903, 3);
-            this.lblMainDateValue.Name = "lblMainDateValue";
-            this.lblMainDateValue.Size = new System.Drawing.Size(18, 17);
-            this.lblMainDateValue.TabIndex = 3;
-            this.lblMainDateValue.Text = "--";
-            // 
-            // lblMainDate
-            // 
-            this.lblMainDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMainDate.AutoSize = true;
-            this.lblMainDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblMainDate.ForeColor = System.Drawing.Color.White;
-            this.lblMainDate.Location = new System.Drawing.Point(855, 3);
-            this.lblMainDate.Name = "lblMainDate";
-            this.lblMainDate.Size = new System.Drawing.Size(42, 17);
-            this.lblMainDate.TabIndex = 2;
-            this.lblMainDate.Text = "Date:";
+            this.userNameCLabelDesc.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.userNameCLabelDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.userNameCLabelDesc.ForeColor = System.Drawing.Color.Black;
+            this.userNameCLabelDesc.Location = new System.Drawing.Point(0, 147);
+            this.userNameCLabelDesc.Name = "userNameCLabelDesc";
+            this.userNameCLabelDesc.Size = new System.Drawing.Size(263, 30);
+            this.userNameCLabelDesc.TabIndex = 2;
+            this.userNameCLabelDesc.Text = "--";
+            this.userNameCLabelDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FrmModernDashboard
             // 
@@ -382,12 +382,12 @@
         private Controls.CLabelTitle systemNameCLabelTitle;
         private CPanel baseDashboardNavMenuCPanel;
         private CPanel baseDashboardReportCPanel;
-        private CPanel baseDashboardMainCPanel;
         private Controls.CUserControlMenuModern reportCUserControlMenuModern;
         private Controls.CUserControlMenuModern menuCUserControlMenuModern;
         private Controls.CLabelTitle reportBaseCLabelTitle;
         private CPanel profileCPanel;
         private Krypton.Toolkit.KryptonPictureBox profilePictureKryptonPictureBox;
         private Controls.CLabelDesc userNameCLabelDesc;
+        public CPanel baseDashboardMainCPanel;
     }
 }

@@ -72,18 +72,14 @@ namespace FerPROJ.Design.Controls {
             Dock = DockStyle.Fill;
             BackColor = themeColor;
 
-            menuPanel.Dock = DockStyle.Top;
+            menuPanel.Dock = DockStyle.Fill;
             menuPanel.FlowDirection = FlowDirection.TopDown;
             menuPanel.WrapContents = false;
-            menuPanel.AutoSize = true;
+            menuPanel.AutoScroll = true;
             menuPanel.BackColor = themeColor;
             menuPanel.Padding = new Padding(0, 8, 0, 0);
 
-            var scrollPanel = new CScrollPanel();
-            scrollPanel.Dock = DockStyle.Fill;
-            scrollPanel.SetContent(menuPanel);
-
-            Controls.Add(scrollPanel);
+            Controls.Add(menuPanel);
         }
 
         private void AddSection(string title) {

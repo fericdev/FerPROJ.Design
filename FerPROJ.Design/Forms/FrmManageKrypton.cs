@@ -93,6 +93,7 @@ namespace FerPROJ.Design.Forms {
             LoadFormEventHandler();
         }
         private async void FrmManageMain_FormModeChanged(object sender, EventArgs e) {
+            SetControlsReadOnly(this, false);
             // Update button visibility based on the new CurrentFormMode
             if (CurrentFormMode == FormMode.Add) {
                 if (!hideSave) {
@@ -113,6 +114,7 @@ namespace FerPROJ.Design.Forms {
                 baseButtonSave.Visible = false;
                 baseButtonUpdate.Visible = false;
                 baseButtonAddNew.Visible = false;
+                SetControlsReadOnly(this);
             }
             await LoadComponentsAsync();
         }
@@ -137,6 +139,69 @@ namespace FerPROJ.Design.Forms {
                 ItemModelDataGridView?.ApplyRowValueFormatting();
             }
             await Task.CompletedTask;
+        }
+        #endregion
+
+        #region Readonly controls
+        private void SetControlsReadOnly(Control parent, bool isReadOnly = true) {
+            foreach (Control control in parent.Controls) {
+                switch (control) {
+                    case TextBox textBox:
+                        textBox.ReadOnly = isReadOnly;
+                        textBox.TabStop = !isReadOnly;
+                        break;
+
+                    case CTextBoxKrypton textBox:
+                        textBox.ReadOnly = isReadOnly;
+                        textBox.TabStop = !isReadOnly;
+                        break;
+
+                    case ComboBox comboBox:
+                        comboBox.Enabled = !isReadOnly;
+                        break;
+
+                    case CComboBoxKrypton comboBox:
+                        comboBox.Enabled = !isReadOnly;
+                        break;
+
+                    case DateTimePicker dateTimePicker:
+                        dateTimePicker.Enabled = !isReadOnly;
+                        break;
+
+                    case CDateTimePickerKrypton dateTimePicker:
+                        dateTimePicker.Enabled = !isReadOnly;
+                        break;
+
+                    case CDateTimePickerKrypton2 dateTimePicker:
+                        dateTimePicker.Enabled = !isReadOnly;
+                        break;
+
+                    case NumericUpDown numericUpDown:
+                        numericUpDown.ReadOnly = isReadOnly;
+                        break;
+
+                    case CNumericUpDownKrypton numericUpDown:
+                        numericUpDown.ReadOnly = isReadOnly;
+                        break;
+
+                    case CheckBox checkBox:
+                        checkBox.Enabled = !isReadOnly;
+                        break;
+
+                    case RadioButton radioButton:
+                        radioButton.Enabled = !isReadOnly;
+                        break;
+
+                    case CDataGridView grid:
+                        grid.ReadOnly = isReadOnly;
+                        grid.Enabled = !isReadOnly;
+                        break;
+                }
+
+                if (control.HasChildren) {
+                    SetControlsReadOnly(control, isReadOnly);
+                }
+            }
         }
         #endregion
 

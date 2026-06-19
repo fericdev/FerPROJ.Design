@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,10 @@ namespace FerPROJ.Design.Class {
         public const string Error = "❌";
         public const string ShippingBox = "📦";
 
+        public const string MoveArrowRight = "➡️";
+        public const string MoveArrowLeft = "⬅️";
+
+
         // --- Added New General Icons Below ---
         public const string Report = "📋";
         public const string PriceTag = "🏷️";
@@ -61,5 +66,31 @@ namespace FerPROJ.Design.Class {
         public const string Tools = "🛠️";
         public const string MoneyBag = "💰";
         public const string CashFlow = "💸";
+
+
+
+
+        //
+        public static Image EmojiToImage(string emoji, Color color = default, Font font = null) {
+
+            if (font == null) {
+                font = new Font("Segoe UI Emoji", 16);
+            }
+
+            if (color == default) {
+                color = Color.Black;
+            }
+
+            Bitmap bmp = new Bitmap(32, 32);
+            using (Graphics g = Graphics.FromImage(bmp)) {
+                g.Clear(Color.Transparent);
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+                using (Brush brush = new SolidBrush(color)) {
+                    g.DrawString(emoji, font, brush, new PointF(0, 0));
+                }
+            }
+            return bmp;
+        }
     }
 }

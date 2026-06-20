@@ -12,9 +12,11 @@ namespace FerPROJ.Design.Class {
         public bool Visible { get; set; } = true;
         public bool Editable { get; set; } = false;
         public bool DisplayTotal { get; set; } = false;
+        public bool IsImage { get; set; } = false;
         public int Order { get; set; } = 1000;
         public string Header { get; set; } = string.Empty;
         public FormatTypes FormatType { get; set; } = FormatTypes.Current;
+        public ImageSizeTypes ImageSizeType { get; set; } = ImageSizeTypes.Small;
         #endregion
 
     }
@@ -25,5 +27,10 @@ namespace FerPROJ.Design.Class {
         Date,
         DateTime,
         Time
+    }
+    public enum  ImageSizeTypes {
+        Small,
+        Medium,
+        Large
     }
 }

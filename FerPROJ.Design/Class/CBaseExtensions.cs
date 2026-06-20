@@ -2356,6 +2356,20 @@ namespace FerPROJ.Design.Class {
                     }
                 }
 
+                if (attribute.IsImage) {
+                    int size = 100;
+                    switch (attribute.ImageSizeType) {
+                        case ImageSizeTypes.Small:
+                            size = 80;
+                            break;
+                        case ImageSizeTypes.Large:
+                            size = 120;
+                            break;
+                    }
+                    column.Width = size;
+                    dgv.RowTemplate.Height = Math.Max(dgv.RowTemplate.Height, size);
+                }
+
             }
             //
             dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -2607,10 +2621,19 @@ namespace FerPROJ.Design.Class {
 
                 var column = matchingColumns.FirstOrDefault();
                 if (column == null) {
-                    column = new KryptonDataGridViewTextBoxColumn {
-                        Name = property.Name,
-                        DataPropertyName = property.Name,
-                    };
+                    if (attribute.IsImage) {
+                        column = new DataGridViewImageColumn {
+                            Name = property.Name,
+                            DataPropertyName = property.Name,
+                            ImageLayout = DataGridViewImageCellLayout.Zoom,
+                        };
+                    }
+                    else {
+                        column = new KryptonDataGridViewTextBoxColumn {
+                            Name = property.Name,
+                            DataPropertyName = property.Name,
+                        };
+                    }
                     dgv.Columns.Add(column);
                 }
 

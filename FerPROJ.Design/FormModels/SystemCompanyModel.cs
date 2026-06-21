@@ -10,7 +10,6 @@ namespace FerPROJ.Design.FormModels {
     public class SystemCompanyModel : BaseModel {
         [CAttributes]
         public override string Name { get; set; } 
-        public override string ApplicationId { get; set; }  
         [CAttributes]
         public string CompanyAddress { get; set; }
         [CAttributes]

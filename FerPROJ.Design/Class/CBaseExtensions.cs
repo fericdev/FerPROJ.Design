@@ -2644,10 +2644,6 @@ namespace FerPROJ.Design.Class {
                 }
             }
 
-            if (columnCount < 5) {
-                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            }
-
         }
         private static List<int> GetIndexOfEditableColumns(CDataGridView dgv, Type modelType = null) {
             if (modelType == null) {

@@ -259,6 +259,8 @@ namespace FerPROJ.Design.Forms {
         }
         private async void btnSaveMain_Click(object sender, EventArgs e) {
             try {
+                await FrmSplasherLoading.ShowSplashAsync();
+                baseButtonSave.Enabled = false;
                 var result = await OnSaveDataAsync();
                 if (result) {
                     CurrentFormResult = Task.FromResult(true);
@@ -268,12 +270,17 @@ namespace FerPROJ.Design.Forms {
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message);
-
+                baseButtonSave.Enabled = true;
+            }
+            finally {
+                FrmSplasherLoading.CloseSplash();
             }
 
         }
         private async void btnUpdateMain_Click(object sender, EventArgs e) {
             try {
+                await FrmSplasherLoading.ShowSplashAsync();
+                baseButtonUpdate.Enabled = false;
                 var result = await OnUpdateDataAsync();
                 if (result) {
                     CurrentFormResult = Task.FromResult(true);
@@ -283,11 +290,16 @@ namespace FerPROJ.Design.Forms {
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message);
-
+                baseButtonUpdate.Enabled = true;
+            }
+            finally {
+                FrmSplasherLoading.CloseSplash();
             }
         }
         private async void baseButtonAddNew_Click(object sender, EventArgs e) {
             try {
+                await FrmSplasherLoading.ShowSplashAsync();
+                baseButtonAddNew.Enabled = false;
                 var result = await OnSaveNewDataAsync();
                 if (result.Result) {
                     CurrentFormResult = Task.FromResult(true);
@@ -295,11 +307,17 @@ namespace FerPROJ.Design.Forms {
                         this.Close();
                         await CEventManager.RaiseMethodsOnManageFormClosedAsync();
                     }
+                    else {
+                        baseButtonAddNew.Enabled = true;
+                    }
                 }
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message);
-
+                baseButtonAddNew.Enabled = true;
+            }
+            finally {
+                FrmSplasherLoading.CloseSplash();
             }
         }
         protected async virtual Task<bool> OnSaveDataAsync() {

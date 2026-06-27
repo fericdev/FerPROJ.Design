@@ -45,6 +45,7 @@ namespace FerPROJ.Design.BaseModels {
         public virtual string Remarks { get; set; }
         [CAttributes(Visible = false)]
         public virtual string ApplicationId { get; set; } = CAppConstants.APPLICATION_ID;
+        public Guid CompanyId { get; set; }
         public virtual void Execute() {
             
         }

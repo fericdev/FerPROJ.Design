@@ -78,7 +78,7 @@ namespace FerPROJ.Design.Class {
             }
 
             if (color == default) {
-                color = Color.Black;
+                color = Color.White;
             }
 
             Bitmap bmp = new Bitmap(32, 32);

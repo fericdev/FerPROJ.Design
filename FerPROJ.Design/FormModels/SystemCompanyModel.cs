@@ -2,6 +2,7 @@
 using FerPROJ.Design.Class;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,9 @@ namespace FerPROJ.Design.FormModels {
         public string CompanyDefaultLogoUrl { get; set; }
         [CAttributes]
         public bool CompanyEnabled { get; set; }
+        [CAttributes(IsImage = true, Order = 2)]
+        public Image CompanyLogoImage => CompanyLogo.ToImage();
+        public byte[] CompanyLogo {  get; set; }
 
         public override bool DataValidation() {
             return true;

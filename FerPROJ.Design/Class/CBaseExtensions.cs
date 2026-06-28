@@ -448,12 +448,17 @@ namespace FerPROJ.Design.Class {
             return Convert.ToBase64String(file);
         }
         public static Image ToImage(this byte[] file) {
-            if (file == null || file.Length == 0) {
-                return null; // Handle null or empty byte array
+            try {
+                if (file == null || file.Length == 0) {
+                    return CAppIcons.EmojiToImage(CAppIcons.Help); // Handle null or empty byte array
+                }
+                //
+                using (MemoryStream ms = new MemoryStream(file)) {
+                    return Image.FromStream(ms);
+                }
             }
-            //
-            using (MemoryStream ms = new MemoryStream(file)) {
-                return Image.FromStream(ms);
+            catch {
+                return CAppIcons.EmojiToImage(CAppIcons.Help);
             }
         }
         public static string ToTime12(this string stringValue) {

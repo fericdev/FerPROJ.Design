@@ -28,14 +28,13 @@ namespace FerPROJ.Design.Class
         public static string USER_LEVEL { get; set; }
         public static Guid USER_ID { get; set; }
         public static string NAME { get; set; }
-
+        public static string APPLICATION_ID { get; set; }
         public static CBaseEnums.Role USER_ROLE { get; set; }
         #endregion
 
         #region Status Constants
         public static string ACTIVE_STATUS = "ACTIVE";
         public static string IN_ACTIVE_STATUS = "IN-ACTIVE";
-        public static string APPLICATION_ID = CConfigurationManager.GetValue("ApplicationId", "SystemCompanyConfig");
         #endregion
 
         #region Type Contants

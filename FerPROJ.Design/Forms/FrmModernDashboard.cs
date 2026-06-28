@@ -13,8 +13,8 @@ using System.Windows.Forms;
 
 namespace FerPROJ.Design.Forms {
     public partial class FrmModernDashboard : FrmKrypton {
-        public ToolStrip ParentToolStrip {  get; set; } = new ToolStrip();
-        public ToolStripDropDownButton ParentToolStripDropDown {  get; set; } = new ToolStripDropDownButton();
+        public ToolStrip ParentToolStrip { get; set; } = new ToolStrip();
+        public ToolStripDropDownButton ParentToolStripDropDown { get; set; } = new ToolStripDropDownButton();
         public List<MenuItemModel> NavigationMenuItems { get; set; } = new List<MenuItemModel>();
         public List<MenuItemModel> ReportMenuItems { get; set; } = new List<MenuItemModel>();
         public FrmModernDashboard() {
@@ -33,6 +33,7 @@ namespace FerPROJ.Design.Forms {
             }
             try {
                 timerMain.Start();
+                LoadToolStripButtons();
                 LoadVar();
                 LoadComponent();
                 InitializeMenuButtons();
@@ -51,7 +52,7 @@ namespace FerPROJ.Design.Forms {
         }
         protected virtual void InitializeMenuButtons() {
 
-        } 
+        }
         protected void ApplyTheme(Color themeColor) {
             systemNameCLabelTitle.BackColor = themeColor;
             menuCUserControlMenuModern.ApplyTheme(themeColor);
@@ -70,6 +71,12 @@ namespace FerPROJ.Design.Forms {
             lblMainVersionValue.Text = CAssembly.SystemVersion;
             systemNameCLabelTitle.Text = CAssembly.SystemNameFull + " Management System";
             Text = CAssembly.SystemNameFull + " Management System";
+        }
+        private void LoadToolStripButtons() {
+            ParentToolStripDropDown.DropDownItems.Add(new ToolStripMenuItem("Application", CAppIcons.EmojiToImage(CAppIcons.Settings), OnSettingsClick));
+        }
+        private async void OnSettingsClick(object sender, EventArgs e) {
+            await CFormLayer.ManageSystemSettings();
         }
     }
 }

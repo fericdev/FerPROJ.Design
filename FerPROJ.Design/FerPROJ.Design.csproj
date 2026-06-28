@@ -300,6 +300,12 @@
     <Compile Include="Forms\FrmSplasher.designer.cs">
       <DependentUpon>FrmSplasher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmSystemSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmSystemSettings.Designer.cs">
+      <DependentUpon>FrmSystemSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interface\BaseInterface.cs" />
     <Compile Include="FormModels\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -395,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmSplasher.resx">
       <DependentUpon>FrmSplasher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmSystemSettings.resx">
+      <DependentUpon>FrmSystemSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -20,6 +20,9 @@ namespace FerPROJ.Design.Class {
                 return Task.FromResult(frm.CurrentFormResult.Result);
             }
         }
+        public static async Task<bool> ManageSystemSettings() {
+            return await ManageAsync<FrmSystemSettings>();
+        }
         public static async Task<bool> ManageRemarksAsync<TEntity, TRepository>(Guid id) {
             //
             var entity = await CRepositoryManager.ExecuteMethodAsync<TEntity>(typeof(TRepository), "GetByIdAsync", id);

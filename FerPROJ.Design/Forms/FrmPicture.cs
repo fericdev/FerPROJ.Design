@@ -34,7 +34,9 @@ namespace FerPROJ.Design.Forms {
         protected override async Task<(bool Result, bool CloseForm)> OnSaveNewDataAsync() {
             if (CDialogManager.Ask("Open Camera?")) {
                 FrmSplasherLoading.CloseSplash();
-                await CFormLayer.ManageAsync<FrmCamera>(parameters: c => c.model = model);
+                if (await CFormLayer.ManageAsync<FrmCamera>(parameters: c => c.model = model)) {
+                    pictureBoxImage.BackgroundImage = model.Picture.ToImage();
+                }
             }
             else {
                 using (OpenFileDialog ofd = new OpenFileDialog()) {

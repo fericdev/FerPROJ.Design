@@ -267,6 +267,7 @@ namespace FerPROJ.Design.Forms {
                     this.Close();
                     await CEventManager.RaiseMethodsOnManageFormClosedAsync();
                 }
+                baseButtonUpdate.Enabled = true;
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message);
@@ -287,6 +288,7 @@ namespace FerPROJ.Design.Forms {
                     this.Close();
                     await CEventManager.RaiseMethodsOnManageFormClosedAsync();
                 }
+                baseButtonUpdate.Enabled = true;
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message);
@@ -307,10 +309,8 @@ namespace FerPROJ.Design.Forms {
                         this.Close();
                         await CEventManager.RaiseMethodsOnManageFormClosedAsync();
                     }
-                    else {
-                        baseButtonAddNew.Enabled = true;
-                    }
                 }
+                baseButtonAddNew.Enabled = true;
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message);
@@ -321,10 +321,10 @@ namespace FerPROJ.Design.Forms {
             }
         }
         protected async virtual Task<bool> OnSaveDataAsync() {
-            return await CurrentFormResult;
+            return await Task.FromResult(true);
         }
         protected async virtual Task<bool> OnUpdateDataAsync() {
-            return await CurrentFormResult;
+            return await Task.FromResult(true);
         }
         protected async virtual Task<(bool Result, bool CloseForm)> OnSaveNewDataAsync() {
             return (await OnSaveDataAsync(), false);

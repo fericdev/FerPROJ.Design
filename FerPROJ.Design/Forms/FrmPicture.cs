@@ -32,12 +32,18 @@ namespace FerPROJ.Design.Forms {
             return Task.CompletedTask;
         }
         protected override async Task<(bool Result, bool CloseForm)> OnSaveNewDataAsync() {
-            using (OpenFileDialog ofd = new OpenFileDialog()) {
-                if (ofd.ShowDialog() == DialogResult.OK) {
-                    string imagePath = ofd.FileName;
-                    _tempPicture = File.ReadAllBytes(imagePath);
-                    model.Picture = _tempPicture;
-                    pictureBoxImage.BackgroundImage = _tempPicture.ToImage();
+            if (CDialogManager.Ask("Open Camera?")) {
+                FrmSplasherLoading.CloseSplash();
+                await CFormLayer.ManageAsync<FrmCamera>(parameters: c => c.model = model);
+            }
+            else {
+                using (OpenFileDialog ofd = new OpenFileDialog()) {
+                    if (ofd.ShowDialog() == DialogResult.OK) {
+                        string imagePath = ofd.FileName;
+                        _tempPicture = File.ReadAllBytes(imagePath);
+                        model.Picture = _tempPicture;
+                        pictureBoxImage.BackgroundImage = _tempPicture.ToImage();
+                    }
                 }
             }
             return (await Task.FromResult(false), false);

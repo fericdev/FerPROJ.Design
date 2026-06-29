@@ -5,6 +5,15 @@
   <Import Project="..\..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <ItemGroup>
+    <PackageReference Include="AForge">
+      <Version>2.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="AForge.Video">
+      <Version>2.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="AForge.Video.DirectShow">
+      <Version>2.2.5</Version>
+    </PackageReference>
     <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="AutoMapper" Version="16.1.1" />
     <PackageReference Include="EPPlus" Version="8.5.1" />
@@ -270,6 +279,12 @@
     <Compile Include="Forms\FrmManageKrypton.designer.cs">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmCamera.Designer.cs">
+      <DependentUpon>FrmCamera.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmPicture.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmManageKrypton.resx">
       <DependentUpon>FrmManageKrypton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmCamera.resx">
+      <DependentUpon>FrmCamera.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmPicture.resx">
       <DependentUpon>FrmPicture.cs</DependentUpon>

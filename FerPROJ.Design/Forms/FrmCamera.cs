@@ -22,6 +22,8 @@ namespace FerPROJ.Design.Forms {
         private FilterInfoCollection _videoDevices;
         private VideoCaptureDevice _videoSource;
         private Bitmap _currentFrame;
+        private bool _closing;
+        //
         public PictureModel model { get; set; } = new PictureModel();
 
         public FrmCamera() {
@@ -39,7 +41,8 @@ namespace FerPROJ.Design.Forms {
         }
         protected override async Task InitializeFormPropertiesAsync() {
             OnSaveNewName = "Capture";
-            StartCamera();
+            LoadCameras();
+            cameraSourceCComboBoxKrypton.TrackIndexChangesAndCallMethod(StartCameraAsync);
             await base.InitializeFormPropertiesAsync();
         }
         protected override async Task<(bool Result, bool CloseForm)> OnSaveNewDataAsync() {
@@ -58,30 +61,77 @@ namespace FerPROJ.Design.Forms {
         protected override async Task<bool> OnSaveDataAsync() {
             return await Task.FromResult(true);
         }
-
-        private void StartCamera() {
+        private void LoadCameras() {
             _videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-            if (_videoDevices.Count == 0) {
-                CDialogManager.Warning("No camera detected.");
+            cameraSourceCComboBoxKrypton.Items.Clear();
+
+            foreach (FilterInfo camera in _videoDevices) {
+                cameraSourceCComboBoxKrypton.Items.Add(camera.Name);
+            }
+
+            if (cameraSourceCComboBoxKrypton.Items.Count > 0) {
+                cameraSourceCComboBoxKrypton.SelectedIndex = 0;
+            }
+        }
+        private async Task StartCameraAsync() {
+            var index = cameraSourceCComboBoxKrypton.SelectedIndex;
+
+            StopCamera();
+
+            if (_videoDevices == null || _videoDevices.Count == 0) {
                 return;
             }
 
-            _videoSource = new VideoCaptureDevice(_videoDevices[0].MonikerString);
+            _videoSource = new VideoCaptureDevice(_videoDevices[index].MonikerString);
             _videoSource.NewFrame += VideoSource_NewFrame;
             _videoSource.Start();
+
+            await Task.CompletedTask;
+        }
+        private void StopCamera() {
+            if (_videoSource != null) {
+                _videoSource.NewFrame -= VideoSource_NewFrame;
+
+                if (_videoSource.IsRunning) {
+                    _videoSource.SignalToStop();
+                    _videoSource.WaitForStop();
+                }
+
+                _videoSource = null;
+            }
         }
 
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs) {
+            if (_closing) {
+                return;
+            }
+
             Bitmap frame = (Bitmap)eventArgs.Frame.Clone();
 
-            pictureBoxImage.Invoke(new Action(() => {
+            if (_closing || pictureBoxImage.IsDisposed) {
+                frame.Dispose();
+                return;
+            }
+
+            pictureBoxImage.BeginInvoke(new Action(() =>
+            {
+                if (_closing || pictureBoxImage.IsDisposed) {
+                    frame.Dispose();
+                    return;
+                }
+
                 pictureBoxImage.Image?.Dispose();
                 pictureBoxImage.Image = (Bitmap)frame.Clone();
             }));
 
             _currentFrame?.Dispose();
             _currentFrame = frame;
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e) {
+            _closing = true;
+            StopCamera();
+            base.OnFormClosing(e);
         }
     }
 }

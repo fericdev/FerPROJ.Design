@@ -46,10 +46,49 @@ namespace FerPROJ.Design.Forms {
             // Initialize and load HTML
             InitializeAsync(reportFilePath);
         }
+        public FrmHtmlViewer(string reportFilePath) {
+            InitializeComponent();
+
+            // Create WebView2 instance
+            _webView = new WebView2 {
+                Dock = DockStyle.Fill // Fill the entire form
+            };
+
+            // Model
+            _reportFilePath = reportFilePath;
+
+            // Set basic form properties
+            this.Text = "Report Viewer";
+            this.Width = 800;
+            this.Height = 600;
+            this.ShowInTaskbar = true;
+
+            // Initialize components
+            Initialize();
+
+            // Initialize and load HTML
+            InitializeAsync(reportFilePath);
+        }
         public static void ShowReport(string reportFilePath, HtmlReportModel model) {
             //
             if (_instance == null) {
                 _instance = new FrmHtmlViewer(reportFilePath, model);
+            }
+
+            // Show the form asynchronously to ensure it's fully loaded
+            _instance.Shown += async (s, e) => {
+                await Task.Delay(100); // Optional: delay to simulate loading time
+            };
+
+            //
+            _instance.Show();
+            _instance.BringToFront();
+            _instance.Update();
+        }
+        public static void ShowReport(string reportFilePath) {
+            //
+            if (_instance == null) {
+                _instance = new FrmHtmlViewer(reportFilePath);
             }
 
             // Show the form asynchronously to ensure it's fully loaded

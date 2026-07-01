@@ -482,6 +482,63 @@ namespace FerPROJ.Design.Class {
 
         }
 
+        public static async Task ExportRawHtmlAsync(HtmlRawReportModel model) {
+            string orientation = model.IsLandscape ? "landscape" : "portrait";
+
+            string html = $@"
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>{model.ReportTitle}</title>
+
+                    <style>
+
+                    @page
+                    {{
+                        size: {model.ReportPageSize.Item1}in {model.ReportPageSize.Item2}in {orientation};
+                        margin: 0;
+                    }}
+
+                    html,
+                    body
+                    {{
+                        width: {model.ReportPageSize.Item1}in;
+                        height: {model.ReportPageSize.Item2}in;
+                        margin: 0;
+                        padding: 0;
+                    }}
+
+                    *
+                    {{
+                        box-sizing: border-box;
+                    }}
+
+                    {model.ReportCss}
+
+                    </style>
+
+                </head>
+
+                <body>
+
+                {model.ReportHtml}
+
+                </body>
+
+                </html>";
+
+            string filePath = CAccessManager.GetOrCreateEnvironmentPath(
+                $"{model.ReportTitle}_{DateTime.Now:yyyyMMdd_HHmmss}.html",
+                "Reports");
+
+            File.WriteAllText(filePath, html);
+
+            FrmHtmlViewer.ShowReport(filePath);
+
+            await Task.CompletedTask;
+        }
+
     }
 
     #region model
@@ -501,6 +558,13 @@ namespace FerPROJ.Design.Class {
         public List<(string Label, object Value)> ReportFooterLeft { get; set; } = new List<(string Label, object Value)>();
         public string GeneratedOn => $"<strong>Print Date:</strong> {DateTime.Now.ToDateAndTime()} <br />";
 
+    }
+    public class HtmlRawReportModel {
+        public bool IsLandscape { get; set; }
+        public (double, double) ReportPageSize { get; set; } = (11, 8.5);
+        public string ReportTitle { get; set; }
+        public string ReportCss { get; set; }
+        public string ReportHtml { get; set; }
     }
     #endregion
 

@@ -485,6 +485,19 @@ namespace FerPROJ.Design.Class {
         public static async Task ExportRawHtmlAsync(HtmlRawReportModel model) {
             string orientation = model.IsLandscape ? "landscape" : "portrait";
 
+            string backgroundCss = string.Empty;
+
+            if (!model.BackgroundImagePath.IsNullOrEmpty()) {
+                backgroundCss = $@"
+                    body
+                    {{
+                        background-image: url('{model.BackgroundImagePath.Replace("\\", "/")}');
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        background-position: center;
+                    }}";
+            }
+
             string html = $@"
                 <!DOCTYPE html>
                 <html>
@@ -513,6 +526,8 @@ namespace FerPROJ.Design.Class {
                     {{
                         box-sizing: border-box;
                     }}
+
+                    {backgroundCss}
 
                     {model.ReportCss}
 
@@ -565,6 +580,7 @@ namespace FerPROJ.Design.Class {
         public string ReportTitle { get; set; }
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }
+        public string BackgroundImagePath { get; set; }
     }
     #endregion
 

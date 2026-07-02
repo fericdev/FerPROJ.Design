@@ -21,6 +21,7 @@ namespace FerPROJ.Design.Forms {
         private static FrmHtmlViewer _instance;
         private readonly WebView2 _webView;
         private readonly HtmlReportModel _model;
+        private readonly HtmlRawReportModel _rawModel;
         private readonly string _reportFilePath;
         public FrmHtmlViewer(string reportFilePath, HtmlReportModel model) {
             InitializeComponent();
@@ -46,7 +47,7 @@ namespace FerPROJ.Design.Forms {
             // Initialize and load HTML
             InitializeAsync(reportFilePath);
         }
-        public FrmHtmlViewer(string reportFilePath) {
+        public FrmHtmlViewer(string reportFilePath, HtmlRawReportModel model) {
             InitializeComponent();
 
             // Create WebView2 instance
@@ -55,6 +56,7 @@ namespace FerPROJ.Design.Forms {
             };
 
             // Model
+            _rawModel = model;
             _reportFilePath = reportFilePath;
 
             // Set basic form properties
@@ -85,10 +87,10 @@ namespace FerPROJ.Design.Forms {
             _instance.BringToFront();
             _instance.Update();
         }
-        public static void ShowReport(string reportFilePath) {
+        public static void ShowReport(string reportFilePath, HtmlRawReportModel model) {
             //
             if (_instance == null) {
-                _instance = new FrmHtmlViewer(reportFilePath);
+                _instance = new FrmHtmlViewer(reportFilePath, model);
             }
 
             // Show the form asynchronously to ensure it's fully loaded
@@ -162,7 +164,10 @@ namespace FerPROJ.Design.Forms {
                 return;
             }
 
-            var fileName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+            var reportTitle = _model?.ReportTitle ?? _rawModel?.ReportTitle;
+            var isLandscape = _model?.IsLandscape ?? _rawModel?.IsLandscape ?? false;
+
+            var fileName = $"{reportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
 
             using (SaveFileDialog dlg = new SaveFileDialog()) {
                 dlg.Filter = "PDF Files (*.pdf)|*.pdf";
@@ -174,7 +179,7 @@ namespace FerPROJ.Design.Forms {
 
                 var printSettings = _webView.CoreWebView2.Environment.CreatePrintSettings();
 
-                printSettings.Orientation = _model.IsLandscape ? CoreWebView2PrintOrientation.Landscape :
+                printSettings.Orientation = isLandscape ? CoreWebView2PrintOrientation.Landscape :
                                                                  CoreWebView2PrintOrientation.Portrait;
 
                 var result = await _webView.CoreWebView2.PrintToPdfAsync(dlg.FileName, printSettings);
@@ -203,7 +208,9 @@ namespace FerPROJ.Design.Forms {
                 return;
             }
 
-            var fileName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+            var reportTitle = _model?.ReportTitle ?? _rawModel?.ReportTitle;
+
+            var fileName = $"{reportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
 
             using (SaveFileDialog dlg = new SaveFileDialog()) {
                 dlg.Filter = "PNG Image (*.png)|*.png";
@@ -241,8 +248,10 @@ namespace FerPROJ.Design.Forms {
 
                 string basePath = folderDialog.SelectedPath;
 
+                var reportTitle = _model?.ReportTitle ?? _rawModel?.ReportTitle;
+
                 // folder name you want
-                var folderName = $"{_model.ReportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
+                var folderName = $"{reportTitle.ToStringNormalize()}_{DateTime.Now.ToString("ddd_MMM_dd")}_{DateTime.Now.ToString("hh_mm_tt")}";
 
                 // combine path
                 string outputFolder = Path.Combine(basePath, folderName);

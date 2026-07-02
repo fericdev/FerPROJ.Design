@@ -549,7 +549,7 @@ namespace FerPROJ.Design.Class {
 
             File.WriteAllText(filePath, html);
 
-            FrmHtmlViewer.ShowReport(filePath);
+            FrmHtmlViewer.ShowReport(filePath, model);
 
             await Task.CompletedTask;
         }

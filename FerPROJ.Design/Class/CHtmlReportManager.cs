@@ -576,7 +576,7 @@ namespace FerPROJ.Design.Class {
     }
     public class HtmlRawReportModel {
         public bool IsLandscape { get; set; }
-        public (double, double) ReportPageSize { get; set; } = (11, 8.5);
+        public (double Height, double Width) ReportPageSize { get; set; } = (11, 8.5);
         public string ReportTitle { get; set; }
         public string ReportCss { get; set; }
         public string ReportHtml { get; set; }

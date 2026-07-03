@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\CAppIcons.cs" />
+    <Compile Include="Class\CNumberExtensions.cs" />
     <Compile Include="Controls\CScrollPanel.cs">
       <SubType>Component</SubType>
     </Compile>

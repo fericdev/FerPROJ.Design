@@ -1,5 +1,7 @@
-﻿using FerPROJ.Design.Class;
+﻿using FerPROJ.DBHelper.DBCrud;
+using FerPROJ.Design.Class;
 using FerPROJ.Design.Controls;
+using FerPROJ.Design.FormModels;
 using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
@@ -71,12 +73,19 @@ namespace FerPROJ.Design.Forms {
             lblMainVersionValue.Text = CAssembly.SystemVersion;
             systemNameCLabelTitle.Text = CAssembly.SystemNameFull + " Management System";
             Text = CAssembly.SystemNameFull + " Management System";
+            LoadLogoAsync();
         }
         private void LoadToolStripButtons() {
             ParentToolStripDropDown.DropDownItems.Add(new ToolStripMenuItem("Application", CAppIcons.EmojiToImage(CAppIcons.Settings), OnSettingsClick));
         }
         private async void OnSettingsClick(object sender, EventArgs e) {
             await CFormLayer.ManageSystemSettings();
+        }
+        private async void LoadLogoAsync() {
+            var company = await CRepositoryManager.ExecuteMethodAsync<SystemCompanyModel>("SystemCompanyRepository", "GetActiveSystemCompanyAsync");
+            if (company?.CompanyLogo != null) {
+                profilePictureKryptonPictureBox.BackgroundImage = company.CompanyLogoImage;
+            }
         }
     }
 }

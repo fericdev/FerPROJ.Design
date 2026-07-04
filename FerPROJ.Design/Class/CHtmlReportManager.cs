@@ -19,11 +19,11 @@ namespace FerPROJ.Design.Class {
             #region Company
             if (CAppConstants.API_ENABLED) {
                 model.Company = await CRepositoryManager.ExecuteApiMethodAsync<SystemCompanyModel>("SystemCompanyApiRepository", "GetActiveSystemCompanyAsync");
+                model.Company.CompanyLogoUrl = $"data:image/png;base64,{Convert.ToBase64String(model.Company.CompanyLogo)}";
             }
             else {
                 model.Company = await CRepositoryManager.ExecuteMethodAsync<SystemCompanyModel>("SystemCompanyRepository", "GetActiveSystemCompanyAsync");
             }
-            model.Company.CompanyLogoUrl = $"data:image/png;base64,{Convert.ToBase64String(model.Company.CompanyLogo)}";
             #endregion
 
             #region css

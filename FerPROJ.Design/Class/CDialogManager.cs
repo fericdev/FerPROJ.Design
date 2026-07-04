@@ -70,22 +70,19 @@ namespace FerPROJ.Design.Class {
             return false;
         }
         public static bool Ask(string message) {
-            var callerType = new StackTrace().GetFrame(1).GetMethod().DeclaringType;
-            return Ask(message, GetCallerTypeName(callerType));
+            return Ask(message, CAssembly.SystemNameFull);
         }
         public static void Warning(string message, string caption) {
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         public static void Warning(string message) {
-            var callerType = new StackTrace().GetFrame(1).GetMethod().DeclaringType;
-            Warning(message, GetCallerTypeName(callerType));
+            Warning(message, CAssembly.SystemNameFull);
         }
         public static void Info(string message, string caption) {
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public static void Info(string message) {
-            var callerType = new StackTrace().GetFrame(1).GetMethod().DeclaringType;
-            Info(message, GetCallerTypeName(callerType));
+            Info(message, CAssembly.SystemNameFull);
         }
         public static void Custom(string message, string caption, MessageBoxIcon msgIcon, bool topMost = false) {
             Form mainForm = Application.OpenForms.Cast<Form>().FirstOrDefault(f => f.IsHandleCreated);
@@ -116,15 +113,6 @@ namespace FerPROJ.Design.Class {
             else {
                 MessageBox.Show(message, caption, MessageBoxButtons.OK, msgIcon);
             }
-        }
-
-
-        private static string GetCallerTypeName(Type type) {
-            if (type == null) {
-                return CAssembly.SystemName;
-            }
-
-            return type?.Name.ToStringNormalize().ToStringWithSpaces().ToStringRemoveEndWith("Async");
         }
     }
 }

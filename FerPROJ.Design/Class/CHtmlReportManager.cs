@@ -23,6 +23,7 @@ namespace FerPROJ.Design.Class {
             else {
                 model.Company = await CRepositoryManager.ExecuteMethodAsync<SystemCompanyModel>("SystemCompanyRepository", "GetActiveSystemCompanyAsync");
             }
+            model.Company.CompanyLogoUrl = $"data:image/png;base64,{Convert.ToBase64String(model.Company.CompanyLogo)}";
             #endregion
 
             #region css

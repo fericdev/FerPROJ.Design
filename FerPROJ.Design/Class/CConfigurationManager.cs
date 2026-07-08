@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -182,6 +183,14 @@ namespace FerPROJ.Design.Class {
             return value.To<TResult>();
         }
         public static string GetValue(string key, string parent = null, bool encrypt = true, string path = null) {
+            // 1. Check if we are currently running inside the Visual Studio Designer
+            bool isDesigner = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+
+            // Return an empty string or a default value when in design mode
+            if (isDesigner) {
+                return string.Empty;
+            }
+
             //
             if (path == null) {
                 path = CAccessManager.GetOrCreateEnvironmentPath("AppSettings.xml", "Config");

@@ -26,6 +26,7 @@ namespace FerPROJ.Design.Forms {
                 case FormMode.Add:
                     break;
                 case FormMode.Update:
+                case FormMode.ReadOnly:
                     pictureBoxImage.BackgroundImage = model.PictureImage;
                     break;
             }

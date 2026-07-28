@@ -267,7 +267,7 @@ namespace FerPROJ.Design.Forms {
                     this.Close();
                     await CEventManager.RaiseMethodsOnManageFormClosedAsync();
                 }
-                baseButtonUpdate.Enabled = true;
+                baseButtonSave.Enabled = true;
             }
             catch (Exception ex) {
                 CDialogManager.Warning(ex.Message);

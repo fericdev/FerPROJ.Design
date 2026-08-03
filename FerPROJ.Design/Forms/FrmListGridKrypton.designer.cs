@@ -35,8 +35,8 @@ namespace FerPROJ.Design.Forms
 
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListGridKrypton));
             this.baseLbl1 = new System.Windows.Forms.Label();
             this.basePnl1 = new System.Windows.Forms.Panel();
@@ -73,8 +73,8 @@ namespace FerPROJ.Design.Forms
             this.tsbOther3 = new System.Windows.Forms.ToolStripButton();
             this.tsbRemarks = new System.Windows.Forms.ToolStripButton();
             this.panelMain11 = new System.Windows.Forms.Panel();
-            this.PnlFormList = new System.Windows.Forms.Panel();
             this.enabledDateRangeCheckBox = new System.Windows.Forms.CheckBox();
+            this.PnlFormList = new System.Windows.Forms.Panel();
             this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDescMain3 = new FerPROJ.Design.Controls.CLabelDesc();
             this.baselabelmain12 = new System.Windows.Forms.Label();
@@ -319,8 +319,8 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.AllowUserToOrderColumns = true;
             this.baseModelCDatagridview.AllowUserToResizeRows = false;
             this.baseModelCDatagridview.AlternatingRowColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightGray;
+            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.baseModelCDatagridview.AutoGenerateColumns = false;
             this.baseModelCDatagridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.baseModelCDatagridview.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
@@ -339,13 +339,13 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.Name = "baseModelCDatagridview";
             this.baseModelCDatagridview.ReadOnly = true;
             this.baseModelCDatagridview.RowHeadersVisible = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.baseModelCDatagridview.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.baseModelCDatagridview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.baseModelCDatagridview.Size = new System.Drawing.Size(1056, 423);
@@ -487,8 +487,8 @@ namespace FerPROJ.Design.Forms
             this.tsbMainRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tsbMainRefresh.Image")));
             this.tsbMainRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbMainRefresh.Name = "tsbMainRefresh";
-            this.tsbMainRefresh.Size = new System.Drawing.Size(71, 38);
-            this.tsbMainRefresh.Text = "Resfresh";
+            this.tsbMainRefresh.Size = new System.Drawing.Size(66, 38);
+            this.tsbMainRefresh.Text = "Refresh";
             this.tsbMainRefresh.Click += new System.EventHandler(this.tsbMainRefresh_Click);
             // 
             // tsbOther3
@@ -526,6 +526,18 @@ namespace FerPROJ.Design.Forms
             this.panelMain11.Size = new System.Drawing.Size(1056, 73);
             this.panelMain11.TabIndex = 3;
             // 
+            // enabledDateRangeCheckBox
+            // 
+            this.enabledDateRangeCheckBox.AutoSize = true;
+            this.enabledDateRangeCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.enabledDateRangeCheckBox.ForeColor = System.Drawing.Color.Transparent;
+            this.enabledDateRangeCheckBox.Location = new System.Drawing.Point(645, 6);
+            this.enabledDateRangeCheckBox.Name = "enabledDateRangeCheckBox";
+            this.enabledDateRangeCheckBox.Size = new System.Drawing.Size(154, 21);
+            this.enabledDateRangeCheckBox.TabIndex = 8;
+            this.enabledDateRangeCheckBox.Text = "Enable Date Search";
+            this.enabledDateRangeCheckBox.UseVisualStyleBackColor = true;
+            // 
             // PnlFormList
             // 
             this.PnlFormList.Controls.Add(this.baseDateToDateTimePicker);
@@ -538,24 +550,12 @@ namespace FerPROJ.Design.Forms
             this.PnlFormList.Size = new System.Drawing.Size(255, 72);
             this.PnlFormList.TabIndex = 4;
             // 
-            // enabledDateRangeCheckBox
-            // 
-            this.enabledDateRangeCheckBox.AutoSize = true;
-            this.enabledDateRangeCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.enabledDateRangeCheckBox.ForeColor = System.Drawing.Color.Transparent;
-            this.enabledDateRangeCheckBox.Location = new System.Drawing.Point(638, 7);
-            this.enabledDateRangeCheckBox.Name = "enabledDateRangeCheckBox";
-            this.enabledDateRangeCheckBox.Size = new System.Drawing.Size(162, 21);
-            this.enabledDateRangeCheckBox.TabIndex = 8;
-            this.enabledDateRangeCheckBox.Text = "Enabled Date Search";
-            this.enabledDateRangeCheckBox.UseVisualStyleBackColor = true;
-            // 
             // customLabelDescMain2
             // 
             this.customLabelDescMain2.AutoSize = true;
             this.customLabelDescMain2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.customLabelDescMain2.ForeColor = System.Drawing.Color.White;
-            this.customLabelDescMain2.Location = new System.Drawing.Point(9, 8);
+            this.customLabelDescMain2.Location = new System.Drawing.Point(6, 7);
             this.customLabelDescMain2.Name = "customLabelDescMain2";
             this.customLabelDescMain2.Size = new System.Drawing.Size(78, 17);
             this.customLabelDescMain2.TabIndex = 4;
@@ -566,7 +566,7 @@ namespace FerPROJ.Design.Forms
             this.customLabelDescMain3.AutoSize = true;
             this.customLabelDescMain3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.customLabelDescMain3.ForeColor = System.Drawing.Color.White;
-            this.customLabelDescMain3.Location = new System.Drawing.Point(131, 8);
+            this.customLabelDescMain3.Location = new System.Drawing.Point(128, 8);
             this.customLabelDescMain3.Name = "customLabelDescMain3";
             this.customLabelDescMain3.Size = new System.Drawing.Size(63, 17);
             this.customLabelDescMain3.TabIndex = 6;

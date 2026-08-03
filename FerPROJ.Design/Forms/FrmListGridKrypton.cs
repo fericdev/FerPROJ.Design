@@ -327,8 +327,14 @@ namespace FerPROJ.Design.Forms {
         private async void DebounceTimer_Tick(object sender, EventArgs e) {
             _debounceTimer.Stop();
             searchValue = SearchTextBox.Text;
-            dateFrom = baseDateFromDateTimePicker.Value;
-            dateTo = baseDateToDateTimePicker.Value;
+            dateFrom = null;
+            dateTo = null;
+
+            //
+            if (enabledDateRangeCheckBox.Checked) {
+                dateFrom = baseDateFromDateTimePicker.Value;
+                dateTo = baseDateToDateTimePicker.Value;
+            } 
             await RefreshAsync();
         }
 

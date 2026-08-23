@@ -23,6 +23,8 @@ namespace FerPROJ.Design.Class {
             SystemVersion = assembly.GetName().Version.ToString();
             //
             CAppConstants.DB_CONTEXT_TYPE = typeof(DbContext);
+            //
+            RunVersionCheckerAsync().RunTaskAndForget();
         }
         private static async Task CheckVersionAsync() {
             // "LMSMain/LMSMain_version"

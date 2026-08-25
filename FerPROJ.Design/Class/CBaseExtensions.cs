@@ -1196,9 +1196,9 @@ namespace FerPROJ.Design.Class {
 
             comboBoxPage.FillComboBox(totalPages, 1, "Page");
 
-            int totalLimits = ((total + 20 - 1) / 20) * 20;
+            int totalLimits = ((total + 50 - 1) / 50) * 50;
 
-            comboBoxLimit.FillComboBox(totalLimits, 20, "Limit to");
+            comboBoxLimit.FillComboBox(totalLimits, 50, "Limit to");
 
             // Clear
             bindingSource.Clear();

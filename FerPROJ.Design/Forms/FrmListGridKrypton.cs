@@ -44,7 +44,7 @@ namespace FerPROJ.Design.Forms {
         public DateTime? dateFrom = null;
         public DateTime? dateTo = null;
         public string searchValue;
-        public int dataLimit = 20;
+        public int dataLimit = 50;
         public int dataPage = 1;
         public Guid Form_IdTrack;
         public List<Guid> Form_IdTracks;

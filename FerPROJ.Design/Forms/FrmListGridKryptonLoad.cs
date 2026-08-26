@@ -67,6 +67,15 @@ namespace FerPROJ.Design.Forms {
                     result.ModelItems = result.ModelItems.Where(_searchParameterModel);
                 }
 
+                if (!_crudOptions.OrderDataOnRefreshParameters.IsNullOrEmpty()) {
+                    if (_crudOptions.OrderDataOnRefreshParameters.Ascending) {
+                        result.ModelItems = result.ModelItems.OrderBy(x => x.GetPropertyValue(_crudOptions.OrderDataOnRefreshParameters.OrderBy));
+                    }
+                    else {
+                        result.ModelItems = result.ModelItems.OrderByDescending(x => x.GetPropertyValue(_crudOptions.OrderDataOnRefreshParameters.OrderBy));
+                    }
+                }
+
                 await _baseBindingSource.LoadDataAsync(
                     result.ModelItems,
                     ComboBoxKryptonPage,
@@ -89,6 +98,15 @@ namespace FerPROJ.Design.Forms {
 
                 if (!_searchParameterModel.IsNullOrEmpty()) {
                     result.ModelItems = result.ModelItems.Where(_searchParameterModel);
+                }
+
+                if (!_crudOptions.OrderDataOnRefreshParameters.IsNullOrEmpty()) {
+                    if(_crudOptions.OrderDataOnRefreshParameters.Ascending) {
+                        result.ModelItems = result.ModelItems.OrderBy(x => x.GetPropertyValue(_crudOptions.OrderDataOnRefreshParameters.OrderBy));
+                    }
+                    else {
+                        result.ModelItems = result.ModelItems.OrderByDescending(x => x.GetPropertyValue(_crudOptions.OrderDataOnRefreshParameters.OrderBy));
+                    }
                 }
 
                 await _baseBindingSource.LoadDataAsync(

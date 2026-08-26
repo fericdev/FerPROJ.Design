@@ -2800,6 +2800,25 @@ namespace FerPROJ.Design.Class {
         #endregion
 
         #region Properties
+        public static object GetPropertyValue(this object obj, string propertyName) {
+            try {
+                if (obj == null)
+                    return default;
+
+                var propertyInfo = obj.GetPropertyInfo(propertyName);
+                if (propertyInfo == null)
+                    return default;
+
+                var value = propertyInfo.GetValue(obj);
+                if (value == null)
+                    return default;
+
+                return value;
+            }
+            catch {
+                return default;
+            }
+        }
         public static TType GetPropertyValue<TType>(this object obj, string propertyName) {
             try {
                 if (obj == null)

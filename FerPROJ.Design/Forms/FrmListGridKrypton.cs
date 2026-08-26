@@ -747,6 +747,7 @@ public class CrudOptions {
     public string FormDescription { get; set; }
     public FormSizeTypes FormSizeType { get; set; } = FormSizeTypes.Default;
     public (string ColumnName, object ColumnValue, Color RowColor) RowColorOnRefreshParameters { get; set; }
+    public (string OrderBy, bool Ascending) OrderDataOnRefreshParameters { get; set; }
     public List<string> HideColumnOnRefreshParameters { get; set; }
     public List<BaseMenuButtonModel> RowContextMenuButtons { get; set; }
     #endregion

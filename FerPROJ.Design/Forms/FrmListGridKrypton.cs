@@ -680,6 +680,9 @@ namespace FerPROJ.Design.Forms {
             if (!_crudOptions.Other2Icon.IsNullOrEmpty()) {
                 tsbOther2.Image = CAppIcons.EmojiToImage(_crudOptions.Other2Icon, Color.Navy);
             }
+            if (!_crudOptions.Other3Icon.IsNullOrEmpty()) {
+                tsbOther3.Image = CAppIcons.EmojiToImage(_crudOptions.Other3Icon, Color.Navy);
+            }
         }
         private (int Height, int Width) GetFormSize(FormSizeTypes formSizeType) {
             switch (formSizeType) {
@@ -738,6 +741,7 @@ public class CrudOptions {
     public string Other2Icon { get; set; }
     public Func<Guid, Task<bool>> OnOther3Async { get; set; }
     public string Other3Name { get; set; }
+    public string Other3Icon { get; set; }
     public Func<Guid, Task<bool>> OnRemarksAsync { get; set; }
     public string RemarksName { get; set; }
 

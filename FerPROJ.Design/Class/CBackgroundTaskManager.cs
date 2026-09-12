@@ -144,5 +144,28 @@ namespace FerPROJ.Design.Class {
             //CShowMessage.Warning($"Error: {ex.Message}");
             //Console.WriteLine("Background Error:" + ex.Message);
         }
+
+        public static async Task RunParallelTaskAsync<T>(
+            IEnumerable<T> items,
+            Func<T, Task> action,
+            int maxDegreeOfParallelism = 10) {
+
+            var semaphore = new SemaphoreSlim(maxDegreeOfParallelism);
+
+            var tasks = items.Select(async item =>
+            {
+                await semaphore.WaitAsync();
+
+                try {
+                    await action(item);
+                }
+                finally {
+                    semaphore.Release();
+                }
+            });
+
+            await Task.WhenAll(tasks);
+        }
+
     }
 }

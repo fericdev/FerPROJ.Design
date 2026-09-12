@@ -63,7 +63,7 @@ namespace FerPROJ.Design.BaseModels {
         [CAttributes(Visible = false)]
         public override string Name { get => base.Name; set => base.Name = value; }
         [CAttributes(Visible = false)]
-        public DateTime? DateMarked { get; set; } = DateTime.Now;
+        public virtual DateTime? DateMarked { get; set; } = DateTime.Now;
         [CAttributes(Header = "Date Marked", Order = 2002)]
         public virtual string DateMarkedString => !DateMarked.HasValue ? string.Empty : DateMarked.Value.ToDateAndTime();
         [CAttributes(Header = "Transaction Status", Order = 2000)]

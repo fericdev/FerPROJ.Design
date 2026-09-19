@@ -2384,6 +2384,9 @@ namespace FerPROJ.Design.Class {
             if (columnsToTotal.Any()) {
                 dgv.CreateOrUpdateFooterPanel(columnsToTotal);
             }
+
+            // Lastly, apply display order based on attributes (after all columns are set up)
+            dgv.ApplyDisplayOrder(modelType);
         }
         private static void CreateOrUpdateFooterPanel(this CDataGridView dgv, Dictionary<int, FormatTypes> columnsToTotal) {
             var parent = dgv.Parent;

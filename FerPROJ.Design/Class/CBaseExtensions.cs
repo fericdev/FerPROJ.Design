@@ -450,7 +450,7 @@ namespace FerPROJ.Design.Class {
         public static Image ToImage(this byte[] file) {
             try {
                 if (file == null || file.Length == 0) {
-                    return CAppIcons.EmojiToImage(CAppIcons.Help); // Handle null or empty byte array
+                    return CAppIcons.EmojiToImage(CAppIcons.Help, color: Color.Navy); // Handle null or empty byte array
                 }
                 //
                 using (MemoryStream ms = new MemoryStream(file)) {

@@ -35,8 +35,8 @@ namespace FerPROJ.Design.Forms
 
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListGridKrypton));
             this.baseLbl1 = new System.Windows.Forms.Label();
             this.basePnl1 = new System.Windows.Forms.Panel();
@@ -73,7 +73,6 @@ namespace FerPROJ.Design.Forms
             this.tsbOther3 = new System.Windows.Forms.ToolStripButton();
             this.tsbRemarks = new System.Windows.Forms.ToolStripButton();
             this.panelMain11 = new System.Windows.Forms.Panel();
-            this.enabledDateRangeCheckBox = new System.Windows.Forms.CheckBox();
             this.PnlFormList = new System.Windows.Forms.Panel();
             this.customLabelDescMain2 = new FerPROJ.Design.Controls.CLabelDesc();
             this.customLabelDescMain3 = new FerPROJ.Design.Controls.CLabelDesc();
@@ -319,8 +318,8 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.AllowUserToOrderColumns = true;
             this.baseModelCDatagridview.AllowUserToResizeRows = false;
             this.baseModelCDatagridview.AlternatingRowColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightGray;
-            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            this.baseModelCDatagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.baseModelCDatagridview.AutoGenerateColumns = false;
             this.baseModelCDatagridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.baseModelCDatagridview.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
@@ -339,13 +338,13 @@ namespace FerPROJ.Design.Forms
             this.baseModelCDatagridview.Name = "baseModelCDatagridview";
             this.baseModelCDatagridview.ReadOnly = true;
             this.baseModelCDatagridview.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 8F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.baseModelCDatagridview.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.baseModelCDatagridview.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.baseModelCDatagridview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.baseModelCDatagridview.Size = new System.Drawing.Size(1056, 423);
@@ -514,7 +513,6 @@ namespace FerPROJ.Design.Forms
             // panelMain11
             // 
             this.panelMain11.BackColor = System.Drawing.Color.Navy;
-            this.panelMain11.Controls.Add(this.enabledDateRangeCheckBox);
             this.panelMain11.Controls.Add(this.PnlFormList);
             this.panelMain11.Controls.Add(this.baselabelmain12);
             this.panelMain11.Controls.Add(this.customLabelDescMain11);
@@ -525,18 +523,6 @@ namespace FerPROJ.Design.Forms
             this.panelMain11.Name = "panelMain11";
             this.panelMain11.Size = new System.Drawing.Size(1056, 73);
             this.panelMain11.TabIndex = 3;
-            // 
-            // enabledDateRangeCheckBox
-            // 
-            this.enabledDateRangeCheckBox.AutoSize = true;
-            this.enabledDateRangeCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.enabledDateRangeCheckBox.ForeColor = System.Drawing.Color.Transparent;
-            this.enabledDateRangeCheckBox.Location = new System.Drawing.Point(645, 6);
-            this.enabledDateRangeCheckBox.Name = "enabledDateRangeCheckBox";
-            this.enabledDateRangeCheckBox.Size = new System.Drawing.Size(154, 21);
-            this.enabledDateRangeCheckBox.TabIndex = 8;
-            this.enabledDateRangeCheckBox.Text = "Enable Date Search";
-            this.enabledDateRangeCheckBox.UseVisualStyleBackColor = true;
             // 
             // PnlFormList
             // 
@@ -700,6 +686,5 @@ namespace FerPROJ.Design.Forms
         private System.Windows.Forms.ToolStripButton tsbOther3;
         private System.Windows.Forms.ToolStripButton tsbRemarks;
         private Krypton.Toolkit.KryptonDataGridViewTextBoxColumn kryptonDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.CheckBox enabledDateRangeCheckBox;
     }
 }

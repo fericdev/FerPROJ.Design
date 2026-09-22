@@ -213,8 +213,13 @@ namespace FerPROJ.DBHelper.DBCrud {
             string methodName,
             object[] parameters) {
             var methods = repositoryType
-                .GetMethods()
-                .Where(m => m.Name == methodName);
+                .GetMethods(BindingFlags.Instance |
+                            BindingFlags.Public |
+                            BindingFlags.NonPublic)
+                .Where(m => m.Name == methodName)
+                .ToList();
+
+            MethodInfo matchedMethod = null;
 
             foreach (var method in methods) {
                 var methodParams = method.GetParameters();
@@ -229,7 +234,6 @@ namespace FerPROJ.DBHelper.DBCrud {
                     var actualValue = parameters[i];
 
                     if (actualValue == null) {
-                        // Null allowed only for reference or Nullable<T>
                         if (expectedType.IsValueType &&
                             Nullable.GetUnderlyingType(expectedType) == null) {
                             isMatch = false;
@@ -246,11 +250,54 @@ namespace FerPROJ.DBHelper.DBCrud {
                     }
                 }
 
-                if (isMatch)
-                    return method;
+                if (isMatch) {
+                    matchedMethod = method;
+                    break;
+                }
             }
 
-            return null;
+            if (matchedMethod == null)
+                return null;
+
+            // If the method is virtual, resolve the implementation
+            // belonging to the actual repository type.
+            if (matchedMethod.IsVirtual) {
+                var baseDefinition = matchedMethod.GetBaseDefinition();
+
+                var overrideMethod = repositoryType
+                    .GetMethods(BindingFlags.Instance |
+                                BindingFlags.Public |
+                                BindingFlags.NonPublic)
+                    .Where(m =>
+                        m.Name == methodName &&
+                        m.IsVirtual &&
+                        m.GetBaseDefinition() == baseDefinition)
+                    .OrderByDescending(m =>
+                        GetInheritanceDepth(repositoryType, m.DeclaringType))
+                    .FirstOrDefault();
+
+                if (overrideMethod != null)
+                    return overrideMethod;
+            }
+
+            return matchedMethod;
+        }
+
+        private static int GetInheritanceDepth(
+            Type repositoryType,
+            Type declaringType) {
+            int depth = 0;
+            var currentType = repositoryType;
+
+            while (currentType != null) {
+                if (currentType == declaringType)
+                    return depth;
+
+                currentType = currentType.BaseType;
+                depth++;
+            }
+
+            return -1;
         }
         private static object[] BuildParameterList(
             MethodInfo method,

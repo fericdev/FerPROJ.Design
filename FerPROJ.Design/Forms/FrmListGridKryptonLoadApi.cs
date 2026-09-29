@@ -44,8 +44,10 @@ namespace FerPROJ.Design.Forms {
             }
 
             await FrmSplasherLoading.ShowSplashAsync();
-
-            _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
+            
+            if (_firstLoad) {
+                _baseDatagridview?.ApplyCustomAttribute(typeof(TModel));
+            }
 
             if (!_crudOptions.HideColumnOnRefreshParameters.IsNullOrEmpty()) {
                 _baseDatagridview.HideColumns(_crudOptions.HideColumnOnRefreshParameters, typeof(TModel));

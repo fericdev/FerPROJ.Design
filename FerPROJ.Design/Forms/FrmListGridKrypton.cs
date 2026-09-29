@@ -21,7 +21,7 @@ namespace FerPROJ.Design.Forms {
     public partial class FrmListGridKrypton : KryptonForm {
 
         #region Fields
-        private bool _firstLoad = true;
+        public bool _firstLoad = true;
         private Timer _debounceTimer;
         private event EventHandler _manageModeChanged;
         private bool? _currentManageMode;

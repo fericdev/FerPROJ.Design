@@ -1107,15 +1107,25 @@ namespace FerPROJ.Design.Class {
             }
             return text.Substring(0, length);
         }
-        public static string GetLettersBeforeSeparator(this string text, char separator) {
+        public static T GetValueBeforeSeparator<T>(this string text, char separator, T defaultValue = default(T)) {
             if (string.IsNullOrEmpty(text)) {
-                return string.Empty;
+                return defaultValue.To<T>();
             }
             int index = text.IndexOf(separator);
             if (index > 0) {
-                return text.Substring(0, index);
+                return text.Substring(0, index).To<T>();
             }
-            return text; // Return full text if separator not found
+            return text.To<T>(); // Return full text if separator not found
+        }
+        public static T GetValueAfterSeparator<T>(this string text, char separator, T defaultValue = default(T)) {
+            if (string.IsNullOrEmpty(text)) {
+                return defaultValue.To<T>();
+            }
+            int index = text.IndexOf(separator);
+            if (index >= 0 && index < text.Length - 1) {
+                return text.Substring(index + 1).To<T>();
+            }
+            return defaultValue.To<T>(); // Return default value if separator not found or at the end
         }
         public static string GetLastLetter(this string text) {
             if (string.IsNullOrEmpty(text)) {
